@@ -1,3 +1,4 @@
+
 //
 //  Settings.swift
 //  LibraryReservation
@@ -49,21 +50,22 @@ struct Settings: Codable {
     
     func save() {
         let fileManager = FileManager.default
-        var path = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let dictPath =  path.appendingPathComponent(Bundle.main.bundleIdentifier!, isDirectory: true)
-        if !fileManager.fileExists(atPath: dictPath.absoluteString) {
+        var path = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
+        let dirPath = path + "/\(Bundle.main.bundleIdentifier!)"
+        if !fileManager.fileExists(atPath: dirPath) {
             do {
-                try fileManager.createDirectory(at: dictPath, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(atPath: dirPath, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error.localizedDescription)
                 fatalError()
             }
         }
-        path.appendPathComponent("\(Bundle.main.bundleIdentifier!)/\(Settings.filePath)")
+
+        path = dirPath + "/\(Settings.filePath)"
         let encoder = JSONEncoder()
         let data = try! encoder.encode(self)
         do {
-            try data.write(to: path)
+            try data.write(to: URL(fileURLWithPath: path))
         }
         catch {
             fatalError(error.localizedDescription)
@@ -72,33 +74,24 @@ struct Settings: Codable {
     
     static func load() -> Settings? {
         let fileManager = FileManager.default
-        var path = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let dictPath =  path.appendingPathComponent(Bundle.main.bundleIdentifier!, isDirectory: true)
-        var dictExist = false
-        let pointer = UnsafePointer<Bool>()
-        fileManager.fileExists(atPath: dictPath, isDirectory: pointer)
-        path = dictPath.appendingPathComponent(Settings.filePath)
-        do {
-            try fileManager.createDirectory(at: dictPath, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            print(error.localizedDescription)
-            fatalError()
-        }
         
+        var path = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
+        let dirPath =  path + "/\(Bundle.main.bundleIdentifier!)"
+        path = dirPath + "/\(Settings.filePath)"
         
-        guard fileManager.fileExists(atPath: path.absoluteString) else {
+        guard fileManager.fileExists(atPath: path) else {
             print("Settings not found")
             return nil
         }
-        guard let data = try? Data(contentsOf: path) else {
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
             print("Failed to load data from settings file")
-            try? fileManager.removeItem(at: path)
+            try? fileManager.removeItem(atPath: path)
             return nil
         }
         let decoder = JSONDecoder()
         guard let settings = try? decoder.decode(Settings.self, from: data) else {
             print("Failed to load settings from settings file")
-            try? fileManager.removeItem(at: path)
+            try? fileManager.removeItem(atPath: path)
             return nil
         }
         return settings

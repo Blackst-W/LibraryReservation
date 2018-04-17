@@ -12,4 +12,4 @@ struct SeatHistoryData: Codable {
     let reservations: [SeatReservation]
 }
 
-typealias SeatHistoryResponse = APIResponse<SeatHistoryData>
+typealias SeatHistoryResponse = SeatAPIResponse<SeatHistoryData>

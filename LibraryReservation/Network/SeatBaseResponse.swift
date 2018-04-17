@@ -8,13 +8,15 @@
 
 import UIKit
 
-struct BaseResponse: Codable {
+struct SeatBaseResponse: Codable {
     let status: String
     let code: String
     let message: String
 }
 
-struct APIResponse<T: Codable>: Codable {
+typealias SeatFailedResponse = SeatBaseResponse
+
+struct SeatAPIResponse<T: Codable>: Codable {
     let status: String
     let code: String
     let message: String

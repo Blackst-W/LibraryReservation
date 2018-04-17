@@ -10,7 +10,7 @@
 		7C33D32FF1F8C0851D903EAF /* Pods_LibraryReservationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007481190CED623EA9BC00A /* Pods_LibraryReservationTests.framework */; };
 		839C2392624C937AC131A560 /* Pods_LibraryReservation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */; };
 		AB39AE29FFB2E81F2E54083E /* Pods_LibraryReservationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */; };
-		AD4B3B082084F5DA00010B47 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B072084F5DA00010B47 /* BaseResponse.swift */; };
+		AD4B3B082084F5DA00010B47 /* SeatBaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B072084F5DA00010B47 /* SeatBaseResponse.swift */; };
 		AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0A2084F69600010B47 /* SeatReservation.swift */; };
 		AD4B3B0D2084F70000010B47 /* SeatHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */; };
 		AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */; };
@@ -26,6 +26,7 @@
 		AD7433DF208487FD005AAF11 /* LibraryReservationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433DE208487FD005AAF11 /* LibraryReservationUITests.swift */; };
 		AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */; };
 		AD7433F420848A89005AAF11 /* SettingsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433F320848A89005AAF11 /* SettingsStoryboard.storyboard */; };
+		AD95B0422085C89B001F6768 /* SeatNetworkBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B0412085C89B001F6768 /* SeatNetworkBaseManager.swift */; };
 		ADCB5ED420848DAB00E0CF5F /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED320848DAB00E0CF5F /* AccountTableViewCell.swift */; };
 		ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */; };
 		ADCB5EDA2084DA3600E0CF5F /* SeatStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */; };
@@ -59,7 +60,7 @@
 		7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7912692429582D70B988FE86 /* Pods-LibraryReservationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryReservationUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibraryReservationUITests/Pods-LibraryReservationUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD4B3B072084F5DA00010B47 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		AD4B3B072084F5DA00010B47 /* SeatBaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatBaseResponse.swift; sourceTree = "<group>"; };
 		AD4B3B0A2084F69600010B47 /* SeatReservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
 		AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryResponse.swift; sourceTree = "<group>"; };
 		AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 		AD7433E0208487FD005AAF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		AD7433F320848A89005AAF11 /* SettingsStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsStoryboard.storyboard; sourceTree = "<group>"; };
+		AD95B0412085C89B001F6768 /* SeatNetworkBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatNetworkBaseManager.swift; sourceTree = "<group>"; };
 		ADCB5ED320848DAB00E0CF5F /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
 		ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SeatStoryboard.storyboard; sourceTree = "<group>"; };
@@ -143,7 +145,8 @@
 		AD4B3B062084F58400010B47 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				AD4B3B072084F5DA00010B47 /* BaseResponse.swift */,
+				AD4B3B072084F5DA00010B47 /* SeatBaseResponse.swift */,
+				AD95B0412085C89B001F6768 /* SeatNetworkBaseManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -178,8 +181,6 @@
 		AD7433B0208487FB005AAF11 = {
 			isa = PBXGroup;
 			children = (
-				AD4B3B112084F7F000010B47 /* Utilities */,
-				AD4B3B062084F58400010B47 /* Network */,
 				AD7433BB208487FB005AAF11 /* LibraryReservation */,
 				AD7433D2208487FD005AAF11 /* LibraryReservationTests */,
 				AD7433DD208487FD005AAF11 /* LibraryReservationUITests */,
@@ -202,6 +203,8 @@
 		AD7433BB208487FB005AAF11 /* LibraryReservation */ = {
 			isa = PBXGroup;
 			children = (
+				AD4B3B112084F7F000010B47 /* Utilities */,
+				AD4B3B062084F58400010B47 /* Network */,
 				ADCB5ED62084C35500E0CF5F /* MeetingRoomReservation */,
 				ADCB5ED52084C34B00E0CF5F /* SeatReservation */,
 				AD7433F120848A2D005AAF11 /* Settings */,
@@ -494,6 +497,7 @@
 			files = (
 				AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */,
 				AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */,
+				AD95B0422085C89B001F6768 /* SeatNetworkBaseManager.swift in Sources */,
 				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
 				ADCB5ED420848DAB00E0CF5F /* AccountTableViewCell.swift in Sources */,
@@ -501,7 +505,7 @@
 				AD4B3B0D2084F70000010B47 /* SeatHistoryResponse.swift in Sources */,
 				AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */,
 				AD4B3B192084FA4200010B47 /* Settings.swift in Sources */,
-				AD4B3B082084F5DA00010B47 /* BaseResponse.swift in Sources */,
+				AD4B3B082084F5DA00010B47 /* SeatBaseResponse.swift in Sources */,
 				ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */,
 				AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */,
 				AD4B3B172084F9E700010B47 /* Account.swift in Sources */,

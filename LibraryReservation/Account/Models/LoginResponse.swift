@@ -12,4 +12,4 @@ struct LoginData: Codable {
     let token: String
 }
 
-typealias LoginResponse = APIResponse<LoginData>
+typealias LoginResponse = SeatAPIResponse<LoginData>

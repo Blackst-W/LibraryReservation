@@ -44,7 +44,7 @@ class LoginManager {
                 print(loginResponse)
             } catch DecodingError.valueNotFound {
                 do {
-                    let failedResponse = try decoder.decode(BaseResponse.self, from: data)
+                    let failedResponse = try decoder.decode(SeatBaseResponse.self, from: data)
                     print(failedResponse)
                 } catch {
                     print(error)
