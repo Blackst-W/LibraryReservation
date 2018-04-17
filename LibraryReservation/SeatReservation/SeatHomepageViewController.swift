@@ -14,9 +14,12 @@ class SeatHomepageViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var reminderView: UIView!
     @IBOutlet weak var reminderHeightConstraint: NSLayoutConstraint!
+    var manager: SeatHomepageManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        modalPresentationStyle = .formSheet
+        manager = SeatHomepageManager(delegate: self)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = nil
@@ -97,17 +100,29 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
 extension SeatHomepageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let manager = AccountManager.shared
         switch indexPath.row {
         case 0:
-            manager.login(account: UserAccount(username: "2015301200030", password: "somethingWWJ123", token: "123123123"))
-        case 1:
-            manager.logout()
+            presentLoginViewController(delegate: self)
         default:
             break
         }
         collectionView.deselectItem(at: indexPath, animated: true)
         return
     }
+}
+
+extension SeatHomepageViewController: LoginViewDelegate {
+    func loginResult(result: LoginResult) {
+        switch  result {
+        case .cancel:
+            return
+        case .success(let account):
+            manager.update(account: account)
+            return
+        }
+    }
+}
+
+extension SeatHomepageViewController: SeatHomepageManagerDelegate {
     
 }

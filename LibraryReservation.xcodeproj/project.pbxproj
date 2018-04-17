@@ -27,6 +27,10 @@
 		AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */; };
 		AD7433F420848A89005AAF11 /* SettingsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433F320848A89005AAF11 /* SettingsStoryboard.storyboard */; };
 		AD95B0422085C89B001F6768 /* SeatNetworkBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B0412085C89B001F6768 /* SeatNetworkBaseManager.swift */; };
+		AD95B044208622CB001F6768 /* AccountStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */; };
+		AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B045208622F4001F6768 /* LoginViewController.swift */; };
+		AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B04720863057001F6768 /* UIViewControllerExtension.swift */; };
+		AD95B04A20863344001F6768 /* SeatHomepageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B04920863344001F6768 /* SeatHomepageManager.swift */; };
 		ADCB5ED420848DAB00E0CF5F /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED320848DAB00E0CF5F /* AccountTableViewCell.swift */; };
 		ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */; };
 		ADCB5EDA2084DA3600E0CF5F /* SeatStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */; };
@@ -83,6 +87,10 @@
 		AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		AD7433F320848A89005AAF11 /* SettingsStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsStoryboard.storyboard; sourceTree = "<group>"; };
 		AD95B0412085C89B001F6768 /* SeatNetworkBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatNetworkBaseManager.swift; sourceTree = "<group>"; };
+		AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountStoryboard.storyboard; sourceTree = "<group>"; };
+		AD95B045208622F4001F6768 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AD95B04720863057001F6768 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		AD95B04920863344001F6768 /* SeatHomepageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageManager.swift; sourceTree = "<group>"; };
 		ADCB5ED320848DAB00E0CF5F /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
 		ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SeatStoryboard.storyboard; sourceTree = "<group>"; };
@@ -156,6 +164,7 @@
 			children = (
 				AD4B3B0A2084F69600010B47 /* SeatReservation.swift */,
 				AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */,
+				AD95B04920863344001F6768 /* SeatHomepageManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +175,7 @@
 				AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */,
 				AD4B3B142084F84D00010B47 /* AccountManager.swift */,
 				AD4B3B162084F9E700010B47 /* Account.swift */,
+				AD95B04720863057001F6768 /* UIViewControllerExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				AD4B3B0E2084F7A400010B47 /* Models */,
+				AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */,
+				AD95B045208622F4001F6768 /* LoginViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -394,6 +406,7 @@
 				ADCB5EDA2084DA3600E0CF5F /* SeatStoryboard.storyboard in Resources */,
 				ADCB5EDC2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard in Resources */,
 				AD7433C6208487FC005AAF11 /* Assets.xcassets in Resources */,
+				AD95B044208622CB001F6768 /* AccountStoryboard.storyboard in Resources */,
 				AD7433F420848A89005AAF11 /* SettingsStoryboard.storyboard in Resources */,
 				AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */,
 			);
@@ -498,6 +511,8 @@
 				AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */,
 				AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */,
 				AD95B0422085C89B001F6768 /* SeatNetworkBaseManager.swift in Sources */,
+				AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */,
+				AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */,
 				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
 				ADCB5ED420848DAB00E0CF5F /* AccountTableViewCell.swift in Sources */,
@@ -508,6 +523,7 @@
 				AD4B3B082084F5DA00010B47 /* SeatBaseResponse.swift in Sources */,
 				ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */,
 				AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */,
+				AD95B04A20863344001F6768 /* SeatHomepageManager.swift in Sources */,
 				AD4B3B172084F9E700010B47 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
