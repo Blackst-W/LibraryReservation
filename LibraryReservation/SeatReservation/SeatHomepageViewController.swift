@@ -97,13 +97,14 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
 extension SeatHomepageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let manager = AccountManager.shared
         switch indexPath.row {
         case 0:
-            hideReminder(animated: true)
+            manager.login(account: UserAccount(username: "2015301200030", password: "somethingWWJ123", token: "123123123"))
         case 1:
-            hideReminder(animated: false)
+            manager.logout()
         default:
-            showReminder()
+            break
         }
         collectionView.deselectItem(at: indexPath, animated: true)
         return
