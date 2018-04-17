@@ -10,9 +10,15 @@
 		7C33D32FF1F8C0851D903EAF /* Pods_LibraryReservationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007481190CED623EA9BC00A /* Pods_LibraryReservationTests.framework */; };
 		839C2392624C937AC131A560 /* Pods_LibraryReservation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */; };
 		AB39AE29FFB2E81F2E54083E /* Pods_LibraryReservationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */; };
+		AD4B3B082084F5DA00010B47 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B072084F5DA00010B47 /* BaseResponse.swift */; };
+		AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0A2084F69600010B47 /* SeatReservation.swift */; };
+		AD4B3B0D2084F70000010B47 /* SeatHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */; };
+		AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */; };
+		AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B122084F7FB00010B47 /* Utilities.swift */; };
+		AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B142084F84D00010B47 /* AccountManager.swift */; };
+		AD4B3B172084F9E700010B47 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B162084F9E700010B47 /* Account.swift */; };
+		AD4B3B192084FA4200010B47 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B182084FA4200010B47 /* Settings.swift */; };
 		AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433BC208487FB005AAF11 /* AppDelegate.swift */; };
-		AD7433BF208487FB005AAF11 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433BE208487FB005AAF11 /* FirstViewController.swift */; };
-		AD7433C1208487FB005AAF11 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433C0208487FB005AAF11 /* SecondViewController.swift */; };
 		AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C2208487FB005AAF11 /* Main.storyboard */; };
 		AD7433C6208487FC005AAF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C5208487FC005AAF11 /* Assets.xcassets */; };
 		AD7433C9208487FC005AAF11 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C7208487FC005AAF11 /* LaunchScreen.storyboard */; };
@@ -21,6 +27,10 @@
 		AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */; };
 		AD7433F420848A89005AAF11 /* SettingsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433F320848A89005AAF11 /* SettingsStoryboard.storyboard */; };
 		ADCB5ED420848DAB00E0CF5F /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED320848DAB00E0CF5F /* AccountTableViewCell.swift */; };
+		ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */; };
+		ADCB5EDA2084DA3600E0CF5F /* SeatStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */; };
+		ADCB5EDC2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADCB5EDB2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard */; };
+		ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,10 +59,16 @@
 		7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7912692429582D70B988FE86 /* Pods-LibraryReservationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryReservationUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibraryReservationUITests/Pods-LibraryReservationUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD4B3B072084F5DA00010B47 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		AD4B3B0A2084F69600010B47 /* SeatReservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
+		AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryResponse.swift; sourceTree = "<group>"; };
+		AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		AD4B3B122084F7FB00010B47 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		AD4B3B142084F84D00010B47 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		AD4B3B162084F9E700010B47 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		AD4B3B182084FA4200010B47 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AD7433B9208487FB005AAF11 /* LibraryReservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryReservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7433BC208487FB005AAF11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AD7433BE208487FB005AAF11 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		AD7433C0208487FB005AAF11 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		AD7433C3208487FB005AAF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AD7433C5208487FC005AAF11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD7433C8208487FC005AAF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,6 +82,10 @@
 		AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		AD7433F320848A89005AAF11 /* SettingsStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsStoryboard.storyboard; sourceTree = "<group>"; };
 		ADCB5ED320848DAB00E0CF5F /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
+		ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SeatStoryboard.storyboard; sourceTree = "<group>"; };
+		ADCB5EDB2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeetingRoomStoryboard.storyboard; sourceTree = "<group>"; };
+		ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryViewController.swift; sourceTree = "<group>"; };
 		C370A14DBA27B26D3721A70E /* Pods-LibraryReservationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryReservationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibraryReservationTests/Pods-LibraryReservationTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,9 +140,46 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AD4B3B062084F58400010B47 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AD4B3B072084F5DA00010B47 /* BaseResponse.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		AD4B3B092084F68A00010B47 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AD4B3B0A2084F69600010B47 /* SeatReservation.swift */,
+				AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AD4B3B0E2084F7A400010B47 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */,
+				AD4B3B142084F84D00010B47 /* AccountManager.swift */,
+				AD4B3B162084F9E700010B47 /* Account.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AD4B3B112084F7F000010B47 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AD4B3B122084F7FB00010B47 /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		AD7433B0208487FB005AAF11 = {
 			isa = PBXGroup;
 			children = (
+				AD4B3B112084F7F000010B47 /* Utilities */,
+				AD4B3B062084F58400010B47 /* Network */,
 				AD7433BB208487FB005AAF11 /* LibraryReservation */,
 				AD7433D2208487FD005AAF11 /* LibraryReservationTests */,
 				AD7433DD208487FD005AAF11 /* LibraryReservationUITests */,
@@ -145,11 +202,11 @@
 		AD7433BB208487FB005AAF11 /* LibraryReservation */ = {
 			isa = PBXGroup;
 			children = (
+				ADCB5ED62084C35500E0CF5F /* MeetingRoomReservation */,
+				ADCB5ED52084C34B00E0CF5F /* SeatReservation */,
 				AD7433F120848A2D005AAF11 /* Settings */,
 				AD7433EE208489FC005AAF11 /* Account */,
 				AD7433BC208487FB005AAF11 /* AppDelegate.swift */,
-				AD7433BE208487FB005AAF11 /* FirstViewController.swift */,
-				AD7433C0208487FB005AAF11 /* SecondViewController.swift */,
 				AD7433C2208487FB005AAF11 /* Main.storyboard */,
 				AD7433C5208487FC005AAF11 /* Assets.xcassets */,
 				AD7433C7208487FC005AAF11 /* LaunchScreen.storyboard */,
@@ -179,6 +236,7 @@
 		AD7433EE208489FC005AAF11 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				AD4B3B0E2084F7A400010B47 /* Models */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -197,8 +255,28 @@
 		AD7433F220848A43005AAF11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AD4B3B182084FA4200010B47 /* Settings.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		ADCB5ED52084C34B00E0CF5F /* SeatReservation */ = {
+			isa = PBXGroup;
+			children = (
+				AD4B3B092084F68A00010B47 /* Models */,
+				ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */,
+				ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */,
+				ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */,
+			);
+			path = SeatReservation;
+			sourceTree = "<group>";
+		};
+		ADCB5ED62084C35500E0CF5F /* MeetingRoomReservation */ = {
+			isa = PBXGroup;
+			children = (
+				ADCB5EDB2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard */,
+			);
+			path = MeetingRoomReservation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +388,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD7433C9208487FC005AAF11 /* LaunchScreen.storyboard in Resources */,
+				ADCB5EDA2084DA3600E0CF5F /* SeatStoryboard.storyboard in Resources */,
+				ADCB5EDC2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard in Resources */,
 				AD7433C6208487FC005AAF11 /* Assets.xcassets in Resources */,
 				AD7433F420848A89005AAF11 /* SettingsStoryboard.storyboard in Resources */,
 				AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */,
@@ -413,10 +493,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */,
-				AD7433C1208487FB005AAF11 /* SecondViewController.swift in Sources */,
+				AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */,
+				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
 				ADCB5ED420848DAB00E0CF5F /* AccountTableViewCell.swift in Sources */,
-				AD7433BF208487FB005AAF11 /* FirstViewController.swift in Sources */,
+				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
+				AD4B3B0D2084F70000010B47 /* SeatHistoryResponse.swift in Sources */,
+				AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */,
+				AD4B3B192084FA4200010B47 /* Settings.swift in Sources */,
+				AD4B3B082084F5DA00010B47 /* BaseResponse.swift in Sources */,
+				ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */,
+				AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */,
+				AD4B3B172084F9E700010B47 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,7 +682,10 @@
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -611,7 +702,10 @@
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -628,7 +722,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -646,7 +744,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -663,7 +765,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -680,7 +786,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
