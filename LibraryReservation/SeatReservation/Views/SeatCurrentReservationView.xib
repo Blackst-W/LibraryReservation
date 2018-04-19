@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SeatCurrentReservationView" customModule="LibraryReservation" customModuleProvider="target">
             <connections>
+                <outlet property="cancelEffectView" destination="Z1D-xl-u2l" id="3Id-Y1-kZy"/>
                 <outlet property="floorLabel" destination="uda-OW-8gj" id="vgA-cx-ShC"/>
                 <outlet property="libraryLabel" destination="QGk-gE-F1a" id="J66-LI-Agp"/>
                 <outlet property="roomLabel" destination="e6Q-9v-BsS" id="qb9-eK-5J4"/>
@@ -77,9 +78,31 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1D-xl-u2l">
+                    <rect key="frame" x="0.0" y="0.0" width="357" height="139"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Not-bH-y7T">
+                        <rect key="frame" x="0.0" y="0.0" width="357" height="139"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canceled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jY-j8-c71">
+                                <rect key="frame" x="134" y="58" width="89.5" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="5jY-j8-c71" firstAttribute="centerX" secondItem="Not-bH-y7T" secondAttribute="centerX" id="MaH-KF-VxP"/>
+                            <constraint firstItem="5jY-j8-c71" firstAttribute="centerY" secondItem="Not-bH-y7T" secondAttribute="centerY" id="dpM-rq-utX"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Z1D-xl-u2l" secondAttribute="trailing" id="5bm-Uc-nEa"/>
+                <constraint firstItem="Z1D-xl-u2l" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ACZ-87-wKn"/>
                 <constraint firstItem="OSb-cS-B2z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Etl-yU-pax"/>
                 <constraint firstAttribute="trailing" secondItem="heD-bp-VmD" secondAttribute="trailing" constant="8" id="J6h-ar-8dk"/>
                 <constraint firstItem="heD-bp-VmD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="JtB-Bu-gfR"/>
@@ -87,6 +110,8 @@
                 <constraint firstItem="46g-Jc-Oz3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="feO-Up-mzU"/>
                 <constraint firstAttribute="bottom" secondItem="46g-Jc-Oz3" secondAttribute="bottom" constant="8" id="mlg-1h-dP5"/>
                 <constraint firstItem="OSb-cS-B2z" firstAttribute="top" secondItem="heD-bp-VmD" secondAttribute="top" id="n4R-d3-9LI"/>
+                <constraint firstItem="Z1D-xl-u2l" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pAc-A1-gSf"/>
+                <constraint firstAttribute="bottom" secondItem="Z1D-xl-u2l" secondAttribute="bottom" id="ruJ-JA-4af"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

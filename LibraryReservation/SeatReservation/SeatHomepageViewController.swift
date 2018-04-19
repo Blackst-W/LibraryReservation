@@ -300,7 +300,9 @@ extension SeatHomepageViewController: SeatCurrentReservationManagerDelegate {
             currentReservationView.update(reservation: reservation)
             showReminder()
         }else{
-            hideReminder(animated: true)
+            if !currentReservationView.showingCancelEffect {
+                hideReminder(animated: true)
+            }
         }
         contentScrollView.refreshControl?.endRefreshing()
     }

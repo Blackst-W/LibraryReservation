@@ -29,6 +29,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     @IBOutlet weak var seatIDLabel: UILabel!
     @IBOutlet weak var receiptLabel: UILabel!
     
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    
     var manager: SeatCurrentReservationManager!
     
     class func makeFromStoryboard() -> SeatCurrentReservationDetailTableViewController {
@@ -46,12 +49,19 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        updateLocation()
-        updateTime()
-        updateOther()
-        updateTitle()
+        
+        updateUI()
         
         manager = SeatCurrentReservationManager(delegate: self)
+    }
+    
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.updateLocation()
+            self.updateTime()
+            self.updateOther()
+            self.updateTitle()
+        }
     }
     
     func updateTitle() {
@@ -67,6 +77,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             title = "Upcoming Reservation"
         }
         self.title = title
+        let cancelTitle = reservation.isStarted ? "Stop Reservation" : "Cancel Reservation"
+        cancelButton.setTitle(cancelTitle, for: .normal)
+        
     }
     
     func updateLocation() {
@@ -112,23 +125,42 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         receiptLabel.text = reservation.receipt
     }
     
+    @IBAction func requireCancel(_ sender: Any) {
+        let alertController = UIAlertController(title: "Cancel Reservation", message: "Are you sure to cancel this reservation?", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .destructive) { (_) in
+            self.manager.cancelReservation()
+            self.cancelButton.isEnabled = false
+        }
+        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: nil)
+        alertController.addActions([cancelAction, confirmAction])
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     override var previewActionItems: [UIPreviewActionItem] {
+        
         let copyAction = UIPreviewAction(title: "Copy Location", style: .default) { (_, _) in
             UIPasteboard.general.string = self.reservation.fullLocation
         }
-        let cancelAction = UIPreviewAction(title: "Cancel Reservation", style: .destructive) { (_, viewController) in
-            print(viewController)
+        let confirmCancelAction = UIPreviewAction(title: "Confirm", style: .destructive) { (_, viewController) in
+            
+//            self.manager.cancelReservation()
+            NotificationCenter.default.post(name: .SeatReservationCancel, object: nil, userInfo: nil)
         }
-        return [copyAction, cancelAction]
-    }
-    
-    func cancel() {
         
+        let cancelAction = UIPreviewAction(title: "Back", style: .default) { (_, _) in
+            return
+        }
+        let cancelTitle = reservation.isStarted ? "Stop Reservation" : "Cancel Reservation"
+        
+        let cancelGroup = UIPreviewActionGroup(title: cancelTitle, style: .destructive, actions: [confirmCancelAction, cancelAction])
+        
+        return [copyAction, cancelGroup]
     }
     
     @IBAction func refreshStateChanged(_ sender: UIRefreshControl) {
@@ -216,13 +248,12 @@ extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservatio
         refreshControl?.endRefreshing()
         guard let reservation = reservation else {
             //Reservation Not Exist
+            navigationController?.popViewController(animated: true)
             return
         }
         self.reservation = reservation
-        updateTime()
-        updateTitle()
-        updateOther()
-        updateLocation()
+        cancelButton.isEnabled = true
+        updateUI()
     }
     
     func requireLogin() {

@@ -12,6 +12,10 @@ protocol SeatCurrentReservationManagerDelegate: SeatBaseDelegate {
     func update(reservation: SeatCurrentReservation?)
 }
 
+extension Notification.Name {
+    static let SeatReservationCancel = Notification.Name("kSeatReservationCancelReservation")
+}
+
 struct SeatCurrentReservationArchive: Codable {
     let sid: String
     let reservation: SeatCurrentReservation
@@ -183,6 +187,61 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
             }
         }
         reservationTask.resume()
+    }
+    
+    func cancelReservation() {
+        guard let account = account,
+            let token = account.token
+            else {
+                delegate?.requireLogin()
+                return
+        }
+        guard let reservationID = reservation?.id else {
+            delegate?.update(reservation: nil)
+            return
+        }
+        let cancelURL = URL(string: "v2/cancel/\(reservationID)", relativeTo: SeatAPIURL)!
+        var cancelRequest = URLRequest(url: cancelURL)
+        cancelRequest.httpMethod = "GET"
+        cancelRequest.addValue(token, forHTTPHeaderField: "token")
+        let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.delegate?.updateFailed(error: error)
+                }
+                return
+            }
+            
+            guard let data = data else {
+                print("Failed to retrive data")
+                DispatchQueue.main.async {
+                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                }
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let cancelResponse = try decoder.decode(SeatBaseResponse.self, from: data)
+                if cancelResponse.code == "0" {
+                    DispatchQueue.main.async {
+                        self.reservation = nil
+                        NotificationCenter.default.post(name: .SeatReservationCancel, object: nil)
+                        self.delegate?.update(reservation: nil)
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        self.delegate?.updateFailed(failedResponse: cancelResponse)
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.delegate?.updateFailed(error: error)
+                }
+            }
+        }
+        cancelTask.resume()
     }
     
     deinit {

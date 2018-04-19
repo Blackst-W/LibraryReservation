@@ -19,6 +19,7 @@ class SeatCurrentReservationView: UIView {
     @IBOutlet weak var stateTimeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var cancelEffectView: UIVisualEffectView!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -26,6 +27,8 @@ class SeatCurrentReservationView: UIView {
         // Drawing code
     }
     */
+    
+    var showingCancelEffect = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,9 +40,15 @@ class SeatCurrentReservationView: UIView {
         let trailing = NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
         let bottom = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
+        cancelEffectView.alpha = 0
+        cancelEffectView.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(showCancelEffect), name: .SeatReservationCancel, object: nil)
     }
 
     func update(reservation: SeatCurrentReservation) {
+        if showingCancelEffect {
+            hideCancelEffect()
+        }
         if let location = reservation.location {
             libraryLabel.text = location.library.rawValue
             roomLabel.text = location.room
@@ -62,7 +71,25 @@ class SeatCurrentReservationView: UIView {
         case .late(let remain):
             stateTimeLabel.text = "EXpire in \(remain)mins"
         }
-        
     }
     
+    @objc func showCancelEffect() {
+        showingCancelEffect = true
+        cancelEffectView.isHidden = false
+        cancelEffectView.alpha = 0
+        let animator = UIViewPropertyAnimator(duration: 1, curve: .easeOut) {
+            self.cancelEffectView.alpha = 1
+        }
+        animator.startAnimation()
+    }
+    
+    func hideCancelEffect() {
+        let animator = UIViewPropertyAnimator(duration: 1, curve: .easeOut) {
+            self.cancelEffectView.alpha = 0
+        }
+        animator.addCompletion { (_) in
+            self.cancelEffectView.isHidden = true
+            self.showingCancelEffect = false
+        }
+    }
 }

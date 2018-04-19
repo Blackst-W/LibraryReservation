@@ -656,6 +656,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Xge-Je-XAE">
+                            <rect key="frame" x="0.0" y="693.5" width="375" height="61"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8o1-ux-cjW">
+                                    <rect key="frame" x="24" y="8" width="327" height="44"/>
+                                    <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="Sut-Kg-rVi"/>
+                                        <constraint firstAttribute="height" constant="44" id="m7p-J1-T5R"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                    <state key="normal" title="Cancel Reservation">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="disabled" title="Canceling..."/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="requireCancel:" destination="SMx-tQ-KjF" eventType="touchUpInside" id="b6h-hC-eQX"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="8o1-ux-cjW" firstAttribute="centerX" secondItem="Xge-Je-XAE" secondAttribute="centerX" id="XYc-8w-pyc"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="8o1-ux-cjW" secondAttribute="trailing" priority="999" constant="16" id="iAJ-lh-fuH"/>
+                                <constraint firstItem="8o1-ux-cjW" firstAttribute="leading" secondItem="Xge-Je-XAE" secondAttribute="leadingMargin" priority="999" constant="16" id="kts-Kb-d9a"/>
+                                <constraint firstItem="8o1-ux-cjW" firstAttribute="top" secondItem="Xge-Je-XAE" secondAttribute="top" constant="8" id="pHh-DO-y7p"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection headerTitle="Location" id="6Ui-xV-8Cb">
                                 <cells>
@@ -925,14 +959,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Receipt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="aqG-iX-Mm9">
-                                                    <rect key="frame" x="15" y="12" width="58" height="20.5"/>
+                                                    <rect key="frame" x="16" y="12" width="58" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="pNf-MX-lrA" customClass="CopyLabel" customModule="LibraryReservation" customModuleProvider="target">
-                                                    <rect key="frame" x="316" y="12" width="44" height="20.5"/>
+                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -959,6 +993,7 @@
                         </connections>
                     </refreshControl>
                     <connections>
+                        <outlet property="cancelButton" destination="8o1-ux-cjW" id="8ez-C2-leE"/>
                         <outlet property="dateLabel" destination="OLa-Db-hJ9" id="7rA-Tm-Qef"/>
                         <outlet property="durationLabel" destination="pPJ-s9-lkh" id="QnQ-Uh-O77"/>
                         <outlet property="floorLabel" destination="JpO-zn-x8b" id="Ycj-6f-TEw"/>
@@ -977,7 +1012,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyY-KC-oU3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2797" y="468"/>
+            <point key="canvasLocation" x="2804" y="753.37331334332839"/>
         </scene>
         <!--Reservation Detail-->
         <scene sceneID="eqe-Ah-cpc">
