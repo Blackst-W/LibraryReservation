@@ -1,0 +1,123 @@
+//
+//  AccountDetailTableViewController.swift
+//  LibraryReservation
+//
+//  Created by Weston Wu on 2018/04/18.
+//  Copyright © 2018 Weston Wu. All rights reserved.
+//
+
+import UIKit
+
+class AccountDetailTableViewController: UITableViewController {
+
+    var account: UserAccount! {
+        didSet {
+            sidLabel.text = account.username
+            tokenLabel.text = account.token ?? "-"
+            view.layoutIfNeeded()
+        }
+    }
+    
+    @IBOutlet weak var sidLabel: UILabel!
+    
+    @IBOutlet weak var tokenLabel: UILabel!
+    
+    
+    @IBOutlet weak var refreshButton: UIButton!
+    
+    @IBOutlet weak var savePasswordSwitch: UISwitch!
+    
+    @IBOutlet weak var autoLoginSwitch: UISwitch!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        account = AccountManager.shared.currentAccount!
+        let settings = Settings.shared
+        savePasswordSwitch.isOn = settings.savePassword
+        autoLoginSwitch.isOn = settings.autoLogin
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let settings = Settings.shared
+        settings.set(savePassword: savePasswordSwitch.isOn)
+        settings.set(autoLogin: autoLoginSwitch.isOn)
+    }
+    
+    @IBAction func savePasswordSettingsChanged(_ sender: UISwitch) {
+        if !sender.isOn {
+            autoLoginSwitch.setOn(false, animated: true)
+        }else if account.password == nil {
+            let settings = Settings.shared
+            settings.set(savePassword: savePasswordSwitch.isOn)
+            settings.set(autoLogin: autoLoginSwitch.isOn)
+            autoLogin(delegate: self, force: true)
+        }
+    }
+    
+    @IBAction func autoLoginSettingsChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            savePasswordSwitch.setOn(true, animated: true)
+            savePasswordSettingsChanged(savePasswordSwitch)
+        }
+    }
+    
+    @IBAction func refreshAccount(_ sender: Any) {
+        let settings = Settings.shared
+        settings.set(savePassword: savePasswordSwitch.isOn)
+        settings.set(autoLogin: autoLoginSwitch.isOn)
+        autoLogin(delegate: self, force: true)
+        refreshButton.isEnabled = false
+    }
+    
+    @IBAction func logoutAccount(_ sender: Any) {
+        let alertController = UIAlertController(title: "Confirm Sign Out", message: "Are you sure to sign out?\nAll data related to this account would be erased.", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Sign Out", style: .destructive) { (_) in
+            AccountManager.shared.logout()
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addActions([cancelAction, confirmAction])
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+extension AccountDetailTableViewController: LoginViewDelegate {
+    func loginResult(result: LoginResult) {
+        refreshButton.isEnabled = true
+        let settings = Settings.shared
+        savePasswordSwitch.isOn = settings.savePassword
+        autoLoginSwitch.isOn = settings.autoLogin
+        switch result {
+        case .cancel:
+            if account.password == nil {
+                savePasswordSwitch.setOn(false, animated: true)
+                savePasswordSettingsChanged(savePasswordSwitch)
+            }
+            return
+        case .success(let account):
+            self.account = account
+        }
+    }
+}

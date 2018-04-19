@@ -27,6 +27,12 @@ enum SeatAPIError: Int, Error {
     
 }
 
+protocol SeatBaseDelegate: class {
+    func requireLogin()
+    func updateFailed(error: Error)
+    func updateFailed(failedResponse: SeatFailedResponse)
+}
+
 class SeatBaseNetworkManager: NSObject {
     
     let taskQueue: DispatchQueue
@@ -46,7 +52,7 @@ class SeatBaseNetworkManager: NSObject {
         super.init()
     }
     
-    func login(username: String, password: String, callback: ((Error?, LoginResponse?, SeatFailedResponse?)->Void)?) {
+    func login(username: String, password: String, callback: ((Error?, SeatLoginResponse?, SeatFailedResponse?)->Void)?) {
         guard let username = username.urlQueryEncoded,
             let password = password.urlQueryEncoded else {
                 return
@@ -74,7 +80,7 @@ class SeatBaseNetworkManager: NSObject {
             
             let decoder = JSONDecoder()
             do {
-                let loginResponse = try decoder.decode(LoginResponse.self, from: data)
+                let loginResponse = try decoder.decode(SeatLoginResponse.self, from: data)
                 DispatchQueue.main.async {
                     callback?(nil, loginResponse, nil)
                 }
@@ -96,6 +102,46 @@ class SeatBaseNetworkManager: NSObject {
             }
         }
         loginTask.resume()
+    }
+    
+    func delete(filePath kFilePath: String) {
+            let fileManager = FileManager.default
+            let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+            let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
+            let filePath = dirPath + "/\(kFilePath)"
+            try? fileManager.removeItem(atPath: filePath)
+    }
+    
+    func load(filePath kFilePath: String) -> Data? {
+        let fileManager = FileManager.default
+        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
+        let filePath = dirPath + "/\(kFilePath)"
+        guard fileManager.fileExists(atPath: filePath) else {
+            return nil
+        }
+        return try? Data(contentsOf: URL(fileURLWithPath: filePath))
+    }
+    
+    func save(data: Data, filePath kFilePath: String) {
+        let fileManager = FileManager.default
+        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
+        let filePath = dirPath + "/\(kFilePath)"
+        if !fileManager.fileExists(atPath: dirPath) {
+            do {
+                try fileManager.createDirectory(atPath: dirPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+        }
+        do {
+            try data.write(to: URL(fileURLWithPath: filePath))
+        } catch {
+            print(error.localizedDescription)
+            return
+        }
     }
     
 }

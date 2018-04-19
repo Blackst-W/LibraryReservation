@@ -90,7 +90,8 @@ class Settings: Codable {
                 try fileManager.createDirectory(atPath: dirPath, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error.localizedDescription)
-                fatalError()
+                return
+                
             }
         }
 
@@ -99,9 +100,9 @@ class Settings: Codable {
         let data = try! encoder.encode(self)
         do {
             try data.write(to: URL(fileURLWithPath: path))
-        }
-        catch {
-            fatalError(error.localizedDescription)
+        } catch {
+            print(error.localizedDescription)
+            return
         }
     }
     
@@ -130,12 +131,23 @@ class Settings: Codable {
         return settings
     }
     
-    func deletePassword() {
-        guard savePassword else {
-            return
+    func set(savePassword newValue: Bool) {
+        if !newValue {
+            autoLogin = false
+            savePassword = false
+        }else{
+            savePassword = true
         }
-        savePassword = false
-        autoLogin = false
+        save()
+    }
+    
+    func set(autoLogin newValue: Bool) {
+        if newValue {
+            savePassword = true
+            autoLogin = true
+        }else{
+            autoLogin = false
+        }
         save()
     }
     

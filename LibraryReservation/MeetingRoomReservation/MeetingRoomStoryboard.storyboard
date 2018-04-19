@@ -48,7 +48,7 @@
                         <viewLayoutGuide key="safeArea" id="Te5-Q5-NcV"/>
                     </view>
                     <navigationItem key="navigationItem" title="Meeting Room" id="86e-f6-gUW">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="settings" id="4bd-Da-L6b">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="SettingsIcon" id="4bd-Da-L6b">
                             <connections>
                                 <segue destination="cIN-sZ-UhO" kind="presentation" modalPresentationStyle="formSheet" id="Qhr-lR-vvE"/>
                             </connections>
@@ -87,7 +87,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="SettingsIcon" width="16" height="16"/>
         <image name="second" width="30" height="30"/>
-        <image name="settings" width="16" height="16"/>
     </resources>
 </document>

@@ -49,6 +49,12 @@ class LoginViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let settings = Settings.shared
+        settings.set(savePassword: savePasswordSwitch.isOn)
+        settings.set(autoLogin: autoLoginSwitch.isOn)
+    }
     
     @IBAction func login() {
         
@@ -63,19 +69,29 @@ class LoginViewController: UITableViewController {
         let username = sidTextField.text!
         let password = passwordTextField.text!
         
+        let settings = Settings.shared
+        settings.set(savePassword: savePasswordSwitch.isOn)
+        settings.set(autoLogin: autoLoginSwitch.isOn)
+        
         SeatBaseNetworkManager.default.login(username: username, password: password) { (error, loginResponse, failResponse) in
             
             if let loginResponse = loginResponse {
                 let account = UserAccount(username: username, password: password, token: loginResponse.data.token)
                 AccountManager.shared.login(account: account)
-                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.delegate?.loginResult(result: .success(account))
+                    self.dismiss(animated: true, completion: nil)
+                }
             }else{
                 let errorDescription = error?.localizedDescription ?? failResponse?.localizedDescription ?? "Unknown Error"
                 print(errorDescription)
                 let alertController = UIAlertController(title: "Login Failed", message: errorDescription, preferredStyle: .alert)
                 let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
                 alertController.addAction(closeAction)
-                self.present(alertController, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.loginButton.isEnabled = true
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
         

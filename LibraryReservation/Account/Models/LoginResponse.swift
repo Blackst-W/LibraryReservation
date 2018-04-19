@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct LoginData: Codable {
+struct SeatLoginData: Codable {
     let token: String
 }
 
-typealias LoginResponse = SeatAPIResponse<LoginData>
+typealias SeatLoginResponse = SeatAPIResponse<SeatLoginData>

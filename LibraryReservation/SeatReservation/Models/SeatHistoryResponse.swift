@@ -9,7 +9,7 @@
 import UIKit
 
 struct SeatHistoryData: Codable {
-    let reservations: [SeatReservation]
+    let reservations: [SeatHistoryReservation]
 }
 
 typealias SeatHistoryResponse = SeatAPIResponse<SeatHistoryData>

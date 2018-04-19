@@ -13,8 +13,12 @@ struct SeatBaseResponse: Codable {
     let code: String
     let message: String
     
+    var statusCode: Int? {
+        return Int(code)
+    }
+    
     var localizedDescription: String {
-        guard let statusCode = Int(code) else {
+        guard let statusCode = statusCode else {
             return "Unknown Error\nCode: \(self.code)\nMessage: \(message)"
         }
         switch statusCode {
@@ -34,4 +38,11 @@ struct SeatAPIResponse<T: Codable>: Codable {
     let code: String
     let message: String
     let data: T
+}
+
+struct SeatAPIArrayResponse<T: Codable>: Codable {
+    let status: String
+    let code: String
+    let message: String
+    let data: [T]
 }

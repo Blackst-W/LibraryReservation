@@ -10,9 +10,17 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var sidLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let account = AccountManager.shared.currentAccount {
+            sidLabel.text = account.username
+        }else {
+            nameLabel.text = "Tap to login"
+            sidLabel.text = ""
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -27,6 +35,22 @@ class SettingsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.section {
+        case 0:
+            if AccountManager.isLogin {
+                let storyboard = UIStoryboard(name: "SettingsStoryboard", bundle: nil)
+                let viewController = storyboard.instantiateViewController(withIdentifier: "AccountDetailViewController")
+                navigationController?.pushViewController(viewController, animated: true)
+            }else{
+                autoLogin(delegate: self, force: true)
+            }
+        default:
+            return
+        }
+    }
+    
     @IBAction func pressDoneButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -72,21 +96,6 @@ class SettingsTableViewController: UITableViewController {
     */
 
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -96,4 +105,18 @@ class SettingsTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension SettingsTableViewController: LoginViewDelegate {
+    func loginResult(result: LoginResult) {
+        switch result {
+        case .cancel:
+            return
+        case .success(_):
+            let storyboard = UIStoryboard(name: "SettingsStoryboard", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "AccountDetailViewController")
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+    }
 }

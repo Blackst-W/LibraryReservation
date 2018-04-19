@@ -15,3 +15,11 @@ extension String {
 }
 
 let SeatAPIURL = URL(string: "https://seat.lib.whu.edu.cn:8443/rest/")
+
+extension UIAlertController {
+    func addActions(_ actions: [UIAlertAction]) {
+        actions.forEach { (action) in
+            self.addAction(action)
+        }
+    }
+}
