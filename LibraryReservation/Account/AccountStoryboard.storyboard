@@ -77,13 +77,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Student ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cv-E8-Vwp">
-                                                    <rect key="frame" x="16" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="100" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="qxX-P9-nSP"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="201XXXXXXXXXX" textAlignment="right" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-Qh-4Tq">
-                                                    <rect key="frame" x="97" y="0.0" width="262" height="43.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="201XXXXXXXXXX" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-Qh-4Tq">
+                                                    <rect key="frame" x="124" y="0.0" width="235" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
@@ -94,7 +97,7 @@
                                                 <constraint firstItem="1cv-E8-Vwp" firstAttribute="leading" secondItem="qgw-cF-NiQ" secondAttribute="leadingMargin" id="EQP-U3-XqM"/>
                                                 <constraint firstAttribute="bottom" secondItem="iq1-Qh-4Tq" secondAttribute="bottom" id="gb2-fr-JaF"/>
                                                 <constraint firstItem="iq1-Qh-4Tq" firstAttribute="centerY" secondItem="qgw-cF-NiQ" secondAttribute="centerY" id="oIc-Ez-vpo"/>
-                                                <constraint firstItem="iq1-Qh-4Tq" firstAttribute="leading" secondItem="1cv-E8-Vwp" secondAttribute="trailing" id="pCS-Yh-m6h"/>
+                                                <constraint firstItem="iq1-Qh-4Tq" firstAttribute="leading" secondItem="1cv-E8-Vwp" secondAttribute="trailing" constant="8" id="pCS-Yh-m6h"/>
                                                 <constraint firstItem="iq1-Qh-4Tq" firstAttribute="trailing" secondItem="qgw-cF-NiQ" secondAttribute="trailingMargin" id="uCb-0U-a0J"/>
                                                 <constraint firstItem="1cv-E8-Vwp" firstAttribute="centerY" secondItem="qgw-cF-NiQ" secondAttribute="centerY" id="w5H-Zx-1A3"/>
                                             </constraints>
@@ -108,13 +111,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-ia-tZK">
-                                                    <rect key="frame" x="16" y="11" width="74" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="100" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="7y5-H9-YLw"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="last 6 digits of ID" textAlignment="right" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RJ0-fD-9xh">
-                                                    <rect key="frame" x="90" y="0.0" width="269" height="43.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="last 6 digits of ID" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RJ0-fD-9xh">
+                                                    <rect key="frame" x="124" y="0.0" width="235" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
@@ -122,9 +128,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="RJ0-fD-9xh" firstAttribute="top" secondItem="7iR-qc-PK5" secondAttribute="top" id="0hZ-6B-dQR"/>
-                                                <constraint firstItem="RJ0-fD-9xh" firstAttribute="leading" secondItem="vh3-ia-tZK" secondAttribute="trailing" id="4rH-pd-ZzF"/>
+                                                <constraint firstItem="RJ0-fD-9xh" firstAttribute="leading" secondItem="vh3-ia-tZK" secondAttribute="trailing" constant="8" id="4rH-pd-ZzF"/>
                                                 <constraint firstItem="RJ0-fD-9xh" firstAttribute="centerY" secondItem="7iR-qc-PK5" secondAttribute="centerY" id="SOE-b0-Zlz"/>
-                                                <constraint firstItem="RJ0-fD-9xh" firstAttribute="leading" secondItem="vh3-ia-tZK" secondAttribute="trailing" id="UQS-TL-2y5"/>
                                                 <constraint firstItem="vh3-ia-tZK" firstAttribute="centerY" secondItem="7iR-qc-PK5" secondAttribute="centerY" id="XJj-qw-ulq"/>
                                                 <constraint firstAttribute="bottom" secondItem="RJ0-fD-9xh" secondAttribute="bottom" id="fAY-dg-zyZ"/>
                                                 <constraint firstItem="RJ0-fD-9xh" firstAttribute="trailing" secondItem="7iR-qc-PK5" secondAttribute="trailingMargin" id="odl-RA-dep"/>

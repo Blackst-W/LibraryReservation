@@ -118,7 +118,7 @@ enum SeatCurrentReservationState {
         case .tempAway(_):
             return "Temp Away"
         case .late(_):
-            return "Late"
+            return "Lated"
         }
     }
     
@@ -289,8 +289,9 @@ struct SeatCurrentReservation: Codable {
     let rawAwayBegin: String?
     let rawAwayEnd: String?
     let rawActualBegin: String?
-    let loc: String
+    let fullLocation: String
     let stat: String
+    let message: String
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -302,8 +303,9 @@ struct SeatCurrentReservation: Codable {
         case rawAwayBegin = "awayBegin"
         case rawAwayEnd = "awayEnd"
         case rawActualBegin = "actualBegin"
-        case loc = "location"
+        case fullLocation = "location"
         case stat = "status"
+        case message
     }
     
     var date: Date {
@@ -455,7 +457,11 @@ struct SeatCurrentReservation: Codable {
     }
     
     var location: SeatLocation? {
-        return SeatLocation(currentLocation: loc)
+        return SeatLocation(currentLocation: fullLocation)
+    }
+    
+    var duration: Int {
+        return Int(end.timeIntervalSince(begin)) / 60
     }
 }
 

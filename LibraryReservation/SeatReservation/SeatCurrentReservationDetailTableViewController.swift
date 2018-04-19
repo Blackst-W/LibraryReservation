@@ -1,0 +1,186 @@
+//
+//  SeatCurrentReservationDetailTableViewController.swift
+//  LibraryReservation
+//
+//  Created by Weston Wu on 2018/04/19.
+//  Copyright © 2018 Weston Wu. All rights reserved.
+//
+
+import UIKit
+
+class SeatCurrentReservationDetailTableViewController: UITableViewController {
+
+    var reservation: SeatCurrentReservation!
+    
+    @IBOutlet weak var fullLocationLabel: UILabel!
+    @IBOutlet weak var libraryLabel: UILabel!
+    @IBOutlet weak var floorLabel: UILabel!
+    @IBOutlet weak var roomLabel: UILabel!
+    @IBOutlet weak var seatLabel: UILabel!
+    
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusTimeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    
+    @IBOutlet weak var reservationIDLabel: UILabel!
+    @IBOutlet weak var seatIDLabel: UILabel!
+    @IBOutlet weak var receiptLabel: UILabel!
+    
+    
+    class func makeFromStoryboard() -> SeatCurrentReservationDetailTableViewController {
+        let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ReservationDetailViewController") as! SeatCurrentReservationDetailTableViewController
+        return viewController
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        updateLocation()
+        updateTime()
+        updateOther()
+        updateTitle()
+    }
+    
+    func updateTitle() {
+        var title = "Current Reservation"
+        switch reservation.currentState {
+        case .late(_):
+            title = "Lated Reservation"
+        case .ongoing(_):
+            title = "Ongoing Reservation"
+        case .tempAway(_):
+            title = "Paused Reservation"
+        case .upcoming(_):
+            title = "Upcoming Reservation"
+        }
+        self.title = title
+    }
+    
+    func updateLocation() {
+        fullLocationLabel.text = reservation.fullLocation
+        if let location = reservation.location {
+            libraryLabel.text = location.library.rawValue
+            floorLabel.text = "\(location.floor)F"
+            roomLabel.text = location.room
+            seatLabel.text = "No.\(location.seat)"
+        }
+    }
+    
+    func updateTime() {
+        statusLabel.text = reservation.currentState.localizedState
+        timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
+        switch reservation.currentState {
+        case .upcoming(let next):
+            let hour = next / 60
+            let min = next % 60
+            statusTimeLabel.text = "Start in\(hour == 0 ? "": " \(hour)h") \(min)mins"
+        case .ongoing(let remain):
+            let hour = remain / 60
+            let min = remain % 60
+            statusTimeLabel.text = "End in\(hour == 0 ? "": " \(hour)h") \(min)mins"
+        case .tempAway(let remain):
+            statusTimeLabel.text = "Expire in \(remain)mins"
+        case .late(let remain):
+            statusTimeLabel.text = "EXpire in \(remain)mins"
+        }
+        dateLabel.text = reservation.rawDate
+        let duration = reservation.duration
+        let hour = duration / 60
+        let minute = duration % 60
+        let hourText = hour == 0 ? "" : "\(hour)h"
+        let minuteText = minute == 0 ? "" : "\(minute)mins"
+        durationLabel.text = [hourText, minuteText].joined(separator: " ")
+        messageLabel.text = reservation.message
+    }
+
+    func updateOther() {
+        reservationIDLabel.text = String(reservation.id)
+        seatIDLabel.text = String(reservation.seatId)
+        receiptLabel.text = reservation.receipt
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override var previewActionItems: [UIPreviewActionItem] {
+        let copyAction = UIPreviewAction(title: "Copy Location", style: .default) { (_, _) in
+            UIPasteboard.general.string = self.reservation.fullLocation
+        }
+        let cancelAction = UIPreviewAction(title: "Cancel Reservation", style: .destructive) { (_, viewController) in
+            print(viewController)
+        }
+        return [copyAction, cancelAction]
+    }
+    
+    func cancel() {
+        
+    }
+    
+    /*
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
+        return cell
+    }
+    */
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
