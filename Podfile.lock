@@ -1,20 +1,16 @@
 PODS:
-  - MJRefresh (3.1.15.3)
   - Reveal-SDK (14)
 
 DEPENDENCIES:
-  - MJRefresh
   - Reveal-SDK
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - MJRefresh
     - Reveal-SDK
 
 SPEC CHECKSUMS:
-  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   Reveal-SDK: 55b5c5545233b680c2f8da734f202acc15d422b7
 
-PODFILE CHECKSUM: c000b417a0ab1f9aa69df9633f7e5f8151f5e92a
+PODFILE CHECKSUM: 4ccfa5b94de3cc8573bf8a4e3510613fa3ebb5d4
 
 COCOAPODS: 1.5.0

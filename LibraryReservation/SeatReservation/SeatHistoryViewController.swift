@@ -7,12 +7,13 @@
 //
 
 import UIKit
-import MJRefresh
 
 class SeatHistoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var remindLabel: UILabel!
+    
+    @IBOutlet weak var loadMoreLabel: UILabel!
     
     var manager: SeatHistoryManager!
     
@@ -21,25 +22,20 @@ class SeatHistoryViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         manager.delegate = self
-        
-        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refresh))!
-        header.lastUpdatedTimeLabel.isHidden = true
-        header.stateLabel.isHidden = true
-        tableView.mj_header = header
-        header.beginRefreshing()
-        // Do any additional setup after loading the view.
-        let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(checkMore))!
-        footer.setTitle("Not more reservations in the last 30 days", for: .noMoreData)
-        tableView.mj_footer = footer
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
+        tableView.refreshControl = control
     }
     
-    @objc func refresh() {
-        manager.update()
+    @objc func refreshStateChanged() {
+        if tableView.refreshControl!.isRefreshing {
+            manager.update()
+        }
     }
 
     @objc func checkMore() {
         if !manager.loadMore() {
-            tableView.mj_footer.endRefreshingWithNoMoreData()
+            loadMoreLabel.text = "No more reservations in the last 30 days"
         }
     }
     
@@ -95,6 +91,12 @@ extension SeatHistoryViewController: UITableViewDelegate {
         viewController.reservation = reservation
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == manager.reservations.count - 1 {
+            checkMore()
+        }
+    }
 }
 
 extension SeatHistoryViewController: SeatHistoryManagerDelegate {
@@ -102,8 +104,7 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
         autoLogin(delegate: self, force: true)
     }
     func updateFailed(error: Error) {
-        tableView.mj_header.endRefreshing()
-        tableView.mj_footer.endRefreshing()
+        tableView.refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
@@ -115,8 +116,7 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
             autoLogin(delegate: self, force: true)
             return
         }
-        tableView.mj_header.endRefreshing()
-        tableView.mj_footer.endRefreshing()
+        tableView.refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
@@ -130,15 +130,14 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
             remindLabel.isHidden = true
         }
         tableView.reloadData()
-        tableView.mj_header.endRefreshing()
+        tableView.refreshControl!.perform(#selector(tableView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
+        
     }
     
     func loadMore() {
         tableView.reloadData()
         if manager.end {
-            tableView.mj_footer.endRefreshingWithNoMoreData()
-        }else {
-            tableView.mj_footer.endRefreshing()
+            loadMoreLabel.text = "No more reservations in the last 30 days"
         }
     }
 }

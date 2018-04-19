@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MJRefresh
 
 class SeatHomepageViewController: UIViewController {
 
@@ -37,6 +36,11 @@ class SeatHomepageViewController: UIViewController {
         collectionView.backgroundColor = nil
         modalPresentationStyle = .formSheet
         reminderView.alpha = 0
+        
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
+        contentScrollView.refreshControl = control
+        
         historyManager = SeatHistoryManager(delegate: self)
         reservationManager = SeatCurrentReservationManager(delegate: self)
         reminderViewDisplayConstraint.constant = 0
@@ -47,19 +51,17 @@ class SeatHomepageViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountChanged, object: nil)
         // Do any additional setup after loading the view.
-        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refresh))!
-        header.lastUpdatedTimeLabel.isHidden = true
-        header.stateLabel.isHidden = true
-        contentScrollView.mj_header = header
-        contentScrollView.mj_header.beginRefreshing()
+        
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: currentReservationView)
         }
     }
     
-    @objc func refresh() {
-        historyManager.update()
-        reservationManager.update()
+    @objc func refreshStateChanged() {
+        if contentScrollView.refreshControl!.isRefreshing {
+            historyManager.update()
+            reservationManager.update()
+        }
     }
 
     @objc func accountChanged(notification: Notification) {
@@ -242,7 +244,7 @@ extension SeatHomepageViewController: LoginViewDelegate {
         switch  result {
         case .cancel:
             showLoginView()
-            contentScrollView.mj_header.endRefreshing()
+            contentScrollView.refreshControl?.endRefreshing()
         case .success(_):
             showIndicator()
         }
@@ -267,7 +269,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         }else{
             hideReminder(animated: false)
             showLoginView()
-            contentScrollView.mj_header.endRefreshing()
+            contentScrollView.refreshControl?.endRefreshing()
         }
     }
     
@@ -276,7 +278,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
-        contentScrollView.mj_header.endRefreshing()
+        contentScrollView.refreshControl?.endRefreshing()
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
@@ -288,7 +290,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
-        contentScrollView.mj_header.endRefreshing()
+        contentScrollView.refreshControl?.endRefreshing()
     }
 }
 
@@ -300,7 +302,7 @@ extension SeatHomepageViewController: SeatCurrentReservationManagerDelegate {
         }else{
             hideReminder(animated: true)
         }
-        contentScrollView.mj_header?.endRefreshing()
+        contentScrollView.refreshControl?.endRefreshing()
     }
 }
 
@@ -313,7 +315,7 @@ extension SeatHomepageViewController: SeatHistoryManagerDelegate {
             historyEmptyLabel.isHidden = true
         }
         collectionView.reloadData()
-        contentScrollView.mj_header?.endRefreshing()
+        contentScrollView.refreshControl!.perform(#selector(contentScrollView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
     }
     
     func loadMore() {
