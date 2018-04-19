@@ -23,6 +23,7 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
     var account: UserAccount?
     var reservation: SeatCurrentReservation?
     weak var delegate: SeatCurrentReservationManagerDelegate?
+    var timer: Timer?
     
     init(delegate: SeatCurrentReservationManagerDelegate?) {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.libraryReservation.seat.current"))
@@ -30,6 +31,28 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
         account = AccountManager.shared.currentAccount
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountChanged(notification:)), name: .AccountChanged, object: nil)
         load()
+        startTimer()
+    }
+    
+    func startTimer() {
+        invalidateTimer()
+        let current = Date()
+        let second = 60 - Calendar.current.component(.second, from: current)
+        let nextMinute = current.addingTimeInterval(TimeInterval(second))
+        timer = Timer(fireAt: nextMinute, interval: 60, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
+    }
+    
+    func invalidateTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    @objc func updateTime() {
+        guard let reservation = reservation else {
+            return
+        }
+        delegate?.update(reservation: reservation)
     }
     
     func delete() {

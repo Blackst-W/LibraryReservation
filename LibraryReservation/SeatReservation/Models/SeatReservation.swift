@@ -391,7 +391,7 @@ struct SeatCurrentReservation: Codable {
         guard current >= leftDate else {
             return  nil
         }
-        return Int(current.timeIntervalSince(leftDate)) / 60
+        return Int(ceil(current.timeIntervalSince(leftDate) / 60))
     }
     
     /// 距离预约结束的时间
@@ -400,7 +400,8 @@ struct SeatCurrentReservation: Codable {
             return nil
         }
         let current = Date()
-        return Int(current.timeIntervalSince(begin)) / 60
+        let time = Int(ceil(current.timeIntervalSince(begin) / 60))
+        return time > 0 ? time : 0
     }
     
     /// 暂离剩余时间
@@ -420,7 +421,7 @@ struct SeatCurrentReservation: Codable {
         default:
             break
         }
-        let awayTime = Int(current.timeIntervalSince(leftDate)) / 60
+        let awayTime = Int(ceil(current.timeIntervalSince(leftDate) / 60))
         var remainTime = availableTime - awayTime
         if remainTime < 0 {
             remainTime = 0
@@ -434,13 +435,16 @@ struct SeatCurrentReservation: Codable {
         }
         let allowTime = 30
         let current = Date()
-        return allowTime - Int(current.timeIntervalSince(begin)) / 60
+        let time = allowTime - Int(ceil(current.timeIntervalSince(begin) / 60))
+        return time > 0 ? time : 0
     }
     
     var currentState: SeatCurrentReservationState {
-        if !isStarted {
+        if isLate {
+            return .late(remain: remainLateTime!)
+        }else if !isStarted {
             let current = Date()
-            let minutes = Int(begin.timeIntervalSince(current)) / 60
+            let minutes = Int(ceil(begin.timeIntervalSince(current) / 60))
             return .upcoming(in: minutes)
         }else if isAway {
             let remain = remainAwayTime!
