@@ -23,7 +23,12 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     
     var account: UserAccount?
     var reservations: [SeatHistoryReservation] = []
+    var validReservations: [SeatHistoryReservation] {
+        return reservations.filter{ return $0.isHistory && $0.state != .cancel }
+    }
     weak var delegate: SeatHistoryManagerDelegate?
+    private var pageCount = 1
+    private(set) var end = false
     
     init(delegate: SeatHistoryManagerDelegate?) {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.history"))
@@ -74,7 +79,16 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         save(data: data, filePath: SeatHistoryManager.kFilePath)
     }
     
-    func update() {
+    func loadMore() -> Bool {
+        if end {
+            return false
+        }
+        pageCount += 1
+        update(page: pageCount)
+        return true
+    }
+    
+    func update(page: Int = 1) {
         guard let account = account,
         let token = account.token
             else {
@@ -83,7 +97,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
             return
         }
         
-        let historyURL = URL(string: "v2/history/1/10", relativeTo: SeatAPIURL)!
+        let historyURL = URL(string: "v2/history/\(page)/10", relativeTo: SeatAPIURL)!
         
         var historyRequest = URLRequest(url: historyURL)
         historyRequest.httpMethod = "GET"
@@ -108,8 +122,13 @@ class SeatHistoryManager: SeatBaseNetworkManager {
             let decoder = JSONDecoder()
             do {
                 let historyResponse = try decoder.decode(SeatHistoryResponse.self, from: data)
-                self.reservations = historyResponse.data.reservations.filter {
-                    return $0.isHistory && $0.state != .cancel
+                if page == 1 {
+                    self.reservations = historyResponse.data.reservations
+                }else{
+                    self.reservations.append(contentsOf: historyResponse.data.reservations)
+                }
+                if historyResponse.data.reservations.count < 10 {
+                    self.end = true
                 }
                 self.save()
                 DispatchQueue.main.async {
