@@ -15,17 +15,38 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let account = AccountManager.shared.currentAccount {
-            sidLabel.text = account.username
-        }else {
-            nameLabel.text = "Tap to login"
-            sidLabel.text = ""
-        }
+        accountChanged()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userInfoChanged), name: .UserInfoUpdated, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func accountChanged() {
+        DispatchQueue.main.async {
+            if AccountManager.isLogin {
+                self.nameLabel.text = AccountManager.shared.userInfo?.name ??  "Loading..."
+                self.sidLabel.text = AccountManager.shared.currentAccount?.username
+            }else{
+                self.nameLabel.text = "Tap to login"
+                self.sidLabel.text = ""
+            }
+        }
+    }
+    
+    @objc func userInfoChanged() {
+        DispatchQueue.main.async {
+            self.nameLabel.text = AccountManager.shared.userInfo?.name ??  "Loading..."
+        }
     }
 
     override func didReceiveMemoryWarning() {

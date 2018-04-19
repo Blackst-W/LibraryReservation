@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import MJRefresh
 
 class SeatHomepageViewController: UIViewController {
 
+    @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var historyLoadingIndicator: UIActivityIndicatorView!
@@ -36,9 +38,7 @@ class SeatHomepageViewController: UIViewController {
         modalPresentationStyle = .formSheet
         reminderView.alpha = 0
         historyManager = SeatHistoryManager(delegate: self)
-        historyManager.update()
         reservationManager = SeatCurrentReservationManager(delegate: self)
-        reservationManager.update()
         reminderViewDisplayConstraint.constant = 0
         view.layoutIfNeeded()
         if let reservation = reservationManager.reservation {
@@ -47,6 +47,16 @@ class SeatHomepageViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountChanged, object: nil)
         // Do any additional setup after loading the view.
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(refresh))!
+        header.lastUpdatedTimeLabel.isHidden = true
+        header.stateLabel.isHidden = true
+        contentScrollView.mj_header = header
+        contentScrollView.mj_header.beginRefreshing()
+    }
+    
+    @objc func refresh() {
+        historyManager.update()
+        reservationManager.update()
     }
 
     @objc func accountChanged(notification: Notification) {
@@ -101,6 +111,7 @@ class SeatHomepageViewController: UIViewController {
     }
     
     func showLoginView() {
+        self.collectionView.isHidden = true
         self.loginView.isHidden = false
         historyLoadingIndicator.stopAnimating()
         loginButton.alpha = 1
@@ -122,6 +133,7 @@ class SeatHomepageViewController: UIViewController {
     }
     
     func hideLoginView() {
+        self.collectionView.isHidden = false
         self.historyLoadingIndicator.stopAnimating()
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             self.loginView.alpha = 0
@@ -242,6 +254,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
             if historyManager.reservations.isEmpty {
                 hideReminder(animated: false)
                 showLoginView()
+                contentScrollView.mj_header.endRefreshing()
             }
         }
     }
@@ -251,6 +264,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
+        contentScrollView.mj_header.endRefreshing()
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
@@ -262,6 +276,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
+        contentScrollView.mj_header.endRefreshing()
     }
 }
 
@@ -273,6 +288,7 @@ extension SeatHomepageViewController: SeatCurrentReservationManagerDelegate {
         }else{
             hideReminder(animated: true)
         }
+        contentScrollView.mj_header?.endRefreshing()
     }
 }
 
@@ -285,6 +301,7 @@ extension SeatHomepageViewController: SeatHistoryManagerDelegate {
             historyEmptyLabel.isHidden = true
         }
         collectionView.reloadData()
+        contentScrollView.mj_header?.endRefreshing()
     }
     
     func loadMore() {
@@ -301,7 +318,6 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
             let viewController = SeatHistoryDetailViewController.makeFromStoryboard()
             viewController.reservation = reservation
             viewController.preferredContentSize = CGSize(width: 0, height: 0)
-            
             return viewController
         }else{
             return nil

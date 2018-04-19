@@ -411,6 +411,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="x0v-Kw-AXm" id="xIf-Pd-2HW"/>
+                        <outlet property="contentScrollView" destination="Kco-Y3-X0I" id="k6m-Uo-SNP"/>
                         <outlet property="currentReservationView" destination="w62-fq-kHs" id="9h9-Bk-hvg"/>
                         <outlet property="historyEmptyLabel" destination="wr9-uq-Dxg" id="dZe-Sb-Ndn"/>
                         <outlet property="historyLoadingIndicator" destination="XqB-A4-Pgc" id="T02-ES-PSw"/>

@@ -11,6 +11,7 @@ import Security
 
 extension Notification.Name {
     static let AccountChanged = Notification.Name("kAccountChangedNotification")
+    static let UserInfoUpdated = Notification.Name("kUserInfoUpdatedNotification")
 }
 
 class AccountManager: NSObject {
@@ -21,6 +22,7 @@ class AccountManager: NSObject {
     
     static let shared = AccountManager()
     private(set) var currentAccount: UserAccount?
+    private(set) var userInfo: UserInfo?
     static let server = "reservation.seat.lib.whu.edu.cn"
     static let kUserDefaultSID = "UserSID"
     
@@ -44,10 +46,12 @@ class AccountManager: NSObject {
         currentAccount = account
         NotificationCenter.default.post(name: .AccountChanged, object: nil)
         save()
+        fetchUserInfo()
     }
     
     func logout() {
         deletePassword()
+        userInfo = nil
         currentAccount = nil
         NotificationCenter.default.post(name: .AccountChanged, object: nil)
         UserDefaults.standard.set(nil, forKey: AccountManager.kUserDefaultSID)
@@ -114,12 +118,77 @@ class AccountManager: NSObject {
         currentAccount = account
     }
     
+    static let kUserInfoFilePath = "UserInfo.archive"
+    
+    func loadUserInfo() {
+        guard let account = currentAccount else {
+            deleteUserInfo()
+            return
+        }
+        let fileManager = FileManager.default
+        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
+        let filePath = dirPath + "/\(AccountManager.kUserInfoFilePath)"
+        guard fileManager.fileExists(atPath: filePath) else {
+            return
+        }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else {
+            deleteUserInfo()
+            return
+        }
+        let decoder = JSONDecoder()
+        guard let archive = try? decoder.decode(UserInfo.self, from: data) else {
+            deleteUserInfo()
+            return
+        }
+        guard archive.username == account.username else {
+            deleteUserInfo()
+            return
+        }
+        userInfo = archive
+    }
+    
+    func deleteUserInfo() {
+        let fileManager = FileManager.default
+        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
+        let filePath = dirPath + "/\(AccountManager.kUserInfoFilePath)"
+        try? fileManager.removeItem(atPath: filePath)
+    }
+    
+    func saveUserInfo() {
+        guard let userInfo = userInfo else {
+            return
+        }
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(userInfo)
+        let fileManager = FileManager.default
+        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
+        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
+        let filePath = dirPath + "/\(AccountManager.kUserInfoFilePath)"
+        if !fileManager.fileExists(atPath: dirPath) {
+            do {
+                try fileManager.createDirectory(atPath: dirPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+        }
+        do {
+            try data.write(to: URL(fileURLWithPath: filePath))
+        } catch {
+            print(error.localizedDescription)
+            return
+        }
+    }
+    
     func save() {
         guard let account = currentAccount else {
             print("Not login")
             return
         }
         UserDefaults.standard.set(account.username, forKey: AccountManager.kUserDefaultSID)
+        saveUserInfo()
         let settings = Settings.shared
         guard settings.savePassword else {
             return
@@ -154,5 +223,29 @@ class AccountManager: NSObject {
         }
     }
     
+    func fetchUserInfo() {
+        guard let account = currentAccount,
+            let token = account.token else {
+                return
+        }
+        let userInfoURL = URL(string: "v2/user", relativeTo: SeatAPIURL)!
+        var userInfoRequest = URLRequest(url: userInfoURL)
+        userInfoRequest.httpMethod = "GET"
+        userInfoRequest.addValue(token, forHTTPHeaderField: "token")
+        let session = SeatBaseNetworkManager.default.session
+        let userInfoTask = session.dataTask(with: userInfoRequest) { (data, response, error) in
+            let decoder = JSONDecoder()
+            guard let data = data,
+                let userInfoResponse = try? decoder.decode(UserInfoResponse.self, from: data) else {
+                    return
+            }
+            self.userInfo = userInfoResponse.data
+            NotificationCenter.default.post(name: .UserInfoUpdated, object: nil)
+            self.saveUserInfo()
+        }
+        userInfoTask.resume()
+    }
     
 }
+
+

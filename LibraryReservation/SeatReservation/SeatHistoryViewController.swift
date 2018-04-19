@@ -102,6 +102,8 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
         autoLogin(delegate: self, force: true)
     }
     func updateFailed(error: Error) {
+        tableView.mj_header.endRefreshing()
+        tableView.mj_footer.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
@@ -113,6 +115,8 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
             autoLogin(delegate: self, force: true)
             return
         }
+        tableView.mj_header.endRefreshing()
+        tableView.mj_footer.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)

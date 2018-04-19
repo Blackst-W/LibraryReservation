@@ -22,7 +22,10 @@ class AccountDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var tokenLabel: UILabel!
     
+    @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var violationLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
     
     @IBOutlet weak var savePasswordSwitch: UISwitch!
@@ -35,11 +38,31 @@ class AccountDetailTableViewController: UITableViewController {
         let settings = Settings.shared
         savePasswordSwitch.isOn = settings.savePassword
         autoLoginSwitch.isOn = settings.autoLogin
+        userInfoUpdated()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(userInfoUpdated), name: .UserInfoUpdated, object: nil)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func userInfoUpdated() {
+        DispatchQueue.main.async {
+            let userInfo = AccountManager.shared.userInfo
+            self.nameLabel.text = userInfo?.name ?? "-"
+            self.statusLabel.text = userInfo?.status ?? "-"
+            if let violationCount = userInfo?.violationCount {
+                self.violationLabel.text = String(violationCount)
+            }else{
+                self.violationLabel.text = "-"
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
