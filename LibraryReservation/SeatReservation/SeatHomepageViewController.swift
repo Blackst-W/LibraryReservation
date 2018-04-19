@@ -21,6 +21,8 @@ class SeatHomepageViewController: UIViewController {
     @IBOutlet weak var reminderView: UIView!
     @IBOutlet weak var reminderViewDisplayConstraint: NSLayoutConstraint!
     
+    private let reminderHeight: CGFloat = 168
+    
     var historyManager: SeatHistoryManager!
     var reservationManager: SeatCurrentReservationManager!
     var isLogining = false
@@ -79,10 +81,15 @@ class SeatHomepageViewController: UIViewController {
     }
     
     func showReminder() {
+        
+        if reminderViewDisplayConstraint.constant == reminderHeight {
+            return
+        }
+        
         reminderView.isHidden = false
         reminderView.alpha = 0
         UIView.animate(withDuration: 1) {
-            self.reminderViewDisplayConstraint.constant = 168
+            self.reminderViewDisplayConstraint.constant = self.reminderHeight
             self.reminderView.alpha = 1
             self.view.layoutIfNeeded()
         }
