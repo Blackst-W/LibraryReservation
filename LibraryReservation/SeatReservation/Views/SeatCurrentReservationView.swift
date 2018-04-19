@@ -59,6 +59,8 @@ class SeatCurrentReservationView: UIView {
             stateTimeLabel.text = "End in\(hour == 0 ? "": " \(hour)h") \(min)mins"
         case .tempAway(let remain):
             stateTimeLabel.text = "Expire in \(remain)mins"
+        case .late(let remain):
+            stateTimeLabel.text = "EXpire in \(remain)mins"
         }
         
     }

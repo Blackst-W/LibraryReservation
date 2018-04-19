@@ -41,9 +41,13 @@ struct SeatLocation {
             return nil
         }
         library = lib
-        let roomStartIndex = location.index(libEndIndex, offsetBy: 2 + 2)
+        let roomStartIndex = location.index(libEndIndex, offsetBy: 2)
         let roomEndIndex = location.index(location.endIndex, offsetBy: -4)
         var originRoom = String(location[roomStartIndex..<roomEndIndex])
+        if let areaEndIndex = originRoom.index(of: "区") {
+            let areaBeginIndex = originRoom.index(originRoom.startIndex, offsetBy: 0)
+            originRoom.replaceSubrange(areaBeginIndex...areaEndIndex, with: "")
+        }
         if let floorEndIndex = originRoom.index(of: "楼") {
             let floorStartIndex = originRoom.index(floorEndIndex, offsetBy: -1)
             originRoom.replaceSubrange(floorStartIndex...floorEndIndex, with: "")
@@ -77,9 +81,13 @@ struct SeatLocation {
             return nil
         }
         library = lib
-        let roomStartIndex = location.index(libEndIndex, offsetBy: 2 + 2)
+        let roomStartIndex = location.index(libEndIndex, offsetBy: 2)
         let roomEndIndex = location.index(of: "，")!
         var originRoom = String(location[roomStartIndex..<roomEndIndex])
+        if let areaEndIndex = originRoom.index(of: "区") {
+            let areaBeginIndex = originRoom.index(originRoom.startIndex, offsetBy: 0)
+            originRoom.replaceSubrange(areaBeginIndex...areaEndIndex, with: "")
+        }
         if let floorEndIndex = originRoom.index(of: "楼") {
             let floorStartIndex = originRoom.index(floorEndIndex, offsetBy: -1)
             originRoom.replaceSubrange(floorStartIndex...floorEndIndex, with: "")
@@ -99,15 +107,18 @@ enum SeatCurrentReservationState {
     case upcoming(`in`: Int)
     case ongoing(left: Int)
     case tempAway(remain: Int)
+    case late(remain: Int)
     
     var localizedState: String {
         switch self {
         case .upcoming(_):
-            return "Upcoming Reservation"
+            return "Upcoming"
         case .ongoing(_):
-            return "Ongoing Reservation"
+            return "Ongoing"
         case .tempAway(_):
             return "Temp Away"
+        case .late(_):
+            return "Late"
         }
     }
     
@@ -344,14 +355,34 @@ struct SeatCurrentReservation: Codable {
         return SeatReservationState(rawValue: stat) ?? .unknown
     }
     
+    
+    /// 是否开始
     var isStarted: Bool {
-        return Date() >= begin
+        guard Date() >= begin else {
+            return false
+        }
+        return state != .reserve
     }
     
+    /// 是否暂离
     var isAway: Bool {
         return state == .away
     }
     
+    /// 是否迟到
+    var isLate: Bool {
+        guard Date() >= begin else {
+            return false
+        }
+        if state == .reserve {
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    
+    /// 暂离离开的时间
     var awayTime: Int? {
         guard isAway, let leftDate = awayBegin else {
             return nil
@@ -363,6 +394,7 @@ struct SeatCurrentReservation: Codable {
         return Int(current.timeIntervalSince(leftDate)) / 60
     }
     
+    /// 距离预约结束的时间
     var remainTime: Int? {
         guard isStarted else {
             return nil
@@ -371,6 +403,7 @@ struct SeatCurrentReservation: Codable {
         return Int(current.timeIntervalSince(begin)) / 60
     }
     
+    /// 暂离剩余时间
     var remainAwayTime: Int? {
         guard isAway, let leftDate = awayBegin else {
             return  nil
@@ -393,6 +426,15 @@ struct SeatCurrentReservation: Codable {
             remainTime = 0
         }
         return remainTime
+    }
+    
+    var remainLateTime: Int? {
+        guard isLate else {
+            return  nil
+        }
+        let allowTime = 30
+        let current = Date()
+        return allowTime - Int(current.timeIntervalSince(begin)) / 60
     }
     
     var currentState: SeatCurrentReservationState {
