@@ -29,6 +29,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     @IBOutlet weak var seatIDLabel: UILabel!
     @IBOutlet weak var receiptLabel: UILabel!
     
+    var manager: SeatCurrentReservationManager!
     
     class func makeFromStoryboard() -> SeatCurrentReservationDetailTableViewController {
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
@@ -49,6 +50,8 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         updateTime()
         updateOther()
         updateTitle()
+        
+        manager = SeatCurrentReservationManager(delegate: self)
     }
     
     func updateTitle() {
@@ -128,6 +131,12 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         
     }
     
+    @IBAction func refreshStateChanged(_ sender: UIRefreshControl) {
+        if sender.isRefreshing {
+            manager.update()
+        }
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -183,4 +192,51 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservationManagerDelegate {
+    func updateFailed(error: Error) {
+        refreshControl?.endRefreshing()
+        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        alertController.addAction(closeAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func updateFailed(failedResponse: SeatFailedResponse) {
+        refreshControl?.endRefreshing()
+        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        alertController.addAction(closeAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func update(reservation: SeatCurrentReservation?) {
+        refreshControl?.endRefreshing()
+        guard let reservation = reservation else {
+            //Reservation Not Exist
+            return
+        }
+        self.reservation = reservation
+        updateTime()
+        updateTitle()
+        updateOther()
+        updateLocation()
+    }
+    
+    func requireLogin() {
+        autoLogin(delegate: self, force: true)
+    }
+}
+
+extension SeatCurrentReservationDetailTableViewController: LoginViewDelegate {
+    func loginResult(result: LoginResult) {
+        switch result {
+        case .cancel:
+            refreshControl?.endRefreshing()
+        case .success(_):
+            manager.loginResult(result: result)
+        }
+    }
 }

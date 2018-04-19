@@ -946,6 +946,9 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="a7v-eX-dEN">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
+                        <connections>
+                            <action selector="refreshStateChanged:" destination="SMx-tQ-KjF" eventType="valueChanged" id="EUO-FU-odE"/>
+                        </connections>
                     </refreshControl>
                     <connections>
                         <outlet property="dateLabel" destination="OLa-Db-hJ9" id="7rA-Tm-Qef"/>

@@ -403,7 +403,8 @@ struct SeatCurrentReservation: Codable {
         }
         let current = Date()
         let time = Int(ceil(current.timeIntervalSince(begin) / 60))
-        return time > 0 ? time : 0
+        let timeLeft = duration - time
+        return timeLeft > 0 ? timeLeft : 0
     }
     
     /// 暂离剩余时间
