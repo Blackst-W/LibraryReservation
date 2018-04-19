@@ -10,6 +10,7 @@ import UIKit
 
 protocol SeatHistoryManagerDelegate: SeatBaseDelegate {
     func update(reservations: [SeatHistoryReservation])
+    func loadMore()
 }
 
 struct SeatHistoryArchive: Codable {
@@ -38,6 +39,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         load()
         delegate?.update(reservations: reservations)
     }
+    
     
     func delete() {
         delete(filePath: SeatHistoryManager.kFilePath)

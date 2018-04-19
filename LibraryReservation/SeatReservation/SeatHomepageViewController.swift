@@ -61,6 +61,11 @@ class SeatHomepageViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        historyManager.delegate = self
+    }
+    
     func hideReminder(animated: Bool) {
         if reminderView.isHidden {
             return
@@ -156,6 +161,16 @@ class SeatHomepageViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "ViewAllHistory" {
+            let dst = segue.destination as! SeatHistoryViewController
+            dst.manager = historyManager
+        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
 
 }
 
@@ -169,13 +184,13 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
         if historyLoadingIndicator.isAnimating {
             hideLoginView()
         }
-        return historyManager.reservations.count
+        return historyManager.validReservations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as! SeatHistoryCollectionViewCell
-        cell.update(reservation: historyManager.reservations[indexPath.row])
-        if self.traitCollection.forceTouchCapability == .available {
+        cell.update(reservation: historyManager.validReservations[indexPath.item])
+        if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: cell)
         }
         return cell
@@ -206,7 +221,7 @@ extension SeatHomepageViewController: LoginViewDelegate {
             showIndicator()
         }
         historyManager.loginResult(result: result)
-//        reservationManager.loginResult(result: result)
+        reservationManager.loginResult(result: result)
     }
 }
 
@@ -271,6 +286,11 @@ extension SeatHomepageViewController: SeatHistoryManagerDelegate {
         }
         collectionView.reloadData()
     }
+    
+    func loadMore() {
+        collectionView.reloadData()
+    }
+    
 }
 
 extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
@@ -280,11 +300,7 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
             let reservation = historyManager.reservations[indexPath.item]
             let viewController = SeatHistoryDetailViewController.makeFromStoryboard()
             viewController.reservation = reservation
-            viewController.preferredContentSize = CGSize(width: 0, height: 500)
-            
-            //调整不被虚化的范围，按压的那个cell不被虚化（轻轻按压时周边会被虚化，再少用力展示预览，再加力跳页至设定界面）
-//            CGRect rect = CGRectMake(0, 0, self.view.frame.size.width,40);
-//            previewingContext.sourceRect = rect;
+            viewController.preferredContentSize = CGSize(width: 0, height: 0)
             
             return viewController
         }else{

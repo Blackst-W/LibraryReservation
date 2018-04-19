@@ -13,3 +13,4 @@ struct SeatHistoryData: Codable {
 }
 
 typealias SeatHistoryResponse = SeatAPIResponse<SeatHistoryData>
+

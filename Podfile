@@ -5,6 +5,7 @@ target 'LibraryReservation' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'Reveal-SDK', :configurations => ['Debug']
+  pod 'MJRefresh'
   # Pods for LibraryReservation
 
   target 'LibraryReservationTests' do
