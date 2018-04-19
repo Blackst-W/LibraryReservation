@@ -19,7 +19,7 @@ class SeatHomepageViewController: UIViewController {
     @IBOutlet weak var currentReservationView: SeatCurrentReservationView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var reminderView: UIView!
-    @IBOutlet weak var reminderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var reminderViewDisplayConstraint: NSLayoutConstraint!
     
     var historyManager: SeatHistoryManager!
     var reservationManager: SeatCurrentReservationManager!
@@ -32,12 +32,13 @@ class SeatHomepageViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = nil
         modalPresentationStyle = .formSheet
-        reminderHeightConstraint.constant = 0
         reminderView.alpha = 0
         historyManager = SeatHistoryManager(delegate: self)
         historyManager.update()
         reservationManager = SeatCurrentReservationManager(delegate: self)
         reservationManager.update()
+        reminderViewDisplayConstraint.constant = 0
+        view.layoutIfNeeded()
         if let reservation = reservationManager.reservation {
             currentReservationView.update(reservation: reservation)
             showReminder()
@@ -64,14 +65,14 @@ class SeatHomepageViewController: UIViewController {
         }
         if animated {
             UIView.animate(withDuration: 1, animations: {
-                self.reminderHeightConstraint.constant = 0
+                self.reminderViewDisplayConstraint.constant = 0
                 self.reminderView.alpha = 0
                 self.view.layoutIfNeeded()
             }) { (_) in
                 self.reminderView.isHidden = true
             }
         }else{
-            reminderHeightConstraint.constant = 0
+            reminderViewDisplayConstraint.constant = 0
             reminderView.alpha = 0
             reminderView.isHidden = true
         }
@@ -81,7 +82,7 @@ class SeatHomepageViewController: UIViewController {
         reminderView.isHidden = false
         reminderView.alpha = 0
         UIView.animate(withDuration: 1) {
-            self.reminderHeightConstraint.constant = 160
+            self.reminderViewDisplayConstraint.constant = 168
             self.reminderView.alpha = 1
             self.view.layoutIfNeeded()
         }

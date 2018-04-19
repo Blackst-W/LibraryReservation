@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w62-fq-kHs" userLabel="Shadow View" customClass="SeatCurrentReservationView" customModule="LibraryReservation" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="16" width="343" height="128"/>
+                                                <rect key="frame" x="8" y="16" width="359" height="128"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="gDt-hN-3MD"/>
                                                 </constraints>
@@ -50,9 +50,9 @@
                                             <constraint firstAttribute="height" constant="168" id="1je-8p-IVs"/>
                                             <constraint firstAttribute="bottom" secondItem="w62-fq-kHs" secondAttribute="bottom" constant="24" id="JyY-10-wuu"/>
                                             <constraint firstItem="w62-fq-kHs" firstAttribute="centerX" secondItem="eq0-PQ-FVk" secondAttribute="centerX" id="kcb-tN-kvz"/>
-                                            <constraint firstAttribute="trailing" secondItem="w62-fq-kHs" secondAttribute="trailing" priority="751" constant="16" id="mIK-zu-CGY"/>
+                                            <constraint firstAttribute="trailing" secondItem="w62-fq-kHs" secondAttribute="trailing" priority="751" constant="8" id="mIK-zu-CGY"/>
                                             <constraint firstItem="w62-fq-kHs" firstAttribute="top" secondItem="eq0-PQ-FVk" secondAttribute="top" constant="16" id="ukM-zo-ozV"/>
-                                            <constraint firstItem="w62-fq-kHs" firstAttribute="leading" secondItem="eq0-PQ-FVk" secondAttribute="leading" priority="751" constant="16" id="yus-71-TuQ"/>
+                                            <constraint firstItem="w62-fq-kHs" firstAttribute="leading" secondItem="eq0-PQ-FVk" secondAttribute="leading" priority="751" constant="8" id="yus-71-TuQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8p-VR-Kbw" userLabel="History View">
@@ -382,12 +382,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="k8p-VR-Kbw" firstAttribute="top" secondItem="eq0-PQ-FVk" secondAttribute="bottom" id="0wl-hw-UBk"/>
                                     <constraint firstItem="eq0-PQ-FVk" firstAttribute="leading" secondItem="Kco-Y3-X0I" secondAttribute="leading" id="1Ej-56-9mM"/>
                                     <constraint firstAttribute="trailing" secondItem="eq0-PQ-FVk" secondAttribute="trailing" id="GJ3-4b-m4x"/>
                                     <constraint firstAttribute="bottom" secondItem="k8p-VR-Kbw" secondAttribute="bottom" id="KIU-Wb-zTW"/>
                                     <constraint firstAttribute="trailing" secondItem="k8p-VR-Kbw" secondAttribute="trailing" id="Lez-wW-5C5"/>
                                     <constraint firstItem="k8p-VR-Kbw" firstAttribute="leading" secondItem="Kco-Y3-X0I" secondAttribute="leading" id="NcY-vF-1xc"/>
+                                    <constraint firstItem="k8p-VR-Kbw" firstAttribute="top" secondItem="Kco-Y3-X0I" secondAttribute="top" priority="750" constant="168" id="YNy-2y-KFe"/>
                                     <constraint firstItem="eq0-PQ-FVk" firstAttribute="top" secondItem="Kco-Y3-X0I" secondAttribute="top" id="d8O-SJ-q25"/>
                                     <constraint firstItem="eq0-PQ-FVk" firstAttribute="centerX" secondItem="Kco-Y3-X0I" secondAttribute="centerX" id="sCP-Gm-trT"/>
                                 </constraints>
@@ -416,8 +416,8 @@
                         <outlet property="historyLoadingIndicator" destination="XqB-A4-Pgc" id="T02-ES-PSw"/>
                         <outlet property="loginButton" destination="rBa-wQ-MY0" id="8EB-yA-Efu"/>
                         <outlet property="loginView" destination="Q4r-yJ-awo" id="T7s-q5-wLs"/>
-                        <outlet property="reminderHeightConstraint" destination="1je-8p-IVs" id="6zd-Xz-DPL"/>
                         <outlet property="reminderView" destination="eq0-PQ-FVk" id="jdM-91-Nnx"/>
+                        <outlet property="reminderViewDisplayConstraint" destination="YNy-2y-KFe" id="duX-6c-Izt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u92-r5-jXJ" sceneMemberID="firstResponder"/>
