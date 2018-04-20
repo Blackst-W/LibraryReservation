@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SeatCurrentReservationView" customModule="LibraryReservation" customModuleProvider="target">
             <connections>
                 <outlet property="cancelEffectView" destination="Z1D-xl-u2l" id="3Id-Y1-kZy"/>
+                <outlet property="cancelLabel" destination="5jY-j8-c71" id="7bX-Mx-ZZh"/>
                 <outlet property="floorLabel" destination="uda-OW-8gj" id="vgA-cx-ShC"/>
                 <outlet property="libraryLabel" destination="QGk-gE-F1a" id="J66-LI-Agp"/>
                 <outlet property="roomLabel" destination="e6Q-9v-BsS" id="qb9-eK-5J4"/>

@@ -37,7 +37,6 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         account = AccountManager.shared.currentAccount
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountChanged(notification:)), name: .AccountChanged, object: nil)
         load()
-        delegate?.update(reservations: reservations)
     }
     
     

@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum Library: String {
-    case main = "总馆"
-    case engineering = "工学分馆"
-    case info = "信息科学分馆"
-    case medicine = "医学分馆"
-}
-
 struct SeatLocation {
     let floor: Int
     let library: Library
@@ -108,6 +101,7 @@ enum SeatCurrentReservationState {
     case ongoing(left: Int)
     case tempAway(remain: Int)
     case late(remain: Int)
+    case autoEnd(`in`: Int)
     
     var localizedState: String {
         switch self {
@@ -119,6 +113,8 @@ enum SeatCurrentReservationState {
             return "Temp Away"
         case .late(_):
             return "Lated"
+        case .autoEnd(_):
+            return "Auto End"
         }
     }
     
@@ -199,13 +195,13 @@ struct SeatHistoryReservation: Codable {
     
     var begin: Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(rawBegin)")!
     }
     
     var end: Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(rawEnd)")!
     }
     
@@ -214,7 +210,7 @@ struct SeatHistoryReservation: Codable {
             return nil
         }
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(beginTime)")
     }
     
@@ -223,7 +219,7 @@ struct SeatHistoryReservation: Codable {
             return nil
         }
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(endTime)")
     }
     
@@ -316,13 +312,13 @@ struct SeatCurrentReservation: Codable {
     
     var begin: Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(rawBegin)")!
     }
     
     var end: Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(rawEnd)")!
     }
     
@@ -331,7 +327,7 @@ struct SeatCurrentReservation: Codable {
             return nil
         }
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(beginTime)")
     }
     
@@ -340,7 +336,7 @@ struct SeatCurrentReservation: Codable {
             return nil
         }
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(endTime)")
     }
     
@@ -349,7 +345,7 @@ struct SeatCurrentReservation: Codable {
             return nil
         }
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(beginTime)")
     }
     
@@ -397,10 +393,7 @@ struct SeatCurrentReservation: Codable {
     }
     
     /// 距离预约结束的时间
-    var remainTime: Int? {
-        guard isStarted else {
-            return nil
-        }
+    var remainTime: Int {
         let current = Date()
         let time = Int(ceil(current.timeIntervalSince(begin) / 60))
         let timeLeft = duration - time
@@ -444,16 +437,23 @@ struct SeatCurrentReservation: Codable {
     
     var currentState: SeatCurrentReservationState {
         if isLate {
-            return .late(remain: remainLateTime!)
+            let remain = remainLateTime!
+            if remain > remainTime {
+                return .autoEnd(in: remainTime)
+            }
+            return .late(remain: remain)
         }else if !isStarted {
             let current = Date()
             let minutes = Int(ceil(begin.timeIntervalSince(current) / 60))
             return .upcoming(in: minutes)
         }else if isAway {
             let remain = remainAwayTime!
+            if remain > remainTime {
+                return .autoEnd(in: remainTime)
+            }
             return .tempAway(remain: remain)
         }else{
-            return .ongoing(left: remainTime!)
+            return .ongoing(left: remainTime)
         }
     }
     

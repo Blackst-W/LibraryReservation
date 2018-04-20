@@ -211,7 +211,13 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
         if historyLoadingIndicator.isAnimating {
             hideLoginView()
         }
-        return historyManager.validReservations.count
+        let count = historyManager.validReservations.count
+        if count == 0 && AccountManager.isLogin {
+            historyEmptyLabel.isHidden = false
+        }else if count != 0 {
+            historyEmptyLabel.isHidden = true
+        }
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -311,13 +317,9 @@ extension SeatHomepageViewController: SeatCurrentReservationManagerDelegate {
 extension SeatHomepageViewController: SeatHistoryManagerDelegate {
     
     func update(reservations: [SeatHistoryReservation]) {
-        if reservations.isEmpty && AccountManager.isLogin {
-            historyEmptyLabel.isHidden = false
-        }else if !reservations.isEmpty {
-            historyEmptyLabel.isHidden = true
-        }
         collectionView.reloadData()
-        contentScrollView.refreshControl!.perform(#selector(contentScrollView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
+        contentScrollView.refreshControl!.endRefreshing()
+//        contentScrollView.refreshControl!.perform(#selector(contentScrollView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
     }
     
     func loadMore() {
@@ -341,6 +343,7 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
             }
             let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
             viewController.reservation = reservation
+            viewController.previewDelegate = self
             return viewController
         }else{
             return nil
@@ -348,6 +351,23 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let reservationController = viewControllerToCommit as? SeatCurrentReservationDetailTableViewController {
+            reservationController.previewDelegate = nil
+        }
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+}
+
+extension SeatHomepageViewController: SeatReservationPreviewDelegate {
+    func handle(error: Error) {
+        currentReservationView.endCanceling()
+        updateFailed(error: error)
+    }
+    func handle(failedResponse: SeatFailedResponse) {
+        currentReservationView.endCanceling()
+        updateFailed(failedResponse: failedResponse)
+    }
+    func handleStartCancel() {
+        currentReservationView.startCanceling()
     }
 }

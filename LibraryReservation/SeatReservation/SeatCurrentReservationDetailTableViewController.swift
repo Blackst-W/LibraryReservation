@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol SeatReservationPreviewDelegate: class {
+    func handle(error: Error)
+    func handle(failedResponse: SeatFailedResponse)
+    func handleStartCancel()
+}
+
 class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
     var reservation: SeatCurrentReservation!
+    weak var previewDelegate: SeatReservationPreviewDelegate?
     
     @IBOutlet weak var fullLocationLabel: UILabel!
     @IBOutlet weak var libraryLabel: UILabel!
@@ -75,6 +82,8 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             title = "Paused Reservation"
         case .upcoming(_):
             title = "Upcoming Reservation"
+        case .autoEnd(_):
+            title = "Ending Reservation"
         }
         self.title = title
         let cancelTitle = reservation.isStarted ? "Stop Reservation" : "Cancel Reservation"
@@ -107,7 +116,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         case .tempAway(let remain):
             statusTimeLabel.text = "Expire in \(remain)mins"
         case .late(let remain):
-            statusTimeLabel.text = "EXpire in \(remain)mins"
+            statusTimeLabel.text = "Expire in \(remain)mins"
+        case .autoEnd(let remain):
+            statusTimeLabel.text = "Auto End in \(remain)mins"
         }
         dateLabel.text = reservation.rawDate
         let duration = reservation.duration
@@ -148,9 +159,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             UIPasteboard.general.string = self.reservation.fullLocation
         }
         let confirmCancelAction = UIPreviewAction(title: "Confirm", style: .destructive) { (_, viewController) in
-            
-//            self.manager.cancelReservation()
-            NotificationCenter.default.post(name: .SeatReservationCancel, object: nil, userInfo: nil)
+            self.previewDelegate?.handleStartCancel()
+            self.manager.cancelReservation()
+//            NotificationCenter.default.post(name: .SeatReservationCancel, object: nil, userInfo: nil)
         }
         
         let cancelAction = UIPreviewAction(title: "Back", style: .default) { (_, _) in
@@ -228,6 +239,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
 extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservationManagerDelegate {
     func updateFailed(error: Error) {
+        previewDelegate?.handle(error: error)
         refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
@@ -236,6 +248,7 @@ extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservatio
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
+        previewDelegate?.handle(failedResponse: failedResponse)
         refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)

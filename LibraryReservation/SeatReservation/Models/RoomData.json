@@ -1,0 +1,220 @@
+[
+    [
+        {
+            "roomId": 14,
+            "room": "3C创客-双屏电脑（20台）",
+            "floor": 1
+        },
+        {
+            "roomId": 13,
+            "room": "3C创客-电子资源阅览区（20台）",
+            "floor": 1
+        },
+        {
+            "roomId": 4,
+            "room": "3C创客空间",
+            "floor": 1
+        },
+        {
+            "roomId": 5,
+            "room": "创新学习讨论区",
+            "floor": 1
+        },
+        {
+            "roomId": 15,
+            "room": "创新学习-MAC电脑（12台）",
+            "floor": 1
+        },
+        {
+            "roomId": 16,
+            "room": "创新学习-云桌面（42台）",
+            "floor": 1
+        },
+        {
+            "roomId": 7,
+            "room": "东自然科学图书借阅区",
+            "floor": 2
+        },
+        {
+            "roomId": 6,
+            "room": "西自然科学图书借阅区",
+            "floor": 2
+        },
+        {
+            "roomId": 10,
+            "room": "东社会科学图书借阅区",
+            "floor": 3
+        },
+        {
+            "roomId": 12,
+            "room": "自主学习区",
+            "floor": 3
+        },
+        {
+            "roomId": 8,
+            "room": "西社会科学图书借阅区",
+            "floor": 3
+        },
+        {
+            "roomId": 11,
+            "room": "东图书阅览区",
+            "floor": 4
+        },
+        {
+            "roomId": 9,
+            "room": "西图书阅览区",
+            "floor": 4
+        }
+    ],
+    [
+        {
+            "roomId": 19,
+            "room": "201室自科图书借阅区",
+            "floor": 2
+        },
+        {
+            "roomId": 68,
+            "room": "205室电阅云桌面区",
+            "floor": 2
+        },
+        {
+            "roomId": 31,
+            "room": "205室电阅笔记本区",
+            "floor": 2
+        },
+        {
+            "roomId": 29,
+            "room": "二楼走廊",
+            "floor": 2
+        },
+        {
+            "roomId": 32,
+            "room": "301室+东部自科图书借阅区",
+            "floor": 3
+        },
+        {
+            "roomId": 33,
+            "room": "305室+中部自科图书借阅区",
+            "floor": 3
+        },
+        {
+            "roomId": 34,
+            "room": "401室+东部自科图书借阅区",
+            "floor": 4
+        },
+        {
+            "roomId": 35,
+            "room": "405室+中部期刊阅览区",
+            "floor": 4
+        },
+        {
+            "roomId": 37,
+            "room": "501室+东部外文图书借阅区",
+            "floor": 5
+        },
+        {
+            "roomId": 38,
+            "room": "505室+中部自科图书借阅区",
+            "floor": 5
+        }
+    ],
+    [
+        {
+            "roomId": 18,
+            "room": "202中文科技图书借阅A区",
+            "floor": 2
+        },
+        {
+            "roomId": 20,
+            "room": "204教学参考书借阅区",
+            "floor": 2
+        },
+        {
+            "roomId": 21,
+            "room": "302中文科技图书借阅B区",
+            "floor": 3
+        },
+        {
+            "roomId": 23,
+            "room": "305科技期刊阅览区",
+            "floor": 3
+        },
+        {
+            "roomId": 24,
+            "room": "402中文文科图书借阅区",
+            "floor": 4
+        },
+        {
+            "roomId": 26,
+            "room": "502外文图书借阅区",
+            "floor": 5
+        },
+        {
+            "roomId": 27,
+            "room": "506医学人文阅览区",
+            "floor": 5
+        }
+    ],
+    [
+        {
+            "roomId": 39,
+            "room": "A1-座位区",
+            "floor": 1
+        },
+        {
+            "roomId": 62,
+            "room": "A1-沙发区",
+            "floor": 1
+        },
+        {
+            "roomId": 63,
+            "room": "A1-电子阅览室",
+            "floor": 1
+        },
+        {
+            "roomId": 66,
+            "room": "A1-苹果区",
+            "floor": 1
+        },
+        {
+            "roomId": 65,
+            "room": "B1",
+            "floor": 1
+        },
+        {
+            "roomId": 40,
+            "room": "C1自习区",
+            "floor": 1
+        },
+        {
+            "roomId": 51,
+            "room": "A2",
+            "floor": 2
+        },
+        {
+            "roomId": 59,
+            "room": "B2",
+            "floor": 2
+        },
+        {
+            "roomId": 52,
+            "room": "A3",
+            "floor": 3
+        },
+        {
+            "roomId": 56,
+            "room": "B3",
+            "floor": 3
+        },
+        {
+            "roomId": 60,
+            "room": "A4",
+            "floor": 4
+        },
+        {
+            "roomId": 61,
+            "room": "A5",
+            "floor": 5
+        }
+    ]
+]

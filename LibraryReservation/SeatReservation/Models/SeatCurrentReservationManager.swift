@@ -36,6 +36,12 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountChanged(notification:)), name: .AccountChanged, object: nil)
         load()
         startTimer()
+        NotificationCenter.default.addObserver(self, selector: #selector(reservationCanceled), name: .SeatReservationCancel, object: nil)
+    }
+
+    @objc func reservationCanceled() {
+        delete()
+        delegate?.update(reservation: nil)
     }
     
     func startTimer() {
@@ -62,7 +68,6 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
     func delete() {
         delete(filePath: SeatCurrentReservationManager.kFilePath)
         reservation = nil
-        delegate?.update(reservation: nil)
     }
     
     func load() {
@@ -101,6 +106,7 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
             let reservation = reservation
         else {
             //Not login or Not resercation
+            delete()
             return
         }
         let encoder = JSONEncoder()
@@ -150,6 +156,7 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
                     if failedResponse.code == "0" {
                         DispatchQueue.main.async {
                             self.reservation = nil
+                            self.delete()
                             self.delegate?.update(reservation: nil)
                         }
                     }else{

@@ -19,6 +19,7 @@ class SeatCurrentReservationView: UIView {
     @IBOutlet weak var stateTimeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var cancelLabel: UILabel!
     @IBOutlet weak var cancelEffectView: UIVisualEffectView!
     /*
     // Only override draw() if you perform custom drawing.
@@ -70,10 +71,13 @@ class SeatCurrentReservationView: UIView {
             stateTimeLabel.text = "Expire in \(remain)mins"
         case .late(let remain):
             stateTimeLabel.text = "EXpire in \(remain)mins"
+        case .autoEnd(let remain):
+            stateTimeLabel.text = "Auto End in \(remain)mins"
         }
     }
     
     @objc func showCancelEffect() {
+        cancelLabel.text = "Canceled"
         showingCancelEffect = true
         cancelEffectView.isHidden = false
         cancelEffectView.alpha = 0
@@ -91,5 +95,30 @@ class SeatCurrentReservationView: UIView {
             self.cancelEffectView.isHidden = true
             self.showingCancelEffect = false
         }
+        animator.startAnimation()
     }
+    
+    func startCanceling() {
+        cancelLabel.text = "Canceling..."
+        showingCancelEffect = true
+        cancelEffectView.isHidden = false
+        cancelEffectView.alpha = 0
+        let animator = UIViewPropertyAnimator(duration: 1, curve: .easeOut) {
+            self.cancelEffectView.alpha = 1
+        }
+        animator.startAnimation()
+        
+    }
+    
+    func endCanceling() {
+        let animator = UIViewPropertyAnimator(duration: 1, curve: .easeOut) {
+            self.cancelEffectView.alpha = 0
+        }
+        animator.addCompletion { (_) in
+            self.cancelEffectView.isHidden = true
+            self.showingCancelEffect = false
+        }
+        animator.startAnimation()
+    }
+    
 }
