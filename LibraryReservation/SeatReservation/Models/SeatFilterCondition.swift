@@ -9,8 +9,6 @@
 import UIKit
 
 struct SeatFilterCondition: Equatable {
-    private(set) var begin: Date?
-    private(set) var end: Date?
     var needPower: Bool
     var needWindow: Bool
     var needComputer: Bool
@@ -30,23 +28,8 @@ struct SeatFilterCondition: Equatable {
         needPower = false
     }
     
-    mutating func time(begin: Date, end: Date) {
-        guard end > begin else {
-            return
-        }
-        self.begin = begin
-        self.end = end
-    }
-    
-    mutating func cleanTime() {
-        begin = nil
-        end = nil
-    }
-    
     public static func == (lhs: SeatFilterCondition, rhs: SeatFilterCondition) -> Bool {
-        guard lhs.begin == rhs.begin,
-            lhs.end == rhs.end,
-            lhs.needComputer == rhs.needComputer,
+        guard lhs.needComputer == rhs.needComputer,
             lhs.needPower == rhs.needPower,
             lhs.needWindow == rhs.needWindow else {
                 return false
@@ -55,7 +38,7 @@ struct SeatFilterCondition: Equatable {
     }
     
     func fullfill(seat: Seat) -> Bool {
-        guard isEnabled else {return false}
+        guard isEnabled else {return true}
         if needComputer && !seat.hasComputer {
             return false
         }

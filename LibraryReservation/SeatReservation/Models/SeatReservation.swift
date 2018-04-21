@@ -93,7 +93,6 @@ struct SeatLocation {
         }
         seat = seatNo
     }
-    
 }
 
 enum SeatCurrentReservationState {
@@ -117,7 +116,6 @@ enum SeatCurrentReservationState {
             return "Auto End"
         }
     }
-    
 }
 
 enum SeatReservationState: String {

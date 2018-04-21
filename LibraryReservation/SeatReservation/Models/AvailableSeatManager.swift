@@ -92,7 +92,7 @@ class AvailableSeatManager: SeatBaseNetworkManager {
         task.resume()
     }
     
-    func check(library: Library, room: Room, date: Date, start: Date, end: Date) {
+    func check(library: Library, room: Room, date: Date, start: SeatTime, end: SeatTime) {
         guard let token = AccountManager.shared.currentAccount?.token else {
             delegate?.requireLogin()
             return
@@ -100,12 +100,7 @@ class AvailableSeatManager: SeatBaseNetworkManager {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
-        let calender = Calendar.current
-        let startHour = calender.component(.hour, from: start)
-        let startMin = calender.component(.minute, from: start)
-        let endHour = calender.component(.hour, from: end)
-        let endMin = calender.component(.minute, from: end)
-        let searchURL = URL(string: "v2/searchSeats/\(dateString)/\(startHour*60+startMin)/\(endHour*60+endMin)", relativeTo: SeatAPIURL)!
+        let searchURL = URL(string: "v2/searchSeats/\(dateString)/\(start.id)/\(end.id)", relativeTo: SeatAPIURL)!
         var searchRequest = URLRequest(url: searchURL)
         searchRequest.httpMethod = "POST"
         searchRequest.addValue(token, forHTTPHeaderField: "token")

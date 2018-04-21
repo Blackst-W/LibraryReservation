@@ -164,6 +164,17 @@ class SeatHomepageViewController: UIViewController {
         }
     }
     
+    @IBAction func newReservation(_ sender: Any) {
+        guard AccountManager.isLogin else {
+            autoLogin(delegate: self, force: true)
+            return
+        }
+        let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
+        let naviController = storyboard.instantiateViewController(withIdentifier: "SeatReservationNaviViewController") as! UINavigationController
+        present(naviController, animated: true, completion: nil)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

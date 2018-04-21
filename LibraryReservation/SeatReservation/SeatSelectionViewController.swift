@@ -20,8 +20,6 @@ class SeatSelectionViewController: UIViewController {
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var filterBarButton: UIBarButtonItem!
-    
     @IBOutlet weak var computerControl: UIControl!
     @IBOutlet weak var computerLabel: UILabel!
     @IBOutlet weak var computerImageView: UIImageView!
@@ -69,15 +67,7 @@ class SeatSelectionViewController: UIViewController {
     }
     
     weak var delegate: SeatSelectionViewDelegate?
-    var filter = SeatFilterCondition() {
-        didSet {
-            if filter != SeatFilterCondition() {
-                filterBarButton.title = "Filter(on)"
-            }else{
-                filterBarButton.title = "Filter"
-            }
-        }
-    }
+    var filter = SeatFilterCondition()
     
     var startTimes = [SeatTime]()
     var endTimes = [SeatTime]()
@@ -97,6 +87,7 @@ class SeatSelectionViewController: UIViewController {
         startLoading()
         timePickerView.delegate = self
         timePickerView.dataSource = self
+        setupFilter()
         // Do any additional setup after loading the view.
     }
 
@@ -117,26 +108,12 @@ class SeatSelectionViewController: UIViewController {
     
     @IBAction func refresh(_ sender: Any) {
         if indicatorView.isAnimating {return}
-        if filter.begin != nil {
-            manager.check(library: library, room: room, date: date, start: filter.begin!, end: filter.end!)
+        if let start = timeFilterStart, let end = timeFilterEnd {
+            manager.check(library: library, room: room, date: date, start: start, end: end)
+        }else{
+            manager.check(room: room, date: date)
         }
-        manager.check(room: room, date: date)
         startLoading()
-    }
-    
-    @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func presentFilter(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
-        let naviController = storyboard.instantiateViewController(withIdentifier: "SeatFilterNaviController") as! UINavigationController
-        let filterViewController = naviController.viewControllers.first! as! SeatFilterController
-        naviController.modalPresentationStyle = .formSheet
-        filterViewController.filter = filter
-        filterViewController.date = date
-        filterViewController.delegate = self
-        present(naviController, animated: true, completion: nil)
     }
     
     @IBAction func toggleComputer(_ sender: Any) {
@@ -228,6 +205,73 @@ class SeatSelectionViewController: UIViewController {
         seatTimeManager.reserve(seat: selectedSeat!, date: date, start: start, end: end)
     }
     
+    // MARK: Time Filter
+    @IBOutlet weak var changeTimeFilterButton: UIButton!
+    @IBOutlet weak var cleanTimeFilterButton: UIButton!
+    @IBOutlet weak var timeFilterLabel: UILabel!
+    @IBOutlet weak var timeFilterPickerView: UIPickerView!
+    @IBOutlet weak var timeFilterPickerHeightConstraint: NSLayoutConstraint!
+    var isTimeFilterDisplay = false {
+        didSet {
+            if isTimeFilterDisplay {
+                timeFilterPickerView.isHidden = false
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+                    self.timeFilterPickerHeightConstraint.constant = 92
+                    self.timeFilterPickerView.alpha = 1
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            }else{
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+                    self.timeFilterPickerHeightConstraint.constant = 8
+                    self.timeFilterPickerView.alpha = 0
+                    self.view.layoutIfNeeded()
+                }) {(_) in
+                    self.timeFilterPickerView.isHidden = true
+                }
+            }
+        }
+    }
+    var timeFiltedSeats: [Seat]?
+    var timeFilterManager: SeatTimeFilter!
+    var timeFilterStart: SeatTime?
+    var timeFilterEnd: SeatTime?
+    
+    func setupFilter() {
+        timeFilterManager = SeatTimeFilter(pickerView: timeFilterPickerView, delegate: self)
+    }
+    
+    @IBAction func toggleTimeFilter(_ sender: Any) {
+        isTimeFilterDisplay = !isTimeFilterDisplay
+        if isTimeFilterDisplay {
+            //setting time filter
+            cleanTimeFilterButton.isEnabled = true
+            changeTimeFilterButton.setTitle("Save", for: .normal)
+            timeFilterLabel.text = "08:00 - 08:30"
+        }else{
+            //save time filter
+            changeTimeFilterButton.setTitle("Change", for: .normal)
+            let (start, end) = timeFilterManager.selectedTimes
+            startLoading()
+            timeFilterStart = start
+            timeFilterEnd = end
+            manager.check(library: library, room: room, date: date, start: start, end: end)
+        }
+    }
+    
+    @IBAction func cleanTimeFilter(_ sender: Any) {
+        if isTimeFilterDisplay == true {
+            isTimeFilterDisplay = false
+        }
+        cleanTimeFilterButton.isEnabled = false
+        changeTimeFilterButton.setTitle("Change", for: .normal)
+        timeFiltedSeats = nil
+        timeFilterLabel.text = "--:-- - --:--"
+        timeFilterManager.reset()
+        timeFilterStart = nil
+        timeFilterEnd = nil
+        reloadData()
+    }
+    
     deinit {
         print("Seat Selection View Controller Destroyed")
     }
@@ -265,12 +309,29 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     
     func reloadData() {
         guard let layoutData = self.layoutData else {return}
-        let needFilter = filter.isEnabled
+        
         for seat in layoutData.seats {
             let seatView = layoutView.viewWithTag(seat.id) as! SeatCollectionView
-            seatView.update(seat: seat)
-            if needFilter && filter.fullfill(seat: seat) {
-                seatView.hightlight()
+            seatView.reset()
+        }
+        
+        let needFilter = filter.isEnabled
+        if let timeFiltedSeats = timeFiltedSeats {
+            //Time Filter Enabled
+            for seat in timeFiltedSeats {
+                let seatView = layoutView.viewWithTag(seat.id) as! SeatCollectionView
+                if filter.fullfill(seat: seat) {
+                    seatView.hightlight()
+                }
+            }
+        }else{
+            //Time Filter Disabled
+            if !needFilter {return}
+            for seat in layoutData.seats {
+                let seatView = layoutView.viewWithTag(seat.id) as! SeatCollectionView
+                if filter.fullfill(seat: seat) {
+                    seatView.hightlight()
+                }
             }
         }
     }
@@ -310,6 +371,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
                 seatView.reset()
             }
         }
+        timeFiltedSeats = seats
         for seat in seats {
             guard filter.fullfill(seat: seat) else {continue}
             if let seatView = layoutView.viewWithTag(seat.id) as? SeatCollectionView {
@@ -338,6 +400,9 @@ extension SeatSelectionViewController: SeatTimeDelegate {
     func reserveSuccess() {
         reserveButton.setTitle("Success", for: .disabled)
         reserveButton.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
@@ -358,29 +423,6 @@ extension SeatSelectionViewController: LoginViewDelegate {
 extension SeatSelectionViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return layoutView
-    }
-}
-
-extension SeatSelectionViewController: SeatFilterViewDelegate {
-    func update(filter: SeatFilterCondition) {
-        if filter.needPower != self.filter.needPower {
-            togglePower(self)
-        }
-        if filter.needWindow != self.filter.needWindow {
-            toggleWindow(self)
-        }
-        if filter.needComputer != self.filter.needComputer {
-            toggleComputer(self)
-        }
-        
-        
-        self.filter = filter
-        startLoading()
-        if filter.begin != nil {
-            manager.check(library: library, room: room, date: date, start: filter.begin!, end: filter.end!)
-        }else{
-            manager.check(room: room, date: date)
-        }
     }
 }
 
@@ -405,5 +447,10 @@ extension SeatSelectionViewController: UIPickerViewDelegate {
             pickerView.reloadComponent(1)
         }
     }
-    
+}
+
+extension SeatSelectionViewController: SeatTimeFilterDelegate {
+    func pickerUpdate(start: SeatTime, end: SeatTime) {
+        timeFilterLabel.text = start.value + " - " + end.value
+    }
 }

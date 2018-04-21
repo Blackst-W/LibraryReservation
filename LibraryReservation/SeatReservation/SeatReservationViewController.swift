@@ -66,6 +66,9 @@ class SeatReservationViewController: UIViewController {
         if calender.component(.hour, from: date) >= 22 || (calender.component(.hour, from: date) == 21 && calender.component(.minute, from: date) >= 30) {
             date = date.addingTimeInterval(4 * 60 * 60)
         }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        title = dateFormatter.string(from: date)
         roomTableView.dataSource = self
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
@@ -135,26 +138,21 @@ class SeatReservationViewController: UIViewController {
     
     @IBAction func chooseSeat(_ sender: Any) {
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
-        let naviController = storyboard.instantiateViewController(withIdentifier: "SeatLayoutNavigationController") as! UINavigationController
-        let layoutViewController = naviController.viewControllers.first as! SeatSelectionViewController
+        let layoutViewController = storyboard.instantiateViewController(withIdentifier: "SeatLayoutController") as! SeatSelectionViewController
+        layoutViewController.title = selectedRoom!.name
         layoutViewController.library = selectedLibrary!
         layoutViewController.room = selectedRoom!
         layoutViewController.date = date
-        
-        present(naviController, animated: true, completion: nil)
+        navigationController?.pushViewController(layoutViewController, animated: true)
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func cancelReservation(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
-    */
-
+    
+    deinit {
+        print("Seat Reservaton View Controller Destroy")
+    }
 }
 
 extension SeatReservationViewController: UITableViewDataSource {
