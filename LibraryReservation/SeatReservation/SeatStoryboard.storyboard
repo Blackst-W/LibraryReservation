@@ -2024,11 +2024,6 @@
                             <constraint firstItem="AQS-ur-yko" firstAttribute="leading" secondItem="RrT-ww-ukM" secondAttribute="leading" id="zLx-mk-Gx2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RrT-ww-ukM"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="JS3-qp-Ytj"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Room Name" id="ySV-vQ-Cff">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="zMN-IC-OmC">
