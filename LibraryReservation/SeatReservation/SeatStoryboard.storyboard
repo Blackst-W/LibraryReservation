@@ -1816,7 +1816,7 @@
                                             <constraint firstAttribute="height" constant="44" id="Xq9-I4-3yz"/>
                                         </constraints>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cG2-Gu-bW7" userLabel="Time Filter View">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cG2-Gu-bW7" userLabel="Time Filter View">
                                         <rect key="frame" x="0.0" y="52" width="304" height="44"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:-- - --:--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7A-Nu-97J">
