@@ -66,7 +66,7 @@ class SeatLibraryView: UIStackView {
     }
     
     @objc func onButtonClick(_ sender: UIButton) {
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
+        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
         if self.isSelected {
             //deselect
             sender.setTitleColor(#colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1), for: .normal)

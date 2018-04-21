@@ -21,8 +21,6 @@ struct SeatHistoryArchive: Codable {
 class SeatHistoryManager: SeatBaseNetworkManager {
     
     private static let kFilePath = "SeatHistory.archive"
-    
-    var account: UserAccount?
     var reservations: [SeatHistoryReservation] = []
     var validReservations: [SeatHistoryReservation] {
         return reservations.filter{ return $0.isHistory && $0.state != .cancel }
@@ -34,7 +32,6 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     init(delegate: SeatHistoryManagerDelegate?) {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.history"))
         self.delegate = delegate
-        account = AccountManager.shared.currentAccount
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountChanged(notification:)), name: .AccountChanged, object: nil)
         load()
     }
@@ -47,7 +44,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     }
     
     func load() {
-        guard let username = account?.username else {
+        guard let username = AccountManager.shared.currentAccount?.username else {
             delete()
             return
         }
@@ -70,7 +67,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     }
     
     func save() {
-        guard let username = account?.username else {
+        guard let username = AccountManager.shared.currentAccount?.username else {
             //Not login
             return
         }
@@ -90,7 +87,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     }
     
     func update(page: Int = 1) {
-        guard let account = account,
+        guard let account = AccountManager.shared.currentAccount,
         let token = account.token
             else {
             //Require Login
@@ -171,11 +168,10 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     }
     
     @objc func handleAccountChanged(notification: Notification) {
-        account = AccountManager.shared.currentAccount
-        if account == nil {
-            delete()
-        }else{
+        if AccountManager.isLogin {
             update()
+        }else{
+            delete()
         }
     }
 }
@@ -185,8 +181,7 @@ extension SeatHistoryManager: LoginViewDelegate {
         switch result {
         case .cancel:
             return
-        case .success(let account):
-            self.account = account
+        case .success(_):
             update()
         }
     }

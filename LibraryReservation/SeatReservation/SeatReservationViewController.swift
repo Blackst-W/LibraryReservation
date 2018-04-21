@@ -14,6 +14,11 @@ class SeatReservationViewController: UIViewController {
     @IBOutlet weak var roomTableView: UITableView!
     @IBOutlet weak var roomTableViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var chooseSeatButton: UIButton!
+    @IBOutlet weak var seatView: UIView!
+    
+    var date: Date!
+    
     var selectedLibrary: Library? {
         didSet {
             if let library = selectedLibrary {
@@ -30,18 +35,37 @@ class SeatReservationViewController: UIViewController {
     var selectedRoom: Room? {
         didSet {
             if let _ = selectedRoom {
-                
+                showSeatView()
+                chooseSeat(self)
             }else{
-                
+                hideSeatView()
+            }
+            selectedSeat = nil
+        }
+    }
+    
+    var selectedSeat: Seat? {
+        didSet {
+            if selectedSeat == nil {
+                beginDate = nil
+                endDate = nil
             }
         }
     }
+    
+    var beginDate: Date?
+    var endDate: Date?
     
     var libraryData = LibraryData()
     var roomData: [Room] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        date = Date()
+        let calender = Calendar.current
+        if calender.component(.hour, from: date) >= 22 || (calender.component(.hour, from: date) == 21 && calender.component(.minute, from: date) >= 30) {
+            date = date.addingTimeInterval(4 * 60 * 60)
+        }
         roomTableView.dataSource = self
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
@@ -53,11 +77,25 @@ class SeatReservationViewController: UIViewController {
         let numberOfRow = CGFloat(tableView(roomTableView, numberOfRowsInSection: 0))
         let cellHeight = tableView(roomTableView, heightForRowAt: IndexPath(row: 0, section: 0))
         let contentHeight = height ?? numberOfRow * cellHeight
-        UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
+        UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             self.roomTableViewHeightConstraint.constant = contentHeight
             self.view.layoutIfNeeded()
         }.startAnimation()
-        
+    }
+    
+    func showSeatView() {
+        chooseSeatButton.isUserInteractionEnabled = true
+        UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+            self.seatView.alpha = 1
+        }.startAnimation()
+    }
+    
+    func hideSeatView() {
+        chooseSeatButton.isUserInteractionEnabled = false
+        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
+            self.seatView.alpha = 0
+            }
+        animator.startAnimation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,7 +132,19 @@ class SeatReservationViewController: UIViewController {
         }
         resizeRoomTableView()
     }
-
+    
+    @IBAction func chooseSeat(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
+        let naviController = storyboard.instantiateViewController(withIdentifier: "SeatLayoutNavigationController") as! UINavigationController
+        let layoutViewController = naviController.viewControllers.first as! SeatSelectionViewController
+        layoutViewController.library = selectedLibrary!
+        layoutViewController.room = selectedRoom!
+        layoutViewController.date = date
+        
+        present(naviController, animated: true, completion: nil)
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -155,5 +205,6 @@ extension SeatReservationViewController: SeatLibraryViewDelegate {
     func select(library: Library?) {
         selectedLibrary = library
     }
-
 }
+
+//extension SeatReservationViewController:

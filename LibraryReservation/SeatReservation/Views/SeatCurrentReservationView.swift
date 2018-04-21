@@ -70,7 +70,7 @@ class SeatCurrentReservationView: UIView {
         case .tempAway(let remain):
             stateTimeLabel.text = "Expire in \(remain)mins"
         case .late(let remain):
-            stateTimeLabel.text = "EXpire in \(remain)mins"
+            stateTimeLabel.text = "Expire in \(remain)mins"
         case .autoEnd(let remain):
             stateTimeLabel.text = "Auto End in \(remain)mins"
         }

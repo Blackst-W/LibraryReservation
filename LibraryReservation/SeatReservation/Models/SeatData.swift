@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 enum Library: String {
     case main = "总馆"
@@ -40,6 +41,76 @@ struct Room: Codable {
         case floor
         case availableSeat = "free"
     }
+}
+
+struct SeatLayout: Codable {
+    let col: Int
+    let row: Int
+    
+    init?(key: String) {
+        guard let value = Int(key) else {
+            return nil
+        }
+        row = value / 1000
+        col = value % 1000
+    }
+    
+}
+
+struct Seat: Codable, Equatable {
+    /*
+     "1029": {
+     "id": 8615,
+     "name": "127",
+     "type": "seat",
+     "status": "IN_USE",
+     "window": false,
+     "power": true,
+     "computer": false,
+     "local": false
+     }
+     */
+    let id: Int
+    let name: String
+    let status: String
+    let hasWindow: Bool
+    let hasPower: Bool
+    let hasComputer: Bool
+    let layout: SeatLayout
+    
+    var available: Bool {
+        return status == "FREE" || status == "AWAY" || status == "IN_USE"
+    }
+    
+    var availableNow: Bool {
+        return status == "FREE"
+    }
+    
+    init?(layoutKey: String, json: [String:JSON]) {
+        guard let layout = SeatLayout(key: layoutKey) else {
+            return nil
+        }
+        self.layout = layout
+        guard let id = json["id"]?.int,
+            let name = json["name"]?.string,
+            let status = json["status"]?.string,
+            let window = json["window"]?.bool,
+            let power = json["power"]?.bool,
+            let computer = json["computer"]?.bool else {
+            return nil
+        }
+        self.id = id
+        self.name = name
+        self.status = status
+        hasWindow = window
+        hasPower = power
+        hasComputer = computer
+    }
+    
+    public static func==(lhs: Seat, rhs: Seat) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
 }
 
 class LibraryData: NSObject {

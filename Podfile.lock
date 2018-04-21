@@ -1,16 +1,20 @@
 PODS:
   - Reveal-SDK (14)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Reveal-SDK
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Reveal-SDK
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Reveal-SDK: 55b5c5545233b680c2f8da734f202acc15d422b7
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 4ccfa5b94de3cc8573bf8a4e3510613fa3ebb5d4
+PODFILE CHECKSUM: 0cb54d92b5cd70b159f99af61f8e1ee2fbcedbf6
 
 COCOAPODS: 1.5.0

@@ -55,6 +55,7 @@ class SeatHomepageViewController: UIViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: currentReservationView)
         }
+        reservationManager.update()
     }
     
     @objc func refreshStateChanged() {

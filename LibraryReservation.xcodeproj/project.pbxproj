@@ -12,7 +12,6 @@
 		AB39AE29FFB2E81F2E54083E /* Pods_LibraryReservationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */; };
 		AD4B3B082084F5DA00010B47 /* SeatBaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B072084F5DA00010B47 /* SeatBaseResponse.swift */; };
 		AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0A2084F69600010B47 /* SeatReservation.swift */; };
-		AD4B3B0D2084F70000010B47 /* SeatHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */; };
 		AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */; };
 		AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B122084F7FB00010B47 /* Utilities.swift */; };
 		AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B142084F84D00010B47 /* AccountManager.swift */; };
@@ -21,10 +20,15 @@
 		AD4D114820878BC20073AAA8 /* SeatCurrentReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114720878BC20073AAA8 /* SeatCurrentReservationManager.swift */; };
 		AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114920878C0A0073AAA8 /* SeatCurrentReservationView.swift */; };
 		AD4D114C20878C720073AAA8 /* SeatCurrentReservationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD4D114B20878C720073AAA8 /* SeatCurrentReservationView.xib */; };
-		AD4D114E2087A3390073AAA8 /* SeatCurrentReservationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114D2087A3390073AAA8 /* SeatCurrentReservationResponse.swift */; };
 		AD4D115020885CF10073AAA8 /* SeatHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */; };
 		AD4D11522088735D0073AAA8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D11512088735D0073AAA8 /* UserInfo.swift */; };
 		AD4D1154208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D1153208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift */; };
+		AD50F2AE208A0C1700A7BD6A /* SeatCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2AD208A0C1700A7BD6A /* SeatCollectionView.swift */; };
+		AD50F2B0208A0C2100A7BD6A /* SeatCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD50F2AF208A0C2100A7BD6A /* SeatCollectionView.xib */; };
+		AD50F2B2208A1A3000A7BD6A /* AvailableSeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2B1208A1A3000A7BD6A /* AvailableSeatManager.swift */; };
+		AD50F2B4208A279300A7BD6A /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2B3208A279300A7BD6A /* SeatSelectionViewController.swift */; };
+		AD50F2B6208A537B00A7BD6A /* SeatFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2B5208A537B00A7BD6A /* SeatFilterCondition.swift */; };
+		AD50F2B8208A5AA400A7BD6A /* SeatFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2B7208A5AA400A7BD6A /* SeatFilterController.swift */; };
 		AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433BC208487FB005AAF11 /* AppDelegate.swift */; };
 		AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C2208487FB005AAF11 /* Main.storyboard */; };
 		AD7433C6208487FC005AAF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C5208487FC005AAF11 /* Assets.xcassets */; };
@@ -37,6 +41,8 @@
 		AD95B044208622CB001F6768 /* AccountStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */; };
 		AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B045208622F4001F6768 /* LoginViewController.swift */; };
 		AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B04720863057001F6768 /* UIViewControllerExtension.swift */; };
+		ADB9C96D208B4E8C0086A00E /* SeatTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C96C208B4E8C0086A00E /* SeatTimeManager.swift */; };
+		ADB9C96F208BB99B0086A00E /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C96E208BB99B0086A00E /* SeatResponse.swift */; };
 		ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */; };
 		ADCB5EDA2084DA3600E0CF5F /* SeatStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */; };
 		ADCB5EDC2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADCB5EDB2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard */; };
@@ -52,7 +58,6 @@
 		ADF367D020891B3700C9379D /* SeatRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF367CF20891B3700C9379D /* SeatRoomTableViewCell.swift */; };
 		ADF675352087698C004E7E25 /* HistoryCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF675342087698C004E7E25 /* HistoryCollectionViewLayout.swift */; };
 		ADF6753720877447004E7E25 /* SeatHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6753620877447004E7E25 /* SeatHistoryDetailViewController.swift */; };
-		ADF6753B20877C74004E7E25 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6753A20877C74004E7E25 /* CopyLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +88,6 @@
 		854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4B3B072084F5DA00010B47 /* SeatBaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatBaseResponse.swift; sourceTree = "<group>"; };
 		AD4B3B0A2084F69600010B47 /* SeatReservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
-		AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryResponse.swift; sourceTree = "<group>"; };
 		AD4B3B0F2084F7B000010B47 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		AD4B3B122084F7FB00010B47 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		AD4B3B142084F84D00010B47 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
@@ -92,10 +96,15 @@
 		AD4D114720878BC20073AAA8 /* SeatCurrentReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationManager.swift; sourceTree = "<group>"; };
 		AD4D114920878C0A0073AAA8 /* SeatCurrentReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationView.swift; sourceTree = "<group>"; };
 		AD4D114B20878C720073AAA8 /* SeatCurrentReservationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeatCurrentReservationView.xib; sourceTree = "<group>"; };
-		AD4D114D2087A3390073AAA8 /* SeatCurrentReservationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationResponse.swift; sourceTree = "<group>"; };
 		AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		AD4D11512088735D0073AAA8 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AD4D1153208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationDetailTableViewController.swift; sourceTree = "<group>"; };
+		AD50F2AD208A0C1700A7BD6A /* SeatCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCollectionView.swift; sourceTree = "<group>"; };
+		AD50F2AF208A0C2100A7BD6A /* SeatCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeatCollectionView.xib; sourceTree = "<group>"; };
+		AD50F2B1208A1A3000A7BD6A /* AvailableSeatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableSeatManager.swift; sourceTree = "<group>"; };
+		AD50F2B3208A279300A7BD6A /* SeatSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatSelectionViewController.swift; sourceTree = "<group>"; };
+		AD50F2B5208A537B00A7BD6A /* SeatFilterCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatFilterCondition.swift; sourceTree = "<group>"; };
+		AD50F2B7208A5AA400A7BD6A /* SeatFilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatFilterController.swift; sourceTree = "<group>"; };
 		AD7433B9208487FB005AAF11 /* LibraryReservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryReservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7433BC208487FB005AAF11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD7433C3208487FB005AAF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +123,8 @@
 		AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountStoryboard.storyboard; sourceTree = "<group>"; };
 		AD95B045208622F4001F6768 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AD95B04720863057001F6768 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		ADB9C96C208B4E8C0086A00E /* SeatTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTimeManager.swift; sourceTree = "<group>"; };
+		ADB9C96E208BB99B0086A00E /* SeatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
 		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
 		ADCB5ED92084DA3600E0CF5F /* SeatStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SeatStoryboard.storyboard; sourceTree = "<group>"; };
 		ADCB5EDB2084DB0F00E0CF5F /* MeetingRoomStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MeetingRoomStoryboard.storyboard; sourceTree = "<group>"; };
@@ -129,7 +140,6 @@
 		ADF367CF20891B3700C9379D /* SeatRoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatRoomTableViewCell.swift; sourceTree = "<group>"; };
 		ADF675342087698C004E7E25 /* HistoryCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewLayout.swift; sourceTree = "<group>"; };
 		ADF6753620877447004E7E25 /* SeatHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryDetailViewController.swift; sourceTree = "<group>"; };
-		ADF6753A20877C74004E7E25 /* CopyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
 		C370A14DBA27B26D3721A70E /* Pods-LibraryReservationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryReservationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibraryReservationTests/Pods-LibraryReservationTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,12 +208,14 @@
 			children = (
 				ADF367C32088FF1900C9379D /* RoomData.json */,
 				AD4B3B0A2084F69600010B47 /* SeatReservation.swift */,
-				AD4B3B0C2084F70000010B47 /* SeatHistoryResponse.swift */,
-				AD4D114D2087A3390073AAA8 /* SeatCurrentReservationResponse.swift */,
 				ADF0A1B12086E00B009F4B66 /* SeatHistoryManager.swift */,
 				AD4D114720878BC20073AAA8 /* SeatCurrentReservationManager.swift */,
 				ADF367C52088FF7F00C9379D /* SeatData.swift */,
 				ADF367C72089049900C9379D /* SeatReservationManager.swift */,
+				AD50F2B1208A1A3000A7BD6A /* AvailableSeatManager.swift */,
+				AD50F2B5208A537B00A7BD6A /* SeatFilterCondition.swift */,
+				ADB9C96C208B4E8C0086A00E /* SeatTimeManager.swift */,
+				ADB9C96E208BB99B0086A00E /* SeatResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				AD4B3B122084F7FB00010B47 /* Utilities.swift */,
-				ADF6753A20877C74004E7E25 /* CopyLabel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -327,6 +338,8 @@
 				ADF6753620877447004E7E25 /* SeatHistoryDetailViewController.swift */,
 				AD4D1153208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift */,
 				ADF367C92089057400C9379D /* SeatReservationViewController.swift */,
+				AD50F2B3208A279300A7BD6A /* SeatSelectionViewController.swift */,
+				AD50F2B7208A5AA400A7BD6A /* SeatFilterController.swift */,
 			);
 			path = SeatReservation;
 			sourceTree = "<group>";
@@ -349,6 +362,8 @@
 				AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */,
 				ADF367CB20890A1700C9379D /* SeatLibraryView.swift */,
 				ADF367CF20891B3700C9379D /* SeatRoomTableViewCell.swift */,
+				AD50F2AD208A0C1700A7BD6A /* SeatCollectionView.swift */,
+				AD50F2AF208A0C2100A7BD6A /* SeatCollectionView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -470,6 +485,7 @@
 				AD95B044208622CB001F6768 /* AccountStoryboard.storyboard in Resources */,
 				AD7433F420848A89005AAF11 /* SettingsStoryboard.storyboard in Resources */,
 				AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */,
+				AD50F2B0208A0C2100A7BD6A /* SeatCollectionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,10 +514,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LibraryReservation/Pods-LibraryReservation-frameworks.sh",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-14/iOS/RevealServer.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -575,10 +593,13 @@
 				ADF6753720877447004E7E25 /* SeatHistoryDetailViewController.swift in Sources */,
 				AD4B3B0B2084F69600010B47 /* SeatReservation.swift in Sources */,
 				AD4D1154208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift in Sources */,
+				AD50F2B4208A279300A7BD6A /* SeatSelectionViewController.swift in Sources */,
 				AD95B0422085C89B001F6768 /* SeatNetworkBaseManager.swift in Sources */,
 				AD4D115020885CF10073AAA8 /* SeatHistoryTableViewCell.swift in Sources */,
 				AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */,
+				AD50F2AE208A0C1700A7BD6A /* SeatCollectionView.swift in Sources */,
 				AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */,
+				AD50F2B8208A5AA400A7BD6A /* SeatFilterController.swift in Sources */,
 				AD4D114820878BC20073AAA8 /* SeatCurrentReservationManager.swift in Sources */,
 				AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */,
 				ADF367C82089049900C9379D /* SeatReservationManager.swift in Sources */,
@@ -587,15 +608,16 @@
 				ADF367C62088FF7F00C9379D /* SeatData.swift in Sources */,
 				ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
-				AD4D114E2087A3390073AAA8 /* SeatCurrentReservationResponse.swift in Sources */,
-				ADF6753B20877C74004E7E25 /* CopyLabel.swift in Sources */,
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
-				AD4B3B0D2084F70000010B47 /* SeatHistoryResponse.swift in Sources */,
+				ADB9C96F208BB99B0086A00E /* SeatResponse.swift in Sources */,
+				ADB9C96D208B4E8C0086A00E /* SeatTimeManager.swift in Sources */,
 				AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */,
 				ADF0A1B72087449F009F4B66 /* SeatHistoryCollectionViewCell.swift in Sources */,
 				ADF0A1B22086E00B009F4B66 /* SeatHistoryManager.swift in Sources */,
 				ADF675352087698C004E7E25 /* HistoryCollectionViewLayout.swift in Sources */,
 				AD4B3B192084FA4200010B47 /* Settings.swift in Sources */,
+				AD50F2B6208A537B00A7BD6A /* SeatFilterCondition.swift in Sources */,
+				AD50F2B2208A1A3000A7BD6A /* AvailableSeatManager.swift in Sources */,
 				AD4B3B082084F5DA00010B47 /* SeatBaseResponse.swift in Sources */,
 				ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */,
 				AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */,
@@ -777,7 +799,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -797,7 +819,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
