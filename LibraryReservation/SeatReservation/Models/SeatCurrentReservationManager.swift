@@ -126,6 +126,7 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
         let reservationURL = URL(string: "v2/user/reservations", relativeTo: SeatAPIURL)!
         var reservationRequest = URLRequest(url: reservationURL)
         reservationRequest.httpMethod = "GET"
+        reservationRequest.allHTTPHeaderFields? = CommonHeader
         reservationRequest.addValue(token, forHTTPHeaderField: "token")
         let reservationTask = session.dataTask(with: reservationRequest) { data, response, error in
             if let error = error {
@@ -210,6 +211,7 @@ class SeatCurrentReservationManager: SeatBaseNetworkManager {
         let cancelURL = URL(string: "v2/cancel/\(reservationID)", relativeTo: SeatAPIURL)!
         var cancelRequest = URLRequest(url: cancelURL)
         cancelRequest.httpMethod = "GET"
+        cancelRequest.allHTTPHeaderFields? = CommonHeader
         cancelRequest.addValue(token, forHTTPHeaderField: "token")
         let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
             if let error = error {

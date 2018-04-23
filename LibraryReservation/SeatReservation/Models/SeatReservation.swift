@@ -437,7 +437,7 @@ struct SeatCurrentReservation: Codable {
         if isLate {
             let remain = remainLateTime!
             if remain > remainTime {
-                return .autoEnd(in: remainTime)
+                return .late(remain: remainTime)
             }
             return .late(remain: remain)
         }else if !isStarted {

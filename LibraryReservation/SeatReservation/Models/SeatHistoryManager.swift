@@ -99,6 +99,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         
         var historyRequest = URLRequest(url: historyURL)
         historyRequest.httpMethod = "GET"
+        historyRequest.allHTTPHeaderFields? = CommonHeader
         historyRequest.addValue(token, forHTTPHeaderField: "token")
         let historyTask = session.dataTask(with: historyRequest) { data, response, error in
             if let error = error {

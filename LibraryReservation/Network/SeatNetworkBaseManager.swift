@@ -60,6 +60,7 @@ class SeatBaseNetworkManager: NSObject {
         let loginQuery = "username=\(username)&password=\(password)"
         let loginURL = URL(string: "auth?\(loginQuery)", relativeTo: SeatAPIURL)!
         var loginRequest = URLRequest(url: loginURL)
+        loginRequest.allHTTPHeaderFields = CommonHeader
         loginRequest.httpMethod = "GET"
         let loginTask = session.dataTask(with: loginRequest) { data, response, error in
             if let error = error {

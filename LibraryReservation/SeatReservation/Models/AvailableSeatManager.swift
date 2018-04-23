@@ -38,6 +38,7 @@ class AvailableSeatManager: SeatBaseNetworkManager {
         let layoutURL = URL(string: "v2/room/layoutByDate/\(room.id)/\(dateString)", relativeTo: SeatAPIURL)!
         var layoutRequest = URLRequest(url: layoutURL)
         layoutRequest.httpMethod = "GET"
+        layoutRequest.allHTTPHeaderFields? = CommonHeader
         layoutRequest.addValue(token, forHTTPHeaderField: "token")
         let task = session.dataTask(with: layoutRequest) { (data, response, error) in
             if let error = error {
@@ -103,6 +104,7 @@ class AvailableSeatManager: SeatBaseNetworkManager {
         let searchURL = URL(string: "v2/searchSeats/\(dateString)/\(start.id)/\(end.id)", relativeTo: SeatAPIURL)!
         var searchRequest = URLRequest(url: searchURL)
         searchRequest.httpMethod = "POST"
+        searchRequest.allHTTPHeaderFields? = CommonHeader
         searchRequest.addValue(token, forHTTPHeaderField: "token")
         let body = "t=1&t2=2&roomId=\(room.id)&buildingId=\(library.areaID)&batch=200"
         searchRequest.httpBody = body.data(using: .utf8)
