@@ -23,7 +23,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
     private static let kFilePath = "SeatHistory.archive"
     var reservations: [SeatHistoryReservation] = []
     var validReservations: [SeatHistoryReservation] {
-        return reservations.filter{ return $0.isHistory && $0.state != .cancel }
+        return reservations.filter{ return $0.isHistory}
     }
     weak var delegate: SeatHistoryManagerDelegate?
     private var pageCount = 1
@@ -121,6 +121,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
             do {
                 let historyResponse = try decoder.decode(SeatHistoryResponse.self, from: data)
                 if page == 1 {
+                    self.end = false
                     self.reservations = historyResponse.data.reservations
                 }else{
                     self.reservations.append(contentsOf: historyResponse.data.reservations)
