@@ -57,6 +57,9 @@ class SeatTimeManager: SeatBaseNetworkManager {
     
     
     func endTimes(`for` timeIndex: Int) -> [SeatTime] {
+        if startTimes.isEmpty {
+            return []
+        }
         var endTimes = [SeatTime]()
         let firstIndex = timeIndex + 1
         var validNext = startTimes[timeIndex].next ?? nextForNow
@@ -170,7 +173,7 @@ class SeatTimeManager: SeatBaseNetworkManager {
         reserveRequest.httpMethod = "POST"
         reserveRequest.addValue(token, forHTTPHeaderField: "token")
         let startTime = start.id == "now" ? "-1" : start.id
-        let body = "t=1&seat=\(seat.id)&date=\(dateString)&startTime=\(start.id)&endTime=\(end.id)&t2=2"
+        let body = "t=1&seat=\(seat.id)&date=\(dateString)&startTime=\(startTime)&endTime=\(end.id)&t2=2"
         reserveRequest.httpBody = body.data(using: .utf8)
         let reserveTask = session.dataTask(with: reserveRequest) { (data, response, error) in
             if let error = error {

@@ -1579,7 +1579,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.40000000000000002" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="kBH-Rd-WT2">
-                                <rect key="frame" x="0.0" y="160" width="320" height="408"/>
+                                <rect key="frame" x="0.0" y="208" width="320" height="360"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Enh-IX-T4q">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
@@ -1597,7 +1597,7 @@
                                 </constraints>
                             </scrollView>
                             <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="AQS-ur-yko" userLabel="Legend View">
-                                <rect key="frame" x="0.0" y="120" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="168" width="320" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3AH-fG-MTb">
                                         <rect key="frame" x="0.0" y="0.0" width="104" height="40"/>
@@ -2012,7 +2012,7 @@
                             <constraint firstItem="kBH-Rd-WT2" firstAttribute="leading" secondItem="xZp-Q1-KAj" secondAttribute="leading" id="OAF-Y1-7aB"/>
                             <constraint firstItem="RrT-ww-ukM" firstAttribute="bottom" secondItem="fkT-w5-pOR" secondAttribute="bottom" priority="750" constant="8" id="OR1-5s-6ZM"/>
                             <constraint firstItem="JS3-qp-Ytj" firstAttribute="leading" secondItem="xZp-Q1-KAj" secondAttribute="leading" id="SUW-go-0Ld"/>
-                            <constraint firstItem="AQS-ur-yko" firstAttribute="top" secondItem="RrT-ww-ukM" secondAttribute="top" constant="56" id="Svg-H2-e7A"/>
+                            <constraint firstItem="AQS-ur-yko" firstAttribute="top" secondItem="RrT-ww-ukM" secondAttribute="top" constant="104" id="Svg-H2-e7A"/>
                             <constraint firstItem="fkT-w5-pOR" firstAttribute="leading" secondItem="RrT-ww-ukM" secondAttribute="leading" priority="750" constant="8" id="U90-a7-f62"/>
                             <constraint firstAttribute="bottom" secondItem="JS3-qp-Ytj" secondAttribute="bottom" id="Ul4-sj-P2t"/>
                             <constraint firstItem="E4r-ep-1C4" firstAttribute="top" secondItem="RrT-ww-ukM" secondAttribute="top" constant="8" id="cSn-hP-TJZ"/>
