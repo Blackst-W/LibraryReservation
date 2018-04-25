@@ -34,3 +34,9 @@ extension String {
 let CommonHeader: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                                       "User-Agent": "doSingle/11 CFNetwork/897.15 Darwin/17.5.0",
                                       "Accept-Encoding":"gzip, deflate"]
+
+let TestRoomData: Data? = {
+    let roomDataFilePath = Bundle.main.url(forResource: "TestRoomData", withExtension: ".json")!
+    let data = try? Data(contentsOf: roomDataFilePath)
+    return data
+}()

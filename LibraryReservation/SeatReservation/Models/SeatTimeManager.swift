@@ -39,7 +39,7 @@ struct SeatTime: Codable, Equatable {
 }
 
 protocol SeatTimeDelegate: SeatBaseDelegate {
-    func update(start: [SeatTime], end: [SeatTime])
+    func update(seat: Seat, start: [SeatTime], end: [SeatTime])
     func reserveSuccess()
 }
 
@@ -130,7 +130,7 @@ class SeatTimeManager: SeatBaseNetworkManager {
                     self.now = Date()
                     self.startTimes = startTimes
                     let end = self.endTimes(for: 0)
-                    self.delegate?.update(start: startTimes, end: end)
+                    self.delegate?.update(seat: seat, start: startTimes, end: end)
                 }
             } catch DecodingError.keyNotFound {
                 do {
@@ -138,7 +138,7 @@ class SeatTimeManager: SeatBaseNetworkManager {
                     if failedResponse.code == "0" {
                         DispatchQueue.main.async {
                             self.startTimes = []
-                            self.delegate?.update(start: [],end: [])
+                            self.delegate?.update(seat: seat, start: [],end: [])
                             self.now = Date()
                         }
                     }else{

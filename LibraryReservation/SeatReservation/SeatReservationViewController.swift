@@ -14,9 +14,6 @@ class SeatReservationViewController: UIViewController {
     @IBOutlet weak var roomTableView: UITableView!
     @IBOutlet weak var roomTableViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var chooseSeatButton: UIButton!
-    @IBOutlet weak var seatView: UIView!
-    
     var date: Date!
     
     var selectedLibrary: Library? {
@@ -26,35 +23,10 @@ class SeatReservationViewController: UIViewController {
             }else{
                 roomData = []
             }
-            selectedRoom = nil
             resizeRoomTableView()
             roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
         }
     }
-    
-    var selectedRoom: Room? {
-        didSet {
-            if let _ = selectedRoom {
-                showSeatView()
-                chooseSeat(self)
-            }else{
-                hideSeatView()
-            }
-            selectedSeat = nil
-        }
-    }
-    
-    var selectedSeat: Seat? {
-        didSet {
-            if selectedSeat == nil {
-                beginDate = nil
-                endDate = nil
-            }
-        }
-    }
-    
-    var beginDate: Date?
-    var endDate: Date?
     
     var libraryData = LibraryData()
     var roomData: [Room] = []
@@ -85,21 +57,6 @@ class SeatReservationViewController: UIViewController {
             self.view.layoutIfNeeded()
         }.startAnimation()
     }
-    
-    func showSeatView() {
-        chooseSeatButton.isUserInteractionEnabled = true
-        UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
-            self.seatView.alpha = 1
-        }.startAnimation()
-    }
-    
-    func hideSeatView() {
-        chooseSeatButton.isUserInteractionEnabled = false
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            self.seatView.alpha = 0
-            }
-        animator.startAnimation()
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -108,40 +65,12 @@ class SeatReservationViewController: UIViewController {
     
     @objc func roomSelected(_ sender: UIControl) {
         let index = sender.tag
-        
-        let currentRoom = selectedRoom ?? roomData[index]
-        
-        let selectedRow = libraryData.roomIndex[currentRoom.id]!.1 / 2
-        let totalRowNumber = (roomData.count + 1) / 2
-        var indexPaths = [IndexPath]()
-        for row in 0 ..< totalRowNumber {
-            if row == selectedRow {continue}
-            indexPaths.append(IndexPath(row: row, section: 0))
-        }
-        if let _ = selectedRoom {
-            selectedRoom = nil
-            UIView.animate(withDuration: 0.5) {
-                self.roomTableView.beginUpdates()
-                self.roomTableView.insertRows(at: indexPaths, with: .fade)
-                self.roomTableView.endUpdates()
-            }
-        }else{
-            selectedRoom = currentRoom
-            UIView.animate(withDuration: 0.5) {
-                self.roomTableView.beginUpdates()
-                self.roomTableView.deleteRows(at: indexPaths, with: .fade)
-                self.roomTableView.endUpdates()
-            }
-        }
-        resizeRoomTableView()
-    }
-    
-    @IBAction func chooseSeat(_ sender: Any) {
+        let selectedRoom = roomData[index]
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
         let layoutViewController = storyboard.instantiateViewController(withIdentifier: "SeatLayoutController") as! SeatSelectionViewController
-        layoutViewController.title = selectedRoom!.name
+        layoutViewController.title = selectedRoom.name
         layoutViewController.library = selectedLibrary!
-        layoutViewController.room = selectedRoom!
+        layoutViewController.room = selectedRoom
         layoutViewController.date = date
         navigationController?.pushViewController(layoutViewController, animated: true)
     }
@@ -161,9 +90,6 @@ extension SeatReservationViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedRoom != nil {
-            return 1
-        }
         return (roomData.count + 1) / 2
     }
     
@@ -181,7 +107,6 @@ extension SeatReservationViewController: UITableViewDataSource {
         cell.leftRoomView.addTarget(self, action: #selector(roomSelected(_:)), for: .touchUpInside)
         cell.rightRoomView.tag = rightIndex
         cell.rightRoomView.addTarget(self, action: #selector(roomSelected(_:)), for: .touchUpInside)
-//        cell.roomSelected(selection: selection)
         return cell
     }
 }
@@ -204,5 +129,3 @@ extension SeatReservationViewController: SeatLibraryViewDelegate {
         selectedLibrary = library
     }
 }
-
-//extension SeatReservationViewController:

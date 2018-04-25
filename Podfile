@@ -6,6 +6,7 @@ target 'LibraryReservation' do
   use_frameworks!
   pod 'Reveal-SDK', :configurations => ['Debug']
   pod 'SwiftyJSON'
+  pod 'PKHUD'
   # Pods for LibraryReservation
 
   target 'LibraryReservationTests' do

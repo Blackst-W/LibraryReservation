@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 protocol SeatSelectionViewDelegate: class {
     func select(seat: Seat, begin: Date, end: Date)
@@ -54,10 +55,7 @@ class SeatSelectionViewController: UIViewController {
         didSet {
             if let oldSeat = oldValue {
                 let seatView = layoutView.viewWithTag(oldSeat.id) as! SeatCollectionView
-                seatView.reset()
-                if filter.fullfill(seat: oldSeat) {
-                    seatView.hightlight()
-                }
+                seatView.viewed()
             }
             if let newSeat = selectedSeat {
                 let seatView = layoutView.viewWithTag(newSeat.id) as! SeatCollectionView
@@ -73,6 +71,8 @@ class SeatSelectionViewController: UIViewController {
     var endTimes = [SeatTime]()
     
     override func viewDidLoad() {
+        PKHUD.sharedHUD.dimsBackground = false
+        PKHUD.sharedHUD.userInteractionOnUnderlyingViewsEnabled = true
         super.viewDidLoad()
         modalPresentationStyle = .formSheet
         title = room.name
@@ -161,14 +161,14 @@ class SeatSelectionViewController: UIViewController {
     }
     
     @objc func chooseSeat(_ sender: SeatCollectionView) {
-        let seat = sender.seat
-        if seat == selectedSeat {
-            selectedSeat = nil
+        let seat = sender.seat!
+        if seat == selectedSeat,
+            indicatorView.isAnimating {
             return
         }
         selectedSeat = seat
         startLoading()
-        seatTimeManager.check(seat: seat!, date: date)
+        seatTimeManager.check(seat: seat, date: date)
     }
     
     func showReserveView() {
@@ -380,13 +380,14 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         }
         endLoading()
     }
-    
 }
 
 extension SeatSelectionViewController: SeatTimeDelegate {
-    func update(start: [SeatTime], end: [SeatTime]) {
+    func update(seat: Seat, start: [SeatTime], end: [SeatTime]) {
+        guard seat == self.selectedSeat else {return}
         endLoading()
         if start.isEmpty {
+            HUD.flash(.label("Not Available Time For This Seat."), delay: 1.0)
             return
         }
         startTimes = start
