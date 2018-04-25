@@ -24,6 +24,7 @@ class SeatHistoryViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         manager.delegate = self
+        data = manager.reservations
         let control = UIRefreshControl()
         control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
         tableView.refreshControl = control

@@ -1,5 +1,5 @@
 //
-//  SeatTimeManager.swift
+//  SeatReserveManager.swift
 //  LibraryReservation
 //
 //  Created by Weston Wu on 2018/04/21.
@@ -7,6 +7,10 @@
 //
 
 import UIKit
+
+extension Notification.Name {
+    static let SeatReserved = Notification.Name("kSeatReservedNotification")
+}
 
 struct SeatTime: Codable, Equatable {
 //{
@@ -38,19 +42,19 @@ struct SeatTime: Codable, Equatable {
     }
 }
 
-protocol SeatTimeDelegate: SeatBaseDelegate {
+protocol SeatReserveDelegate: SeatBaseDelegate {
     func update(seat: Seat, start: [SeatTime], end: [SeatTime])
     func reserveSuccess()
 }
 
-class SeatTimeManager: SeatBaseNetworkManager {
+class SeatReserveManager: SeatBaseNetworkManager {
     
     var startTimes: [SeatTime] = []
     
     var now: Date = Date()
-    weak var delegate: SeatTimeDelegate?
+    weak var delegate: SeatReserveDelegate?
     
-    init(delegate: SeatTimeDelegate?) {
+    init(delegate: SeatReserveDelegate?) {
         self.delegate = delegate
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.time"))
     }
@@ -196,6 +200,7 @@ class SeatTimeManager: SeatBaseNetworkManager {
                 if response.code == "0" {
                     DispatchQueue.main.async {
                         self.delegate?.reserveSuccess()
+                        NotificationCenter.default.post(name: .SeatReserved, object: nil)
                     }
                 }else{
                     DispatchQueue.main.async {

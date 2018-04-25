@@ -26,7 +26,7 @@ struct SeatReservationArchive: Codable {
 class SeatHistoryManager: SeatBaseNetworkManager {
     
     private static let kFilePath = "SeatReservation.archive"
-    private var reservations: [SeatReservation] = [] {
+    var reservations: [SeatReservation] = [] {
         didSet {
             history = reservations.filter{$0.isHistory}
         }

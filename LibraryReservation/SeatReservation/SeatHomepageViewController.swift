@@ -48,6 +48,7 @@ class SeatHomepageViewController: UIViewController {
             showReminder()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newReservedSuccess(notification:)), name: .SeatReserved, object: nil)
         // Do any additional setup after loading the view.
         
         if traitCollection.forceTouchCapability == .available {
@@ -72,7 +73,10 @@ class SeatHomepageViewController: UIViewController {
             }
             self.showIndicator()
         }
-        
+    }
+    
+    @objc func newReservedSuccess(notification: Notification) {
+        historyManager.reload()
     }
     
     override func viewWillAppear(_ animated: Bool) {

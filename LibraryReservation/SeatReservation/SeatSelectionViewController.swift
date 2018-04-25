@@ -50,7 +50,7 @@ class SeatSelectionViewController: UIViewController {
     var room: Room!
     var date: Date!
     var layoutData: SeatLayoutData?
-    var seatTimeManager: SeatTimeManager!
+    var seatTimeManager: SeatReserveManager!
     var selectedSeat: Seat? {
         didSet {
             if let oldSeat = oldValue {
@@ -83,7 +83,7 @@ class SeatSelectionViewController: UIViewController {
         scrollView.setZoomScale(0.6, animated: false)
         manager = AvailableSeatManager(delegate: self)
         manager.check(room: room, date: date)
-        seatTimeManager = SeatTimeManager(delegate: self)
+        seatTimeManager = SeatReserveManager(delegate: self)
         startLoading()
         timePickerView.delegate = self
         timePickerView.dataSource = self
@@ -382,7 +382,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     }
 }
 
-extension SeatSelectionViewController: SeatTimeDelegate {
+extension SeatSelectionViewController: SeatReserveDelegate {
     func update(seat: Seat, start: [SeatTime], end: [SeatTime]) {
         guard seat == self.selectedSeat else {return}
         endLoading()
@@ -399,6 +399,7 @@ extension SeatSelectionViewController: SeatTimeDelegate {
     }
     
     func reserveSuccess() {
+        view.isUserInteractionEnabled = false
         reserveButton.setTitle("Success", for: .disabled)
         reserveButton.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

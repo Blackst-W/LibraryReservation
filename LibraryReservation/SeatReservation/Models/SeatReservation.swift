@@ -378,7 +378,7 @@ struct SeatCurrentReservation: Codable {
         let end = formatter.date(from: "\(rawDate) \(rawEnd)")!
         
         time = SeatReservationTime(date: date, start: start, end: end, message: message)
-        location = SeatLocation(location: rawLocation)
+        location = SeatLocation(currentLocation: rawLocation)
         state = SeatReservationState(rawValue: rawState) ?? .unknown
     }
     

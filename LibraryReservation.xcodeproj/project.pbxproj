@@ -39,7 +39,7 @@
 		AD95B044208622CB001F6768 /* AccountStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */; };
 		AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B045208622F4001F6768 /* LoginViewController.swift */; };
 		AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B04720863057001F6768 /* UIViewControllerExtension.swift */; };
-		ADB9C96D208B4E8C0086A00E /* SeatTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C96C208B4E8C0086A00E /* SeatTimeManager.swift */; };
+		ADB9C96D208B4E8C0086A00E /* SeatReserveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C96C208B4E8C0086A00E /* SeatReserveManager.swift */; };
 		ADB9C96F208BB99B0086A00E /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C96E208BB99B0086A00E /* SeatResponse.swift */; };
 		ADB9C971208BCB520086A00E /* SeatTimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C970208BCB520086A00E /* SeatTimeFilter.swift */; };
 		ADB9C9732090DF6D0086A00E /* TestRoomData.json in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C9722090DF6D0086A00E /* TestRoomData.json */; };
@@ -121,7 +121,7 @@
 		AD95B043208622CB001F6768 /* AccountStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountStoryboard.storyboard; sourceTree = "<group>"; };
 		AD95B045208622F4001F6768 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AD95B04720863057001F6768 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		ADB9C96C208B4E8C0086A00E /* SeatTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTimeManager.swift; sourceTree = "<group>"; };
+		ADB9C96C208B4E8C0086A00E /* SeatReserveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReserveManager.swift; sourceTree = "<group>"; };
 		ADB9C96E208BB99B0086A00E /* SeatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
 		ADB9C970208BCB520086A00E /* SeatTimeFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTimeFilter.swift; sourceTree = "<group>"; };
 		ADB9C9722090DF6D0086A00E /* TestRoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRoomData.json; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 				ADF367C72089049900C9379D /* SeatReservationManager.swift */,
 				AD50F2B1208A1A3000A7BD6A /* AvailableSeatManager.swift */,
 				AD50F2B5208A537B00A7BD6A /* SeatFilterCondition.swift */,
-				ADB9C96C208B4E8C0086A00E /* SeatTimeManager.swift */,
+				ADB9C96C208B4E8C0086A00E /* SeatReserveManager.swift */,
 				ADB9C96E208BB99B0086A00E /* SeatResponse.swift */,
 				ADB9C970208BCB520086A00E /* SeatTimeFilter.swift */,
 			);
@@ -612,7 +612,7 @@
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
 				ADB9C96F208BB99B0086A00E /* SeatResponse.swift in Sources */,
-				ADB9C96D208B4E8C0086A00E /* SeatTimeManager.swift in Sources */,
+				ADB9C96D208B4E8C0086A00E /* SeatReserveManager.swift in Sources */,
 				AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */,
 				ADF0A1B72087449F009F4B66 /* SeatHistoryCollectionViewCell.swift in Sources */,
 				ADF0A1B22086E00B009F4B66 /* SeatHistoryManager.swift in Sources */,
@@ -802,7 +802,10 @@
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -819,7 +822,10 @@
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -836,7 +842,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -854,7 +864,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -871,7 +885,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -888,7 +906,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X8A929HS7E;
 				INFOPLIST_FILE = LibraryReservationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
