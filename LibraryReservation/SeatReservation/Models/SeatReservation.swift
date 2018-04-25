@@ -8,12 +8,37 @@
 
 import UIKit
 
+protocol SeatCurrentReservationRepresentable {
+    var id: Int {get}
+    var time: SeatReservationTime {get}
+    var location: SeatLocation? {get}
+    var currentState: SeatCurrentReservationState {get}
+    var seatID: Int? {get}
+    var receiptID: String? {get}
+    var awayStart: Date? {get}
+    var isStarted: Bool {get}
+    var rawLocation: String {get}
+    var rawDate: String {get}
+    var rawBegin: String {get}
+    var rawEnd: String {get}
+}
+
+struct SeatReservationTime {
+    let date: Date
+    let start: Date
+    let end: Date
+    var message: String? = nil
+    var duration: Int {
+        return Int(end.timeIntervalSince(start)) / 60
+    }
+}
+
 struct SeatLocation {
     let floor: Int
     let library: Library
     let room: String
     let seat: Int
-    
+    let detail: String
     init?(location: String) {
         var floorIndex = 0
         var floorNo = 0
@@ -52,6 +77,7 @@ struct SeatLocation {
             return nil
         }
         seat = seatNo
+        detail = location
     }
     
     init?(currentLocation location: String) {
@@ -92,10 +118,12 @@ struct SeatLocation {
             return nil
         }
         seat = seatNo
+        detail = location
     }
 }
 
 enum SeatCurrentReservationState {
+    case invalid
     case upcoming(`in`: Int)
     case ongoing(left: Int)
     case tempAway(remain: Int)
@@ -104,6 +132,8 @@ enum SeatCurrentReservationState {
     
     var localizedState: String {
         switch self {
+        case .invalid:
+            return "Invalid"
         case .upcoming(_):
             return "Upcoming"
         case .ongoing(_):
@@ -153,15 +183,23 @@ enum SeatReservationState: String {
     }
 }
 
-struct SeatHistoryReservation: Codable {
+struct SeatReservation: Codable {
+    
     let id: Int
     let rawDate: String
     let rawBegin: String
     let rawEnd: String
     let rawAwayBegin: String?
     let rawAwayEnd: String?
-    let loc: String
-    let stat: String
+    let rawLocation: String
+    let rawState: String
+    
+    let time: SeatReservationTime
+    let location: SeatLocation?
+    let state: SeatReservationState
+    
+    let seatID: Int? = nil
+    let receiptID: String? = nil
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -170,40 +208,46 @@ struct SeatHistoryReservation: Codable {
         case rawEnd = "end"
         case rawAwayBegin = "awayBegin"
         case rawAwayEnd = "awayEnd"
-        case loc = "loc"
-        case stat = "stat"
+        case rawLocation = "loc"
+        case rawState = "stat"
     }
-    /*
-     {
-     "id": 2489620,
-     "date": "2018-4-15",
-     "begin": "10:14",
-     "end": "12:00",
-     "awayBegin": "10:19",
-     "awayEnd": "10:24",
-     "loc": "总馆1层A区A1-座位区097号",
-     "stat": "COMPLETE"
-     }
-     */
-    var date: Date {
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        rawDate = try container.decode(String.self, forKey: .rawDate)
+        rawBegin = try container.decode(String.self, forKey: .rawBegin)
+        rawEnd = try container.decode(String.self, forKey: .rawEnd)
+        rawAwayBegin = try container.decode(String?.self, forKey: .rawAwayBegin)
+        rawAwayEnd = try container.decode(String?.self, forKey: .rawAwayEnd)
+        rawLocation = try container.decode(String.self, forKey: .rawLocation)
+        rawState = try container.decode(String.self, forKey: .rawState)
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.date(from: rawDate)!
-    }
-    
-    var begin: Date {
-        let formatter = DateFormatter()
+        let date = formatter.date(from: rawDate)!
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.date(from: "\(rawDate) \(rawBegin)")!
+        let start = formatter.date(from: "\(rawDate) \(rawBegin)")!
+        let end = formatter.date(from: "\(rawDate) \(rawEnd)")!
+        
+        time = SeatReservationTime(date: date, start: start, end: end, message: nil)
+        location = SeatLocation(location: rawLocation)
+        state = SeatReservationState(rawValue: rawState) ?? .unknown
     }
     
-    var end: Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.date(from: "\(rawDate) \(rawEnd)")!
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(rawDate, forKey: .rawDate)
+        try container.encode(rawBegin, forKey: .rawBegin)
+        try container.encode(rawEnd, forKey: .rawEnd)
+        try container.encode(rawAwayBegin, forKey: .rawAwayBegin)
+        try container.encode(rawAwayEnd, forKey: .rawAwayEnd)
+        try container.encode(rawLocation, forKey: .rawLocation)
+        try container.encode(rawState, forKey: .rawState)
     }
     
-    var awayBegin: Date? {
+    var awayStart: Date? {
         guard let beginTime = rawAwayBegin else {
             return nil
         }
@@ -219,10 +263,6 @@ struct SeatHistoryReservation: Codable {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         return formatter.date(from: "\(rawDate) \(endTime)")
-    }
-    
-    var state: SeatReservationState {
-        return SeatReservationState(rawValue: stat) ?? .unknown
     }
     
     var isHistory: Bool {
@@ -242,38 +282,47 @@ struct SeatHistoryReservation: Codable {
             return false
         }
     }
-    
-    var location: SeatLocation? {
-        return SeatLocation(location: loc)
-    }
-    
 }
 
-/*
- {
- "status": "success",
- "data": [
- {
- "id": 2528288,
- "receipt": "0030-288-3",
- "onDate": "2018-04-18",
- "seatId": 36611,
- "status": "CHECK_IN",
- "location": "信息科学分馆4层西区四楼西图书阅览区，座位号026",
- "begin": "15:00",
- "end": "18:00",
- "actualBegin": "15:00",
- "awayBegin": null,
- "awayEnd": null,
- "userEnded": false,
- "message": ""
- }
- ],
- "message": "",
- "code": "0"
- }
- */
+extension SeatReservation: SeatCurrentReservationRepresentable{
+    var currentState: SeatCurrentReservationState {
+        let current = Date()
+        switch state {
+        case .reserve:
+            if current < time.start {
+                let minutes = Int(ceil(time.start.timeIntervalSince(current) / 60))
+                return .upcoming(in: minutes)
+            }else{
+                let allowTime = min(30, self.time.duration)
+                let time = allowTime - Int(ceil(current.timeIntervalSince(self.time.start) / 60))
+                if time > 0 {
+                    return .late(remain: time)
+                }else{
+                    return .invalid
+                }
+            }
+        case .checkIn:
+            let usedTime = Int(ceil(current.timeIntervalSince(self.time.start) / 60))
+            let left = time.duration - usedTime
+            if left > 0 {
+                return .ongoing(left: left)
+            }else{
+                return .invalid
+            }
+        case .away:
+            return .invalid
+        default:
+            return .invalid
+        }
+    }
+    
+    var isStarted: Bool {
+        return Date() >= time.start
+    }
+}
+
 struct SeatCurrentReservation: Codable {
+    
     let id: Int
     let seatId: Int
     let receipt: String
@@ -283,9 +332,13 @@ struct SeatCurrentReservation: Codable {
     let rawAwayBegin: String?
     let rawAwayEnd: String?
     let rawActualBegin: String?
-    let fullLocation: String
-    let stat: String
+    let rawLocation: String
+    let rawState: String
     let message: String
+    
+    let time: SeatReservationTime
+    let location: SeatLocation?
+    let state: SeatReservationState
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -297,30 +350,55 @@ struct SeatCurrentReservation: Codable {
         case rawAwayBegin = "awayBegin"
         case rawAwayEnd = "awayEnd"
         case rawActualBegin = "actualBegin"
-        case fullLocation = "location"
-        case stat = "status"
+        case rawLocation = "location"
+        case rawState = "status"
         case message
     }
     
-    var date: Date {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        seatId = try container.decode(Int.self, forKey: .seatId)
+        receipt = try container.decode(String.self, forKey: .receipt)
+        rawDate = try container.decode(String.self, forKey: .rawDate)
+        rawBegin = try container.decode(String.self, forKey: .rawBegin)
+        rawEnd = try container.decode(String.self, forKey: .rawEnd)
+        rawAwayBegin = try container.decode(String?.self, forKey: .rawAwayBegin)
+        rawAwayEnd = try container.decode(String?.self, forKey: .rawAwayEnd)
+        rawActualBegin = try container.decode(String?.self, forKey: .rawActualBegin)
+        rawLocation = try container.decode(String.self, forKey: .rawLocation)
+        rawState = try container.decode(String.self, forKey: .rawState)
+        message = try container.decode(String.self, forKey: .message)
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.date(from: rawDate)!
-    }
-    
-    var begin: Date {
-        let formatter = DateFormatter()
+        let date = formatter.date(from: rawDate)!
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.date(from: "\(rawDate) \(rawBegin)")!
+        let start = formatter.date(from: "\(rawDate) \(rawBegin)")!
+        let end = formatter.date(from: "\(rawDate) \(rawEnd)")!
+        
+        time = SeatReservationTime(date: date, start: start, end: end, message: message)
+        location = SeatLocation(location: rawLocation)
+        state = SeatReservationState(rawValue: rawState) ?? .unknown
     }
     
-    var end: Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter.date(from: "\(rawDate) \(rawEnd)")!
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(seatId, forKey: .seatId)
+        try container.encode(receipt, forKey: .receipt)
+        try container.encode(rawDate, forKey: .rawDate)
+        try container.encode(rawBegin, forKey: .rawBegin)
+        try container.encode(rawEnd, forKey: .rawEnd)
+        try container.encode(rawAwayBegin, forKey: .rawAwayBegin)
+        try container.encode(rawAwayEnd, forKey: .rawAwayEnd)
+        try container.encode(rawActualBegin, forKey: .rawActualBegin)
+        try container.encode(rawLocation, forKey: .rawLocation)
+        try container.encode(rawState, forKey: .rawState)
+        try container.encode(message, forKey: .message)
     }
     
-    var awayBegin: Date? {
+    var awayStart: Date? {
         guard let beginTime = rawAwayBegin else {
             return nil
         }
@@ -338,7 +416,7 @@ struct SeatCurrentReservation: Codable {
         return formatter.date(from: "\(rawDate) \(endTime)")
     }
     
-    var actualBegin: Date? {
+    var actualStart: Date? {
         guard let beginTime = rawActualBegin else {
             return nil
         }
@@ -347,60 +425,9 @@ struct SeatCurrentReservation: Codable {
         return formatter.date(from: "\(rawDate) \(beginTime)")
     }
     
-    var state: SeatReservationState {
-        return SeatReservationState(rawValue: stat) ?? .unknown
-    }
-    
-    
-    /// 是否开始
-    var isStarted: Bool {
-        guard Date() >= begin else {
-            return false
-        }
-        return state != .reserve
-    }
-    
-    /// 是否暂离
-    var isAway: Bool {
-        return state == .away
-    }
-    
-    /// 是否迟到
-    var isLate: Bool {
-        guard Date() >= begin else {
-            return false
-        }
-        if state == .reserve {
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    
-    /// 暂离离开的时间
-    var awayTime: Int? {
-        guard isAway, let leftDate = awayBegin else {
-            return nil
-        }
-        let current = Date()
-        guard current >= leftDate else {
-            return  nil
-        }
-        return Int(ceil(current.timeIntervalSince(leftDate) / 60))
-    }
-    
-    /// 距离预约结束的时间
-    var remainTime: Int {
-        let current = Date()
-        let time = Int(ceil(current.timeIntervalSince(begin) / 60))
-        let timeLeft = duration - time
-        return timeLeft > 0 ? timeLeft : 0
-    }
-    
     /// 暂离剩余时间
     var remainAwayTime: Int? {
-        guard isAway, let leftDate = awayBegin else {
+        guard state == .away, let leftDate = awayStart else {
             return  nil
         }
         let current = Date()
@@ -416,51 +443,63 @@ struct SeatCurrentReservation: Codable {
             break
         }
         let awayTime = Int(ceil(current.timeIntervalSince(leftDate) / 60))
-        var remainTime = availableTime - awayTime
-        if remainTime < 0 {
-            remainTime = 0
-        }
-        return remainTime
-    }
-    
-    var remainLateTime: Int? {
-        guard isLate else {
-            return  nil
-        }
-        let allowTime = 30
-        let current = Date()
-        let time = allowTime - Int(ceil(current.timeIntervalSince(begin) / 60))
-        return time > 0 ? time : 0
+        let remainTime = availableTime - awayTime
+        return remainTime < 0 ? nil : remainTime
     }
     
     var currentState: SeatCurrentReservationState {
-        if isLate {
-            let remain = remainLateTime!
-            if remain > remainTime {
-                return .late(remain: remainTime)
+        let current = Date()
+        switch state {
+        case .reserve:
+            if current < time.start {
+                let minutes = Int(ceil(time.start.timeIntervalSince(current) / 60))
+                return .upcoming(in: minutes)
+            }else{
+                let allowTime = min(30, self.time.duration)
+                let time = allowTime - Int(ceil(current.timeIntervalSince(self.time.start) / 60))
+                if time > 0 {
+                    return .late(remain: time)
+                }else{
+                    return .invalid
+                }
             }
-            return .late(remain: remain)
-        }else if !isStarted {
-            let current = Date()
-            let minutes = Int(ceil(begin.timeIntervalSince(current) / 60))
-            return .upcoming(in: minutes)
-        }else if isAway {
-            let remain = remainAwayTime!
-            if remain > remainTime {
-                return .autoEnd(in: remainTime)
+        case .checkIn:
+            let usedTime = Int(ceil(current.timeIntervalSince(time.start) / 60))
+            let left = time.duration - usedTime
+            if left > 0 {
+                return .ongoing(left: left)
+            }else{
+                return .invalid
+            }
+        case .away:
+            guard let remain = remainAwayTime else {
+                return .invalid
+            }
+            let endTime = Int(ceil(time.end.timeIntervalSince(current) / 60))
+            if endTime < 0 {
+                return .invalid
+            }
+            
+            if remain > endTime {
+                return .autoEnd(in: endTime)
             }
             return .tempAway(remain: remain)
-        }else{
-            return .ongoing(left: remainTime)
+        default:
+            return .invalid
         }
     }
     
-    var location: SeatLocation? {
-        return SeatLocation(currentLocation: fullLocation)
-    }
-    
-    var duration: Int {
-        return Int(end.timeIntervalSince(begin)) / 60
+    var isStarted: Bool {
+        return Date() >= time.start
     }
 }
 
+extension SeatCurrentReservation: SeatCurrentReservationRepresentable {
+    var seatID: Int? {
+        return seatId
+    }
+    
+    var receiptID: String? {
+        return receipt
+    }
+}

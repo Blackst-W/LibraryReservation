@@ -84,7 +84,7 @@ class AccountDetailTableViewController: UITableViewController {
             let settings = Settings.shared
             settings.set(savePassword: savePasswordSwitch.isOn)
             settings.set(autoLogin: autoLoginSwitch.isOn)
-            autoLogin(delegate: self, force: true)
+            autoLogin(delegate: self)
         }
     }
     
@@ -99,7 +99,7 @@ class AccountDetailTableViewController: UITableViewController {
         let settings = Settings.shared
         settings.set(savePassword: savePasswordSwitch.isOn)
         settings.set(autoLogin: autoLoginSwitch.isOn)
-        autoLogin(delegate: self, force: true)
+        autoLogin(delegate: self)
         refreshButton.isEnabled = false
     }
     

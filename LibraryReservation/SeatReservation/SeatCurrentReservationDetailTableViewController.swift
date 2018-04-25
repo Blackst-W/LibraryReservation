@@ -16,7 +16,7 @@ protocol SeatReservationPreviewDelegate: class {
 
 class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
-    var reservation: SeatCurrentReservation!
+    var reservation: SeatCurrentReservationRepresentable!
     weak var previewDelegate: SeatReservationPreviewDelegate?
     
     @IBOutlet weak var fullLocationLabel: UILabel!
@@ -39,7 +39,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     
-    var manager: SeatCurrentReservationManager!
+    var manager: SeatHistoryManager!
     
     class func makeFromStoryboard() -> SeatCurrentReservationDetailTableViewController {
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
@@ -58,8 +58,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         updateUI()
-        
-        manager = SeatCurrentReservationManager(delegate: self)
+        manager = SeatHistoryManager(delegate: self)
     }
     
     func updateUI() {
@@ -84,6 +83,8 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             title = "Upcoming Reservation"
         case .autoEnd(_):
             title = "Ending Reservation"
+        case .invalid:
+            title = "Unknown Reservation"
         }
         self.title = title
         let cancelTitle = reservation.isStarted ? "Stop Reservation" : "Cancel Reservation"
@@ -92,7 +93,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     }
     
     func updateLocation() {
-        fullLocationLabel.text = reservation.fullLocation
+        fullLocationLabel.text = reservation.location?.detail ?? reservation.rawLocation
         if let location = reservation.location {
             libraryLabel.text = location.library.rawValue
             floorLabel.text = "\(location.floor)F"
@@ -119,21 +120,23 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             statusTimeLabel.text = "Expire in \(remain)mins"
         case .autoEnd(let remain):
             statusTimeLabel.text = "Auto End in \(remain)mins"
+        case .invalid:
+            statusTimeLabel.text = "Pull To Refresh"
         }
         dateLabel.text = reservation.rawDate
-        let duration = reservation.duration
+        let duration = reservation.time.duration
         let hour = duration / 60
         let minute = duration % 60
         let hourText = hour == 0 ? "" : "\(hour)h"
         let minuteText = minute == 0 ? "" : "\(minute)mins"
         durationLabel.text = [hourText, minuteText].joined(separator: " ")
-        messageLabel.text = reservation.message
+        messageLabel.text = reservation.time.message
     }
 
     func updateOther() {
         reservationIDLabel.text = String(reservation.id)
-        seatIDLabel.text = String(reservation.seatId)
-        receiptLabel.text = reservation.receipt
+        seatIDLabel.text = String(reservation.seatID) ?? "-"
+        receiptLabel.text = reservation.receiptID ?? "-"
     }
     
     @IBAction func requireCancel(_ sender: Any) {
@@ -156,7 +159,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     override var previewActionItems: [UIPreviewActionItem] {
         
         let copyAction = UIPreviewAction(title: "Copy Location", style: .default) { (_, _) in
-            UIPasteboard.general.string = self.reservation.fullLocation
+            UIPasteboard.general.string = self.reservation.rawLocation
         }
         let confirmCancelAction = UIPreviewAction(title: "Confirm", style: .destructive) { (_, viewController) in
             self.previewDelegate?.handleStartCancel()
@@ -176,7 +179,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     
     @IBAction func refreshStateChanged(_ sender: UIRefreshControl) {
         if sender.isRefreshing {
-            manager.update()
+            manager.checkCurrent()
         }
     }
     
@@ -237,7 +240,8 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
 }
 
-extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservationManagerDelegate {
+extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDelegate {
+    
     func updateFailed(error: Error) {
         previewDelegate?.handle(error: error)
         refreshControl?.endRefreshing()
@@ -256,10 +260,13 @@ extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservatio
         present(alertController, animated: true, completion: nil)
     }
     
+    func update(reservations: [SeatReservation]) {
+        return
+    }
     
-    func update(reservation: SeatCurrentReservation?) {
+    func update(current: SeatCurrentReservationRepresentable?) {
         refreshControl?.endRefreshing()
-        guard let reservation = reservation else {
+        guard let reservation = current else {
             //Reservation Not Exist
             navigationController?.popViewController(animated: true)
             return
@@ -270,7 +277,7 @@ extension SeatCurrentReservationDetailTableViewController: SeatCurrentReservatio
     }
     
     func requireLogin() {
-        autoLogin(delegate: self, force: true)
+        autoLogin(delegate: self)
     }
 }
 
@@ -280,7 +287,7 @@ extension SeatCurrentReservationDetailTableViewController: LoginViewDelegate {
         case .cancel:
             refreshControl?.endRefreshing()
         case .success(_):
-            manager.loginResult(result: result)
+            return
         }
     }
 }

@@ -46,7 +46,7 @@ class SeatCurrentReservationView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(showCancelEffect), name: .SeatReservationCancel, object: nil)
     }
 
-    func update(reservation: SeatCurrentReservation) {
+    func update(reservation: SeatCurrentReservationRepresentable) {
         if showingCancelEffect {
             hideCancelEffect()
         }
@@ -73,6 +73,8 @@ class SeatCurrentReservationView: UIView {
             stateTimeLabel.text = "Expire in \(remain)mins"
         case .autoEnd(let remain):
             stateTimeLabel.text = "Auto End in \(remain)mins"
+        case .invalid:
+            stateTimeLabel.text = "Please Refresh First"
         }
     }
     

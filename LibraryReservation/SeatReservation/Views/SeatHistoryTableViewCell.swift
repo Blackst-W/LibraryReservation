@@ -22,7 +22,7 @@ class SeatHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     
-    func update(reservation: SeatHistoryReservation) {
+    func update(reservation: SeatReservation) {
         dateLabel.text = reservation.rawDate
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         guard let location = reservation.location else {

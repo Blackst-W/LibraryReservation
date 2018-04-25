@@ -304,7 +304,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     
     func requireLogin() {
         endLoading()
-        autoLogin(delegate: self, force: true)
+        autoLogin(delegate: self)
     }
     
     func reloadData() {

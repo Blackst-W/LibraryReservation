@@ -65,7 +65,7 @@ class SettingsTableViewController: UITableViewController {
                 let viewController = storyboard.instantiateViewController(withIdentifier: "AccountDetailViewController")
                 navigationController?.pushViewController(viewController, animated: true)
             }else{
-                autoLogin(delegate: self, force: true)
+                autoLogin(delegate: self)
             }
         default:
             return

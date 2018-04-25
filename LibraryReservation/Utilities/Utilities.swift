@@ -24,6 +24,12 @@ extension UIAlertController {
     }
 }
 
+extension String {
+    init?(_ intValue: Int?) {
+        guard let intValue = intValue else {return nil}
+        self = String(intValue)
+    }
+}
 
 let CommonHeader: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                                       "User-Agent": "doSingle/11 CFNetwork/897.15 Darwin/17.5.0",
