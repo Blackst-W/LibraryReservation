@@ -176,7 +176,10 @@ class SeatHistoryManager: SeatBaseNetworkManager {
                     self.end = false
                     self.reservations = newReservations
                 }else{
-                    self.reservations.append(contentsOf: newReservations)
+                    let uniqueNewReservations = newReservations.filter{ (reservation) in
+                        !self.reservations.contains {$0 == reservation}
+                    }
+                    self.reservations.append(contentsOf: uniqueNewReservations)
                 }
                 if historyResponse.data.reservations.count < 10 {
                     self.end = true

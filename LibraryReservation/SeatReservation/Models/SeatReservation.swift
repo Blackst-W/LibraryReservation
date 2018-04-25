@@ -284,6 +284,12 @@ struct SeatReservation: Codable {
     }
 }
 
+extension SeatReservation: Equatable {
+    public static func==(lhs: SeatReservation, rhs: SeatReservation) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 extension SeatReservation: SeatCurrentReservationRepresentable{
     var currentState: SeatCurrentReservationState {
         let current = Date()
