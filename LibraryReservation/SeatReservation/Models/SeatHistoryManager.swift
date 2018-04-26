@@ -148,7 +148,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         
         var historyRequest = URLRequest(url: historyURL)
         historyRequest.httpMethod = "GET"
-        historyRequest.allHTTPHeaderFields? = CommonHeader
+        historyRequest.allHTTPHeaderFields = CommonHeader
         historyRequest.addValue(token, forHTTPHeaderField: "token")
         let historyTask = session.dataTask(with: historyRequest) { data, response, error in
             self.loadingHistory = false
@@ -315,7 +315,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         let cancelURL = URL(string: "v2/cancel/\(reservationID)", relativeTo: SeatAPIURL)!
         var cancelRequest = URLRequest(url: cancelURL)
         cancelRequest.httpMethod = "GET"
-        cancelRequest.allHTTPHeaderFields? = CommonHeader
+        cancelRequest.allHTTPHeaderFields = CommonHeader
         cancelRequest.addValue(token, forHTTPHeaderField: "token")
         let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
             if let error = error {

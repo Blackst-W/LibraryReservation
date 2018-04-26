@@ -110,7 +110,7 @@ class SeatReserveManager: SeatBaseNetworkManager {
         let timeURL = URL(string: "v2/startTimesForSeat/\(seat.id)/\(dateString)", relativeTo: SeatAPIURL)!
         var timeRequest = URLRequest(url: timeURL)
         timeRequest.httpMethod = "GET"
-        timeRequest.allHTTPHeaderFields? = CommonHeader
+        timeRequest.allHTTPHeaderFields = CommonHeader
         timeRequest.addValue(token, forHTTPHeaderField: "token")
         let task = session.dataTask(with: timeRequest) { (data, response, error) in
             if let error = error {
@@ -176,7 +176,7 @@ class SeatReserveManager: SeatBaseNetworkManager {
         let reserveURL = URL(string: "v2/freeBook", relativeTo: SeatAPIURL)!
         var reserveRequest = URLRequest(url: reserveURL)
         reserveRequest.httpMethod = "POST"
-        reserveRequest.allHTTPHeaderFields? = CommonHeader
+        reserveRequest.allHTTPHeaderFields = CommonHeader
         reserveRequest.addValue(token, forHTTPHeaderField: "token")
         let startTime = start.id == "now" ? "-1" : start.id
         let body = "t=1&seat=\(seat.id)&date=\(dateString)&startTime=\(startTime)&endTime=\(end.id)&t2=2"

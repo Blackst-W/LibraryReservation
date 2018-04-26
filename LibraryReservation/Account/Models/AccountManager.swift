@@ -231,7 +231,7 @@ class AccountManager: NSObject {
         let userInfoURL = URL(string: "v2/user", relativeTo: SeatAPIURL)!
         var userInfoRequest = URLRequest(url: userInfoURL)
         userInfoRequest.httpMethod = "GET"
-        userInfoRequest.allHTTPHeaderFields? = CommonHeader
+        userInfoRequest.allHTTPHeaderFields = CommonHeader
         userInfoRequest.addValue(token, forHTTPHeaderField: "token")
         let session = SeatBaseNetworkManager.default.session
         let userInfoTask = session.dataTask(with: userInfoRequest) { (data, response, error) in
