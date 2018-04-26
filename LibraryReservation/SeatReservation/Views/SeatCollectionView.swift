@@ -34,9 +34,9 @@ class SeatCollectionView: UIControl {
         layer.shadowOpacity = 0.15
         layer.shadowOffset = CGSize(width: 0, height: 5)
         seatLabel.text = seat.name
-        computerImageView.isHidden = !seat.hasComputer
-        windowImageView.isHidden = !seat.hasWindow
-        powerImageView.isHidden = !seat.hasPower
+        computerImageView.alpha = seat.hasComputer ? 1 : 0
+        windowImageView.alpha = seat.hasWindow ? 1 : 0
+        powerImageView.alpha = seat.hasPower ? 1 : 0
         addSubview(contentView)
         if !seat.available {
             disable()

@@ -70,7 +70,7 @@ class SeatReservationViewController: UIViewController {
         let selectedRoom = roomData[index]
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
         let layoutViewController = storyboard.instantiateViewController(withIdentifier: "SeatLayoutController") as! SeatSelectionViewController
-        layoutViewController.title = selectedRoom.name
+        layoutViewController.navigationItem.prompt = selectedRoom.name
         layoutViewController.library = selectedLibrary!
         layoutViewController.room = selectedRoom
         layoutViewController.date = date
