@@ -495,8 +495,19 @@ extension SeatSelectionViewController: SeatReserveDelegate {
         startTimes = start
         endTimes = end
         timePickerView.reloadAllComponents()
-        timePickerView.selectRow(0, inComponent: 0, animated: false)
-        timePickerView.selectRow(0, inComponent: 1, animated: false)
+        if let filterStart = timeFilterStart, let index = start.index(of: filterStart) {
+            timePickerView.selectRow(index, inComponent: 0, animated: false)
+            endTimes = seatTimeManager.endTimes(for: index)
+            timePickerView.reloadComponent(1)
+            if let filterEnd = timeFilterEnd, let endIndex = endTimes.index(of: filterEnd) {
+                timePickerView.selectRow(endIndex, inComponent: 1, animated: false)
+            }else{
+                timePickerView.selectRow(0, inComponent: 1, animated: false)
+            }
+        }else{
+            timePickerView.selectRow(0, inComponent: 0, animated: false)
+            timePickerView.selectRow(0, inComponent: 1, animated: false)
+        }
         showReserveView()
     }
     
