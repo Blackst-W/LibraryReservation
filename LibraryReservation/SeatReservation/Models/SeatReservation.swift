@@ -290,6 +290,12 @@ extension SeatReservation: Equatable {
     }
 }
 
+extension SeatReservation: Comparable {
+    public static func<(lhs: SeatReservation, rhs: SeatReservation) -> Bool {
+        return lhs.id < rhs.id
+    }
+}
+
 extension SeatReservation: SeatCurrentReservationRepresentable{
     var currentState: SeatCurrentReservationState {
         let current = Date()

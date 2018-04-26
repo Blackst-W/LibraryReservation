@@ -171,7 +171,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
             let decoder = JSONDecoder()
             do {
                 let historyResponse = try decoder.decode(SeatHistoryResponse.self, from: data)
-                let newReservations = historyResponse.data.reservations
+                let newReservations = historyResponse.data.reservations.sorted {$0 > $1}
                 if page == 1 {
                     self.end = false
                     self.reservations = newReservations
@@ -184,7 +184,6 @@ class SeatHistoryManager: SeatBaseNetworkManager {
                 if historyResponse.data.reservations.count < 10 {
                     self.end = true
                 }
-                self.save()
                 if let newReservation = self.reservations.filter({!$0.isHistory}).first {
                     if self.current == nil {
                         self.current = newReservation
@@ -193,6 +192,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
                 }else{
                     self.current = nil
                 }
+                self.save()
                 DispatchQueue.main.async {
                     self.delegate?.update(reservations: self.reservations)
                 }
@@ -340,6 +340,8 @@ class SeatHistoryManager: SeatBaseNetworkManager {
                 if cancelResponse.code == "0" {
                     DispatchQueue.main.async {
                         self.current = nil
+                        self.save()
+                        self.reload()
                         NotificationCenter.default.post(name: .SeatReservationCancel, object: nil)
                     }
                 }else{
