@@ -252,7 +252,14 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
-        previewDelegate?.handle(failedResponse: failedResponse)
+        if let delegate = previewDelegate {
+            delegate.handle(failedResponse: failedResponse)
+            return
+        }
+        if failedResponse.code == "12" {
+            autoLogin(delegate: self)
+            return
+        }
         refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)

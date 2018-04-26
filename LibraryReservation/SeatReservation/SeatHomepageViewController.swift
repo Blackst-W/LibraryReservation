@@ -255,9 +255,10 @@ extension SeatHomepageViewController: UICollectionViewDelegate {
 extension SeatHomepageViewController: LoginViewDelegate {
     func loginResult(result: LoginResult) {
         isLogining = false
-        switch  result {
+        switch result {
         case .cancel:
             showLoginView()
+            currentReservationView.endCanceling()
             contentScrollView.refreshControl?.endRefreshing()
         case .success(_):
             showIndicator()
@@ -284,6 +285,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
     
     func updateFailed(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" && !isLogining {
+            currentReservationView.endCanceling()
             autoLogin(delegate: self)
             return
         }

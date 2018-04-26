@@ -26,12 +26,17 @@ extension UIViewController {
     ///   - delegate: receive login result
     ///   - force: Login anyway even if account or password is not found,
     ///            will present login view
-    func autoLogin(delegate: LoginViewDelegate?) {
+    func autoLogin(delegate: LoginViewDelegate?, force: Bool = true) {
         guard let account = AccountManager.shared.currentAccount,
             let password = account.password,
             Settings.shared.autoLogin else {
                 //display login view even if not login or password not saved or Auto-Login is disable.
-                presentLoginViewController(delegate: delegate)
+                if force {
+                    presentLoginViewController(delegate: delegate)
+                } else {
+                    delegate?.loginResult(result: .cancel)
+                }
+                
                 return
         }
         //Silence login with found username and password

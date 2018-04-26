@@ -237,7 +237,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         let reservationURL = URL(string: "v2/user/reservations", relativeTo: SeatAPIURL)!
         var reservationRequest = URLRequest(url: reservationURL)
         reservationRequest.httpMethod = "GET"
-        reservationRequest.allHTTPHeaderFields? = CommonHeader
+        reservationRequest.allHTTPHeaderFields = CommonHeader
         reservationRequest.addValue(token, forHTTPHeaderField: "token")
         let reservationTask = session.dataTask(with: reservationRequest) { data, response, error in
             if let error = error {

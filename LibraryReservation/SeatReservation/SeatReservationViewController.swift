@@ -19,7 +19,8 @@ class SeatReservationViewController: UIViewController {
     var selectedLibrary: Library? {
         didSet {
             if let library = selectedLibrary {
-                roomData = libraryData[library]
+                roomData = libraryManager.libraryData[library]
+                libraryManager.check(library: library)
             }else{
                 roomData = []
             }
@@ -28,8 +29,8 @@ class SeatReservationViewController: UIViewController {
         }
     }
     
-    var libraryData = LibraryData()
     var roomData: [Room] = []
+    var libraryManager: SeatLibraryManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,7 @@ class SeatReservationViewController: UIViewController {
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
         libraryView.delegate = self
+        libraryManager = SeatLibraryManager(delegate: self)
         // Do any additional setup after loading the view.
     }
     
@@ -127,5 +129,49 @@ extension SeatReservationViewController: UITableViewDelegate {
 extension SeatReservationViewController: SeatLibraryViewDelegate {
     func select(library: Library?) {
         selectedLibrary = library
+    }
+}
+
+extension SeatReservationViewController: SeatLibraryDelegate {
+    func requireLogin() {
+        return
+    }
+    
+    func updateFailed(error: Error) {
+        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        alertController.addAction(closeAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func updateFailed(failedResponse: SeatFailedResponse) {
+        if failedResponse.code == "12" {
+            autoLogin(delegate: self, force: false)
+            return
+        }
+        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        alertController.addAction(closeAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func update(rooms: [Room], for library: Library) {
+        if library == selectedLibrary {
+            roomData = rooms
+            roomTableView.reloadData()
+        }
+    }
+}
+
+extension SeatReservationViewController: LoginViewDelegate {
+    func loginResult(result: LoginResult) {
+        switch result {
+        case .cancel:
+            return
+        case .success(_):
+            if let library = selectedLibrary {
+                libraryManager.check(library: library)
+            }
+        }
     }
 }

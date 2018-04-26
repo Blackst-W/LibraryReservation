@@ -30,6 +30,18 @@ enum Library: String {
 }
 
 struct Room: Codable {
+    /*
+     {
+     "roomId": 39,
+     "room": "A1-座位区",
+     "floor": 1,
+     "reserved": 0,
+     "inUse": 0,
+     "away": 0,
+     "totalSeats": 168,
+     "free": 168
+     }
+     */
     let id: Int
     let name: String
     let floor: Int
@@ -120,6 +132,9 @@ class LibraryData: NSObject {
     subscript(library: Library) -> [Room] {
         get {
             return rooms[library.areaID - 1]
+        }
+        set {
+            rooms[library.areaID - 1] = newValue
         }
     }
     
