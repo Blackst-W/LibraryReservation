@@ -249,6 +249,7 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
+        cancelButton.isEnabled = true
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
@@ -265,6 +266,7 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
         let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
+        cancelButton.isEnabled = true
     }
     
     func update(reservations: [SeatReservation]) {
@@ -293,6 +295,7 @@ extension SeatCurrentReservationDetailTableViewController: LoginViewDelegate {
         switch result {
         case .cancel:
             refreshControl?.endRefreshing()
+            cancelButton.isEnabled = true
         case .success(_):
             return
         }
