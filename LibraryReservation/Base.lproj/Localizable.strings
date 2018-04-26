@@ -27,8 +27,8 @@
 "SeatCurrentReservationState.late" = "Lated";
 "SeatCurrentReservationState.autoEnd" = "Auto End";
 
-"Start In" = "Start In%@ %@";
-"End In" = "End In%@ %@";
+"Start In" = "Start In %@ %@";
+"End In" = "End In %@ %@";
 "Expire In" = "Expire In %@";
 "Auto End In" = "Auto End In %@";
 "Please Refresh First" = "Please Refresh First";

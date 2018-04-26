@@ -62,13 +62,13 @@ class SeatCurrentReservationView: UIView {
         case .upcoming(let next):
             let hour = next / 60
             let min = next % 60
-            let hourString = hour == 0 ? "": " \("h".localized(arguments: hour))"
-            let minString = " \("mins".localized(arguments: min))"
+            let hourString = hour == 0 ? "": "h".localized(arguments: hour)
+            let minString = "mins".localized(arguments: min)
             stateTimeLabel.text = "Start In".localized(arguments: hourString, minString)
         case .ongoing(let remain):
             let hour = remain / 60
             let min = remain % 60
-            let hourString = hour == 0 ? "": " \("h".localized(arguments: hour))"
+            let hourString = hour == 0 ? "": "\("h".localized(arguments: hour))"
             let minString = " \("mins".localized(arguments: min))"
             stateTimeLabel.text = "End In".localized(arguments: hourString, minString)
         case .tempAway(let remain):
