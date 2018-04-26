@@ -27,6 +27,11 @@ enum Library: String {
             return 3
         }
     }
+    
+    var localizedValue: String {
+        return rawValue.localized
+    }
+    
 }
 
 struct Room: Codable {

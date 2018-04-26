@@ -37,6 +37,14 @@ struct SeatTime: Codable, Equatable {
         }
     }
     
+    var localizedValue: String {
+        if id == "now" {
+            return "SeatTime.now".localized
+        }else{
+            return value
+        }
+    }
+    
     public static func==(lhs: SeatTime, rhs: SeatTime) -> Bool {
         return lhs.id == rhs.id
     }

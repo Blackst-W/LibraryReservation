@@ -71,23 +71,23 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     }
     
     func updateTitle() {
-        var title = "Current Reservation"
+        var title = "Current Reservation".localized
         switch reservation.currentState {
         case .late(_):
-            title = "Lated Reservation"
+            title = "Lated Reservation".localized
         case .ongoing(_):
-            title = "Ongoing Reservation"
+            title = "Ongoing Reservation".localized
         case .tempAway(_):
-            title = "Paused Reservation"
+            title = "Paused Reservation".localized
         case .upcoming(_):
-            title = "Upcoming Reservation"
+            title = "Upcoming Reservation".localized
         case .autoEnd(_):
-            title = "Ending Reservation"
+            title = "Ending Reservation".localized
         case .invalid:
-            title = "Unknown Reservation"
+            title = "Unknown Reservation".localized
         }
         self.title = title
-        let cancelTitle = reservation.isStarted ? "Stop Reservation" : "Cancel Reservation"
+        let cancelTitle = reservation.isStarted ? "Stop Reservation".localized : "Cancel Reservation".localized
         cancelButton.setTitle(cancelTitle, for: .normal)
         
     }
@@ -96,9 +96,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         fullLocationLabel.text = reservation.location?.detail ?? reservation.rawLocation
         if let location = reservation.location {
             libraryLabel.text = location.library.rawValue
-            floorLabel.text = "\(location.floor)F"
+            floorLabel.text = "Floor".localized(arguments: location.floor)
             roomLabel.text = location.room
-            seatLabel.text = "No.\(location.seat)"
+            seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         }
     }
     
@@ -109,26 +109,33 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         case .upcoming(let next):
             let hour = next / 60
             let min = next % 60
-            statusTimeLabel.text = "Start in\(hour == 0 ? "": " \(hour)h") \(min)mins"
+            let hourString = hour == 0 ? "" : "h".localized(arguments: hour)
+            let minString = "mins".localized(arguments: min)
+            statusTimeLabel.text = "Start In".localized(arguments: hourString, minString)
         case .ongoing(let remain):
             let hour = remain / 60
             let min = remain % 60
-            statusTimeLabel.text = "End in\(hour == 0 ? "": " \(hour)h") \(min)mins"
+            let hourString = hour == 0 ? "" : "h".localized(arguments: hour)
+            let minString = "mins".localized(arguments: min)
+            statusTimeLabel.text = "End In".localized(arguments: hourString, minString)
         case .tempAway(let remain):
-            statusTimeLabel.text = "Expire in \(remain)mins"
+            let minString = "mins".localized(arguments: remain)
+            statusTimeLabel.text = "Expire In".localized(arguments: minString)
         case .late(let remain):
-            statusTimeLabel.text = "Expire in \(remain)mins"
+            let minString = "mins".localized(arguments: remain)
+            statusTimeLabel.text = "Expire In".localized(arguments: minString)
         case .autoEnd(let remain):
-            statusTimeLabel.text = "Auto End in \(remain)mins"
+            let minString = "mins".localized(arguments: remain)
+            statusTimeLabel.text = "Auto End In".localized(arguments: minString)
         case .invalid:
-            statusTimeLabel.text = "Pull To Refresh"
+            statusTimeLabel.text = "Pull To Refresh".localized
         }
         dateLabel.text = reservation.rawDate
         let duration = reservation.time.duration
         let hour = duration / 60
         let minute = duration % 60
-        let hourText = hour == 0 ? "" : "\(hour)h"
-        let minuteText = minute == 0 ? "" : "\(minute)mins"
+        let hourText = hour == 0 ? "" : "h".localized(arguments: hour)
+        let minuteText = minute == 0 ? "" : "mins".localized(arguments: minute)
         durationLabel.text = [hourText, minuteText].joined(separator: " ")
         messageLabel.text = reservation.time.message
     }
@@ -140,12 +147,12 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     }
     
     @IBAction func requireCancel(_ sender: Any) {
-        let alertController = UIAlertController(title: "Cancel Reservation", message: "Are you sure to cancel this reservation?", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Confirm", style: .destructive) { (_) in
+        let alertController = UIAlertController(title: "Cancel Reservation".localized, message: "Are you sure to cancel this reservation?".localized, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm".localized, style: .destructive) { (_) in
             self.manager.cancelReservation()
             self.cancelButton.isEnabled = false
         }
-        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Back".localized, style: .cancel, handler: nil)
         alertController.addActions([cancelAction, confirmAction])
         present(alertController, animated: true, completion: nil)
     }
@@ -158,19 +165,19 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
     override var previewActionItems: [UIPreviewActionItem] {
         
-        let copyAction = UIPreviewAction(title: "Copy Location", style: .default) { (_, _) in
+        let copyAction = UIPreviewAction(title: "Copy Location".localized, style: .default) { (_, _) in
             UIPasteboard.general.string = self.reservation.rawLocation
         }
-        let confirmCancelAction = UIPreviewAction(title: "Confirm", style: .destructive) { (_, viewController) in
+        let confirmCancelAction = UIPreviewAction(title: "Confirm".localized, style: .destructive) { (_, viewController) in
             self.previewDelegate?.handleStartCancel()
             self.manager.cancelReservation()
 //            NotificationCenter.default.post(name: .SeatReservationCancel, object: nil, userInfo: nil)
         }
         
-        let cancelAction = UIPreviewAction(title: "Back", style: .default) { (_, _) in
+        let cancelAction = UIPreviewAction(title: "Back".localized, style: .default) { (_, _) in
             return
         }
-        let cancelTitle = reservation.isStarted ? "Stop Reservation" : "Cancel Reservation"
+        let cancelTitle = reservation.isStarted ? "Stop Reservation".localized : "Cancel Reservation".localized
         
         let cancelGroup = UIPreviewActionGroup(title: cancelTitle, style: .destructive, actions: [confirmCancelAction, cancelAction])
         
@@ -245,8 +252,8 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
     func updateFailed(error: Error) {
         previewDelegate?.handle(error: error)
         refreshControl?.endRefreshing()
-        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
         cancelButton.isEnabled = true
@@ -262,8 +269,8 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
             return
         }
         refreshControl?.endRefreshing()
-        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
         cancelButton.isEnabled = true

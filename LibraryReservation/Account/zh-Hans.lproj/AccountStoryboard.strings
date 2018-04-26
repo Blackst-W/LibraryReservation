@@ -1,0 +1,30 @@
+
+/* Class = "UIButton"; disabledTitle = "Logining..."; ObjectID = "1Ig-b6-RMT"; */
+"1Ig-b6-RMT.disabledTitle" = "登录中...";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "1Ig-b6-RMT"; */
+"1Ig-b6-RMT.normalTitle" = "登录";
+
+/* Class = "UILabel"; text = "Student ID"; ObjectID = "1cv-E8-Vwp"; */
+"1cv-E8-Vwp.text" = "学号";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "2UC-Fk-ht4"; */
+"2UC-Fk-ht4.title" = "登录";
+
+/* Class = "UITableViewSection"; footerTitle = "Your password would be saved locally only."; ObjectID = "KZt-vc-6Af"; */
+"KZt-vc-6Af.footerTitle" = "你的密码仅会存储在本地设备中";
+
+/* Class = "UITextField"; placeholder = "last 6 digits of ID"; ObjectID = "RJ0-fD-9xh"; */
+"RJ0-fD-9xh.placeholder" = "身份证最后6位";
+
+/* Class = "UILabel"; text = "Save Password"; ObjectID = "S4d-JK-sRh"; */
+"S4d-JK-sRh.text" = "记住密码";
+
+/* Class = "UILabel"; text = "Auto Login"; ObjectID = "fs4-pH-eQe"; */
+"fs4-pH-eQe.text" = "自动登录";
+
+/* Class = "UITextField"; placeholder = "201XXXXXXXXXX"; ObjectID = "iq1-Qh-4Tq"; */
+"iq1-Qh-4Tq.placeholder" = "20XXXXXXXXXXX";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "vh3-ia-tZK"; */
+"vh3-ia-tZK.text" = "密码";

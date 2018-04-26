@@ -1,0 +1,330 @@
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "0KL-M1-u3e"; */
+"0KL-M1-u3e.text" = "日期";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0XO-sT-qVf"; */
+"0XO-sT-qVf.text" = "Label";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "0gj-G1-1x4"; */
+"0gj-G1-1x4.text" = "-";
+
+/* Class = "UILabel"; text = "Seat ID"; ObjectID = "1ru-rL-ZGc"; */
+"1ru-rL-ZGc.text" = "座位ID";
+
+/* Class = "UILabel"; text = "Available: -"; ObjectID = "3WR-dW-qas"; */
+"3WR-dW-qas.text" = "可用座位: -";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "3YI-IS-ETb"; */
+"3YI-IS-ETb.text" = "地点";
+
+/* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "6Ui-xV-8Cb"; */
+"6Ui-xV-8Cb.headerTitle" = "地点";
+
+/* Class = "UILabel"; text = "No Reservation In 30 days."; ObjectID = "6Zy-Dd-p32"; */
+"6Zy-Dd-p32.text" = "30天内无预约记录";
+
+/* Class = "UILabel"; text = "Seat"; ObjectID = "7Nu-5D-yDf"; */
+"7Nu-5D-yDf.text" = "座位";
+
+/* Class = "UILabel"; text = "1F"; ObjectID = "7ZO-Tl-3lJ"; */
+"7ZO-Tl-3lJ.text" = "1楼";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "8Ag-do-Vah"; */
+"8Ag-do-Vah.text" = "-";
+
+/* Class = "UIButton"; disabledTitle = "Canceling..."; ObjectID = "8o1-ux-cjW"; */
+"8o1-ux-cjW.disabledTitle" = "取消中...";
+
+/* Class = "UIButton"; normalTitle = "Cancel Reservation"; ObjectID = "8o1-ux-cjW"; */
+"8o1-ux-cjW.normalTitle" = "取消预约";
+
+/* Class = "UIButton"; normalTitle = "View All"; ObjectID = "9ot-BD-6RA"; */
+"9ot-BD-6RA.normalTitle" = "更多";
+
+/* Class = "UIButton"; normalTitle = "总馆"; ObjectID = "A6R-ou-Urh"; */
+"A6R-ou-Urh.normalTitle" = "总馆";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ATi-pK-ro9"; */
+"ATi-pK-ro9.text" = "Label";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "AkE-Br-ahS"; */
+"AkE-Br-ahS.text" = "图书馆名";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "AxQ-m0-4Wq"; */
+"AxQ-m0-4Wq.title" = "返回";
+
+/* Class = "UILabel"; text = "Duration"; ObjectID = "Dcf-1f-hEk"; */
+"Dcf-1f-hEk.text" = "持续时间";
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "ESA-cW-q9e"; */
+"ESA-cW-q9e.text" = "房间名";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "F1N-Ln-eJO"; */
+"F1N-Ln-eJO.text" = "时间";
+
+/* Class = "UILabel"; text = "Available: -"; ObjectID = "FB3-WG-VJd"; */
+"FB3-WG-VJd.text" = "可用座位: -";
+
+/* Class = "UILabel"; text = "Area Name"; ObjectID = "FZe-qF-Ch5"; */
+"FZe-qF-Ch5.text" = "区域名";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "G4C-Ha-Vdg"; */
+"G4C-Ha-Vdg.text" = "状态";
+
+/* Class = "UIButton"; normalTitle = "信息学部分馆"; ObjectID = "IH6-KA-8qH"; */
+"IH6-KA-8qH.normalTitle" = "信息学部分馆";
+
+/* Class = "UILabel"; text = "Computer"; ObjectID = "IZB-Fu-jDL"; */
+"IZB-Fu-jDL.text" = "有电脑";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "Ihr-4f-oUB"; */
+"Ihr-4f-oUB.text" = "图书馆名";
+
+/* Class = "UILabel"; text = "Message"; ObjectID = "Ild-pn-BRz"; */
+"Ild-pn-BRz.text" = "预约消息";
+
+/* Class = "UILabel"; text = "1F"; ObjectID = "JmI-Bv-dlX"; */
+"JmI-Bv-dlX.text" = "1楼";
+
+/* Class = "UILabel"; text = "Floor Name"; ObjectID = "JpO-zn-x8b"; */
+"JpO-zn-x8b.text" = "楼层名";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "JtM-o7-Gfz"; */
+"JtM-o7-Gfz.text" = "-";
+
+/* Class = "UILabel"; text = "--:-- - --:--"; ObjectID = "K7A-Nu-97J"; */
+"K7A-Nu-97J.text" = "--:-- - --:--";
+
+/* Class = "UIButton"; normalTitle = "工学分馆"; ObjectID = "KV8-iV-9Ia"; */
+"KV8-iV-9Ia.normalTitle" = "工学分馆";
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "LZD-Rh-XJy"; */
+"LZD-Rh-XJy.text" = "房间名";
+
+/* Class = "UISegmentedControl"; Lsm-hm-Aev.segmentTitles[0] = "List"; ObjectID = "Lsm-hm-Aev"; */
+"Lsm-hm-Aev.segmentTitles[0]" = "列表视图";
+
+/* Class = "UISegmentedControl"; Lsm-hm-Aev.segmentTitles[1] = "Layout"; ObjectID = "Lsm-hm-Aev"; */
+"Lsm-hm-Aev.segmentTitles[1]" = "布局视图";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "MUf-Ig-GGB"; */
+"MUf-Ig-GGB.text" = "图书馆名";
+
+/* Class = "UINavigationController"; title = "SeatReservationNaviViewController"; ObjectID = "MeC-bY-IOa"; */
+"MeC-bY-IOa.title" = "SeatReservationNaviViewController";
+
+/* Class = "UINavigationItem"; title = "Seat Reservation"; ObjectID = "N1u-rY-Kh4"; */
+"N1u-rY-Kh4.title" = "座位预约";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Nkp-6t-whq"; */
+"Nkp-6t-whq.text" = "-";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "OLa-Db-hJ9"; */
+"OLa-Db-hJ9.text" = "详细";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "OSS-YM-JdX"; */
+"OSS-YM-JdX.text" = "图书馆名";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "Onw-zn-Wx4"; */
+"Onw-zn-Wx4.text" = "详细";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "QB1-Gk-cHe"; */
+"QB1-Gk-cHe.text" = "Label";
+
+/* Class = "UILabel"; text = "State"; ObjectID = "QiE-qO-a3F"; */
+"QiE-qO-a3F.text" = "状态";
+
+/* Class = "UILabel"; text = "Seat No."; ObjectID = "Rnn-8E-mc3"; */
+"Rnn-8E-mc3.text" = "座位号:";
+
+/* Class = "UILabel"; text = "Reservation ID"; ObjectID = "RxL-cu-mHM"; */
+"RxL-cu-mHM.text" = "预约ID";
+
+/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "SGX-zJ-jBT"; */
+"SGX-zJ-jBT.normalTitle" = "修改";
+
+/* Class = "UITableViewController"; title = "Current Reservation"; ObjectID = "SMx-tQ-KjF"; */
+"SMx-tQ-KjF.title" = "当前预约";
+
+/* Class = "UILabel"; text = "Available Now"; ObjectID = "SZK-vH-eTd"; */
+"SZK-vH-eTd.text" = "当前可用";
+
+/* Class = "UILabel"; text = "Time"; ObjectID = "Sb4-Nc-SF3"; */
+"Sb4-Nc-SF3.text" = "时间";
+
+/* Class = "UIButton"; normalTitle = "Clean"; ObjectID = "Ty3-4l-pPo"; */
+"Ty3-4l-pPo.normalTitle" = "清除";
+
+/* Class = "UILabel"; text = "2018-04-18"; ObjectID = "UDH-WH-Re2"; */
+"UDH-WH-Re2.text" = "2018-04-18";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Ucg-0L-KDn"; */
+"Ucg-0L-KDn.text" = "-";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "V6L-vd-LGJ"; */
+"V6L-vd-LGJ.text" = "详细";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "VNQ-jI-ajV"; */
+"VNQ-jI-ajV.text" = "日期";
+
+/* Class = "UILabel"; text = "Area Name"; ObjectID = "Wll-X0-lNb"; */
+"Wll-X0-lNb.text" = "区域名";
+
+/* Class = "UILabel"; text = "State"; ObjectID = "X3D-0Q-6qe"; */
+"X3D-0Q-6qe.text" = "状态";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Xh8-TL-YVd"; */
+"Xh8-TL-YVd.text" = "Label";
+
+/* Class = "UILabel"; text = "Seat"; ObjectID = "Y58-rg-L5w"; */
+"Y58-rg-L5w.text" = "座位";
+
+/* Class = "UILabel"; text = "State"; ObjectID = "Yjf-fo-u3T"; */
+"Yjf-fo-u3T.text" = "状态";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "Yuz-xc-0xf"; */
+"Yuz-xc-0xf.text" = "-";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "acg-zi-Iiv"; */
+"acg-zi-Iiv.text" = "Label";
+
+/* Class = "UILabel"; text = "Receipt"; ObjectID = "aqG-iX-Mm9"; */
+"aqG-iX-Mm9.text" = "凭据ID";
+
+/* Class = "UILabel"; text = "Room"; ObjectID = "bX5-a6-BVG"; */
+"bX5-a6-BVG.text" = "房间";
+
+/* Class = "UIButton"; disabledTitle = "Processing..."; ObjectID = "bjB-hd-ISB"; */
+"bjB-hd-ISB.disabledTitle" = "处理中...";
+
+/* Class = "UIButton"; normalTitle = "Reserve"; ObjectID = "bjB-hd-ISB"; */
+"bjB-hd-ISB.normalTitle" = "预约";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cwm-aW-CmP"; */
+"cwm-aW-CmP.text" = "Label";
+
+/* Class = "UILabel"; text = "History"; ObjectID = "cyJ-1H-agl"; */
+"cyJ-1H-agl.text" = "历史记录";
+
+/* Class = "UILabel"; text = "loading..."; ObjectID = "d1j-c7-0CI"; */
+"d1j-c7-0CI.text" = "载入中...";
+
+/* Class = "UILabel"; text = "Seat"; ObjectID = "dTV-oz-kjF"; */
+"dTV-oz-kjF.text" = "座位";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eFa-u3-TQR"; */
+"eFa-u3-TQR.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eTa-fP-EmP"; */
+"eTa-fP-EmP.text" = "Label";
+
+/* Class = "UILabel"; text = "Floor Label"; ObjectID = "fO1-D6-IKz"; */
+"fO1-D6-IKz.text" = "Floor Label";
+
+/* Class = "UILabel"; text = "Power"; ObjectID = "fTh-YM-boQ"; */
+"fTh-YM-boQ.text" = "有电源";
+
+/* Class = "UILabel"; text = "Area Name"; ObjectID = "fh0-P3-YOh"; */
+"fh0-P3-YOh.text" = "Area Name";
+
+/* Class = "UILabel"; text = "Reservation ID"; ObjectID = "gig-I5-you"; */
+"gig-I5-you.text" = "预约ID";
+
+/* Class = "UITabBarItem"; title = "Reserve"; ObjectID = "iE3-dO-CWq"; */
+"iE3-dO-CWq.title" = "预约";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "jfX-4V-8we"; */
+"jfX-4V-8we.text" = "图书馆名";
+
+/* Class = "UILabel"; text = "2018-04-18"; ObjectID = "kp7-C6-6DB"; */
+"kp7-C6-6DB.text" = "2018-04-18";
+
+/* Class = "UIButton"; normalTitle = "医学分馆"; ObjectID = "lHu-Id-Thf"; */
+"lHu-Id-Thf.normalTitle" = "医学分馆";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "mA7-bp-Tgb"; */
+"mA7-bp-Tgb.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "nAZ-Mc-n5A"; */
+"nAZ-Mc-n5A.text" = "-";
+
+/* Class = "UILabel"; text = "Not Available"; ObjectID = "oDx-0M-pKe"; */
+"oDx-0M-pKe.text" = "不可用";
+
+/* Class = "UILabel"; text = "Window"; ObjectID = "oKt-xo-2Vn"; */
+"oKt-xo-2Vn.text" = "靠窗";
+
+/* Class = "UIButton"; normalTitle = "New Reservation"; ObjectID = "oWT-hg-NKd"; */
+"oWT-hg-NKd.normalTitle" = "开始预约";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "pIo-eJ-U9G"; */
+"pIo-eJ-U9G.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "pNf-MX-lrA"; */
+"pNf-MX-lrA.text" = "-";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "pPJ-s9-lkh"; */
+"pPJ-s9-lkh.text" = "详细";
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "pkS-kk-qdg"; */
+"pkS-kk-qdg.text" = "房间名";
+
+/* Class = "UILabel"; text = "13:00 - 14:00"; ObjectID = "pyy-9F-dCI"; */
+"pyy-9F-dCI.text" = "13:00 - 14:00";
+
+/* Class = "UIButton"; normalTitle = "Login To View"; ObjectID = "rBa-wQ-MY0"; */
+"rBa-wQ-MY0.normalTitle" = "登录后查看";
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "rYP-nZ-5bM"; */
+"rYP-nZ-5bM.text" = "房间名";
+
+/* Class = "UILabel"; text = "Choose Library"; ObjectID = "sGl-hy-Skd"; */
+"sGl-hy-Skd.text" = "选择图书馆";
+
+/* Class = "UILabel"; text = "State"; ObjectID = "sJ7-km-f6j"; */
+"sJ7-km-f6j.text" = "状态";
+
+/* Class = "UILabel"; text = "Choose Room"; ObjectID = "siO-zo-F1D"; */
+"siO-zo-F1D.text" = "选择房间";
+
+/* Class = "UILabel"; text = "Room"; ObjectID = "uHg-qY-oqb"; */
+"uHg-qY-oqb.text" = "房间";
+
+/* Class = "UILabel"; text = "2018-04-18"; ObjectID = "vEH-n8-pc9"; */
+"vEH-n8-pc9.text" = "2018-04-18";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "vu5-N2-6Vs"; */
+"vu5-N2-6Vs.text" = "-";
+
+/* Class = "UITableViewSection"; headerTitle = "Time"; ObjectID = "vzs-rt-MSh"; */
+"vzs-rt-MSh.headerTitle" = "时间";
+
+/* Class = "UILabel"; text = "Match Filter"; ObjectID = "w32-IQ-R2F"; */
+"w32-IQ-R2F.text" = "符合条件";
+
+/* Class = "UILabel"; text = "13:00 - 14:00"; ObjectID = "wTr-hd-SHY"; */
+"wTr-hd-SHY.text" = "13:00 - 14:00";
+
+/* Class = "UILabel"; text = "No reservation in the last 30 days."; ObjectID = "wr9-uq-Dxg"; */
+"wr9-uq-Dxg.text" = "最近30天内无预约记录";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xtJ-7h-CjK"; */
+"xtJ-7h-CjK.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yCa-aE-KYv"; */
+"yCa-aE-KYv.text" = "Label";
+
+/* Class = "UINavigationItem"; prompt = "Room Name"; ObjectID = "ySV-vQ-Cff"; */
+"ySV-vQ-Cff.prompt" = "Room Name";
+
+/* Class = "UIViewController"; title = "History"; ObjectID = "ymD-QZ-QgG"; */
+"ymD-QZ-QgG.title" = "历史记录";
+
+/* Class = "UILabel"; text = "13:00 - 14:00"; ObjectID = "yo2-EO-wmn"; */
+"yo2-EO-wmn.text" = "13:00 - 14:00";
+
+/* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "z9U-c9-uhD"; */
+"z9U-c9-uhD.headerTitle" = "地点";
+
+/* Class = "UITableViewController"; title = "Reservation Detail"; ObjectID = "zXJ-LF-tr0"; */
+"zXJ-LF-tr0.title" = "预约详情";

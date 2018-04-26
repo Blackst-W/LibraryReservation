@@ -130,21 +130,25 @@ enum SeatCurrentReservationState {
     case late(remain: Int)
     case autoEnd(`in`: Int)
     
-    var localizedState: String {
+    var localizedKey: String {
         switch self {
         case .invalid:
-            return "Invalid"
+            return "invalid"
         case .upcoming(_):
-            return "Upcoming"
+            return "upcoming"
         case .ongoing(_):
-            return "Ongoing"
+            return "ongoing"
         case .tempAway(_):
-            return "Temp Away"
+            return "tempAway"
         case .late(_):
-            return "Lated"
+            return "late"
         case .autoEnd(_):
-            return "Auto End"
+            return "autoEnd"
         }
+    }
+    
+    var localizedState: String {
+        return "SeatCurrentReservationState.\(self.localizedKey)".localized
     }
 }
 
@@ -159,27 +163,31 @@ enum SeatReservationState: String {
     case stop = "STOP"              //提前结束
     case unknown
     
-    var localizedDescription: String {
+    var localizedKey: String {
         switch self {
         case .reserve:
-            return "Reserve"
+            return "reserve"
         case .complete:
-            return "Complete"
+            return "complete"
         case .miss:
-            return "Miss"
+            return "miss"
         case .cancel:
-            return "Cancel"
+            return "cancel"
         case .incomplete:
-            return "Incomplete"
+            return "incomplete"
         case .checkIn:
-            return "Check In"
+            return "checkIn"
         case .away:
-            return "Away"
+            return "away"
         case .stop:
-            return "Stop"
+            return "stop"
         case .unknown:
-            return "Unknown"
+            return "unknown"
         }
+    }
+    
+    var localizedDescription: String {
+        return "SeatReservationState.\(self.localizedKey)".localized
     }
 }
 

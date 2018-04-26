@@ -1,0 +1,113 @@
+/*
+ Localizable.strings
+ LibraryReservation
+ 
+ Created by Weston Wu on 2018/04/26.
+ Copyright © 2018 Weston Wu. All rights reserved.
+ */
+
+//SeatBaseResponse
+"SeatBaseResponse.unknownError" = "请求错误\n错误码: %@\n错误信息:%@";
+
+"SeatBaseResponse.success" = "请求成功";
+
+//SeatAPIError
+"SeatAPIError.dataCorrupt" = "数据损坏, 请稍候重试";
+
+"SeatAPIError.dataMissing" = "无法从服务器获取数据, 请稍候重试";
+
+"SeatAPIError.unknown" = "未知错误, 请稍候重试";
+
+//SeatCurrentReservationState
+
+"SeatCurrentReservationState.invalid" = "无效";
+"SeatCurrentReservationState.upcoming" = "即将开始";
+"SeatCurrentReservationState.ongoing" = "进行中";
+"SeatCurrentReservationState.tempAway" = "暂离";
+"SeatCurrentReservationState.late" = "迟到";
+"SeatCurrentReservationState.autoEnd" = "自动结束";
+
+"Start In" = "%@ %@后开始";
+"End In" = "%@ %@后结束";
+"Expire In" = "%@后过期";
+"Auto End In" = "%@后自动结束";
+"Please Refresh First" = "请先刷新数据";
+
+//SeatReservationState
+"SeatReservationState.reserve" = "已预约";
+"SeatReservationState.complete" = "已完成";
+"SeatReservationState.miss" = "失约";
+"SeatReservationState.cancel" = "已取消";
+"SeatReservationState.incomplete" = "早退";
+"SeatReservationState.checkIn" = "使用中";
+"SeatReservationState.away" = "暂离";
+"SeatReservationState.stop" = "提前结束";
+"SeatReservationState.unknown" = "未知";
+
+//Library
+"总馆" = "总馆";
+"工学分馆" = "工学分馆";
+"信息科学分馆" = "信息科学分馆";
+"医学分馆" = "医学分馆";
+
+//SeatTime
+"SeatTime.now" = "现在";
+"Hour" = "%d小时";
+"h" = "%d小时";
+"Mins" = "%d分钟";
+"mins" = "%d分钟";
+
+//SeatLocation
+"Floor" = "%d楼";
+"SeatNo" = "座位号:%@";
+
+//SeatCurrentReservationView
+"Canceled" = "已取消";
+"Canceling..." = "取消中...";
+
+//SeatRoomTableViewCell
+"Available: -" = "可用座位: -";
+"Available: %d" = "可用座位: %d";
+
+//SeatSelectionViewController
+"Save" = "保存";
+"Change" = "修改";
+"Not Available Time For This Seat" = "此座位无可预约时间段";
+"Reserve Success" = "预约成功";
+
+"Failed To Update" = "请求失败";
+"Close" = "关闭";
+
+//SeatCurrentReservationDetailViewController
+"Current Reservation" = "当前预约";
+"Lated Reservation" = "迟到中的预约";
+"Ongoing Reservation" = "进行中的预约";
+"Paused Reservation" = "暂离中的预约";
+"Upcoming Reservation" = "即将开始的预约";
+"Ending Reservation" = "即将结束的预约";
+"Unknown Reservation" = "未知状态的预约";
+"Stop Reservation" = "结束预约";
+"Cancel Reservation" = "取消预约";
+"Pull To Refresh" = "下拉刷新";
+"Are you sure to cancel this reservation?" = "确定要取消此预约吗?";
+"Confirm" = "确认";
+"Back" = "返回";
+"Copy Location" = "复制座位信息";
+
+//SeatHistoryViewController
+"No more reservations in the last 30 days" = "最近30天内无预约记录";
+
+//SettingsTableViewController
+"Loading..." = "载入中...";
+"Tap To Login" = "点击登录";
+
+//AccountDetailTableViewController
+"Confirm Sign Out" = "确认退出登录";
+"Are you sure to sign out?\nAll data related to this account would be erased." = "确定要退出登录吗?\n此账号的所有数据将会从本机清除";
+"Sign Out" = "退出登录";
+"Cancel" = "取消";
+
+//LoginViewController
+"Unknown Error" = "未知错误";
+"Login Failed" = "登录失败";
+

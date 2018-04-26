@@ -19,13 +19,13 @@ struct SeatBaseResponse: Codable {
     
     var localizedDescription: String {
         guard let statusCode = statusCode else {
-            return "Unknown Error\nCode: \(self.code)\nMessage: \(message)"
+            return "SeatBaseResponse.unknownError".localized(arguments: code, message)
         }
         switch statusCode {
         case 0:
-            return "Success"
+            return "SeatBaseResponse.success".localized
         default:
-            return "Unknown Error\nCode: \(statusCode)\nMessage: \(message)"
+            return "SeatBaseResponse.unknownError".localized(arguments: code, message)
         }
     }
     

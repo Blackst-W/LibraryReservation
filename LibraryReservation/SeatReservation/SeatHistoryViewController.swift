@@ -39,7 +39,7 @@ class SeatHistoryViewController: UIViewController {
 
     @objc func checkMore() {
         if !manager.loadMore() {
-            loadMoreLabel.text = "No more reservations in the last 30 days"
+            loadMoreLabel.text = "No more reservations in the last 30 days".localized
         }
     }
     
@@ -109,8 +109,8 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
     }
     func updateFailed(error: Error) {
         tableView.refreshControl?.endRefreshing()
-        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -121,8 +121,8 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
             return
         }
         tableView.refreshControl?.endRefreshing()
-        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -145,7 +145,7 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
     func loadMore() {
         tableView.reloadData()
         if manager.end {
-            loadMoreLabel.text = "No more reservations in the last 30 days"
+            loadMoreLabel.text = "No more reservations in the last 30 days".localized
         }
     }
 }

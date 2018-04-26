@@ -104,12 +104,12 @@ class AccountDetailTableViewController: UITableViewController {
     }
     
     @IBAction func logoutAccount(_ sender: Any) {
-        let alertController = UIAlertController(title: "Confirm Sign Out", message: "Are you sure to sign out?\nAll data related to this account would be erased.", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Sign Out", style: .destructive) { (_) in
+        let alertController = UIAlertController(title: "Confirm Sign Out".localized, message: "Are you sure to sign out?\nAll data related to this account would be erased.".localized, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Sign Out".localized, style: .destructive) { (_) in
             AccountManager.shared.logout()
             self.navigationController?.popViewController(animated: true)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
         alertController.addActions([cancelAction, confirmAction])
         present(alertController, animated: true, completion: nil)
     }

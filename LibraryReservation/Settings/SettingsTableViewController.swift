@@ -34,10 +34,10 @@ class SettingsTableViewController: UITableViewController {
     @objc func accountChanged() {
         DispatchQueue.main.async {
             if AccountManager.isLogin {
-                self.nameLabel.text = AccountManager.shared.userInfo?.name ??  "Loading..."
+                self.nameLabel.text = AccountManager.shared.userInfo?.name ??  "Loading...".localized
                 self.sidLabel.text = AccountManager.shared.currentAccount?.username
             }else{
-                self.nameLabel.text = "Tap to login"
+                self.nameLabel.text = "Tap To Login".localized
                 self.sidLabel.text = ""
             }
         }
@@ -45,7 +45,7 @@ class SettingsTableViewController: UITableViewController {
     
     @objc func userInfoChanged() {
         DispatchQueue.main.async {
-            self.nameLabel.text = AccountManager.shared.userInfo?.name ??  "Loading..."
+            self.nameLabel.text = AccountManager.shared.userInfo?.name ??  "Loading...".localized
         }
     }
 

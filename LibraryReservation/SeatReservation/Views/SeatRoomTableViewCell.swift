@@ -35,21 +35,21 @@ class SeatRoomTableViewCell: UITableViewCell {
     
     func update(left: Room, right: Room?) {
         leftRoomLabel.text = left.name
-        leftFloorLabel.text = "\(left.floor)F"
+        leftFloorLabel.text = "Floor".localized(arguments: left.floor)
         if let leftSeat = left.availableSeat {
-            leftAvailableLabel.text = "Available: \(leftSeat)"
+            leftAvailableLabel.text = "Available: %d".localized(arguments: leftSeat)
         }else{
-            leftAvailableLabel.text = "Available: -"
+            leftAvailableLabel.text = "Available: -".localized
         }
         if let right = right {
             rightRoomView.isUserInteractionEnabled = true
             rightShadowView.layer.shadowOpacity = 0.15
             rightRoomLabel.text = right.name
-            rightFloorLabel.text = "\(right.floor)F"
+            rightFloorLabel.text = "Floor".localized(arguments: right.floor)
             if let rightSeat = right.availableSeat {
-                rightAvailableLabel.text = "Available: \(rightSeat)"
+                rightAvailableLabel.text = "Available: %d".localized(arguments: rightSeat)
             }else{
-                rightAvailableLabel.text = "Available: -"
+                rightAvailableLabel.text = "Available: -".localized
             }
             rightRoomView.backgroundColor = .white
         }else{

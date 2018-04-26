@@ -29,6 +29,25 @@ extension String {
         guard let intValue = intValue else {return nil}
         self = String(intValue)
     }
+    
+    var localized: String {
+        return NSLocalizedString(self, comment: self)
+    }
+    func localized(comment: String) -> String {
+        return NSLocalizedString(self, comment: comment)
+    }
+    
+    func localized(arguments: CVarArg...) -> String {
+        let localizedTemplate = NSLocalizedString(self, comment: self)
+        return withVaList(arguments) { (params) -> String in
+            return NSString(format: localizedTemplate, arguments: params) as String
+        }
+//        return String(format: localizedTemplate, arguments)
+    }
+}
+
+func LocalizedString(_ key: String, comment: String, arguments: CVarArg...) -> String {
+    return String(format: NSLocalizedString(key, comment: comment), arguments)
 }
 
 let CommonHeader: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

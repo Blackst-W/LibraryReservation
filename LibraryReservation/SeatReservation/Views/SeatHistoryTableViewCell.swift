@@ -29,9 +29,9 @@ class SeatHistoryTableViewCell: UITableViewCell {
             return
         }
         libraryNameLabel.text = location.library.rawValue
-        floorLabel.text = "\(location.floor)F"
+        floorLabel.text = "Floor".localized(arguments: location.floor)
         areaNameLabel.text = location.room
-        seatLabel.text = "Seat No.\(location.seat)"
+        seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         stateLabel.text = reservation.state.localizedDescription
         stateImageView.isHidden = !reservation.isFailed
     }

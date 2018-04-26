@@ -17,11 +17,11 @@ enum SeatAPIError: Int, Error {
     var localizedDescription: String {
         switch self {
         case .dataCorrupt:
-            return "Data corrputed, please try again"
+            return "SeatAPIError.dataCorrupt".localized
         case .dataMissing:
-            return "Failed to receive data from server, please try again"
+            return "SeatAPIError.dataMissing".localized
         case .unknown:
-            return "Unknown error, please try again"
+            return "SeatAPIError.unknown".localized
         }
     }
     

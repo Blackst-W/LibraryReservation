@@ -79,7 +79,7 @@ class SeatSelectionViewController: UIViewController {
         modalPresentationStyle = .formSheet
         title = room.name
         libraryNameLabel.text = library.rawValue
-        floorLabel.text = "\(room.floor)F"
+        floorLabel.text = "Floor".localized(arguments: room.floor)
         roomLabel.text = room.name
         scrollView.delegate = self
 //        scrollView.setZoomScale(0.6, animated: false)
@@ -199,7 +199,7 @@ class SeatSelectionViewController: UIViewController {
     }
     
     func showReserveView() {
-        seatLabel.text = "Seat No." + selectedSeat!.name
+        seatLabel.text = "SeatNo".localized(arguments: selectedSeat!.name)
         dismissControl.isHidden = false
         dismissControl.alpha = 0
         UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
@@ -272,11 +272,11 @@ class SeatSelectionViewController: UIViewController {
         if isTimeFilterDisplay {
             //setting time filter
             cleanTimeFilterButton.isEnabled = true
-            changeTimeFilterButton.setTitle("Save", for: .normal)
+            changeTimeFilterButton.setTitle("Save".localized, for: .normal)
             timeFilterLabel.text = "08:00 - 08:30"
         }else{
             //save time filter
-            changeTimeFilterButton.setTitle("Change", for: .normal)
+            changeTimeFilterButton.setTitle("Change".localized, for: .normal)
             let (start, end) = timeFilterManager.selectedTimes
             startLoading()
             timeFilterStart = start
@@ -290,7 +290,7 @@ class SeatSelectionViewController: UIViewController {
             isTimeFilterDisplay = false
         }
         cleanTimeFilterButton.isEnabled = false
-        changeTimeFilterButton.setTitle("Change", for: .normal)
+        changeTimeFilterButton.setTitle("Change".localized, for: .normal)
         timeFiltedSeats = nil
         timeFilterLabel.text = "--:-- - --:--"
         timeFilterManager.reset()
@@ -311,8 +311,8 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     func updateFailed(error: Error) {
         reserveButton.isEnabled = true
         endLoading()
-        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -324,8 +324,8 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
             return
         }
         endLoading()
-        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
@@ -489,7 +489,7 @@ extension SeatSelectionViewController: SeatReserveDelegate {
         guard seat == self.selectedSeat else {return}
         endLoading()
         if start.isEmpty {
-            HUD.flash(.label("Not Available Time For This Seat."), delay: 1.0)
+            HUD.flash(.label("Not Available Time For This Seat".localized), delay: 1.0)
             return
         }
         startTimes = start
@@ -513,7 +513,7 @@ extension SeatSelectionViewController: SeatReserveDelegate {
     
     func reserveSuccess() {
         view.isUserInteractionEnabled = false
-        reserveButton.setTitle("Success", for: .disabled)
+        reserveButton.setTitle("Reserve Success".localized, for: .disabled)
         reserveButton.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.dismiss(animated: true, completion: nil)
