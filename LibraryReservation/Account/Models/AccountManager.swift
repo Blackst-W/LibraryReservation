@@ -25,6 +25,7 @@ class AccountManager: NSObject {
     private(set) var userInfo: UserInfo?
     static let server = "reservation.seat.lib.whu.edu.cn"
     static let kUserDefaultSID = "UserSID"
+    static let kUserDefaultToken = "UserToken"
     
     private override init() {
         super.init()
@@ -54,7 +55,7 @@ class AccountManager: NSObject {
         userInfo = nil
         currentAccount = nil
         NotificationCenter.default.post(name: .AccountChanged, object: nil)
-        UserDefaults.standard.set(nil, forKey: AccountManager.kUserDefaultSID)
+        UserDefaults.group.set(nil, forKey: AccountManager.kUserDefaultSID)
     }
     
     func deletePassword() {
@@ -70,16 +71,18 @@ class AccountManager: NSObject {
     }
     
     private func load() {
-        guard let savedUsername = UserDefaults.standard.value(forKey: AccountManager.kUserDefaultSID) as? String else {
+        guard let savedUsername = UserDefaults.group.value(forKey: AccountManager.kUserDefaultSID) as? String else {
             //No User Found
             print("User Not Found")
             currentAccount = nil
             return
         }
-        var account = UserAccount(username: savedUsername, password: nil, token: nil)
+        let token = UserDefaults.group.value(forKey: AccountManager.kUserDefaultToken) as? String
+        var account = UserAccount(username: savedUsername, password: nil, token: token)
+        currentAccount = account
+        loadUserInfo()
         let settings = Settings.shared
         guard settings.savePassword else {
-            currentAccount = account
             return
         }
         //check saved password from keychain
@@ -93,7 +96,6 @@ class AccountManager: NSObject {
         guard status == errSecSuccess else {
             print("Failed to retrive password")
             print(status)
-            currentAccount = account
             return
         }
         //success to retrive item from keychain
@@ -104,13 +106,11 @@ class AccountManager: NSObject {
             else {
                 //Failed to restore data
                 print("Failed to restore password")
-                currentAccount = account
                 return
         }
         guard account.username == username else {
             //Wrong User
             deletePassword()
-            currentAccount = account
             return
         }
         //load password success
@@ -125,14 +125,8 @@ class AccountManager: NSObject {
             deleteUserInfo()
             return
         }
-        let fileManager = FileManager.default
-        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
-        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
-        let filePath = dirPath + "/\(AccountManager.kUserInfoFilePath)"
-        guard fileManager.fileExists(atPath: filePath) else {
-            return
-        }
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else {
+        let path = GroupURL.appendingPathComponent(AccountManager.kUserInfoFilePath)
+        guard let data = try? Data(contentsOf: path) else {
             deleteUserInfo()
             return
         }
@@ -150,10 +144,8 @@ class AccountManager: NSObject {
     
     func deleteUserInfo() {
         let fileManager = FileManager.default
-        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
-        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
-        let filePath = dirPath + "/\(AccountManager.kUserInfoFilePath)"
-        try? fileManager.removeItem(atPath: filePath)
+        let path = GroupURL.appendingPathComponent(AccountManager.kUserInfoFilePath)
+        try? fileManager.removeItem(atPath: path.absoluteString)
     }
     
     func saveUserInfo() {
@@ -162,20 +154,9 @@ class AccountManager: NSObject {
         }
         let encoder = JSONEncoder()
         let data = try! encoder.encode(userInfo)
-        let fileManager = FileManager.default
-        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
-        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
-        let filePath = dirPath + "/\(AccountManager.kUserInfoFilePath)"
-        if !fileManager.fileExists(atPath: dirPath) {
-            do {
-                try fileManager.createDirectory(atPath: dirPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print(error.localizedDescription)
-                return
-            }
-        }
+        let path = GroupURL.appendingPathComponent(AccountManager.kUserInfoFilePath)
         do {
-            try data.write(to: URL(fileURLWithPath: filePath))
+            try data.write(to: path)
         } catch {
             print(error.localizedDescription)
             return
@@ -187,7 +168,8 @@ class AccountManager: NSObject {
             print("Not login")
             return
         }
-        UserDefaults.standard.set(account.username, forKey: AccountManager.kUserDefaultSID)
+        UserDefaults.group.set(account.username, forKey: AccountManager.kUserDefaultSID)
+        UserDefaults.group.set(account.token, forKey: AccountManager.kUserDefaultToken)
         saveUserInfo()
         let settings = Settings.shared
         guard settings.savePassword else {

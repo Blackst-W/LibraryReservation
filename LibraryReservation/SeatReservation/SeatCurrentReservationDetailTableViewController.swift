@@ -88,7 +88,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         }
         self.title = title
         let cancelTitle = reservation.isStarted ? "Stop Reservation".localized : "Cancel Reservation".localized
-        cancelButton.setTitle(cancelTitle, for: .normal)
+        cancelButton?.setTitle(cancelTitle, for: .normal)
         
     }
     

@@ -189,6 +189,7 @@ class SeatReserveManager: SeatBaseNetworkManager {
         let startTime = start.id == "now" ? "-1" : start.id
         let body = "t=1&seat=\(seat.id)&date=\(dateString)&startTime=\(startTime)&endTime=\(end.id)&t2=2"
         reserveRequest.httpBody = body.data(using: .utf8)
+        reserveRequest.timeoutInterval = 3
         let reserveTask = session.dataTask(with: reserveRequest) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {

@@ -107,38 +107,19 @@ class SeatBaseNetworkManager: NSObject {
     
     func delete(filePath kFilePath: String) {
             let fileManager = FileManager.default
-            let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
-            let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
-            let filePath = dirPath + "/\(kFilePath)"
-            try? fileManager.removeItem(atPath: filePath)
+            let path = GroupURL.appendingPathComponent(kFilePath)
+            try? fileManager.removeItem(atPath: path.absoluteString)
     }
     
     func load(filePath kFilePath: String) -> Data? {
-        let fileManager = FileManager.default
-        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
-        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
-        let filePath = dirPath + "/\(kFilePath)"
-        guard fileManager.fileExists(atPath: filePath) else {
-            return nil
-        }
-        return try? Data(contentsOf: URL(fileURLWithPath: filePath))
+        let path = GroupURL.appendingPathComponent(kFilePath)
+        return try? Data(contentsOf: path)
     }
     
     func save(data: Data, filePath kFilePath: String) {
-        let fileManager = FileManager.default
-        let rootPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
-        let dirPath = rootPath + "/\(Bundle.main.bundleIdentifier!)"
-        let filePath = dirPath + "/\(kFilePath)"
-        if !fileManager.fileExists(atPath: dirPath) {
-            do {
-                try fileManager.createDirectory(atPath: dirPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print(error.localizedDescription)
-                return
-            }
-        }
+        let path = GroupURL.appendingPathComponent(kFilePath)
         do {
-            try data.write(to: URL(fileURLWithPath: filePath))
+            try data.write(to: path)
         } catch {
             print(error.localizedDescription)
             return

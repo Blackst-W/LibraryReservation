@@ -106,10 +106,12 @@ class SeatSelectionViewController: UIViewController {
 
     func startLoading() {
         indicatorView.startAnimating()
+        HUD.show(.systemActivity)
     }
     
     func endLoading() {
         indicatorView.stopAnimating()
+        HUD.hide()
     }
     
     @IBAction func refresh(_ sender: Any) {
@@ -211,6 +213,7 @@ class SeatSelectionViewController: UIViewController {
     
     
     @IBAction func dismissReserveView(_ sender: Any) {
+        if !reserveButton.isEnabled {return}
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             self.dismissControl.alpha = 0
             self.dismissBottomConstraint.isActive = true
@@ -318,11 +321,11 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
-        reserveButton.isEnabled = true
         if failedResponse.code == "12" {
             requireLogin()
             return
         }
+        reserveButton.isEnabled = true
         endLoading()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)

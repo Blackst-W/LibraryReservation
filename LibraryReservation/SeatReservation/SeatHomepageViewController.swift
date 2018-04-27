@@ -204,6 +204,7 @@ class SeatHomepageViewController: UIViewController {
         }
         let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
         viewController.reservation = reservation
+        viewController.updateTitle()
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -333,6 +334,7 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
             }
             let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
             viewController.reservation = reservation
+            viewController.updateTitle()
             viewController.previewDelegate = self
             return viewController
         }else{

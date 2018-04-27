@@ -59,3 +59,13 @@ let TestRoomData: Data? = {
     let data = try? Data(contentsOf: roomDataFilePath)
     return data
 }()
+
+let GroupID = "group.com.westonwu.ios.whu"
+
+extension UserDefaults {
+    class var group: UserDefaults {
+        return UserDefaults(suiteName: GroupID)!
+    }
+}
+
+let GroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GroupID)!

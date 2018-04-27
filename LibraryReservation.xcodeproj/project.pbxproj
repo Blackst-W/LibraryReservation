@@ -460,7 +460,7 @@
 						CreatedOnToolsVersion = 9.3;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -900,14 +900,15 @@
 			baseConfigurationReference = 44458C3A714EAD64B386E6A1 /* Pods-LibraryReservation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LibraryReservation/LibraryReservation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8A929HS7E;
+				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -919,14 +920,15 @@
 			baseConfigurationReference = 6A66FC8B5FBF16632D77AF86 /* Pods-LibraryReservation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LibraryReservation/LibraryReservation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8A929HS7E;
+				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = LibraryReservation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
