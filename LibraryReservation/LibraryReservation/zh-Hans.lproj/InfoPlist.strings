@@ -5,5 +5,4 @@
   Created by Weston Wu on 2018/04/26.
   Copyright © 2018 Weston Wu. All rights reserved.
 */
-
-"CFBundleDisplayName" = "WHU Seat Reservation";
+"CFBundleDisplayName" = "WHU预约助手";
