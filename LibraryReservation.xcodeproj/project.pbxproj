@@ -47,6 +47,8 @@
 		ADB9C98F2091E9890086A00E /* SettingsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C9912091E9890086A00E /* SettingsStoryboard.storyboard */; };
 		ADB9C9942091EC970086A00E /* AccountStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C9962091EC970086A00E /* AccountStoryboard.storyboard */; };
 		ADB9C99B2091EE8D0086A00E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C9992091EE8D0086A00E /* InfoPlist.strings */; };
+		ADB9C99F20937A270086A00E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C99E20937A270086A00E /* NotificationManager.swift */; };
+		ADB9C9A320937B810086A00E /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */; };
 		ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */; };
 		ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */; };
 		ADF0A1B22086E00B009F4B66 /* SeatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF0A1B12086E00B009F4B66 /* SeatHistoryManager.swift */; };
@@ -142,6 +144,8 @@
 		ADB9C9982091EC980086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AccountStoryboard.strings"; sourceTree = "<group>"; };
 		ADB9C99A2091EE8D0086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = LibraryReservation/Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ADB9C99C2091EECD0086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "LibraryReservation/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		ADB9C99E20937A270086A00E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
 		ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryViewController.swift; sourceTree = "<group>"; };
 		ADF0A1B12086E00B009F4B66 /* SeatHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryManager.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 		AD7433BB208487FB005AAF11 /* LibraryReservation */ = {
 			isa = PBXGroup;
 			children = (
+				ADB9C99D209379F80086A00E /* Notification */,
 				ADB9C9742091E0530086A00E /* LibraryReservation.entitlements */,
 				AD4B3B112084F7F000010B47 /* Utilities */,
 				AD4B3B062084F58400010B47 /* Network */,
@@ -334,6 +339,7 @@
 				AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */,
 				ADB9C9912091E9890086A00E /* SettingsStoryboard.storyboard */,
 				ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */,
+				ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -344,6 +350,14 @@
 				AD4B3B182084FA4200010B47 /* Settings.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		ADB9C99D209379F80086A00E /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				ADB9C99E20937A270086A00E /* NotificationManager.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		ADCB5ED52084C34B00E0CF5F /* SeatReservation */ = {
@@ -639,6 +653,7 @@
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
 				ADB9C96F208BB99B0086A00E /* SeatResponse.swift in Sources */,
 				ADB9C96D208B4E8C0086A00E /* SeatReserveManager.swift in Sources */,
+				ADB9C9A320937B810086A00E /* NotificationSettingsTableViewController.swift in Sources */,
 				AD4B3B152084F84D00010B47 /* AccountManager.swift in Sources */,
 				ADF0A1B72087449F009F4B66 /* SeatHistoryCollectionViewCell.swift in Sources */,
 				ADF0A1B22086E00B009F4B66 /* SeatHistoryManager.swift in Sources */,
@@ -646,6 +661,7 @@
 				AD4B3B192084FA4200010B47 /* Settings.swift in Sources */,
 				AD50F2B6208A537B00A7BD6A /* SeatFilterCondition.swift in Sources */,
 				AD50F2B2208A1A3000A7BD6A /* AvailableSeatManager.swift in Sources */,
+				ADB9C99F20937A270086A00E /* NotificationManager.swift in Sources */,
 				AD4B3B082084F5DA00010B47 /* SeatBaseResponse.swift in Sources */,
 				ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */,
 				AD4B3B102084F7B000010B47 /* LoginResponse.swift in Sources */,

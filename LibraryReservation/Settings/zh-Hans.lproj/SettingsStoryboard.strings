@@ -2,8 +2,8 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "0LT-Gz-f09"; */
 "0LT-Gz-f09.text" = "-";
 
-/* Class = "UILabel"; text = "Remind you 30min ahead for upcoming reservation"; ObjectID = "0XH-Jc-ZQ0"; */
-"0XH-Jc-ZQ0.text" = "提前30分钟提醒你预约即将开始";
+/* Class = "UILabel"; text = "Remind you 10min ahead for upcoming reservation"; ObjectID = "0XH-Jc-ZQ0"; */
+"0XH-Jc-ZQ0.text" = "提前10分钟提醒你预约即将开始";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "0rE-dg-w4P"; */
 "0rE-dg-w4P.text" = "-";
@@ -119,8 +119,8 @@
 /* Class = "UILabel"; text = "Name"; ObjectID = "uNR-vt-6is"; */
 "uNR-vt-6is.text" = "姓名";
 
-/* Class = "UILabel"; text = "Remind you 30min ahead for upcoming reservation"; ObjectID = "zLF-ox-39u"; */
-"zLF-ox-39u.text" = "提前30分钟提醒你预约即将开始";
+/* Class = "UILabel"; text = "Remind you 10min ahead for upcoming reservation"; ObjectID = "zLF-ox-39u"; */
+"zLF-ox-39u.text" = "提前10分钟提醒你预约即将开始";
 
 /* Class = "UIButton"; disabledTitle = "Refreshing..."; ObjectID = "zis-RN-phh"; */
 "zis-RN-phh.disabledTitle" = "刷新中...";

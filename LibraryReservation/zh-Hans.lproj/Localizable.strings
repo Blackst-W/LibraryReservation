@@ -111,3 +111,18 @@
 "Unknown Error" = "未知错误";
 "Login Failed" = "登录失败";
 
+//NotificationManager
+"Reserve Reminder" = "预约提醒";
+"Seat reservation for the next day is about to open." = "明天的座位即将开放预约，请及时预约。";
+
+"Upcoming Seat Reservation In 10mins" = "预约的座位将在10分钟后开始使用";
+
+"Reservation Complete" =  "预约已完成";
+"Make sure to take all your belongings before leave." = "离开前请检查带好所有的随身物品。";
+
+"Reservation Expire Alert" = "预约过期提醒";
+"Reservation is about to expire in 10mins, back to library or cancel the reservation to avoid violation." = "您的座位将在10分钟后过期,请及时返回图书馆或结束使用以免造成违约。";
+//NotificationSettingsTableViewController
+"Notification Was Disabled" = "推送已被关闭";
+"Please go the \"Settings\" App and open the notification for this App" = "请在\"设置\"应用内打开此应用的推送开关";
+"Settings" = "设置";

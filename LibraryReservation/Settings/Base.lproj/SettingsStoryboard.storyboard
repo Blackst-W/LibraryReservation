@@ -137,7 +137,7 @@
         <!--Notification-->
         <scene sceneID="CE0-iu-fmr">
             <objects>
-                <tableViewController title="Notification" id="tLA-VP-zGU" sceneMemberID="viewController">
+                <tableViewController title="Notification" id="tLA-VP-zGU" customClass="NotificationSettingsTableViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="wf7-LT-B7O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,6 +160,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UHD-uN-vgQ">
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="notificationSwitchChanged:" destination="tLA-VP-zGU" eventType="valueChanged" id="KQh-TC-9Vl"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -235,7 +238,7 @@
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
                                                 </switch>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Eye-iR-dwc">
-                                                    <rect key="frame" x="16" y="4.6666666666666679" width="267" height="34.333333333333329"/>
+                                                    <rect key="frame" x="16" y="4.6666666666666679" width="265.33333333333331" height="34.333333333333329"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Reservation Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tZ-Y2-xlD">
                                                             <rect key="frame" x="0.0" y="0.0" width="211.33333333333334" height="17"/>
@@ -243,8 +246,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind you 30min ahead for upcoming reservation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0XH-Jc-ZQ0">
-                                                            <rect key="frame" x="0.0" y="21" width="267" height="13.333333333333336"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind you 10min ahead for upcoming reservation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0XH-Jc-ZQ0">
+                                                            <rect key="frame" x="0.0" y="21" width="265.33333333333331" height="13.333333333333336"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -280,8 +283,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="u4m-Wy-B9g">
                                                     <rect key="frame" x="16" y="4.6666666666666679" width="177.33333333333334" height="34.333333333333329"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reservation Due Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSS-O0-sx4">
-                                                            <rect key="frame" x="0.0" y="0.0" width="171" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reservation End Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSS-O0-sx4">
+                                                            <rect key="frame" x="0.0" y="0.0" width="170" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -411,7 +414,7 @@
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
                                                 </switch>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="AVE-Bb-gsR">
-                                                    <rect key="frame" x="16" y="4.6666666666666679" width="267" height="34.333333333333329"/>
+                                                    <rect key="frame" x="16" y="4.6666666666666679" width="265.33333333333331" height="34.333333333333329"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Reservation Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZoW-VD-f7m">
                                                             <rect key="frame" x="0.0" y="0.0" width="211.33333333333334" height="17"/>
@@ -419,8 +422,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind you 30min ahead for upcoming reservation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLF-ox-39u">
-                                                            <rect key="frame" x="0.0" y="21" width="267" height="13.333333333333336"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind you 10min ahead for upcoming reservation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLF-ox-39u">
+                                                            <rect key="frame" x="0.0" y="21" width="265.33333333333331" height="13.333333333333336"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -487,6 +490,13 @@
                             <outlet property="delegate" destination="tLA-VP-zGU" id="9hs-ok-fuo"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="notificationSwitch" destination="UHD-uN-vgQ" id="QzC-dP-Jpy"/>
+                        <outlet property="seatAwaySwitch" destination="hdg-jr-BBN" id="z2Q-bs-W7s"/>
+                        <outlet property="seatEndSwitch" destination="ziF-In-zdi" id="aTB-lS-KL1"/>
+                        <outlet property="seatReserveSwitch" destination="8yp-Bw-Dp1" id="J24-MC-Dgd"/>
+                        <outlet property="seatUpcomingSwitch" destination="iw8-So-g9o" id="rqz-ZF-Xl7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hb6-n6-qLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

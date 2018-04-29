@@ -37,6 +37,9 @@ class SeatHistoryManager: SeatBaseNetworkManager {
             DispatchQueue.main.async {
                 self.delegate?.update(current: self.current)
             }
+            if let reservation = current {
+                NotificationManager.shared.schedule(reservation: reservation)
+            }
         }
     }
     weak var delegate: SeatHistoryManagerDelegate?

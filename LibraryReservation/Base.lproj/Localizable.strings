@@ -111,3 +111,19 @@
 "Unknown Error" = "Unknown Error";
 "Login Failed" = "Login Failed";
 
+//NotificationManager
+"Reserve Reminder" = "Reserve Reminder";
+"Seat reservation for the next day is about to open." = "Seat reservation for the next day is about to open.";
+
+"Upcoming Seat Reservation In 10mins" = "Upcoming Seat Reservation In 10mins";
+
+"Reservation Complete" =  "Reservation Complete";
+"Make sure to take all your belongings before leave." = "Make sure to take all your belongings before leave.";
+
+"Reservation Expire Alert" = "Reservation Expire Alert";
+"Reservation is about to expire in 10mins, back to library or cancel the reservation to avoid violation." = "Reservation is about to expire in 10mins, back to library or cancel the reservation to avoid violation.";
+
+//NotificationSettingsTableViewController
+"Notification Was Disabled" = "Notification Was Disabled";
+"Please go the \"Settings\" App and open the notification for this App" = "Please go the \"Settings\" App and open the notification for this App";
+"Settings" = "Settings";

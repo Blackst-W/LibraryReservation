@@ -16,10 +16,10 @@ extension Notification.Name {
 }
 
 struct SeatNotificationSettings: Codable {
-    let make: Bool
-    let upcoming: Bool
-    let end: Bool
-    let tempAway: Bool
+    var make: Bool
+    var upcoming: Bool
+    var end: Bool
+    var tempAway: Bool
     
     static let `default` = SeatNotificationSettings(make: true, upcoming: true, end: true, tempAway: false)
     
@@ -27,9 +27,9 @@ struct SeatNotificationSettings: Codable {
 
 struct MeetingRoomNotificationSettings: Codable {
     
-    let make: Bool
-    let upcoming: Bool
-    let end: Bool
+    var make: Bool
+    var upcoming: Bool
+    var end: Bool
     
     static let `default` = MeetingRoomNotificationSettings(make: true, upcoming: true, end: true)
     
@@ -37,16 +37,20 @@ struct MeetingRoomNotificationSettings: Codable {
 
 struct NotificationSettings: Codable {
     
-    let enable: Bool
-    let seat: SeatNotificationSettings
-    let meetingRoom: MeetingRoomNotificationSettings
+    var enable: Bool
+    var seat: SeatNotificationSettings
+    var meetingRoom: MeetingRoomNotificationSettings
     
     static let `default` = NotificationSettings(enable: false, seat: .default, meetingRoom: .default)
     
 }
 
 class Settings: Codable {
-    private(set) var notificationSettings: NotificationSettings
+    private(set) var notificationSettings: NotificationSettings {
+        didSet {
+            NotificationCenter.default.post(name: .NotificationSettingsChanged, object: nil)
+        }
+    }
     private(set) var geoFance: Bool
     
     private(set) var savePassword: Bool {
@@ -148,6 +152,26 @@ class Settings: Codable {
         }else{
             autoLogin = false
         }
+        save()
+    }
+    
+    func enableNotification() {
+        notificationSettings.enable = true
+        save()
+    }
+    
+    func disableNotification() {
+        notificationSettings.enable = false
+        save()
+    }
+    
+    func update(seatSettings newSettings: SeatNotificationSettings) {
+        notificationSettings.seat = newSettings
+        save()
+    }
+    
+    func update(meetingRoomSettings newSettings: MeetingRoomNotificationSettings) {
+        notificationSettings.meetingRoom = newSettings
         save()
     }
     
