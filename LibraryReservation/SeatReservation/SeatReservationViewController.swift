@@ -36,12 +36,14 @@ class SeatReservationViewController: UIViewController {
         super.viewDidLoad()
         date = Date()
         let calender = Calendar.current
+        var dayTitle = "(Today)".localized
         if calender.component(.hour, from: date) >= 22 || (calender.component(.hour, from: date) == 21 && calender.component(.minute, from: date) >= 30) {
             date = date.addingTimeInterval(4 * 60 * 60)
+            dayTitle = "(Tomorrow)".localized
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        title = dateFormatter.string(from: date)
+        title = dateFormatter.string(from: date) + " " + dayTitle
         roomTableView.dataSource = self
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)

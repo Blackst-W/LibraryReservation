@@ -69,6 +69,10 @@
 "Available: -" = "Available: -";
 "Available: %d" = "Available: %d";
 
+//SeatReservationViewController
+"(Today)" = "(Today)";
+"(Tomorrow)" = "(Tomorrow)";
+
 //SeatSelectionViewController
 "Save" = "Save";
 "Change" = "Change";

@@ -329,9 +329,7 @@
 		AD7433BB208487FB005AAF11 /* LibraryReservation */ = {
 			isa = PBXGroup;
 			children = (
-				ADB9C9992091EE8D0086A00E /* InfoPlist.strings */,
-				ADB9C9772091E12E0086A00E /* Localizable.strings */,
-				ADB9C9742091E0530086A00E /* LibraryReservation.entitlements */,
+				ADBDA44B20974B0200644D33 /* Support Files */,
 				ADB9C99D209379F80086A00E /* Notification */,
 				AD4B3B112084F7F000010B47 /* Utilities */,
 				AD4B3B062084F58400010B47 /* Network */,
@@ -339,11 +337,7 @@
 				ADCB5ED52084C34B00E0CF5F /* SeatReservation */,
 				AD7433F120848A2D005AAF11 /* Settings */,
 				AD7433EE208489FC005AAF11 /* Account */,
-				AD7433BC208487FB005AAF11 /* AppDelegate.swift */,
-				AD7433C2208487FB005AAF11 /* Main.storyboard */,
 				AD7433C5208487FC005AAF11 /* Assets.xcassets */,
-				AD7433C7208487FC005AAF11 /* LaunchScreen.storyboard */,
-				AD7433CA208487FC005AAF11 /* Info.plist */,
 			);
 			path = LibraryReservation;
 			sourceTree = "<group>";
@@ -402,6 +396,20 @@
 				ADB9C99E20937A270086A00E /* NotificationManager.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		ADBDA44B20974B0200644D33 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD7433CA208487FC005AAF11 /* Info.plist */,
+				AD7433C7208487FC005AAF11 /* LaunchScreen.storyboard */,
+				AD7433C2208487FB005AAF11 /* Main.storyboard */,
+				AD7433BC208487FB005AAF11 /* AppDelegate.swift */,
+				ADB9C9742091E0530086A00E /* LibraryReservation.entitlements */,
+				ADB9C9772091E12E0086A00E /* Localizable.strings */,
+				ADB9C9992091EE8D0086A00E /* InfoPlist.strings */,
+			);
+			path = "Support Files";
 			sourceTree = "<group>";
 		};
 		ADCB5ED52084C34B00E0CF5F /* SeatReservation */ = {
@@ -1031,10 +1039,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = LibraryReservation/LibraryReservation.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "LibraryReservation/Support Files/LibraryReservation.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
-				INFOPLIST_FILE = LibraryReservation/Info.plist;
+				INFOPLIST_FILE = "LibraryReservation/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1052,10 +1060,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = LibraryReservation/LibraryReservation.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "LibraryReservation/Support Files/LibraryReservation.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
-				INFOPLIST_FILE = LibraryReservation/Info.plist;
+				INFOPLIST_FILE = "LibraryReservation/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
