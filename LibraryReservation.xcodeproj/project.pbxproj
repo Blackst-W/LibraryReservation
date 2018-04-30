@@ -84,6 +84,13 @@
 			remoteGlobalIDString = AD7433B8208487FB005AAF11;
 			remoteInfo = LibraryReservation;
 		};
+		ADBDA46520974DEC00644D33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ADBDA45620974DEB00644D33;
+			remoteInfo = SeatKit;
+		};
 		ADF2F8FE2096249900092893 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AD7433B1208487FB005AAF11 /* Project object */;
@@ -172,6 +179,7 @@
 		ADB9C99C2091EECD0086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "LibraryReservation/zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		ADB9C99E20937A270086A00E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
+		ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SeatKit.xcodeproj; path = SeatKit/SeatKit.xcodeproj; sourceTree = "<group>"; };
 		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
 		ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryViewController.swift; sourceTree = "<group>"; };
 		ADF0A1B12086E00B009F4B66 /* SeatHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryManager.swift; sourceTree = "<group>"; };
@@ -305,6 +313,7 @@
 		AD7433B0208487FB005AAF11 = {
 			isa = PBXGroup;
 			children = (
+				ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */,
 				AD7433BB208487FB005AAF11 /* LibraryReservation */,
 				AD7433D2208487FD005AAF11 /* LibraryReservationTests */,
 				AD7433DD208487FD005AAF11 /* LibraryReservationUITests */,
@@ -410,6 +419,14 @@
 				ADB9C9992091EE8D0086A00E /* InfoPlist.strings */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		ADBDA46220974DEB00644D33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ADBDA46620974DEC00644D33 /* SeatKit.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		ADCB5ED52084C34B00E0CF5F /* SeatReservation */ = {
@@ -591,6 +608,12 @@
 			mainGroup = AD7433B0208487FB005AAF11;
 			productRefGroup = AD7433BA208487FB005AAF11 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = ADBDA46220974DEB00644D33 /* Products */;
+					ProjectRef = ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				AD7433B8208487FB005AAF11 /* LibraryReservation */,
@@ -600,6 +623,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		ADBDA46620974DEC00644D33 /* SeatKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SeatKit.framework;
+			remoteRef = ADBDA46520974DEC00644D33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		AD7433B7208487FB005AAF11 /* Resources */ = {
