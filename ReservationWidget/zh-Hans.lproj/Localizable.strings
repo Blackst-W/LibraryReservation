@@ -1,0 +1,58 @@
+/* 
+  Localizable.strings
+  LibraryReservation
+
+  Created by Weston Wu on 2018/04/30.
+  Copyright © 2018 Weston Wu. All rights reserved.
+*/
+
+//SeatBaseResponse
+"SeatBaseResponse.unknownError" = "请求错误\n错误码: %@\n错误信息:%@";
+
+"SeatBaseResponse.success" = "请求成功";
+
+//SeatAPIError
+"SeatAPIError.dataCorrupt" = "数据损坏, 请稍候重试";
+
+"SeatAPIError.dataMissing" = "无法从服务器获取数据, 请稍候重试";
+
+"SeatAPIError.unknown" = "未知错误, 请稍候重试";
+
+//Library
+"总馆" = "总馆";
+"工学分馆" = "工学分馆";
+"信息科学分馆" = "信息科学分馆";
+"医学分馆" = "医学分馆";
+
+//SeatTime
+"SeatTime.now" = "现在";
+"Hour" = "%d小时";
+"h" = "%d小时";
+"Mins" = "%d分钟";
+"mins" = "%d分钟";
+
+//SeatLocation
+"Floor" = "%d楼";
+"SeatNo" = "座位号:%@";
+
+
+//SeatCurrentReservationState
+
+"SeatCurrentReservationState.invalid" = "无效";
+"SeatCurrentReservationState.upcoming" = "即将开始";
+"SeatCurrentReservationState.ongoing" = "进行中";
+"SeatCurrentReservationState.tempAway" = "暂离";
+"SeatCurrentReservationState.late" = "迟到";
+"SeatCurrentReservationState.autoEnd" = "自动结束";
+
+"Start In" = "%@ %@后开始";
+"End In" = "%@ %@后结束";
+"Expire In" = "%@后过期";
+"Auto End In" = "%@后自动结束";
+"Please Refresh First" = "请先刷新数据";
+
+//TodayViewController
+"Refresh" = "刷新";
+"Not Reservation Found" = "没有发现预约";
+"Go make a reservation in the app and check back later." = "在 App 里预约座位后可在这里查看预约状态。";
+"Reserve" = "预约";

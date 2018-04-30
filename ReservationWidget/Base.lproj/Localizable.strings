@@ -1,0 +1,56 @@
+/* 
+  Localizable.strings
+  LibraryReservation
+
+  Created by Weston Wu on 2018/04/30.
+  Copyright © 2018 Weston Wu. All rights reserved.
+*/
+
+//SeatBaseResponse
+"SeatBaseResponse.unknownError" = "Request Error\nCode: %@\nMessage:%@";
+
+"SeatBaseResponse.success" = "Success";
+
+//SeatAPIError
+"SeatAPIError.dataCorrupt" = "Data corrputed, please try again";
+
+"SeatAPIError.dataMissing" = "Failed to receive data from server, please try again";
+
+"SeatAPIError.unknown" = "Unknown error, please try again";
+
+//Library
+"总馆" = "总馆";
+"工学分馆" = "工学分馆";
+"信息科学分馆" = "信息科学分馆";
+"医学分馆" = "医学分馆";
+
+//SeatTime
+"SeatTime.now" = "Now";
+"Hour" = "%dHour";
+"h" = "%dh";
+"Mins" = "%dMins";
+"mins" = "%dmins";
+
+//SeatLocation
+"Floor" = "%dF";
+"SeatNo" = "Seat No.%@";
+
+//SeatCurrentReservationState
+"SeatCurrentReservationState.invalid" = "Invalid";
+"SeatCurrentReservationState.upcoming" = "Upcoming";
+"SeatCurrentReservationState.ongoing" = "Ongoing";
+"SeatCurrentReservationState.tempAway" = "Temp Away";
+"SeatCurrentReservationState.late" = "Lated";
+"SeatCurrentReservationState.autoEnd" = "Auto End";
+
+"Start In" = "Start In %@ %@";
+"End In" = "End In %@ %@";
+"Expire In" = "Expire In %@";
+"Auto End In" = "Auto End In %@";
+"Please Refresh First" = "Please Refresh First";
+
+//TodayViewController
+"Refresh" = "Refresh";
+"Not Reservation Found" = "Not Reservation Found";
+"Go make a reservation in the app and check back later." = "Go make a reservation in the app and check back later.";
+"Reserve" = "Reserve";

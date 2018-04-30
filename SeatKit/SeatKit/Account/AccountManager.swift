@@ -70,6 +70,10 @@ public class AccountManager: NSObject {
         }
     }
     
+    public func reload() {
+        load()
+    }
+    
     private func load() {
         guard let savedUsername = UserDefaults.group.value(forKey: AccountManager.kUserDefaultSID) as? String else {
             //No User Found

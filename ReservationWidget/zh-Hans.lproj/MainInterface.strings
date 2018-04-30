@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "8nt-If-wqi"; */
+"8nt-If-wqi.text" = "Room Name";
+
+/* Class = "UILabel"; text = "Seat No"; ObjectID = "C8u-PO-1ZU"; */
+"C8u-PO-1ZU.text" = "Seat No";
+
+/* Class = "UILabel"; text = "Floor Label"; ObjectID = "EwF-zj-dUs"; */
+"EwF-zj-dUs.text" = "Floor Label";
+
+/* Class = "UILabel"; text = "Start in 34mins"; ObjectID = "MqO-Hd-uSg"; */
+"MqO-Hd-uSg.text" = "Start in 34mins";
+
+/* Class = "UIButton"; normalTitle = "Login To View"; ObjectID = "PlP-7F-hjd"; */
+"PlP-7F-hjd.normalTitle" = "登录查看当前预约";
+
+/* Class = "UIButton"; disabledTitle = "Refreshing..."; ObjectID = "fMG-oQ-GfX"; */
+"fMG-oQ-GfX.disabledTitle" = "刷新中...";
+
+/* Class = "UIButton"; normalTitle = "Refresh"; ObjectID = "fMG-oQ-GfX"; */
+"fMG-oQ-GfX.normalTitle" = "刷新";
+
+/* Class = "UILabel"; text = "Failed To Refresh"; ObjectID = "kn0-6f-zhr"; */
+"kn0-6f-zhr.text" = "刷新失败";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "p3G-M2-Rdu"; */
+"p3G-M2-Rdu.text" = "Library Name";
+
+/* Class = "UILabel"; text = "--:-- - --:--"; ObjectID = "p5E-zC-XpZ"; */
+"p5E-zC-XpZ.text" = "--:-- - --:--";
+
+/* Class = "UIButton"; normalTitle = "Retry"; ObjectID = "rWb-qw-Vpd"; */
+"rWb-qw-Vpd.normalTitle" = "重试";
+
+/* Class = "UILabel"; text = "Failed Reason"; ObjectID = "srm-Vf-b4g"; */
+"srm-Vf-b4g.text" = "Failed Reason";
+
+/* Class = "UILabel"; text = "Upcoming"; ObjectID = "vxe-gL-XiG"; */
+"vxe-gL-XiG.text" = "Upcoming";

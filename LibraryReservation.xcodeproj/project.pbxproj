@@ -43,18 +43,20 @@
 		ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */; };
 		ADCD2DAB20976482007BBC4C /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */; };
 		ADCD2DAD20976490007BBC4C /* AccountNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD2DAC20976490007BBC4C /* AccountNavigationController.swift */; };
+		ADCD2DB4209771FD007BBC4C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADCD2DB2209771FD007BBC4C /* Localizable.strings */; };
 		ADF0A1B420873594009F4B66 /* AccountDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */; };
 		ADF0A1B72087449F009F4B66 /* SeatHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF0A1B62087449F009F4B66 /* SeatHistoryCollectionViewCell.swift */; };
 		ADF2F8F62096249900092893 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF2F8F52096249900092893 /* NotificationCenter.framework */; };
 		ADF2F8F92096249900092893 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2F8F82096249900092893 /* TodayViewController.swift */; };
 		ADF2F8FC2096249900092893 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADF2F8FA2096249900092893 /* MainInterface.storyboard */; };
 		ADF2F9002096249900092893 /* ReservationWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADF2F8F42096249900092893 /* ReservationWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		ADF2F9062096251300092893 /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2F9052096251300092893 /* ReservationManager.swift */; };
 		ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF367C92089057400C9379D /* SeatReservationViewController.swift */; };
 		ADF367CC20890A1700C9379D /* SeatLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF367CB20890A1700C9379D /* SeatLibraryView.swift */; };
 		ADF367D020891B3700C9379D /* SeatRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF367CF20891B3700C9379D /* SeatRoomTableViewCell.swift */; };
 		ADF675352087698C004E7E25 /* HistoryCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF675342087698C004E7E25 /* HistoryCollectionViewLayout.swift */; };
 		ADF6753720877447004E7E25 /* SeatHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6753620877447004E7E25 /* SeatHistoryDetailViewController.swift */; };
+		ADFCD2EA20977244009690D4 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFCD2E920977244009690D4 /* Localization.swift */; };
+		ADFCD2ED209772BE009690D4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADFCD2EB209772BE009690D4 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +137,8 @@
 		AD4D1153208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationDetailTableViewController.swift; sourceTree = "<group>"; };
 		AD50F2AD208A0C1700A7BD6A /* SeatCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCollectionView.swift; sourceTree = "<group>"; };
 		AD50F2B3208A279300A7BD6A /* SeatSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatSelectionViewController.swift; sourceTree = "<group>"; };
+		AD6629CF209772DF006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		AD6629D120977782006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainInterface.strings"; sourceTree = "<group>"; };
 		AD7433B9208487FB005AAF11 /* LibraryReservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryReservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7433BC208487FB005AAF11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD7433C3208487FB005AAF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 		ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryViewController.swift; sourceTree = "<group>"; };
 		ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		ADCD2DAC20976490007BBC4C /* AccountNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNavigationController.swift; sourceTree = "<group>"; };
+		ADCD2DB3209771FD007BBC4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewController.swift; sourceTree = "<group>"; };
 		ADF0A1B62087449F009F4B66 /* SeatHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		ADF2F8F42096249900092893 /* ReservationWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReservationWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,13 +191,15 @@
 		ADF2F8F82096249900092893 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		ADF2F8FB2096249900092893 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		ADF2F8FD2096249900092893 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ADF2F9052096251300092893 /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
-		ADF2F9072096261900092893 /* ReservationWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReservationWidget.entitlements; sourceTree = "<group>"; };
+		ADF2F9072096261900092893 /* ReservationWidget.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ReservationWidget.entitlements; sourceTree = "<group>"; };
 		ADF367C92089057400C9379D /* SeatReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservationViewController.swift; sourceTree = "<group>"; };
 		ADF367CB20890A1700C9379D /* SeatLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLibraryView.swift; sourceTree = "<group>"; };
 		ADF367CF20891B3700C9379D /* SeatRoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatRoomTableViewCell.swift; sourceTree = "<group>"; };
 		ADF675342087698C004E7E25 /* HistoryCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewLayout.swift; sourceTree = "<group>"; };
 		ADF6753620877447004E7E25 /* SeatHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryDetailViewController.swift; sourceTree = "<group>"; };
+		ADFCD2E82097722C009690D4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		ADFCD2E920977244009690D4 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		ADFCD2EC209772BE009690D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C370A14DBA27B26D3721A70E /* Pods-LibraryReservationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryReservationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibraryReservationTests/Pods-LibraryReservationTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -457,7 +464,9 @@
 				ADF2F8F82096249900092893 /* TodayViewController.swift */,
 				ADF2F8FA2096249900092893 /* MainInterface.storyboard */,
 				ADF2F8FD2096249900092893 /* Info.plist */,
-				ADF2F9052096251300092893 /* ReservationManager.swift */,
+				ADCD2DB2209771FD007BBC4C /* Localizable.strings */,
+				ADFCD2E920977244009690D4 /* Localization.swift */,
+				ADFCD2EB209772BE009690D4 /* InfoPlist.strings */,
 			);
 			path = ReservationWidget;
 			sourceTree = "<group>";
@@ -657,6 +666,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADF2F8FC2096249900092893 /* MainInterface.storyboard in Resources */,
+				ADFCD2ED209772BE009690D4 /* InfoPlist.strings in Resources */,
+				ADCD2DB4209771FD007BBC4C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,8 +804,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADF2F9062096251300092893 /* ReservationManager.swift in Sources */,
 				ADF2F8F92096249900092893 /* TodayViewController.swift in Sources */,
+				ADFCD2EA20977244009690D4 /* Localization.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,12 +925,31 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		ADCD2DB2209771FD007BBC4C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADCD2DB3209771FD007BBC4C /* Base */,
+				ADFCD2E82097722C009690D4 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		ADF2F8FA2096249900092893 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				ADF2F8FB2096249900092893 /* Base */,
+				AD6629D120977782006353F2 /* zh-Hans */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		ADFCD2EB209772BE009690D4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADFCD2EC209772BE009690D4 /* Base */,
+				AD6629CF209772DF006353F2 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

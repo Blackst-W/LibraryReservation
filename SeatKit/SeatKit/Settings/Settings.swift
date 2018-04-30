@@ -108,14 +108,31 @@ public class Settings: Codable {
         }
     }
     
+    public func reload() {
+        let fileManager = FileManager.default
+        let path = GroupURL.appendingPathComponent(Settings.filePath)
+        
+        guard let data = try? Data(contentsOf: path) else {
+            print("Failed to load data from settings file")
+            try? fileManager.removeItem(atPath: path.absoluteString)
+            return
+        }
+        let decoder = JSONDecoder()
+        guard let settings = try? decoder.decode(Settings.self, from: data) else {
+            print("Failed to load settings from settings file")
+            try? fileManager.removeItem(atPath: path.absoluteString)
+            return
+        }
+        notificationSettings = settings.notificationSettings
+        savePassword = settings.savePassword
+        autoLogin = settings.autoLogin
+        geoFance = settings.geoFance
+    }
+    
     private static func load() -> Settings? {
         let fileManager = FileManager.default
         let path = GroupURL.appendingPathComponent(Settings.filePath)
         
-        guard fileManager.fileExists(atPath: path.absoluteString) else {
-            print("Settings not found")
-            return nil
-        }
         guard let data = try? Data(contentsOf: path) else {
             print("Failed to load data from settings file")
             try? fileManager.removeItem(atPath: path.absoluteString)
