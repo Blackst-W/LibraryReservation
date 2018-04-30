@@ -34,6 +34,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     @IBAction func login(_ sender: Any) {
-        extensionContext?.open(URL(string: "whuseat://")!, completionHandler: nil)
+        extensionContext?.open(URL(string: "whuseat://login")!, completionHandler: nil)
     }
 }

@@ -41,6 +41,8 @@
 		ADBDA4A62097576900644D33 /* SeatKitLocalizationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4A52097576900644D33 /* SeatKitLocalizationExtension.swift */; };
 		ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */; };
 		ADCB5EDE2084F1FF00E0CF5F /* SeatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */; };
+		ADCD2DAB20976482007BBC4C /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */; };
+		ADCD2DAD20976490007BBC4C /* AccountNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCD2DAC20976490007BBC4C /* AccountNavigationController.swift */; };
 		ADF0A1B420873594009F4B66 /* AccountDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */; };
 		ADF0A1B72087449F009F4B66 /* SeatHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF0A1B62087449F009F4B66 /* SeatHistoryCollectionViewCell.swift */; };
 		ADF2F8F62096249900092893 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF2F8F52096249900092893 /* NotificationCenter.framework */; };
@@ -175,6 +177,8 @@
 		ADBDA4A52097576900644D33 /* SeatKitLocalizationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatKitLocalizationExtension.swift; sourceTree = "<group>"; };
 		ADCB5ED72084C40300E0CF5F /* SeatHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomepageViewController.swift; sourceTree = "<group>"; };
 		ADCB5EDD2084F1FF00E0CF5F /* SeatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryViewController.swift; sourceTree = "<group>"; };
+		ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
+		ADCD2DAC20976490007BBC4C /* AccountNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNavigationController.swift; sourceTree = "<group>"; };
 		ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewController.swift; sourceTree = "<group>"; };
 		ADF0A1B62087449F009F4B66 /* SeatHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		ADF2F8F42096249900092893 /* ReservationWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReservationWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -349,6 +353,7 @@
 				AD4B3B0E2084F7A400010B47 /* Models */,
 				ADB9C9962091EC970086A00E /* AccountStoryboard.storyboard */,
 				AD95B045208622F4001F6768 /* LoginViewController.swift */,
+				ADCD2DAC20976490007BBC4C /* AccountNavigationController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 				ADB9C9912091E9890086A00E /* SettingsStoryboard.storyboard */,
 				ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */,
 				ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */,
+				ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -755,7 +761,9 @@
 				ADF367CC20890A1700C9379D /* SeatLibraryView.swift in Sources */,
 				ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
+				ADCD2DAD20976490007BBC4C /* AccountNavigationController.swift in Sources */,
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
+				ADCD2DAB20976482007BBC4C /* SettingsNavigationController.swift in Sources */,
 				ADB9C9A320937B810086A00E /* NotificationSettingsTableViewController.swift in Sources */,
 				ADF0A1B72087449F009F4B66 /* SeatHistoryCollectionViewCell.swift in Sources */,
 				ADF675352087698C004E7E25 /* HistoryCollectionViewLayout.swift in Sources */,

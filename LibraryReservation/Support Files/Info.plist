@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>WHUSeat</string>
+			<string>com.westonwu.ios.SeatReservation</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>whuseat</string>

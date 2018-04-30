@@ -44,6 +44,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let host = url.host?.removingPercentEncoding else {
+            return false
+        }
+        switch host {
+        case "login":
+            presentLoginView()
+            return true
+        default:
+            return false
+        }
+    }
 
+    func presentLoginView() {
+        guard let window = window,
+        let rootViewController = window.rootViewController as? UINavigationController,
+        let viewController = rootViewController.viewControllers.last else {
+            return
+        }
+        if let presentedViewController = viewController.presentedViewController {
+            if !presentedViewController.isKind(of: AccountNavigationController.self) {
+                presentedViewController.presentLoginViewController()
+            }
+        }else{
+            rootViewController.presentLoginViewController()
+        }
+    }
+    
 }
 
