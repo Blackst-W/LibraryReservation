@@ -25,6 +25,11 @@
 		AD6629EF20978F4F006353F2 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629EE20978F4F006353F2 /* ComplicationController.swift */; };
 		AD6629F120978F50006353F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD6629F020978F50006353F2 /* Assets.xcassets */; };
 		AD6629F620978F50006353F2 /* WatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AD6629D720978F4D006353F2 /* WatchApp.app */; };
+		AD662A002097911B006353F2 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629FF2097911B006353F2 /* Localization.swift */; };
+		AD662A0520979132006353F2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD662A0120979132006353F2 /* InfoPlist.strings */; };
+		AD662A0620979132006353F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD662A0320979132006353F2 /* Localizable.strings */; };
+		AD662A1E20979391006353F2 /* WatchSeatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD662A1D20979387006353F2 /* WatchSeatKit.framework */; };
+		AD662A1F20979391006353F2 /* WatchSeatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AD662A1D20979387006353F2 /* WatchSeatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433BC208487FB005AAF11 /* AppDelegate.swift */; };
 		AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C2208487FB005AAF11 /* Main.storyboard */; };
 		AD7433C6208487FC005AAF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C5208487FC005AAF11 /* Assets.xcassets */; };
@@ -82,6 +87,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = AD6629D620978F4D006353F2;
 			remoteInfo = WatchApp;
+		};
+		AD662A1C20979387006353F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AD662A132097933F006353F2;
+			remoteInfo = WatchSeatKit;
+		};
+		AD662A2020979391006353F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AD662A122097933F006353F2;
+			remoteInfo = WatchSeatKit;
 		};
 		AD7433D0208487FD005AAF11 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -143,6 +162,17 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD662A2220979391006353F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AD662A1F20979391006353F2 /* WatchSeatKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADBDA4A42097564B00644D33 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,6 +226,11 @@
 		AD6629F020978F50006353F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD6629F220978F50006353F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD6629F320978F50006353F2 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		AD6629FF2097911B006353F2 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		AD662A0220979132006353F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AD662A0420979132006353F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AD662A0720979136006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		AD662A0820979136006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AD7433B9208487FB005AAF11 /* LibraryReservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryReservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7433BC208487FB005AAF11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD7433C3208487FB005AAF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -265,6 +300,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD662A1E20979391006353F2 /* WatchSeatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +408,9 @@
 		AD6629E720978F4F006353F2 /* WatchApp Extension */ = {
 			isa = PBXGroup;
 			children = (
+				AD662A0120979132006353F2 /* InfoPlist.strings */,
+				AD662A0320979132006353F2 /* Localizable.strings */,
+				AD6629FF2097911B006353F2 /* Localization.swift */,
 				AD6629E820978F4F006353F2 /* InterfaceController.swift */,
 				AD6629EA20978F4F006353F2 /* ExtensionDelegate.swift */,
 				AD6629EC20978F4F006353F2 /* NotificationController.swift */,
@@ -505,6 +544,7 @@
 			isa = PBXGroup;
 			children = (
 				ADBDA46620974DEC00644D33 /* SeatKit.framework */,
+				AD662A1D20979387006353F2 /* WatchSeatKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -590,10 +630,12 @@
 				AD6629DF20978F4F006353F2 /* Sources */,
 				AD6629E020978F4F006353F2 /* Frameworks */,
 				AD6629E120978F4F006353F2 /* Resources */,
+				AD662A2220979391006353F2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AD662A2120979391006353F2 /* PBXTargetDependency */,
 			);
 			name = "WatchApp Extension";
 			productName = "WatchApp Extension";
@@ -754,6 +796,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		AD662A1D20979387006353F2 /* WatchSeatKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WatchSeatKit.framework;
+			remoteRef = AD662A1C20979387006353F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDA46620974DEC00644D33 /* SeatKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -778,6 +827,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6629F120978F50006353F2 /* Assets.xcassets in Resources */,
+				AD662A0620979132006353F2 /* Localizable.strings in Resources */,
+				AD662A0520979132006353F2 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -911,6 +962,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6629ED20978F4F006353F2 /* NotificationController.swift in Sources */,
+				AD662A002097911B006353F2 /* Localization.swift in Sources */,
 				AD6629EF20978F4F006353F2 /* ComplicationController.swift in Sources */,
 				AD6629EB20978F4F006353F2 /* ExtensionDelegate.swift in Sources */,
 				AD6629E920978F4F006353F2 /* InterfaceController.swift in Sources */,
@@ -986,6 +1038,11 @@
 			target = AD6629D620978F4D006353F2 /* WatchApp */;
 			targetProxy = AD6629F420978F50006353F2 /* PBXContainerItemProxy */;
 		};
+		AD662A2120979391006353F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WatchSeatKit;
+			targetProxy = AD662A2020979391006353F2 /* PBXContainerItemProxy */;
+		};
 		AD7433D1208487FD005AAF11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AD7433B8208487FB005AAF11 /* LibraryReservation */;
@@ -1015,6 +1072,24 @@
 				AD6629DA20978F4D006353F2 /* Base */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		AD662A0120979132006353F2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD662A0220979132006353F2 /* Base */,
+				AD662A0720979136006353F2 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AD662A0320979132006353F2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD662A0420979132006353F2 /* Base */,
+				AD662A0820979136006353F2 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		AD7433C2208487FB005AAF11 /* Main.storyboard */ = {
@@ -1152,7 +1227,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -1171,7 +1246,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
