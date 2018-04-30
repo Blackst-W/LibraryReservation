@@ -7,27 +7,26 @@
 //
 
 import UIKit
-import SwiftyJSON
 
-struct SeatLayoutData {
-    let cols: Int
-    let rows: Int
-    let seats: [Seat]
+public struct SeatLayoutData {
+    public let cols: Int
+    public let rows: Int
+    public let seats: [Seat]
 }
 
-protocol AvailableSeatDelegate: SeatBaseDelegate {
+public protocol AvailableSeatDelegate: SeatBaseDelegate {
     func update(layoutData: SeatLayoutData)
     func timeFilterUpdate(seats: [Seat])
 }
 
-class AvailableSeatManager: SeatBaseNetworkManager {
-    weak var delegate: AvailableSeatDelegate?
-    init(delegate: AvailableSeatDelegate?) {
+public class AvailableSeatManager: SeatBaseNetworkManager {
+    public weak var delegate: AvailableSeatDelegate?
+    public init(delegate: AvailableSeatDelegate?) {
         self.delegate = delegate
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.layout"))
     }
     
-    func check(room: Room, date: Date) {
+    public func check(room: Room, date: Date) {
         guard let token = AccountManager.shared.currentAccount?.token else {
             delegate?.requireLogin()
             return
@@ -93,7 +92,7 @@ class AvailableSeatManager: SeatBaseNetworkManager {
         task.resume()
     }
     
-    func check(library: Library, room: Room, date: Date, start: SeatTime, end: SeatTime) {
+    public func check(library: Library, room: Room, date: Date, start: SeatTime, end: SeatTime) {
         guard let token = AccountManager.shared.currentAccount?.token else {
             delegate?.requireLogin()
             return

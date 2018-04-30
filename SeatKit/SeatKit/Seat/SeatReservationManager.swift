@@ -8,23 +8,23 @@
 
 import UIKit
 
-typealias SeatLibraryResponse = SeatAPIArrayResponse<Room>
+public typealias SeatLibraryResponse = SeatAPIArrayResponse<Room>
 
-protocol SeatLibraryDelegate: SeatBaseDelegate {
+public protocol SeatLibraryDelegate: SeatBaseDelegate {
     func update(rooms: [Room], `for` library: Library)
 }
 
-class SeatLibraryManager: SeatBaseNetworkManager {
+public class SeatLibraryManager: SeatBaseNetworkManager {
     
-    let libraryData = LibraryData()
+    public let libraryData = LibraryData()
     weak var delegate: SeatLibraryDelegate?
     
-    init(delegate: SeatLibraryDelegate?) {
+    public init(delegate: SeatLibraryDelegate?) {
         self.delegate = delegate
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.LibraryReservation.seat.library"))
     }
     
-    func check(library: Library) {
+    public func check(library: Library) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
                 delegate?.requireLogin()

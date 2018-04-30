@@ -25,15 +25,15 @@ import UIKit
 }
 */
 
-struct UserInfo: Codable {
-    let id: Int
-    let enabled: Bool
-    let name: String
-    let username: String
-    let status: String
-    let checkedIn: Bool
-    let violationCount: Int
+public struct UserInfo: Codable {
+    public let id: Int
+    public let enabled: Bool
+    public let name: String
+    public let username: String
+    public let status: String
+    public let checkedIn: Bool
+    public let violationCount: Int
 }
 
-typealias UserInfoResponse = SeatAPIResponse<UserInfo>
+public typealias UserInfoResponse = SeatAPIResponse<UserInfo>
  

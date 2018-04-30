@@ -8,11 +8,11 @@
 
 import UIKit
 
-extension Notification.Name {
+public extension Notification.Name {
     static let SeatReservationCancel = Notification.Name("kSeatReservationCancelNotification")
 }
 
-protocol SeatHistoryManagerDelegate: SeatBaseDelegate {
+public protocol SeatHistoryManagerDelegate: SeatBaseDelegate {
     func update(reservations: [SeatReservation])
     func update(current: SeatCurrentReservationRepresentable?)
 }
@@ -23,32 +23,29 @@ struct SeatReservationArchive: Codable {
     let current: SeatCurrentReservation?
 }
 
-class SeatHistoryManager: SeatBaseNetworkManager {
+public class SeatHistoryManager: SeatBaseNetworkManager {
     
     private static let kFilePath = "SeatReservation.archive"
-    var reservations: [SeatReservation] = [] {
+    public var reservations: [SeatReservation] = [] {
         didSet {
             history = reservations.filter{$0.isHistory}
         }
     }
-    var history: [SeatReservation] = []
-    var current: SeatCurrentReservationRepresentable? {
+    public var history: [SeatReservation] = []
+    public var current: SeatCurrentReservationRepresentable? {
         didSet {
             DispatchQueue.main.async {
                 self.delegate?.update(current: self.current)
             }
-            if let reservation = current {
-                NotificationManager.shared.schedule(reservation: reservation)
-            }
         }
     }
-    weak var delegate: SeatHistoryManagerDelegate?
+    public weak var delegate: SeatHistoryManagerDelegate?
     private var pageCount = 0
-    private(set) var end = false
+    public private(set) var end = false
     private var loadingHistory = false
     var timer: Timer?
     
-    init(delegate: SeatHistoryManagerDelegate?) {
+    public init(delegate: SeatHistoryManagerDelegate?) {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.history"))
         self.delegate = delegate
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountChanged(notification:)), name: .AccountChanged, object: nil)
@@ -121,13 +118,13 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         save(data: data, filePath: SeatHistoryManager.kFilePath)
     }
     
-    func reload() {
+    public func reload() {
         loadingHistory = true
         pageCount = 1
         fetchHistory(page: 1)
     }
     
-    func loadMore() -> Bool {
+    public func loadMore() -> Bool {
         if end {
             return false
         }
@@ -188,7 +185,12 @@ class SeatHistoryManager: SeatBaseNetworkManager {
                     self.end = true
                 }
                 if let newReservation = self.reservations.filter({!$0.isHistory}).first {
-                    if self.current == nil {
+                    if let current = self.current {
+                        if current.id < newReservation.id {
+                            self.current = newReservation
+                            self.checkCurrent()
+                        }
+                    }else{
                         self.current = newReservation
                         self.checkCurrent()
                     }
@@ -230,7 +232,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         historyTask.resume()
     }
     
-    func checkCurrent() {
+    public func checkCurrent() {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token
             else {
@@ -305,7 +307,7 @@ class SeatHistoryManager: SeatBaseNetworkManager {
         reservationTask.resume()
     }
     
-    func cancelReservation() {
+    public func cancelReservation() {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
                 delegate?.requireLogin()

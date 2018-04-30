@@ -139,6 +139,7 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
     }
     
     func update(current: SeatCurrentReservationRepresentable?) {
+        NotificationManager.shared.schedule(reservation: current)
         return
     }
     

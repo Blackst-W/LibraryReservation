@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SeatCurrentReservationRepresentable {
+public protocol SeatCurrentReservationRepresentable {
     var id: Int {get}
     var time: SeatReservationTime {get}
     var location: SeatLocation? {get}
@@ -23,22 +23,22 @@ protocol SeatCurrentReservationRepresentable {
     var rawEnd: String {get}
 }
 
-struct SeatReservationTime {
-    let date: Date
-    let start: Date
-    let end: Date
-    var message: String? = nil
-    var duration: Int {
+public struct SeatReservationTime {
+    public let date: Date
+    public let start: Date
+    public let end: Date
+    public var message: String? = nil
+    public var duration: Int {
         return Int(end.timeIntervalSince(start)) / 60
     }
 }
 
-struct SeatLocation {
-    let floor: Int
-    let library: Library
-    let room: String
-    let seat: Int
-    let detail: String
+public struct SeatLocation {
+    public let floor: Int
+    public let library: Library
+    public let room: String
+    public let seat: Int
+    public let detail: String
     init?(location: String) {
         var floorIndex = 0
         var floorNo = 0
@@ -122,37 +122,16 @@ struct SeatLocation {
     }
 }
 
-enum SeatCurrentReservationState {
+public enum SeatCurrentReservationState {
     case invalid
     case upcoming(`in`: Int)
     case ongoing(left: Int)
     case tempAway(remain: Int)
     case late(remain: Int)
     case autoEnd(`in`: Int)
-    
-    var localizedKey: String {
-        switch self {
-        case .invalid:
-            return "invalid"
-        case .upcoming(_):
-            return "upcoming"
-        case .ongoing(_):
-            return "ongoing"
-        case .tempAway(_):
-            return "tempAway"
-        case .late(_):
-            return "late"
-        case .autoEnd(_):
-            return "autoEnd"
-        }
-    }
-    
-    var localizedState: String {
-        return "SeatCurrentReservationState.\(self.localizedKey)".localized
-    }
 }
 
-enum SeatReservationState: String {
+public enum SeatReservationState: String {
     case reserve = "RESERVE"        //未开始的预约
     case complete = "COMPLETE"      //完成的预约
     case miss = "MISS"              //失约
@@ -163,51 +142,25 @@ enum SeatReservationState: String {
     case stop = "STOP"              //提前结束
     case unknown
     
-    var localizedKey: String {
-        switch self {
-        case .reserve:
-            return "reserve"
-        case .complete:
-            return "complete"
-        case .miss:
-            return "miss"
-        case .cancel:
-            return "cancel"
-        case .incomplete:
-            return "incomplete"
-        case .checkIn:
-            return "checkIn"
-        case .away:
-            return "away"
-        case .stop:
-            return "stop"
-        case .unknown:
-            return "unknown"
-        }
-    }
-    
-    var localizedDescription: String {
-        return "SeatReservationState.\(self.localizedKey)".localized
-    }
 }
 
-struct SeatReservation: Codable {
+public struct SeatReservation: Codable {
     
-    let id: Int
-    let rawDate: String
-    let rawBegin: String
-    let rawEnd: String
-    let rawAwayBegin: String?
-    let rawAwayEnd: String?
-    let rawLocation: String
-    let rawState: String
+    public let id: Int
+    public let rawDate: String
+    public let rawBegin: String
+    public let rawEnd: String
+    public let rawAwayBegin: String?
+    public let rawAwayEnd: String?
+    public let rawLocation: String
+    public let rawState: String
     
-    let time: SeatReservationTime
-    let location: SeatLocation?
-    let state: SeatReservationState
+    public let time: SeatReservationTime
+    public let location: SeatLocation?
+    public let state: SeatReservationState
     
-    let seatID: Int? = nil
-    let receiptID: String? = nil
+    public let seatID: Int? = nil
+    public let receiptID: String? = nil
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -220,7 +173,7 @@ struct SeatReservation: Codable {
         case rawState = "stat"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         rawDate = try container.decode(String.self, forKey: .rawDate)
@@ -255,7 +208,7 @@ struct SeatReservation: Codable {
         try container.encode(rawState, forKey: .rawState)
     }
     
-    var awayStart: Date? {
+    public var awayStart: Date? {
         guard let beginTime = rawAwayBegin else {
             return nil
         }
@@ -282,7 +235,7 @@ struct SeatReservation: Codable {
         }
     }
     
-    var isFailed: Bool {
+    public var isFailed: Bool {
         switch state {
         case .incomplete, .miss:
             return true
@@ -304,8 +257,9 @@ extension SeatReservation: Comparable {
     }
 }
 
-extension SeatReservation: SeatCurrentReservationRepresentable{
-    var currentState: SeatCurrentReservationState {
+extension SeatReservation: SeatCurrentReservationRepresentable {
+    
+    public var currentState: SeatCurrentReservationState {
         let current = Date()
         switch state {
         case .reserve:
@@ -336,29 +290,29 @@ extension SeatReservation: SeatCurrentReservationRepresentable{
         }
     }
     
-    var isStarted: Bool {
+    public var isStarted: Bool {
         return Date() >= time.start
     }
 }
 
-struct SeatCurrentReservation: Codable {
+public struct SeatCurrentReservation: Codable {
     
-    let id: Int
-    let seatId: Int
-    let receipt: String
-    let rawDate: String
-    let rawBegin: String
-    let rawEnd: String
-    let rawAwayBegin: String?
-    let rawAwayEnd: String?
-    let rawActualBegin: String?
-    let rawLocation: String
-    let rawState: String
-    let message: String
+    public let id: Int
+    public let seatId: Int
+    public let receipt: String
+    public let rawDate: String
+    public let rawBegin: String
+    public let rawEnd: String
+    public let rawAwayBegin: String?
+    public let rawAwayEnd: String?
+    public let rawActualBegin: String?
+    public let rawLocation: String
+    public let rawState: String
+    public let message: String
     
-    let time: SeatReservationTime
-    let location: SeatLocation?
-    let state: SeatReservationState
+    public let time: SeatReservationTime
+    public let location: SeatLocation?
+    public let state: SeatReservationState
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -375,7 +329,7 @@ struct SeatCurrentReservation: Codable {
         case message
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         seatId = try container.decode(Int.self, forKey: .seatId)
@@ -418,7 +372,7 @@ struct SeatCurrentReservation: Codable {
         try container.encode(message, forKey: .message)
     }
     
-    var awayStart: Date? {
+    public var awayStart: Date? {
         guard let beginTime = rawAwayBegin else {
             return nil
         }
@@ -467,7 +421,7 @@ struct SeatCurrentReservation: Codable {
         return remainTime < 0 ? nil : remainTime
     }
     
-    var currentState: SeatCurrentReservationState {
+    public var currentState: SeatCurrentReservationState {
         let current = Date()
         switch state {
         case .reserve:
@@ -509,17 +463,28 @@ struct SeatCurrentReservation: Codable {
         }
     }
     
-    var isStarted: Bool {
+    public var isStarted: Bool {
         return Date() >= time.start
     }
 }
 
+extension SeatCurrentReservation: Comparable {
+    public static func < (lhs: SeatCurrentReservation, rhs: SeatCurrentReservation) -> Bool {
+        return lhs.id < rhs.id
+    }
+    
+    public static func == (lhs: SeatCurrentReservation, rhs: SeatCurrentReservation) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 extension SeatCurrentReservation: SeatCurrentReservationRepresentable {
-    var seatID: Int? {
+    
+    public var seatID: Int? {
         return seatId
     }
     
-    var receiptID: String? {
+    public var receiptID: String? {
         return receipt
     }
 }

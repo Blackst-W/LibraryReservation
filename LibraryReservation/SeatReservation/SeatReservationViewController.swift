@@ -15,6 +15,8 @@ class SeatReservationViewController: UIViewController {
     @IBOutlet weak var roomTableViewHeightConstraint: NSLayoutConstraint!
     
     var date: Date!
+    var roomData: [Room] = []
+    var libraryManager: SeatLibraryManager!
     
     var selectedLibrary: Library? {
         didSet {
@@ -29,8 +31,7 @@ class SeatReservationViewController: UIViewController {
         }
     }
     
-    var roomData: [Room] = []
-    var libraryManager: SeatLibraryManager!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

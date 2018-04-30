@@ -72,7 +72,11 @@ class NotificationManager: NSObject {
         schedule(reservation: currentReservation)
     }
     
-    func schedule(reservation: SeatCurrentReservationRepresentable) {
+    func schedule(reservation: SeatCurrentReservationRepresentable?) {
+        guard let reservation = reservation else {
+            removeAllSeatNotifications()
+            return
+        }
         let seatSettings = Settings.shared.notificationSettings.seat
         let notificationCenter = UNUserNotificationCenter.current()
         if seatSettings.upcoming && !reservation.isStarted {

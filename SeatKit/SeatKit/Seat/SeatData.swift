@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import SwiftyJSON
 
-enum Library: String {
+public enum Library: String {
     case main = "总馆"
     case engineering = "工学分馆"
     case info = "信息科学分馆"
     case medicine = "医学分馆"
     
-    var areaID: Int {
+    public var areaID: Int {
         switch self {
         case .main:
             return 4
@@ -28,13 +27,9 @@ enum Library: String {
         }
     }
     
-    var localizedValue: String {
-        return rawValue.localized
-    }
-    
 }
 
-struct Room: Codable {
+public struct Room: Codable {
     /*
      {
      "roomId": 39,
@@ -47,10 +42,10 @@ struct Room: Codable {
      "free": 168
      }
      */
-    let id: Int
-    let name: String
-    let floor: Int
-    var availableSeat: Int?
+    public let id: Int
+    public let name: String
+    public let floor: Int
+    public var availableSeat: Int?
     
     enum CodingKeys: String, CodingKey {
         case id = "roomId"
@@ -60,9 +55,9 @@ struct Room: Codable {
     }
 }
 
-struct SeatLayout: Codable {
-    let col: Int
-    let row: Int
+public struct SeatLayout: Codable {
+    public let col: Int
+    public let row: Int
     
     init?(key: String) {
         guard let value = Int(key) else {
@@ -74,7 +69,7 @@ struct SeatLayout: Codable {
     
 }
 
-struct Seat: Codable, Equatable {
+public struct Seat: Codable, Equatable {
     /*
      "1029": {
      "id": 8615,
@@ -87,19 +82,19 @@ struct Seat: Codable, Equatable {
      "local": false
      }
      */
-    let id: Int
-    let name: String
-    let status: String
-    let hasWindow: Bool
-    let hasPower: Bool
-    let hasComputer: Bool
-    let layout: SeatLayout
+    public let id: Int
+    public let name: String
+    public let status: String
+    public let hasWindow: Bool
+    public let hasPower: Bool
+    public let hasComputer: Bool
+    public let layout: SeatLayout
     
-    var available: Bool {
+    public var available: Bool {
         return status == "FREE" || status == "AWAY" || status == "IN_USE"
     }
     
-    var availableNow: Bool {
+    public var availableNow: Bool {
         return status == "FREE"
     }
     
@@ -130,11 +125,11 @@ struct Seat: Codable, Equatable {
     
 }
 
-class LibraryData: NSObject {
+public class LibraryData: NSObject {
     
-    var rooms: [[Room]]
-    let roomIndex: [Int: (Int, Int)]
-    subscript(library: Library) -> [Room] {
+    public private(set) var rooms: [[Room]]
+    public let roomIndex: [Int: (Int, Int)]
+    public subscript(library: Library) -> [Room] {
         get {
             return rooms[library.areaID - 1]
         }
@@ -144,7 +139,7 @@ class LibraryData: NSObject {
     }
     
     override init() {
-        let roomDataFilePath = Bundle.main.url(forResource: "RoomData", withExtension: ".json")!
+        let roomDataFilePath = Bundle(for: LibraryData.self).url(forResource: "RoomData", withExtension: ".json")!
         let data = try! Data(contentsOf: roomDataFilePath)
         let decoder = JSONDecoder()
         rooms = try! decoder.decode([[Room]].self, from: data)

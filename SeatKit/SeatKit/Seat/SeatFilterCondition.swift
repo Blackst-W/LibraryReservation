@@ -8,21 +8,21 @@
 
 import UIKit
 
-struct SeatFilterCondition: Equatable {
-    var needPower: Bool
-    var needWindow: Bool
-    var needComputer: Bool
-    var isEnabled: Bool {
+public struct SeatFilterCondition: Equatable {
+    public var needPower: Bool
+    public var needWindow: Bool
+    public var needComputer: Bool
+    public var isEnabled: Bool {
         return self != SeatFilterCondition()
     }
     
-    init(needPower: Bool, needWindow: Bool, needComputer: Bool) {
+    public init(needPower: Bool, needWindow: Bool, needComputer: Bool) {
         self.needPower = needPower
         self.needWindow = needWindow
         self.needComputer = needComputer
     }
     
-    init() {
+    public init() {
         needComputer = false
         needWindow = false
         needPower = false
@@ -37,7 +37,7 @@ struct SeatFilterCondition: Equatable {
         return true
     }
     
-    func fullfill(seat: Seat) -> Bool {
+    public func fullfill(seat: Seat) -> Bool {
         guard isEnabled else {return true}
         if needComputer && !seat.hasComputer {
             return false

@@ -9,23 +9,23 @@
 import UIKit
 import Security
 
-extension Notification.Name {
+public extension Notification.Name {
     static let AccountChanged = Notification.Name("kAccountChangedNotification")
     static let UserInfoUpdated = Notification.Name("kUserInfoUpdatedNotification")
 }
 
-class AccountManager: NSObject {
+public class AccountManager: NSObject {
     
-    class var isLogin: Bool {
+    public class var isLogin: Bool {
         return AccountManager.shared.currentAccount != nil
     }
     
-    static let shared = AccountManager()
-    private(set) var currentAccount: UserAccount?
-    private(set) var userInfo: UserInfo?
-    static let server = "reservation.seat.lib.whu.edu.cn"
-    static let kUserDefaultSID = "UserSID"
-    static let kUserDefaultToken = "UserToken"
+    public static let shared = AccountManager()
+    private(set) public var currentAccount: UserAccount?
+    private(set) public var userInfo: UserInfo?
+    private static let server = "reservation.seat.lib.whu.edu.cn"
+    private static let kUserDefaultSID = "UserSID"
+    private static let kUserDefaultToken = "UserToken"
     
     private override init() {
         super.init()
@@ -43,14 +43,14 @@ class AccountManager: NSObject {
         }
     }
     
-    func login(account: UserAccount) {
+    public func login(account: UserAccount) {
         currentAccount = account
         NotificationCenter.default.post(name: .AccountChanged, object: nil)
         save()
         fetchUserInfo()
     }
     
-    func logout() {
+    public func logout() {
         deletePassword()
         userInfo = nil
         currentAccount = nil

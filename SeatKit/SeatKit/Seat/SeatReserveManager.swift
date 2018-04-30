@@ -8,17 +8,17 @@
 
 import UIKit
 
-extension Notification.Name {
+public extension Notification.Name {
     static let SeatReserved = Notification.Name("kSeatReservedNotification")
 }
 
-struct SeatTime: Codable, Equatable {
+public struct SeatTime: Codable, Equatable {
 //{
 //    "id": "now",
 //    "value": "现在"
 //    }
-    let id: String
-    let value: String
+    public let id: String
+    public let value: String
     
     init(time: Int) {
         id = String(time)
@@ -37,38 +37,30 @@ struct SeatTime: Codable, Equatable {
         }
     }
     
-    var localizedValue: String {
-        if id == "now" {
-            return "SeatTime.now".localized
-        }else{
-            return value
-        }
-    }
-    
     public static func==(lhs: SeatTime, rhs: SeatTime) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
-protocol SeatReserveDelegate: SeatBaseDelegate {
+public protocol SeatReserveDelegate: SeatBaseDelegate {
     func update(seat: Seat, start: [SeatTime], end: [SeatTime])
     func reserveSuccess()
 }
 
-class SeatReserveManager: SeatBaseNetworkManager {
+public class SeatReserveManager: SeatBaseNetworkManager {
     
     var startTimes: [SeatTime] = []
     
     var now: Date = Date()
     weak var delegate: SeatReserveDelegate?
     
-    init(delegate: SeatReserveDelegate?) {
+    public init(delegate: SeatReserveDelegate?) {
         self.delegate = delegate
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.time"))
     }
     
     
-    func endTimes(`for` timeIndex: Int) -> [SeatTime] {
+    public func endTimes(`for` timeIndex: Int) -> [SeatTime] {
         if startTimes.isEmpty {
             return []
         }
@@ -106,7 +98,7 @@ class SeatReserveManager: SeatBaseNetworkManager {
         return SeatTime(time: time)
     }
     
-    func check(seat: Seat, date: Date) {
+    public func check(seat: Seat, date: Date) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
                 delegate?.requireLogin()
@@ -172,7 +164,7 @@ class SeatReserveManager: SeatBaseNetworkManager {
         task.resume()
     }
     
-    func reserve(seat: Seat, date: Date, start: SeatTime, end: SeatTime) {
+    public func reserve(seat: Seat, date: Date, start: SeatTime, end: SeatTime) {
         guard let token = AccountManager.shared.currentAccount?.token else {
             delegate?.requireLogin()
             return

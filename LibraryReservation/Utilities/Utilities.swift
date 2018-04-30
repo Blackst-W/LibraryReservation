@@ -8,14 +8,6 @@
 
 import UIKit
 
-extension String {
-    var urlQueryEncoded: String? {
-        return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-    }
-}
-
-let SeatAPIURL = URL(string: "https://seat.lib.whu.edu.cn:8443/rest/")
-
 extension UIAlertController {
     func addActions(_ actions: [UIAlertAction]) {
         actions.forEach { (action) in
@@ -42,17 +34,12 @@ extension String {
         return withVaList(arguments) { (params) -> String in
             return NSString(format: localizedTemplate, arguments: params) as String
         }
-//        return String(format: localizedTemplate, arguments)
     }
 }
 
 func LocalizedString(_ key: String, comment: String, arguments: CVarArg...) -> String {
     return String(format: NSLocalizedString(key, comment: comment), arguments)
 }
-
-let CommonHeader: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                                      "User-Agent": "doSingle/11 CFNetwork/897.15 Darwin/17.5.0",
-                                      "Accept-Encoding":"gzip, deflate"]
 
 let TestRoomData: Data? = {
     let roomDataFilePath = Bundle.main.url(forResource: "TestRoomData", withExtension: ".json")!

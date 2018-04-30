@@ -8,35 +8,24 @@
 
 import UIKit
 
-enum SeatAPIError: Int, Error {
+public enum SeatAPIError: Int, Error {
     
     case dataCorrupt
     case dataMissing
     case unknown
     
-    var localizedDescription: String {
-        switch self {
-        case .dataCorrupt:
-            return "SeatAPIError.dataCorrupt".localized
-        case .dataMissing:
-            return "SeatAPIError.dataMissing".localized
-        case .unknown:
-            return "SeatAPIError.unknown".localized
-        }
-    }
-    
 }
 
-protocol SeatBaseDelegate: class {
+public protocol SeatBaseDelegate: class {
     func requireLogin()
     func updateFailed(error: Error)
     func updateFailed(failedResponse: SeatFailedResponse)
 }
 
-class SeatBaseNetworkManager: NSObject {
+public class SeatBaseNetworkManager: NSObject {
     
     let taskQueue: DispatchQueue
-    static let `default` = SeatBaseNetworkManager(queue: DispatchQueue(label: "com.westonwu.ios.libraryReservation.seat.base.default"))
+    public static let `default` = SeatBaseNetworkManager(queue: DispatchQueue(label: "com.westonwu.ios.libraryReservation.seat.base.default"))
     let session: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 10
@@ -47,12 +36,12 @@ class SeatBaseNetworkManager: NSObject {
         fatalError("invalid seat network manager init")
     }
     
-    init(queue: DispatchQueue?) {
+    public init(queue: DispatchQueue?) {
         taskQueue = queue ?? SeatBaseNetworkManager.default.taskQueue
         super.init()
     }
     
-    func login(username: String, password: String, callback: ((Error?, SeatLoginResponse?, SeatFailedResponse?)->Void)?) {
+    public func login(username: String, password: String, callback: ((Error?, SeatLoginResponse?, SeatFailedResponse?)->Void)?) {
         guard let username = username.urlQueryEncoded,
             let password = password.urlQueryEncoded else {
                 return

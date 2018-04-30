@@ -300,6 +300,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
 
 extension SeatHomepageViewController: SeatHistoryManagerDelegate {
     func update(current: SeatCurrentReservationRepresentable?) {
+        NotificationManager.shared.schedule(reservation: current)
         if let reservation = current {
             currentReservationView.update(reservation: reservation)
             showReminder()

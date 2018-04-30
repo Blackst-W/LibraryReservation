@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol SeatTimeFilterDelegate: class {
+public protocol SeatTimeFilterDelegate: class {
     func pickerUpdate(start: SeatTime, end: SeatTime)
 }
 
-class SeatTimeFilter: NSObject {
+public class SeatTimeFilter: NSObject {
     var startTimes: [SeatTime]!
     var endTimes: [SeatTime]!
     weak var timePickerView: UIPickerView!
     weak var delegate: SeatTimeFilterDelegate?
     
-    init(pickerView: UIPickerView, delegate: SeatTimeFilterDelegate?) {
+    public init(pickerView: UIPickerView, delegate: SeatTimeFilterDelegate?) {
         super.init()
         generateStartTimes()
         generateEndTimes(selection: 0)
@@ -29,14 +29,14 @@ class SeatTimeFilter: NSObject {
         timePickerView.reloadAllComponents()
     }
     
-    func reset() {
+    public func reset() {
         generateEndTimes(selection: 0)
         timePickerView.selectRow(0, inComponent: 0, animated: false)
         timePickerView.reloadComponent(1)
         timePickerView.selectRow(0, inComponent: 1, animated: false)
     }
     
-    var selectedTimes: (start: SeatTime, end: SeatTime) {
+    public var selectedTimes: (start: SeatTime, end: SeatTime) {
         let startIndex = timePickerView.selectedRow(inComponent: 0)
         let endIndex = timePickerView.selectedRow(inComponent: 1)
         return (start: startTimes[startIndex], end: endTimes[endIndex])
@@ -68,21 +68,21 @@ class SeatTimeFilter: NSObject {
 }
 
 extension SeatTimeFilter: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return component == 0 ? startTimes.count : endTimes.count
     }
 }
 
 extension SeatTimeFilter: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return component == 0 ? startTimes[row].value : endTimes[row].value
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             generateEndTimes(selection: row)
             pickerView.reloadComponent(1)
