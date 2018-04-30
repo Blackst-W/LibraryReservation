@@ -29,6 +29,8 @@ class SeatHistoryViewController: UIViewController {
         control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
         tableView.refreshControl = control
         tableView.reloadData()
+        control.beginRefreshing()
+        manager.reload()
     }
     
     @objc func refreshStateChanged() {

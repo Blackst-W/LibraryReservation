@@ -273,7 +273,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
             return
         }
         currentReservationView.endCanceling()
-        autoLogin(delegate: self)
+        autoLogin(delegate: self, force: false)
     }
     
     func updateFailed(error: Error) {
