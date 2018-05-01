@@ -282,6 +282,7 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
     
     func update(current: SeatCurrentReservationRepresentable?) {
         NotificationManager.shared.schedule(reservation: current)
+        WatchAppDelegate.shared.transferSeatReservation()
         refreshControl?.endRefreshing()
         guard let reservation = current else {
             //Reservation Not Exist

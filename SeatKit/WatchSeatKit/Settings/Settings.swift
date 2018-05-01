@@ -10,6 +10,7 @@
 import WatchKit
 
 public extension Notification.Name {
+    public static let SettingsChanged = Notification.Name("kSettingsChangedNotification")
     public static let PasswordSettingChanged = Notification.Name("kPasswordSettingChangedNotification")
     public static let AutoLoginSettingChanged = Notification.Name("kAutoLoginSettingChangedNotification")
     public static let NotificationSettingsChanged = Notification.Name("kNotificationSettingsChangedNotification")
@@ -59,6 +60,7 @@ public struct NotificationSettings: Codable {
 public class Settings: Codable {
     private(set) public var notificationSettings: NotificationSettings {
         didSet {
+            NotificationCenter.default.post(name: .SettingsChanged, object: nil)
             NotificationCenter.default.post(name: .NotificationSettingsChanged, object: nil)
         }
     }
@@ -66,12 +68,14 @@ public class Settings: Codable {
     
     private(set) public var savePassword: Bool {
         didSet {
+            NotificationCenter.default.post(name: .SettingsChanged, object: nil)
             NotificationCenter.default.post(name: .PasswordSettingChanged, object: savePassword)
         }
     }
     
     private(set) public var autoLogin: Bool {
         didSet {
+            NotificationCenter.default.post(name: .SettingsChanged, object: nil)
             NotificationCenter.default.post(name: .AutoLoginSettingChanged, object: autoLogin)
         }
     }
@@ -174,6 +178,11 @@ public class Settings: Codable {
     
     public func disableNotification() {
         notificationSettings.enable = false
+        save()
+    }
+    
+    public func updateNotification(settings newSettings: NotificationSettings) {
+        notificationSettings = newSettings
         save()
     }
     

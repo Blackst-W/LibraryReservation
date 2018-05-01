@@ -36,12 +36,12 @@
 "SeatNo" = "Seat No.%@";
 
 //SeatCurrentReservationState
-"SeatCurrentReservationState.invalid" = "Invalid";
-"SeatCurrentReservationState.upcoming" = "Upcoming";
-"SeatCurrentReservationState.ongoing" = "Ongoing";
-"SeatCurrentReservationState.tempAway" = "Temp Away";
-"SeatCurrentReservationState.late" = "Lated";
-"SeatCurrentReservationState.autoEnd" = "Auto End";
+"SeatCurrentReservationState.invalid" = "Require Refresh";
+"SeatCurrentReservationState.upcoming" = "Start In";
+"SeatCurrentReservationState.ongoing" = "End In";
+"SeatCurrentReservationState.tempAway" = "Temp Away Expire In";
+"SeatCurrentReservationState.late" = "Lated Expire In";
+"SeatCurrentReservationState.autoEnd" = "Auto End In";
 
 "Start In" = "Start In %@ %@";
 "End In" = "End In %@ %@";
@@ -49,8 +49,10 @@
 "Auto End In" = "Auto End In %@";
 "Please Refresh First" = "Please Refresh First";
 
-//TodayViewController
+//WatchApp
 "Refresh" = "Refresh";
-"Not Reservation Found" = "Not Reservation Found";
-"Go make a reservation in the app and check back later." = "Go make a reservation in the app and check back later.";
-"Reserve" = "Reserve";
+"No." = "No.%@";
+"Refreshing..." = "Refreshing...";
+"Login On iPhone" = "Login On iPhone";
+"Please login on your iPhone or enable save-password in the iPhone App" = "Please login on your iPhone or enable save-password in the iPhone App";
+"Failed To Refresh" = "Failed To Refresh";

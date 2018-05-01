@@ -26,11 +26,7 @@ public class SeatBaseNetworkManager: NSObject {
     
     let taskQueue: DispatchQueue
     public static let `default` = SeatBaseNetworkManager(queue: DispatchQueue(label: "com.westonwu.ios.libraryReservation.seat.base.default"))
-    let session: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10
-        return URLSession(configuration: configuration)
-    }()
+    let session = URLSession.shared
     
     private override init() {
         fatalError("invalid seat network manager init")
@@ -51,6 +47,7 @@ public class SeatBaseNetworkManager: NSObject {
         var loginRequest = URLRequest(url: loginURL)
         loginRequest.allHTTPHeaderFields = CommonHeader
         loginRequest.httpMethod = "GET"
+        loginRequest.timeoutInterval = 10
         let loginTask = session.dataTask(with: loginRequest) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)

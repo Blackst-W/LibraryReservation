@@ -37,13 +37,13 @@
 
 
 //SeatCurrentReservationState
-
-"SeatCurrentReservationState.invalid" = "无效";
+//SeatCurrentReservationState
+"SeatCurrentReservationState.invalid" = "需要刷新";
 "SeatCurrentReservationState.upcoming" = "即将开始";
-"SeatCurrentReservationState.ongoing" = "进行中";
-"SeatCurrentReservationState.tempAway" = "暂离";
-"SeatCurrentReservationState.late" = "迟到";
-"SeatCurrentReservationState.autoEnd" = "自动结束";
+"SeatCurrentReservationState.ongoing" = "剩余时间";
+"SeatCurrentReservationState.tempAway" = "暂离剩余时间";
+"SeatCurrentReservationState.late" = "迟到剩余时间";
+"SeatCurrentReservationState.autoEnd" = "自动结束时间";
 
 "Start In" = "%@ %@后开始";
 "End In" = "%@ %@后结束";
@@ -51,8 +51,10 @@
 "Auto End In" = "%@后自动结束";
 "Please Refresh First" = "请先刷新数据";
 
-//TodayViewController
+//WatchApp
 "Refresh" = "刷新";
-"Not Reservation Found" = "没有发现预约";
-"Go make a reservation in the app and check back later." = "在 App 里预约座位后可在这里查看预约状态。";
-"Reserve" = "预约";
+"No." = "%@号";
+"Refreshing..." = "刷新中...";
+"Login On iPhone" = "请在iPhone中登录";
+"Please login on your iPhone or enable save-password in the iPhone App" = "请在iPhone应用中登录或启用\"记住密码\"选项";
+"Failed To Refresh" = "刷新失败";

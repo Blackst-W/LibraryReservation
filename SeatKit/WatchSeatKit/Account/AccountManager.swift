@@ -24,8 +24,7 @@ public class AccountManager: NSObject {
     private(set) public var currentAccount: UserAccount?
     private(set) public var userInfo: UserInfo?
     private static let server = "reservation.seat.lib.whu.edu.cn"
-    private static let kUserDefaultSID = "UserSID"
-    private static let kUserDefaultToken = "UserToken"
+    static let kAccountFilePath = "Account.archive"
     
     private override init() {
         super.init()
@@ -55,7 +54,7 @@ public class AccountManager: NSObject {
         userInfo = nil
         currentAccount = nil
         NotificationCenter.default.post(name: .AccountChanged, object: nil)
-        UserDefaults.group.set(nil, forKey: AccountManager.kUserDefaultSID)
+        deleteAccount()
     }
     
     func deletePassword() {
@@ -75,15 +74,10 @@ public class AccountManager: NSObject {
     }
     
     private func load() {
-        guard let savedUsername = UserDefaults.group.value(forKey: AccountManager.kUserDefaultSID) as? String else {
-            //No User Found
-            print("User Not Found")
-            currentAccount = nil
+        loadAccount()
+        guard var account = currentAccount else {
             return
         }
-        let token = UserDefaults.group.value(forKey: AccountManager.kUserDefaultToken) as? String
-        var account = UserAccount(username: savedUsername, password: nil, token: token)
-        currentAccount = account
         loadUserInfo()
         let settings = Settings.shared
         guard settings.savePassword else {
@@ -120,6 +114,43 @@ public class AccountManager: NSObject {
         //load password success
         account.password = password
         currentAccount = account
+    }
+    
+    func saveAccount() {
+        guard var account = currentAccount else {
+            print("Not login")
+            deleteAccount()
+            return
+        }
+        account.password = nil
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(account)
+        let path = GroupURL.appendingPathComponent(AccountManager.kAccountFilePath)
+        do {
+            try data.write(to: path)
+        } catch {
+            print(error.localizedDescription)
+            return
+        }
+    }
+    func loadAccount() {
+        let path = GroupURL.appendingPathComponent(AccountManager.kAccountFilePath)
+        guard let data = try? Data(contentsOf: path) else {
+            deleteAccount()
+            return
+        }
+        let decoder = JSONDecoder()
+        guard let archive = try? decoder.decode(UserAccount.self, from: data) else {
+            deleteAccount()
+            return
+        }
+        currentAccount = archive
+    }
+    
+    func deleteAccount() {
+        let fileManager = FileManager.default
+        let path = GroupURL.appendingPathComponent(AccountManager.kAccountFilePath)
+        try? fileManager.removeItem(atPath: path.absoluteString)
     }
     
     static let kUserInfoFilePath = "UserInfo.archive"
@@ -168,12 +199,10 @@ public class AccountManager: NSObject {
     }
     
     func save() {
+        saveAccount()
         guard let account = currentAccount else {
-            print("Not login")
             return
         }
-        UserDefaults.group.set(account.username, forKey: AccountManager.kUserDefaultSID)
-        UserDefaults.group.set(account.token, forKey: AccountManager.kUserDefaultToken)
         saveUserInfo()
         let settings = Settings.shared
         guard settings.savePassword else {

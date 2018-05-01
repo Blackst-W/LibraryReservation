@@ -58,7 +58,7 @@ class NotificationManager: NSObject {
             content.body = "Seat reservation for the next day is about to open.".localized
             var dateComponents = DateComponents()
             dateComponents.hour = 22
-            dateComponents.minute = 10
+            dateComponents.minute = 40
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
             let request = UNNotificationRequest(identifier: .SeatReserveNotificationIdentifier, content: content, trigger: trigger)
             notificationCenter.add(request, withCompletionHandler: nil)
@@ -81,6 +81,7 @@ class NotificationManager: NSObject {
         let notificationCenter = UNUserNotificationCenter.current()
         if seatSettings.upcoming && !reservation.isStarted {
             let content = UNMutableNotificationContent()
+            content.userInfo = ["ReservationData": reservation.jsonData]
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Upcoming Seat Reservation In 10mins".localized
@@ -100,6 +101,7 @@ class NotificationManager: NSObject {
         
         if seatSettings.end {
             let content = UNMutableNotificationContent()
+            content.userInfo = ["ReservationData": reservation.jsonData]
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Reservation Complete".localized
@@ -121,6 +123,7 @@ class NotificationManager: NSObject {
 //                }
 //            }
             let content = UNMutableNotificationContent()
+            content.userInfo = ["ReservationData": reservation.jsonData]
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Reservation Expire Alert".localized

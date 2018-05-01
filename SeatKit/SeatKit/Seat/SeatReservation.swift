@@ -21,6 +21,7 @@ public protocol SeatCurrentReservationRepresentable {
     var rawDate: String {get}
     var rawBegin: String {get}
     var rawEnd: String {get}
+    var jsonData: Data {get}
 }
 
 public struct SeatReservationTime {
@@ -242,6 +243,11 @@ public struct SeatReservation: Codable {
         default:
             return false
         }
+    }
+    
+    public var jsonData: Data {
+        let encoder = JSONEncoder()
+        return try! encoder.encode(self)
     }
 }
 
@@ -486,5 +492,10 @@ extension SeatCurrentReservation: SeatCurrentReservationRepresentable {
     
     public var receiptID: String? {
         return receipt
+    }
+    
+    public var jsonData: Data {
+        let encoder = JSONEncoder()
+        return try! encoder.encode(self)
     }
 }

@@ -150,6 +150,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         historyRequest.httpMethod = "GET"
         historyRequest.allHTTPHeaderFields = CommonHeader
         historyRequest.addValue(token, forHTTPHeaderField: "token")
+        historyRequest.timeoutInterval = 10
         let historyTask = session.dataTask(with: historyRequest) { data, response, error in
             self.loadingHistory = false
             if let error = error {
@@ -244,6 +245,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         reservationRequest.httpMethod = "GET"
         reservationRequest.allHTTPHeaderFields = CommonHeader
         reservationRequest.addValue(token, forHTTPHeaderField: "token")
+        reservationRequest.timeoutInterval = 10
         let reservationTask = session.dataTask(with: reservationRequest) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -322,6 +324,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         cancelRequest.httpMethod = "GET"
         cancelRequest.allHTTPHeaderFields = CommonHeader
         cancelRequest.addValue(token, forHTTPHeaderField: "token")
+        cancelRequest.timeoutInterval = 10
         let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)

@@ -10,16 +10,18 @@
 		7C33D32FF1F8C0851D903EAF /* Pods_LibraryReservationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007481190CED623EA9BC00A /* Pods_LibraryReservationTests.framework */; };
 		839C2392624C937AC131A560 /* Pods_LibraryReservation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */; };
 		AB39AE29FFB2E81F2E54083E /* Pods_LibraryReservationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */; };
+		AD2AB7B42098A9F70090F03F /* SeatHistoryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AB7B32098A9F70090F03F /* SeatHistoryInterfaceController.swift */; };
+		AD2AB7B62098AD0E0090F03F /* SeatHistoryRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AB7B52098AD0E0090F03F /* SeatHistoryRowController.swift */; };
 		AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B122084F7FB00010B47 /* Utilities.swift */; };
 		AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114920878C0A0073AAA8 /* SeatCurrentReservationView.swift */; };
 		AD4D115020885CF10073AAA8 /* SeatHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */; };
 		AD4D1154208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D1153208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift */; };
 		AD50F2AE208A0C1700A7BD6A /* SeatCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2AD208A0C1700A7BD6A /* SeatCollectionView.swift */; };
 		AD50F2B4208A279300A7BD6A /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2B3208A279300A7BD6A /* SeatSelectionViewController.swift */; };
+		AD5951942098C31A00F27ED1 /* SeatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDA46620974DEC00644D33 /* SeatKit.framework */; };
 		AD6629DB20978F4D006353F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD6629D920978F4D006353F2 /* Interface.storyboard */; };
 		AD6629DD20978F4F006353F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD6629DC20978F4F006353F2 /* Assets.xcassets */; };
 		AD6629E420978F4F006353F2 /* WatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD6629E320978F4F006353F2 /* WatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		AD6629E920978F4F006353F2 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629E820978F4F006353F2 /* InterfaceController.swift */; };
 		AD6629EB20978F4F006353F2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629EA20978F4F006353F2 /* ExtensionDelegate.swift */; };
 		AD6629ED20978F4F006353F2 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629EC20978F4F006353F2 /* NotificationController.swift */; };
 		AD6629EF20978F4F006353F2 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629EE20978F4F006353F2 /* ComplicationController.swift */; };
@@ -30,6 +32,8 @@
 		AD662A0620979132006353F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD662A0320979132006353F2 /* Localizable.strings */; };
 		AD662A1E20979391006353F2 /* WatchSeatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD662A1D20979387006353F2 /* WatchSeatKit.framework */; };
 		AD662A1F20979391006353F2 /* WatchSeatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AD662A1D20979387006353F2 /* WatchSeatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AD662A5D20985A43006353F2 /* SeatHomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A5C20985A43006353F2 /* SeatHomeInterfaceController.swift */; };
+		AD662A6120986CCF006353F2 /* WatchAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A6020986CCF006353F2 /* WatchAppDelegate.swift */; };
 		AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433BC208487FB005AAF11 /* AppDelegate.swift */; };
 		AD7433C4208487FB005AAF11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C2208487FB005AAF11 /* Main.storyboard */; };
 		AD7433C6208487FC005AAF11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD7433C5208487FC005AAF11 /* Assets.xcassets */; };
@@ -206,6 +210,9 @@
 		7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7912692429582D70B988FE86 /* Pods-LibraryReservationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibraryReservationUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibraryReservationUITests/Pods-LibraryReservationUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibraryReservationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD2AB7B32098A9F70090F03F /* SeatHistoryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryInterfaceController.swift; sourceTree = "<group>"; };
+		AD2AB7B52098AD0E0090F03F /* SeatHistoryRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryRowController.swift; sourceTree = "<group>"; };
+		AD2AB7B82098B2000090F03F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Interface.strings"; sourceTree = "<group>"; };
 		AD4B3B122084F7FB00010B47 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		AD4D114920878C0A0073AAA8 /* SeatCurrentReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationView.swift; sourceTree = "<group>"; };
 		AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -219,7 +226,6 @@
 		AD6629DC20978F4F006353F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD6629DE20978F4F006353F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD6629E320978F4F006353F2 /* WatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD6629E820978F4F006353F2 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		AD6629EA20978F4F006353F2 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		AD6629EC20978F4F006353F2 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		AD6629EE20978F4F006353F2 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -231,6 +237,9 @@
 		AD662A0420979132006353F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AD662A0720979136006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		AD662A0820979136006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		AD662A5C20985A43006353F2 /* SeatHomeInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHomeInterfaceController.swift; sourceTree = "<group>"; };
+		AD662A5F2098639D006353F2 /* WatchAppExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WatchAppExtension.entitlements; sourceTree = "<group>"; };
+		AD662A6020986CCF006353F2 /* WatchAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAppDelegate.swift; sourceTree = "<group>"; };
 		AD7433B9208487FB005AAF11 /* LibraryReservation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryReservation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7433BC208487FB005AAF11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD7433C3208487FB005AAF11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -296,6 +305,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6FDA70518EA0BA71853F8F90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD6629E020978F4F006353F2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -334,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADF2F8F62096249900092893 /* NotificationCenter.framework in Frameworks */,
+				AD5951942098C31A00F27ED1 /* SeatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,10 +425,11 @@
 		AD6629E720978F4F006353F2 /* WatchApp Extension */ = {
 			isa = PBXGroup;
 			children = (
+				AD662A5F2098639D006353F2 /* WatchAppExtension.entitlements */,
+				AD662A5E20985A46006353F2 /* Seat */,
 				AD662A0120979132006353F2 /* InfoPlist.strings */,
 				AD662A0320979132006353F2 /* Localizable.strings */,
 				AD6629FF2097911B006353F2 /* Localization.swift */,
-				AD6629E820978F4F006353F2 /* InterfaceController.swift */,
 				AD6629EA20978F4F006353F2 /* ExtensionDelegate.swift */,
 				AD6629EC20978F4F006353F2 /* NotificationController.swift */,
 				AD6629EE20978F4F006353F2 /* ComplicationController.swift */,
@@ -420,6 +438,16 @@
 				AD6629F320978F50006353F2 /* PushNotificationPayload.apns */,
 			);
 			path = "WatchApp Extension";
+			sourceTree = "<group>";
+		};
+		AD662A5E20985A46006353F2 /* Seat */ = {
+			isa = PBXGroup;
+			children = (
+				AD662A5C20985A43006353F2 /* SeatHomeInterfaceController.swift */,
+				AD2AB7B32098A9F70090F03F /* SeatHistoryInterfaceController.swift */,
+				AD2AB7B52098AD0E0090F03F /* SeatHistoryRowController.swift */,
+			);
+			path = Seat;
 			sourceTree = "<group>";
 		};
 		AD7433B0208487FB005AAF11 = {
@@ -527,6 +555,7 @@
 		ADBDA44B20974B0200644D33 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD662A6020986CCF006353F2 /* WatchAppDelegate.swift */,
 				ADBDA49C209755F700644D33 /* LibraryReservation-Bridging-Header.h */,
 				AD7433CA208487FC005AAF11 /* Info.plist */,
 				AD7433C7208487FC005AAF11 /* LaunchScreen.storyboard */,
@@ -612,6 +641,7 @@
 			buildPhases = (
 				AD6629D520978F4D006353F2 /* Resources */,
 				AD6629FC20978F50006353F2 /* Embed App Extensions */,
+				6FDA70518EA0BA71853F8F90 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -734,9 +764,19 @@
 				TargetAttributes = {
 					AD6629D620978F4D006353F2 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					AD6629E220978F4F006353F2 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					AD7433B8208487FB005AAF11 = {
 						CreatedOnToolsVersion = 9.3;
@@ -962,10 +1002,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6629ED20978F4F006353F2 /* NotificationController.swift in Sources */,
+				AD2AB7B42098A9F70090F03F /* SeatHistoryInterfaceController.swift in Sources */,
 				AD662A002097911B006353F2 /* Localization.swift in Sources */,
 				AD6629EF20978F4F006353F2 /* ComplicationController.swift in Sources */,
 				AD6629EB20978F4F006353F2 /* ExtensionDelegate.swift in Sources */,
-				AD6629E920978F4F006353F2 /* InterfaceController.swift in Sources */,
+				AD2AB7B62098AD0E0090F03F /* SeatHistoryRowController.swift in Sources */,
+				AD662A5D20985A43006353F2 /* SeatHomeInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +1031,7 @@
 				ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
 				ADCD2DAD20976490007BBC4C /* AccountNavigationController.swift in Sources */,
+				AD662A6120986CCF006353F2 /* WatchAppDelegate.swift in Sources */,
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
 				ADCD2DAB20976482007BBC4C /* SettingsNavigationController.swift in Sources */,
 				ADB9C9A320937B810086A00E /* NotificationSettingsTableViewController.swift in Sources */,
@@ -1070,6 +1113,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AD6629DA20978F4D006353F2 /* Base */,
+				AD2AB7B82098B2000090F03F /* zh-Hans */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -1227,7 +1271,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1246,7 +1290,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -1254,6 +1298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "WatchApp Extension/WatchAppExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = "WatchApp Extension/Info.plist";
@@ -1268,7 +1313,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -1276,6 +1321,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "WatchApp Extension/WatchAppExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = "WatchApp Extension/Info.plist";
@@ -1290,7 +1336,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.3;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -1414,7 +1460,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 44458C3A714EAD64B386E6A1 /* Pods-LibraryReservation.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "LibraryReservation/Support Files/LibraryReservation.entitlements";
@@ -1438,7 +1483,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6A66FC8B5FBF16632D77AF86 /* Pods-LibraryReservation.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "LibraryReservation/Support Files/LibraryReservation.entitlements";
