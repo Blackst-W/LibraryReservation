@@ -81,7 +81,8 @@ class NotificationManager: NSObject {
         let notificationCenter = UNUserNotificationCenter.current()
         if seatSettings.upcoming && !reservation.isStarted {
             let content = UNMutableNotificationContent()
-            content.userInfo = ["ReservationData": reservation.jsonData]
+            content.userInfo = ["SeatReservationData": reservation.jsonData]
+            content.categoryIdentifier = "SeatReservationCategory"
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Upcoming Seat Reservation In 10mins".localized
@@ -101,7 +102,8 @@ class NotificationManager: NSObject {
         
         if seatSettings.end {
             let content = UNMutableNotificationContent()
-            content.userInfo = ["ReservationData": reservation.jsonData]
+            content.userInfo = ["SeatReservationData": reservation.jsonData]
+            content.categoryIdentifier = "SeatReservationCategory"
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Reservation Complete".localized
@@ -123,7 +125,8 @@ class NotificationManager: NSObject {
 //                }
 //            }
             let content = UNMutableNotificationContent()
-            content.userInfo = ["ReservationData": reservation.jsonData]
+            content.userInfo = ["SeatReservationData": reservation.jsonData]
+            content.categoryIdentifier = "SeatReservationCategory"
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Reservation Expire Alert".localized
