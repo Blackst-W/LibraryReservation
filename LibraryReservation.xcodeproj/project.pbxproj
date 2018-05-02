@@ -277,7 +277,6 @@
 		ADB9C9722090DF6D0086A00E /* TestRoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRoomData.json; sourceTree = "<group>"; };
 		ADB9C9742091E0530086A00E /* LibraryReservation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LibraryReservation.entitlements; sourceTree = "<group>"; };
 		ADB9C9752091E0D60086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		ADB9C9762091E0D70086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		ADB9C9782091E12E0086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = LibraryReservation/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ADB9C97A2091E1490086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "LibraryReservation/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		ADB9C97C2091E17F0086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MeetingRoomStoryboard.storyboard; sourceTree = "<group>"; };
@@ -1271,7 +1270,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				AD7433C8208487FC005AAF11 /* Base */,
-				ADB9C9762091E0D70086A00E /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
