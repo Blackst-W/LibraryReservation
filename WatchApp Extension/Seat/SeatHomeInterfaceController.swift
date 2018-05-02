@@ -89,7 +89,7 @@ class SeatHomeInterfaceController: WKInterfaceController {
     }
     
     @IBAction func refreshReservation() {
-        historyManager.reload()
+        historyManager.checkCurrent()
         refreshButton.setEnabled(false)
         refreshButton.setTitle("Refreshing...".localized)
     }
@@ -102,6 +102,8 @@ class SeatHomeInterfaceController: WKInterfaceController {
 
 extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
     func update(reservations: [SeatReservation]) {
+        refreshButton.setEnabled(true)
+        refreshButton.setTitle("Refresh".localized)
         return
     }
     
@@ -138,7 +140,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
                     return
                 }
             }
-            guard let _ = loginResponse?.data.token else {
+            guard let token = loginResponse?.data.token else {
                 DispatchQueue.main.async {
                     self.refreshButton.setEnabled(true)
                     self.refreshButton.setTitle("Refresh".localized)
@@ -148,6 +150,8 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
                 }
                 return
             }
+            let account = UserAccount(username: account.username, password: password, token: token)
+            AccountManager.shared.login(account: account)
             self.historyManager.reload()
         }
     }
