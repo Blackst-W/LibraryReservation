@@ -50,6 +50,7 @@ class SeatHomeInterfaceController: WKInterfaceController {
         if WKExtension.shared().applicationState == .active {
             DispatchQueue.main.async {
                 self.updateUI(reservation: ExtensionDelegate.current.currentSeatReservation)
+                WKInterfaceDevice.current().play(.success)
             }
         }
         historyManager.reload()
@@ -111,6 +112,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
         updateUI(reservation: current)
         refreshButton.setEnabled(true)
         refreshButton.setTitle("Refresh".localized)
+        WKInterfaceDevice.current().play(.success)
     }
     
     func requireLogin() {
@@ -121,6 +123,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
                     self.presentAlert(withTitle: "Login On iPhone".localized, message: "Please login on your iPhone or enable save-password in the iPhone App".localized, preferredStyle: .alert, actions: [dismissAction])
                     self.refreshButton.setEnabled(true)
                     self.refreshButton.setTitle("Refresh".localized)
+                    WKInterfaceDevice.current().play(.failure)
                 }
             return
         }
@@ -137,6 +140,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
                     self.refreshButton.setTitle("Refresh".localized)
                     let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
                     self.presentAlert(withTitle: "Failed To Refresh".localized, message: failResponse.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
+                    WKInterfaceDevice.current().play(.failure)
                     return
                 }
             }
@@ -146,6 +150,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
                     self.refreshButton.setTitle("Refresh".localized)
                     let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
                     self.presentAlert(withTitle: "Failed To Refresh".localized, message: SeatAPIError.unknown.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
+                    WKInterfaceDevice.current().play(.failure)
                     return
                 }
                 return
@@ -161,6 +166,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
         refreshButton.setTitle("Refresh".localized)
         let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
         presentAlert(withTitle: "Failed To Refresh".localized, message: error.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
+        WKInterfaceDevice.current().play(.failure)
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
@@ -172,6 +178,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
         presentAlert(withTitle: "Failed To Refresh".localized, message: failedResponse.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
         refreshButton.setEnabled(true)
         refreshButton.setTitle("Refresh".localized)
+        WKInterfaceDevice.current().play(.failure)
     }
     
     
