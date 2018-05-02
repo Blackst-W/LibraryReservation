@@ -61,7 +61,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         delegate?.update(reservations: [])
     }
     
-    func startTimer() {
+    public func startTimer() {
         invalidateTimer()
         let current = Date()
         let second = 60 - Calendar.current.component(.second, from: current)
@@ -70,7 +70,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
     }
     
-    func invalidateTimer() {
+    public func invalidateTimer() {
         timer?.invalidate()
         timer = nil
     }

@@ -30,6 +30,7 @@ class SeatHomeInterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         historyManager = SeatHistoryManager(delegate: self)
+        historyManager.invalidateTimer()
         historyManager.reload()
         self.updateUI(reservation: ExtensionDelegate.current.currentSeatReservation)
         NotificationCenter.default.addObserver(self, selector: #selector(reservationChanged(notification:)), name: .CurrentSeatReservationChanged, object: nil)
