@@ -82,7 +82,7 @@ class NotificationManager: NSObject {
         if seatSettings.upcoming && !reservation.isStarted {
             let content = UNMutableNotificationContent()
             content.userInfo = ["SeatReservationData": reservation.jsonData]
-            content.categoryIdentifier = "SeatReservationCategory"
+            content.categoryIdentifier = "SeatUpcomingReservationCategory"
             content.badge = 1
             content.sound = UNNotificationSound.default()
             content.title = "Upcoming Seat Reservation In 10mins".localized
@@ -92,7 +92,8 @@ class NotificationManager: NSObject {
                 content.body = reservation.rawLocation
             }
             let calender = Calendar.current
-            let dateComponents = calender.dateComponents([.hour, .minute, .day], from: reservation.time.start.addingTimeInterval(-10 * 60))
+//            let dateComponents = calender.dateComponents([.hour, .minute, .day], from: reservation.time.start.addingTimeInterval(-10 * 60))
+            let dateComponents = calender.dateComponents([.hour, .minute, .second, .day], from: Date().addingTimeInterval(10))
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             let request = UNNotificationRequest(identifier: .SeatUpcomingNotificationIdentifier, content: content, trigger: trigger)
             notificationCenter.add(request, withCompletionHandler: nil)

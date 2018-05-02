@@ -56,56 +56,51 @@ class NotificationController: WKUserNotificationInterfaceController {
         // Populate your dynamic notification interface as quickly as possible.
         //
         // After populating your dynamic notification interface call the completion block.
-        switch notification.request.identifier {
-        case .SeatUpcomingNotificationIdentifier:
-            guard let data = notification.request.content.userInfo["SeatReservationData"] as? Data else{
-                completionHandler(.default)
-                return
-            }
-            let decoder = JSONDecoder()
-            if let reservation = try? decoder.decode(SeatCurrentReservation.self, from: data) {
-                stateLabel.setText(reservation.currentState.localizedState)
-                if let location = reservation.location {
-                    libraryLabel.setText(location.library.rawValue.localized)
-                    roomLabel.setText(location.room)
-                    seatLabel.setText("No.".localized(arguments: String(location.seat)))
-                    floorLabel.setText("Floor".localized(arguments: location.floor))
-                }
-                startLabel.setText(reservation.rawBegin)
-                endLabel.setText(reservation.rawEnd)
-                switch reservation.currentState {
-                case .upcoming(_):
-                    stateTimeTimer.setDate(reservation.time.start)
-                default:
-                    completionHandler(.default)
-                    return
-                }
-            }else if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
-                stateLabel.setText(reservation.currentState.localizedState)
-                if let location = reservation.location {
-                    libraryLabel.setText(location.library.rawValue.localized)
-                    roomLabel.setText(location.room)
-                    seatLabel.setText("No.".localized(arguments: String(location.seat)))
-                    floorLabel.setText("Floor".localized(arguments: location.floor))
-                }
-                startLabel.setText(reservation.rawBegin)
-                endLabel.setText(reservation.rawEnd)
-                switch reservation.currentState {
-                case .upcoming(_):
-                    stateTimeTimer.setDate(reservation.time.start)
-                default:
-                    completionHandler(.default)
-                    return
-                }
-            }else{
-                completionHandler(.default)
-                return
-            }
-        default:
+        guard let data = notification.request.content.userInfo["SeatReservationData"] as? Data else{
             completionHandler(.default)
             return
         }
+        let decoder = JSONDecoder()
+        if let reservation = try? decoder.decode(SeatCurrentReservation.self, from: data) {
+            stateLabel.setText(reservation.currentState.localizedState)
+            if let location = reservation.location {
+                libraryLabel.setText(location.library.rawValue.localized)
+                roomLabel.setText(location.room)
+                seatLabel.setText("No.".localized(arguments: String(location.seat)))
+                floorLabel.setText("Floor".localized(arguments: location.floor))
+            }
+            startLabel.setText(reservation.rawBegin)
+            endLabel.setText(reservation.rawEnd)
+            switch reservation.currentState {
+            case .upcoming(_):
+                stateTimeTimer.setDate(reservation.time.start)
+            default:
+                completionHandler(.default)
+                return
+            }
+        }else if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
+            stateLabel.setText(reservation.currentState.localizedState)
+            if let location = reservation.location {
+                libraryLabel.setText(location.library.rawValue.localized)
+                roomLabel.setText(location.room)
+                seatLabel.setText("No.".localized(arguments: String(location.seat)))
+                floorLabel.setText("Floor".localized(arguments: location.floor))
+            }
+            startLabel.setText(reservation.rawBegin)
+            endLabel.setText(reservation.rawEnd)
+            switch reservation.currentState {
+            case .upcoming(_):
+                stateTimeTimer.setDate(reservation.time.start)
+            default:
+                completionHandler(.default)
+                return
+            }
+        }else{
+            completionHandler(.default)
+            return
+        }
+        
         completionHandler(.custom)
     }
-
+    
 }

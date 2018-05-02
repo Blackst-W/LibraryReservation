@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "Upcoming Reservation"; ObjectID = "Egm-VK-Yk0"; */
+"Egm-VK-Yk0.text" = "Upcoming Reservation";
+
+/* Class = "UILabel"; text = "4F"; ObjectID = "NQL-5a-Zl4"; */
+"NQL-5a-Zl4.text" = "4F";
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "deN-N0-BQW"; */
+"deN-N0-BQW.text" = "Room Name";
+
+/* Class = "UILabel"; text = "in 30min"; ObjectID = "gkX-Ga-ufy"; */
+"gkX-Ga-ufy.text" = "in 30min";
+
+/* Class = "UILabel"; text = "13:00 - 14:00"; ObjectID = "gqZ-bi-JR7"; */
+"gqZ-bi-JR7.text" = "13:00 - 14:00";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "rs2-B3-m9j"; */
+"rs2-B3-m9j.text" = "Library Name";
+
+/* Class = "UILabel"; text = "Seat No."; ObjectID = "rsr-dU-Vmz"; */
+"rsr-dU-Vmz.text" = "Seat No.";
