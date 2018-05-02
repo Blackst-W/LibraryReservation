@@ -288,7 +288,6 @@
 		ADB9C98B2091E7DC0086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SeatStoryboard.storyboard; sourceTree = "<group>"; };
 		ADB9C98E2091E7E10086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SeatStoryboard.strings"; sourceTree = "<group>"; };
 		ADB9C9902091E9890086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SettingsStoryboard.storyboard; sourceTree = "<group>"; };
-		ADB9C9932091E9910086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SettingsStoryboard.strings"; sourceTree = "<group>"; };
 		ADB9C9952091EC970086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AccountStoryboard.storyboard; sourceTree = "<group>"; };
 		ADB9C9982091EC980086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AccountStoryboard.strings"; sourceTree = "<group>"; };
 		ADB9C99A2091EE8D0086A00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = LibraryReservation/Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -314,6 +313,7 @@
 		ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		ADCD2DAC20976490007BBC4C /* AccountNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNavigationController.swift; sourceTree = "<group>"; };
 		ADCD2DB3209771FD007BBC4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ADD4C40820998505007BFBF6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SettingsStoryboard.strings"; sourceTree = "<group>"; };
 		ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewController.swift; sourceTree = "<group>"; };
 		ADF0A1B62087449F009F4B66 /* SeatHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		ADF2F8F42096249900092893 /* ReservationWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReservationWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1305,7 +1305,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				ADB9C9902091E9890086A00E /* Base */,
-				ADB9C9932091E9910086A00E /* zh-Hans */,
+				ADD4C40820998505007BFBF6 /* zh-Hans */,
 			);
 			name = SettingsStoryboard.storyboard;
 			sourceTree = "<group>";

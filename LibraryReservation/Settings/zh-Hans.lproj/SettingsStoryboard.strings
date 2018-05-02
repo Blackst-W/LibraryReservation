@@ -1,6 +1,8 @@
 
-/* Class = "UILabel"; text = "-"; ObjectID = "0LT-Gz-f09"; */
-"0LT-Gz-f09.text" = "-";
+"CtB-YZ-9hk.text" = "本应用是本人在武大 iOS 俱乐部的帮助下设计并完成。  此应用的设计初衷是作为武大官方应用的替代产品以提供更好的用户体验,并非用于通过不正当的方式进行抢座。此应用不会并且在将来也不会收集任何个人资料，所有数据仅会保存在本地。  如果你对此应用有浓厚的兴趣并且希望能有更加深入的了解，欢迎通过 admin@westonwu.com 这一邮箱联系我。";
+
+/* Class = "UIViewController"; title = "About"; ObjectID = "NsH-U5-oyb"; */
+"NsH-U5-oyb.title" = "关于";
 
 /* Class = "UILabel"; text = "Remind you 10min ahead for upcoming reservation"; ObjectID = "0XH-Jc-ZQ0"; */
 "0XH-Jc-ZQ0.text" = "提前10分钟提醒你预约即将开始";
@@ -130,3 +132,4 @@
 
 /* Class = "UILabel"; text = "-"; ObjectID = "zuP-5f-MbU"; */
 "zuP-5f-MbU.text" = "-";
+

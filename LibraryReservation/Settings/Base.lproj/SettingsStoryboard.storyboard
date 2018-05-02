@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -109,6 +110,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NsH-U5-oyb" kind="show" id="maR-hY-2z9"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -153,7 +157,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Notification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-f9-xqz">
-                                                    <rect key="frame" x="16" y="11" width="144" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="285" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -166,6 +170,7 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="UHD-uN-vgQ" firstAttribute="leading" secondItem="Pu6-f9-xqz" secondAttribute="trailing" constant="9" id="5z3-O9-BOK"/>
                                                 <constraint firstItem="UHD-uN-vgQ" firstAttribute="centerY" secondItem="i2s-tf-3rf" secondAttribute="centerY" id="XTg-lA-dRi"/>
                                                 <constraint firstItem="Pu6-f9-xqz" firstAttribute="leading" secondItem="i2s-tf-3rf" secondAttribute="leadingMargin" id="oQT-zV-ddf"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="UHD-uN-vgQ" secondAttribute="trailing" id="uz2-Rl-Oei"/>
@@ -500,7 +505,51 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hb6-n6-qLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1538" y="670"/>
+            <point key="canvasLocation" x="1537" y="299"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="Tso-7K-wib">
+            <objects>
+                <viewController title="About" id="NsH-U5-oyb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LHS-jB-fQW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AboutIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Uqk-9d-Liu">
+                                <rect key="frame" x="137" y="128" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="a1q-5M-otw"/>
+                                    <constraint firstAttribute="height" constant="100" id="qDR-Ak-pVW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CtB-YZ-9hk">
+                                <rect key="frame" x="8" y="268" width="359" height="502"/>
+                                <mutableString key="text">This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Uqk-9d-Liu" firstAttribute="top" secondItem="Up0-M6-bWe" secondAttribute="top" constant="40" id="Cyc-bO-kDd"/>
+                            <constraint firstItem="Uqk-9d-Liu" firstAttribute="centerX" secondItem="LHS-jB-fQW" secondAttribute="centerX" id="Hwm-XJ-Gbf"/>
+                            <constraint firstItem="CtB-YZ-9hk" firstAttribute="leading" secondItem="Up0-M6-bWe" secondAttribute="leading" constant="8" id="hNF-h7-ueN"/>
+                            <constraint firstItem="Up0-M6-bWe" firstAttribute="bottom" secondItem="CtB-YZ-9hk" secondAttribute="bottom" constant="8" id="lpn-2r-R6Q"/>
+                            <constraint firstItem="CtB-YZ-9hk" firstAttribute="top" secondItem="Uqk-9d-Liu" secondAttribute="bottom" constant="40" id="nhq-JA-Ahn"/>
+                            <constraint firstItem="Up0-M6-bWe" firstAttribute="trailing" secondItem="CtB-YZ-9hk" secondAttribute="trailing" constant="8" id="pBh-cs-SaA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Up0-M6-bWe"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9XS-Ye-Ihc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1537" y="993"/>
         </scene>
         <!--Account-->
         <scene sceneID="62d-tE-cC2">
@@ -622,12 +671,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDe-9M-js6">
-                                                    <rect key="frame" x="16" y="11" width="46" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="327" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0LT-Gz-f09">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0LT-Gz-f09">
                                                     <rect key="frame" x="351" y="12" width="8" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -638,6 +687,7 @@
                                                 <constraint firstItem="hDe-9M-js6" firstAttribute="centerY" secondItem="bOa-5T-Edr" secondAttribute="centerY" id="84H-dd-104"/>
                                                 <constraint firstItem="hDe-9M-js6" firstAttribute="leading" secondItem="bOa-5T-Edr" secondAttribute="leadingMargin" id="Ksg-dU-WeF"/>
                                                 <constraint firstItem="0LT-Gz-f09" firstAttribute="trailing" secondItem="bOa-5T-Edr" secondAttribute="trailingMargin" id="UEX-hZ-V6B"/>
+                                                <constraint firstItem="0LT-Gz-f09" firstAttribute="leading" secondItem="hDe-9M-js6" secondAttribute="trailing" constant="8" id="e68-Kk-86l"/>
                                                 <constraint firstItem="0LT-Gz-f09" firstAttribute="centerY" secondItem="bOa-5T-Edr" secondAttribute="centerY" id="oPy-FI-gQh"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -726,7 +776,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-ox-exS">
-                                                    <rect key="frame" x="16" y="11.666666666666664" width="115" height="21"/>
+                                                    <rect key="frame" x="16" y="11.666666666666664" width="286" height="21"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -739,6 +789,7 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="wgu-M7-xJz" firstAttribute="leading" secondItem="ibP-ox-exS" secondAttribute="trailing" constant="8" id="04w-Uz-bMf"/>
                                                 <constraint firstItem="ibP-ox-exS" firstAttribute="leading" secondItem="3yr-Br-lrN" secondAttribute="leadingMargin" id="3yN-Fa-fAU"/>
                                                 <constraint firstItem="wgu-M7-xJz" firstAttribute="centerY" secondItem="3yr-Br-lrN" secondAttribute="centerY" id="6SO-Y4-RF0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="wgu-M7-xJz" secondAttribute="trailing" id="oZU-lT-zwv"/>
@@ -754,7 +805,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEm-5O-ua4">
-                                                    <rect key="frame" x="16" y="11.666666666666666" width="82" height="20.333333333333336"/>
+                                                    <rect key="frame" x="16" y="11.666666666666666" width="286" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -768,6 +819,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="6Gs-Rf-PUq" secondAttribute="trailing" id="FTt-ak-NQ5"/>
+                                                <constraint firstItem="6Gs-Rf-PUq" firstAttribute="leading" secondItem="nEm-5O-ua4" secondAttribute="trailing" constant="8" id="UqI-FF-rwD"/>
                                                 <constraint firstItem="nEm-5O-ua4" firstAttribute="leading" secondItem="b2N-yh-TQo" secondAttribute="leadingMargin" id="jY1-A4-QgL"/>
                                                 <constraint firstItem="6Gs-Rf-PUq" firstAttribute="centerY" secondItem="b2N-yh-TQo" secondAttribute="centerY" id="qJ5-Zg-U7b"/>
                                                 <constraint firstItem="nEm-5O-ua4" firstAttribute="centerY" secondItem="b2N-yh-TQo" secondAttribute="centerY" id="wyd-X6-QKB"/>
@@ -815,4 +867,7 @@
             <point key="canvasLocation" x="-414" y="466"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AboutIcon" width="200" height="200"/>
+    </resources>
 </document>
