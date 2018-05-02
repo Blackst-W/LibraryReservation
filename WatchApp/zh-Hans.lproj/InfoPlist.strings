@@ -2,8 +2,8 @@
   InfoPlist.strings
   LibraryReservation
 
-  Created by Weston Wu on 2018/04/26.
+  Created by Weston Wu on 2018/05/02.
   Copyright © 2018 Weston Wu. All rights reserved.
 */
 
-"CFBundleDisplayName" = "Swift Seat";
+"CFBundleDisplayName" = "WHU预约助手";
