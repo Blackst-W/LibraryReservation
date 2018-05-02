@@ -20,7 +20,7 @@
 		AD50F2B4208A279300A7BD6A /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F2B3208A279300A7BD6A /* SeatSelectionViewController.swift */; };
 		AD5951942098C31A00F27ED1 /* SeatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDA46620974DEC00644D33 /* SeatKit.framework */; };
 		AD6629DB20978F4D006353F2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD6629D920978F4D006353F2 /* Interface.storyboard */; };
-		AD6629DD20978F4F006353F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD6629DC20978F4F006353F2 /* Assets.xcassets */; };
+		AD6629DD20978F4F006353F2 /* WatchAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD6629DC20978F4F006353F2 /* WatchAssets.xcassets */; };
 		AD6629E420978F4F006353F2 /* WatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD6629E320978F4F006353F2 /* WatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AD6629EB20978F4F006353F2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629EA20978F4F006353F2 /* ExtensionDelegate.swift */; };
 		AD6629ED20978F4F006353F2 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6629EC20978F4F006353F2 /* NotificationController.swift */; };
@@ -242,7 +242,7 @@
 		AD6629D120977782006353F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainInterface.strings"; sourceTree = "<group>"; };
 		AD6629D720978F4D006353F2 /* WatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD6629DA20978F4D006353F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		AD6629DC20978F4F006353F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AD6629DC20978F4F006353F2 /* WatchAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchAssets.xcassets; sourceTree = "<group>"; };
 		AD6629DE20978F4F006353F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD6629E320978F4F006353F2 /* WatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD6629EA20978F4F006353F2 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -461,7 +461,7 @@
 			children = (
 				ADD4C40920998F61007BFBF6 /* InfoPlist.strings */,
 				AD6629D920978F4D006353F2 /* Interface.storyboard */,
-				AD6629DC20978F4F006353F2 /* Assets.xcassets */,
+				AD6629DC20978F4F006353F2 /* WatchAssets.xcassets */,
 				AD6629DE20978F4F006353F2 /* Info.plist */,
 			);
 			path = WatchApp;
@@ -744,6 +744,7 @@
 				ADF2F9042096249900092893 /* Embed App Extensions */,
 				ADBDA4A42097564B00644D33 /* Embed Frameworks */,
 				AD6629FE20978F50006353F2 /* Embed Watch Content */,
+				ADD4C40D2099910A007BFBF6 /* Auto Increase Build Number */,
 			);
 			buildRules = (
 			);
@@ -939,7 +940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD6629DD20978F4F006353F2 /* Assets.xcassets in Resources */,
+				AD6629DD20978F4F006353F2 /* WatchAssets.xcassets in Resources */,
 				ADD4C40B20998F62007BFBF6 /* InfoPlist.strings in Resources */,
 				AD6629DB20978F4D006353F2 /* Interface.storyboard in Resources */,
 			);
@@ -1050,6 +1051,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		ADD4C40D2099910A007BFBF6 /* Auto Increase Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Auto Increase Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 		CF0BCA22D7FE1EFBAC2CCCA9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
