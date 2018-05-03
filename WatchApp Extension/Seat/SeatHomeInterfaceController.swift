@@ -51,10 +51,8 @@ class SeatHomeInterfaceController: WKInterfaceController {
         if WKExtension.shared().applicationState == .active {
             DispatchQueue.main.async {
                 self.updateUI(reservation: ExtensionDelegate.current.currentSeatReservation)
-                WKInterfaceDevice.current().play(.success)
             }
         }
-        historyManager.reload()
     }
     
     func updateUI(reservation: SeatCurrentReservationRepresentable?) {
@@ -104,8 +102,6 @@ class SeatHomeInterfaceController: WKInterfaceController {
 
 extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
     func update(reservations: [SeatReservation]) {
-        refreshButton.setEnabled(true)
-        refreshButton.setTitle("Refresh".localized)
         return
     }
     

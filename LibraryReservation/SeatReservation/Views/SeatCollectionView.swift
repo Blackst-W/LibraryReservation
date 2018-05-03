@@ -30,9 +30,9 @@ class SeatCollectionView: UIControl {
     func update(seat: Seat) {
         self.seat = seat
         layer.cornerRadius = 8
-        layer.shadowRadius = 8
-        layer.shadowOpacity = 0.15
-        layer.shadowOffset = CGSize(width: 0, height: 5)
+//        layer.shadowRadius = 8
+//        layer.shadowOpacity = 0.15
+//        layer.shadowOffset = CGSize(width: 0, height: 5)
         seatLabel.text = seat.name
         computerImageView.alpha = seat.hasComputer ? 1 : 0
         windowImageView.alpha = seat.hasWindow ? 1 : 0
