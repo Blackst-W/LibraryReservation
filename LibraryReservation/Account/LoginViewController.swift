@@ -83,10 +83,10 @@ class LoginViewController: UITableViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             }else{
-                let errorDescription = error?.localizedDescription ?? failResponse?.localizedDescription ?? "Unknown Error"
+                let errorDescription = error?.localizedDescription ?? failResponse?.localizedDescription ?? "Unknown Error".localized
                 print(errorDescription)
-                let alertController = UIAlertController(title: "Login Failed", message: errorDescription, preferredStyle: .alert)
-                let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+                let alertController = UIAlertController(title: "Login Failed".localized, message: errorDescription, preferredStyle: .alert)
+                let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
                 alertController.addAction(closeAction)
                 DispatchQueue.main.async {
                     self.loginButton.isEnabled = true

@@ -10,7 +10,7 @@ import UIKit
 
 class SeatHistoryDetailViewController: UITableViewController {
 
-    var reservation: SeatHistoryReservation!
+    var reservation: SeatReservation!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -37,11 +37,11 @@ class SeatHistoryDetailViewController: UITableViewController {
         stateLabel.text = reservation.state.localizedDescription
         if let location = reservation.location {
             libraryLabel.text = location.library.rawValue
-            floorLabel.text = "\(location.floor)F"
+            floorLabel.text = "Floor".localized(arguments: location.floor)
             roomLabel.text = location.room
-            seatLabel.text = "No.\(location.seat)"
+            seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         }
-        locationLabel.text = reservation.loc
+        locationLabel.text = reservation.rawLocation
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -57,8 +57,8 @@ class SeatHistoryDetailViewController: UITableViewController {
     }
     
     override var previewActionItems: [UIPreviewActionItem] {
-        let copyAction = UIPreviewAction(title: "Copy Location", style: .default) { (_, _) in
-            UIPasteboard.general.string = self.reservation.loc
+        let copyAction = UIPreviewAction(title: "Copy Location".localized, style: .default) { (_, _) in
+            UIPasteboard.general.string = self.reservation.rawLocation
         }
         return [copyAction]
     }

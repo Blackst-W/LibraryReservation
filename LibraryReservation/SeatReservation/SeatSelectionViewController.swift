@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 protocol SeatSelectionViewDelegate: class {
     func select(seat: Seat, begin: Date, end: Date)
@@ -44,20 +45,19 @@ class SeatSelectionViewController: UIViewController {
     @IBOutlet weak var timePickerView: UIPickerView!
     @IBOutlet weak var reserveButton: UIButton!
     
+    @IBOutlet weak var displayStyleControl: UISegmentedControl!
+    
     var manager: AvailableSeatManager!
     var library: Library!
     var room: Room!
     var date: Date!
     var layoutData: SeatLayoutData?
-    var seatTimeManager: SeatTimeManager!
+    var seatTimeManager: SeatReserveManager!
     var selectedSeat: Seat? {
         didSet {
             if let oldSeat = oldValue {
                 let seatView = layoutView.viewWithTag(oldSeat.id) as! SeatCollectionView
-                seatView.reset()
-                if filter.fullfill(seat: oldSeat) {
-                    seatView.hightlight()
-                }
+                seatView.viewed()
             }
             if let newSeat = selectedSeat {
                 let seatView = layoutView.viewWithTag(newSeat.id) as! SeatCollectionView
@@ -73,22 +73,30 @@ class SeatSelectionViewController: UIViewController {
     var endTimes = [SeatTime]()
     
     override func viewDidLoad() {
+        PKHUD.sharedHUD.dimsBackground = false
+        PKHUD.sharedHUD.userInteractionOnUnderlyingViewsEnabled = true
         super.viewDidLoad()
         modalPresentationStyle = .formSheet
         title = room.name
         libraryNameLabel.text = library.rawValue
-        floorLabel.text = "\(room.floor)F"
+        floorLabel.text = "Floor".localized(arguments: room.floor)
         roomLabel.text = room.name
         scrollView.delegate = self
-        scrollView.setZoomScale(0.6, animated: false)
+//        scrollView.setZoomScale(0.6, animated: false)
         manager = AvailableSeatManager(delegate: self)
         manager.check(room: room, date: date)
-        seatTimeManager = SeatTimeManager(delegate: self)
+        seatTimeManager = SeatReserveManager(delegate: self)
         startLoading()
         timePickerView.delegate = self
         timePickerView.dataSource = self
         setupFilter()
+        navigationController?.hidesBarsOnSwipe = true
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.hidesBarsOnSwipe = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,13 +106,13 @@ class SeatSelectionViewController: UIViewController {
 
     func startLoading() {
         indicatorView.startAnimating()
+        HUD.show(.systemActivity)
     }
     
     func endLoading() {
         indicatorView.stopAnimating()
+        HUD.hide()
     }
-    
-    
     
     @IBAction func refresh(_ sender: Any) {
         if indicatorView.isAnimating {return}
@@ -114,6 +122,27 @@ class SeatSelectionViewController: UIViewController {
             manager.check(room: room, date: date)
         }
         startLoading()
+    }
+    
+    @IBAction func displayStyleChanged(_ sender: UISegmentedControl) {
+        guard let layoutData = layoutData else {
+            manager.check(room: room, date: date)
+            startLoading()
+            return
+        }
+        update(layoutData: layoutData)
+        switch sender.selectedSegmentIndex {
+        case 0:
+            scrollView.setZoomScale(1, animated: false)
+            scrollView.minimumZoomScale = 1
+            scrollView.maximumZoomScale = 1
+        case 1:
+            scrollView.minimumZoomScale = 0.4
+            scrollView.maximumZoomScale = 2
+            scrollView.setZoomScale(0.6, animated: false)
+        default:
+            return
+        }
     }
     
     @IBAction func toggleComputer(_ sender: Any) {
@@ -161,18 +190,18 @@ class SeatSelectionViewController: UIViewController {
     }
     
     @objc func chooseSeat(_ sender: SeatCollectionView) {
-        let seat = sender.seat
-        if seat == selectedSeat {
-            selectedSeat = nil
+        let seat = sender.seat!
+        if seat == selectedSeat,
+            indicatorView.isAnimating {
             return
         }
         selectedSeat = seat
         startLoading()
-        seatTimeManager.check(seat: seat!, date: date)
+        seatTimeManager.check(seat: seat, date: date)
     }
     
     func showReserveView() {
-        seatLabel.text = "Seat No." + selectedSeat!.name
+        seatLabel.text = "SeatNo".localized(arguments: selectedSeat!.name)
         dismissControl.isHidden = false
         dismissControl.alpha = 0
         UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
@@ -184,6 +213,7 @@ class SeatSelectionViewController: UIViewController {
     
     
     @IBAction func dismissReserveView(_ sender: Any) {
+        if !reserveButton.isEnabled {return}
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             self.dismissControl.alpha = 0
             self.dismissBottomConstraint.isActive = true
@@ -245,11 +275,11 @@ class SeatSelectionViewController: UIViewController {
         if isTimeFilterDisplay {
             //setting time filter
             cleanTimeFilterButton.isEnabled = true
-            changeTimeFilterButton.setTitle("Save", for: .normal)
+            changeTimeFilterButton.setTitle("Save".localized, for: .normal)
             timeFilterLabel.text = "08:00 - 08:30"
         }else{
             //save time filter
-            changeTimeFilterButton.setTitle("Change", for: .normal)
+            changeTimeFilterButton.setTitle("Change".localized, for: .normal)
             let (start, end) = timeFilterManager.selectedTimes
             startLoading()
             timeFilterStart = start
@@ -263,7 +293,7 @@ class SeatSelectionViewController: UIViewController {
             isTimeFilterDisplay = false
         }
         cleanTimeFilterButton.isEnabled = false
-        changeTimeFilterButton.setTitle("Change", for: .normal)
+        changeTimeFilterButton.setTitle("Change".localized, for: .normal)
         timeFiltedSeats = nil
         timeFilterLabel.text = "--:-- - --:--"
         timeFilterManager.reset()
@@ -273,6 +303,7 @@ class SeatSelectionViewController: UIViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         print("Seat Selection View Controller Destroyed")
     }
     
@@ -283,35 +314,55 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     func updateFailed(error: Error) {
         reserveButton.isEnabled = true
         endLoading()
-        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
-        reserveButton.isEnabled = true
         if failedResponse.code == "12" {
             requireLogin()
             return
         }
+        reserveButton.isEnabled = true
         endLoading()
-        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
     
     func requireLogin() {
         endLoading()
-        autoLogin(delegate: self, force: true)
+        autoLogin(delegate: self)
     }
     
     func reloadData() {
+        switch displayStyleControl.selectedSegmentIndex {
+        case 0:
+            reloadListDisplayData()
+        case 1:
+            reloadLayoutDisplayData()
+        default:
+            return
+        }
+    }
+    
+    func reloadListDisplayData() {
+        guard let layoutData = self.layoutData else {return}
+        if let timeSeats = timeFiltedSeats {
+            updateListDisplay(seats: timeSeats)
+        }else{
+            updateListDisplay(seats: layoutData.seats)
+        }
+    }
+    
+    func reloadLayoutDisplayData() {
         guard let layoutData = self.layoutData else {return}
         
         for seat in layoutData.seats {
-            let seatView = layoutView.viewWithTag(seat.id) as! SeatCollectionView
+            guard let seatView = layoutView.viewWithTag(seat.id) as? SeatCollectionView else {continue}
             seatView.reset()
         }
         
@@ -319,7 +370,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         if let timeFiltedSeats = timeFiltedSeats {
             //Time Filter Enabled
             for seat in timeFiltedSeats {
-                let seatView = layoutView.viewWithTag(seat.id) as! SeatCollectionView
+                guard let seatView = layoutView.viewWithTag(seat.id) as? SeatCollectionView else {continue}
                 if filter.fullfill(seat: seat) {
                     seatView.hightlight()
                 }
@@ -328,7 +379,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
             //Time Filter Disabled
             if !needFilter {return}
             for seat in layoutData.seats {
-                let seatView = layoutView.viewWithTag(seat.id) as! SeatCollectionView
+                guard let seatView = layoutView.viewWithTag(seat.id) as? SeatCollectionView else {continue}
                 if filter.fullfill(seat: seat) {
                     seatView.hightlight()
                 }
@@ -338,10 +389,75 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     
     func update(layoutData: SeatLayoutData) {
         self.layoutData = layoutData
+        switch displayStyleControl.selectedSegmentIndex {
+        case 0:
+            updateListDisplay(seats: layoutData.seats)
+        case 1:
+            updateLayoutDisplay()
+        default:
+            return
+        }
+        endLoading()
+    }
+    
+    func updateListDisplay(seats: [Seat]) {
+        let cellHeight: CGFloat = 60
+        let cellWidth: CGFloat = 60
+        let gap: CGFloat = 12
+        var scrollViewWidth: CGFloat!
+        if #available(iOS 11.0, *) {
+            scrollViewWidth = scrollView.frame.width - scrollView.safeAreaInsets.left * 2
+        } else {
+            scrollViewWidth = scrollView.frame.width
+        }
+        let numberPerRow = Int((scrollViewWidth - 16 + 8) / (cellWidth + gap))
+        
+        let needFilter = filter.isEnabled
+        let seats = (needFilter ? seats.filter{filter.fullfill(seat: $0)} : seats).sorted {$0.name<$1.name}
+        let rows = Int(ceil(Double(seats.count) / Double(numberPerRow)))
+        let topOffset: CGFloat = 226
+        let contentHeight = CGFloat(rows) * (cellHeight + gap) + gap + topOffset
+        let contentWidth = scrollViewWidth!
+        layoutViewHeightConstraint.constant = contentHeight
+        layoutViewWidthConstraint.constant = contentWidth
+        layoutView.subviews.forEach { (subview) in
+            subview.removeFromSuperview()
+        }
+        
+        var leftOffset: CGFloat!
+        if #available(iOS 11.0, *) {
+            leftOffset = (scrollViewWidth - 16 + 8 - CGFloat(numberPerRow) * (cellWidth + gap)) / 2 + scrollView.safeAreaInsets.left
+        } else {
+            leftOffset = (scrollViewWidth - 16 + 8 - CGFloat(numberPerRow) * (cellWidth + gap)) / 2
+        }
+        for row in 0..<rows {
+            for col in 0..<numberPerRow {
+                let index = row * numberPerRow + col
+                guard index < seats.count else {break}
+                let seat = seats[index]
+                let x = (cellWidth + gap) * CGFloat(col) + gap + leftOffset
+                let y = (cellHeight + gap) * CGFloat(row) + gap + topOffset
+                let seatView = SeatCollectionView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
+                Bundle.main.loadNibNamed("SeatCollectionView", owner: seatView, options: nil)
+                seatView.contentView.frame = CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight)
+                seatView.update(seat: seat)
+                seatView.tag = seat.id
+                if needFilter {
+                    seatView.hightlight()
+                }
+                seatView.addTarget(self, action: #selector(chooseSeat(_:)), for: .touchUpInside)
+                layoutView.addSubview(seatView)
+            }
+        }
+    }
+    
+    func updateLayoutDisplay() {
+        guard let layoutData = layoutData else {return}
         let cellHeight: CGFloat = 80
         let cellWidth: CGFloat = 80
         let gap: CGFloat = 8
-        let contentHeight = CGFloat(layoutData.rows) * (cellHeight + gap) + gap
+        let topOffset: CGFloat = 226
+        let contentHeight = CGFloat(layoutData.rows) * (cellHeight + gap) + gap + topOffset
         let contentWidth = CGFloat(layoutData.cols) * (cellWidth + gap) + gap
         layoutViewHeightConstraint.constant = contentHeight
         layoutViewWidthConstraint.constant = contentWidth
@@ -351,7 +467,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         let needFilter = filter.isEnabled
         for seat in layoutData.seats {
             let x = (cellWidth + gap) * CGFloat(seat.layout.col) + gap
-            let y = (cellHeight + gap) * CGFloat(seat.layout.row) + gap
+            let y = (cellHeight + gap) * CGFloat(seat.layout.row) + gap + topOffset
             let seatView = SeatCollectionView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
             Bundle.main.loadNibNamed("SeatCollectionView", owner: seatView, options: nil)
             seatView.update(seat: seat)
@@ -362,43 +478,45 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
             seatView.addTarget(self, action: #selector(chooseSeat(_:)), for: .touchUpInside)
             layoutView.addSubview(seatView)
         }
-        endLoading()
     }
     
     func timeFilterUpdate(seats: [Seat]) {
-        for view in layoutView.subviews {
-            if let seatView = view as? SeatCollectionView {
-                seatView.reset()
-            }
-        }
         timeFiltedSeats = seats
-        for seat in seats {
-            guard filter.fullfill(seat: seat) else {continue}
-            if let seatView = layoutView.viewWithTag(seat.id) as? SeatCollectionView {
-                seatView.hightlight()
-            }
-        }
+        reloadData()
         endLoading()
     }
-    
 }
 
-extension SeatSelectionViewController: SeatTimeDelegate {
-    func update(start: [SeatTime], end: [SeatTime]) {
+extension SeatSelectionViewController: SeatReserveDelegate {
+    func update(seat: Seat, start: [SeatTime], end: [SeatTime]) {
+        guard seat == self.selectedSeat else {return}
         endLoading()
         if start.isEmpty {
+            HUD.flash(.label("Not Available Time For This Seat".localized), delay: 1.0)
             return
         }
         startTimes = start
         endTimes = end
         timePickerView.reloadAllComponents()
-        timePickerView.selectRow(0, inComponent: 0, animated: false)
-        timePickerView.selectRow(0, inComponent: 1, animated: false)
+        if let filterStart = timeFilterStart, let index = start.index(of: filterStart) {
+            timePickerView.selectRow(index, inComponent: 0, animated: false)
+            endTimes = seatTimeManager.endTimes(for: index)
+            timePickerView.reloadComponent(1)
+            if let filterEnd = timeFilterEnd, let endIndex = endTimes.index(of: filterEnd) {
+                timePickerView.selectRow(endIndex, inComponent: 1, animated: false)
+            }else{
+                timePickerView.selectRow(0, inComponent: 1, animated: false)
+            }
+        }else{
+            timePickerView.selectRow(0, inComponent: 0, animated: false)
+            timePickerView.selectRow(0, inComponent: 1, animated: false)
+        }
         showReserveView()
     }
     
     func reserveSuccess() {
-        reserveButton.setTitle("Success", for: .disabled)
+        view.isUserInteractionEnabled = false
+        reserveButton.setTitle("Reserve Success".localized, for: .disabled)
         reserveButton.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.dismiss(animated: true, completion: nil)

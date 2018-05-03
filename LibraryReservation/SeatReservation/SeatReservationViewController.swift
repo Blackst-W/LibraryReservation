@@ -14,65 +14,42 @@ class SeatReservationViewController: UIViewController {
     @IBOutlet weak var roomTableView: UITableView!
     @IBOutlet weak var roomTableViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var chooseSeatButton: UIButton!
-    @IBOutlet weak var seatView: UIView!
-    
     var date: Date!
+    var roomData: [Room] = []
+    var libraryManager: SeatLibraryManager!
     
     var selectedLibrary: Library? {
         didSet {
             if let library = selectedLibrary {
-                roomData = libraryData[library]
+                roomData = libraryManager.libraryData[library]
+                libraryManager.check(library: library)
             }else{
                 roomData = []
             }
-            selectedRoom = nil
             resizeRoomTableView()
             roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
         }
     }
     
-    var selectedRoom: Room? {
-        didSet {
-            if let _ = selectedRoom {
-                showSeatView()
-                chooseSeat(self)
-            }else{
-                hideSeatView()
-            }
-            selectedSeat = nil
-        }
-    }
     
-    var selectedSeat: Seat? {
-        didSet {
-            if selectedSeat == nil {
-                beginDate = nil
-                endDate = nil
-            }
-        }
-    }
-    
-    var beginDate: Date?
-    var endDate: Date?
-    
-    var libraryData = LibraryData()
-    var roomData: [Room] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         date = Date()
         let calender = Calendar.current
-        if calender.component(.hour, from: date) >= 22 || (calender.component(.hour, from: date) == 21 && calender.component(.minute, from: date) >= 30) {
-            date = date.addingTimeInterval(4 * 60 * 60)
+        var dayTitle = "(Today)".localized
+        if calender.component(.hour, from: date) >= 22 {
+            date = date.addingTimeInterval(3 * 60 * 60)
+            dayTitle = "(Tomorrow)".localized
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        title = dateFormatter.string(from: date)
+        title = dateFormatter.string(from: date) + " " + dayTitle
         roomTableView.dataSource = self
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
         libraryView.delegate = self
+        libraryManager = SeatLibraryManager(delegate: self)
         // Do any additional setup after loading the view.
     }
     
@@ -85,21 +62,6 @@ class SeatReservationViewController: UIViewController {
             self.view.layoutIfNeeded()
         }.startAnimation()
     }
-    
-    func showSeatView() {
-        chooseSeatButton.isUserInteractionEnabled = true
-        UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
-            self.seatView.alpha = 1
-        }.startAnimation()
-    }
-    
-    func hideSeatView() {
-        chooseSeatButton.isUserInteractionEnabled = false
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            self.seatView.alpha = 0
-            }
-        animator.startAnimation()
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -108,40 +70,12 @@ class SeatReservationViewController: UIViewController {
     
     @objc func roomSelected(_ sender: UIControl) {
         let index = sender.tag
-        
-        let currentRoom = selectedRoom ?? roomData[index]
-        
-        let selectedRow = libraryData.roomIndex[currentRoom.id]!.1 / 2
-        let totalRowNumber = (roomData.count + 1) / 2
-        var indexPaths = [IndexPath]()
-        for row in 0 ..< totalRowNumber {
-            if row == selectedRow {continue}
-            indexPaths.append(IndexPath(row: row, section: 0))
-        }
-        if let _ = selectedRoom {
-            selectedRoom = nil
-            UIView.animate(withDuration: 0.5) {
-                self.roomTableView.beginUpdates()
-                self.roomTableView.insertRows(at: indexPaths, with: .fade)
-                self.roomTableView.endUpdates()
-            }
-        }else{
-            selectedRoom = currentRoom
-            UIView.animate(withDuration: 0.5) {
-                self.roomTableView.beginUpdates()
-                self.roomTableView.deleteRows(at: indexPaths, with: .fade)
-                self.roomTableView.endUpdates()
-            }
-        }
-        resizeRoomTableView()
-    }
-    
-    @IBAction func chooseSeat(_ sender: Any) {
+        let selectedRoom = roomData[index]
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
         let layoutViewController = storyboard.instantiateViewController(withIdentifier: "SeatLayoutController") as! SeatSelectionViewController
-        layoutViewController.title = selectedRoom!.name
+        layoutViewController.navigationItem.prompt = selectedRoom.name
         layoutViewController.library = selectedLibrary!
-        layoutViewController.room = selectedRoom!
+        layoutViewController.room = selectedRoom
         layoutViewController.date = date
         navigationController?.pushViewController(layoutViewController, animated: true)
     }
@@ -161,9 +95,6 @@ extension SeatReservationViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedRoom != nil {
-            return 1
-        }
         return (roomData.count + 1) / 2
     }
     
@@ -181,7 +112,6 @@ extension SeatReservationViewController: UITableViewDataSource {
         cell.leftRoomView.addTarget(self, action: #selector(roomSelected(_:)), for: .touchUpInside)
         cell.rightRoomView.tag = rightIndex
         cell.rightRoomView.addTarget(self, action: #selector(roomSelected(_:)), for: .touchUpInside)
-//        cell.roomSelected(selection: selection)
         return cell
     }
 }
@@ -205,4 +135,46 @@ extension SeatReservationViewController: SeatLibraryViewDelegate {
     }
 }
 
-//extension SeatReservationViewController:
+extension SeatReservationViewController: SeatLibraryDelegate {
+    func requireLogin() {
+        return
+    }
+    
+    func updateFailed(error: Error) {
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
+        alertController.addAction(closeAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func updateFailed(failedResponse: SeatFailedResponse) {
+        if failedResponse.code == "12" {
+            autoLogin(delegate: self, force: false)
+            return
+        }
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
+        alertController.addAction(closeAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func update(rooms: [Room], for library: Library) {
+        if library == selectedLibrary {
+            roomData = rooms
+            roomTableView.reloadData()
+        }
+    }
+}
+
+extension SeatReservationViewController: LoginViewDelegate {
+    func loginResult(result: LoginResult) {
+        switch result {
+        case .cancel:
+            return
+        case .success(_):
+            if let library = selectedLibrary {
+                libraryManager.check(library: library)
+            }
+        }
+    }
+}

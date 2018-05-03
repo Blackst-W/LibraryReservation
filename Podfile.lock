@@ -1,20 +1,24 @@
 PODS:
+  - PKHUD (5.0.0)
   - Reveal-SDK (14)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
+  - PKHUD
   - Reveal-SDK
   - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - PKHUD
     - Reveal-SDK
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
   Reveal-SDK: 55b5c5545233b680c2f8da734f202acc15d422b7
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 0cb54d92b5cd70b159f99af61f8e1ee2fbcedbf6
+PODFILE CHECKSUM: af004cfb16bcb2a9026992dd7e437a04914026e4
 
 COCOAPODS: 1.5.0

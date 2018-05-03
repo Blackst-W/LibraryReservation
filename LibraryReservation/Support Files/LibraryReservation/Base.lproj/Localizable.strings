@@ -1,0 +1,133 @@
+/* 
+  Localizable.strings
+  LibraryReservation
+
+  Created by Weston Wu on 2018/04/26.
+  Copyright © 2018 Weston Wu. All rights reserved.
+*/
+
+//SeatBaseResponse
+"SeatBaseResponse.unknownError" = "Request Error\nCode: %@\nMessage:%@";
+
+"SeatBaseResponse.success" = "Success";
+
+//SeatAPIError
+"SeatAPIError.dataCorrupt" = "Data corrputed, please try again";
+
+"SeatAPIError.dataMissing" = "Failed to receive data from server, please try again";
+
+"SeatAPIError.unknown" = "Unknown error, please try again";
+
+//SeatCurrentReservationState
+
+"SeatCurrentReservationState.invalid" = "Invalid";
+"SeatCurrentReservationState.upcoming" = "Upcoming";
+"SeatCurrentReservationState.ongoing" = "Ongoing";
+"SeatCurrentReservationState.tempAway" = "Temp Away";
+"SeatCurrentReservationState.late" = "Lated";
+"SeatCurrentReservationState.autoEnd" = "Auto End";
+
+"Start In" = "Start In %@ %@";
+"End In" = "End In %@ %@";
+"Expire In" = "Expire In %@";
+"Auto End In" = "Auto End In %@";
+"Please Refresh First" = "Please Refresh First";
+
+//SeatReservationState
+"SeatReservationState.reserve" = "Reserve";
+"SeatReservationState.complete" = "Complete";
+"SeatReservationState.miss" = "Miss";
+"SeatReservationState.cancel" = "Cancel";
+"SeatReservationState.incomplete" = "Incomplete";
+"SeatReservationState.checkIn" = "Check In";
+"SeatReservationState.away" = "Away";
+"SeatReservationState.stop" = "Stop";
+"SeatReservationState.unknown" = "Unknown";
+
+//Library
+"总馆" = "总馆";
+"工学分馆" = "工学分馆";
+"信息科学分馆" = "信息科学分馆";
+"医学分馆" = "医学分馆";
+
+//SeatTime
+"SeatTime.now" = "Now";
+"Hour" = "%dHour";
+"h" = "%dh";
+"Mins" = "%dMins";
+"mins" = "%dmins";
+
+//SeatLocation
+"Floor" = "%dF";
+"SeatNo" = "Seat No.%@";
+
+//SeatCurrentReservationView
+"Canceled" = "Canceled";
+"Canceling..." = "Canceling...";
+
+//SeatRoomTableViewCell
+"Available: -" = "Available: -";
+"Available: %d" = "Available: %d";
+
+//SeatReservationViewController
+"(Today)" = "(Today)";
+"(Tomorrow)" = "(Tomorrow)";
+
+//SeatSelectionViewController
+"Save" = "Save";
+"Change" = "Change";
+"Not Available Time For This Seat" = "Not Available Time For This Seat";
+"Reserve Success" = "Reserve Success";
+
+"Failed To Update" = "Failed To Process Request";
+"Close" = "Close";
+
+//SeatCurrentReservationDetailViewController
+"Current Reservation" = "Current Reservation";
+"Lated Reservation" = "Lated Reservation";
+"Ongoing Reservation" = "Ongoing Reservation";
+"Paused Reservation" = "Paused Reservation";
+"Upcoming Reservation" = "Upcoming Reservation";
+"Ending Reservation" = "Ending Reservation";
+"Unknown Reservation" = "Unknown Reservation";
+"Stop Reservation" = "Stop Reservation";
+"Cancel Reservation" = "Cancel Reservation";
+"Pull To Refresh" = "Pull To Refresh";
+"Are you sure to cancel this reservation?" = "Are you sure to cancel this reservation?";
+"Confirm" = "Confirm";
+"Back" = "Back";
+"Copy Location" = "Copy Location";
+
+//SeatHistoryViewController
+"No more reservations in the last 30 days" = "No more reservations in the last 30 days";
+
+//SettingsTableViewController
+"Loading..." = "Loading...";
+"Tap To Login" = "Tap To Login";
+
+//AccountDetailTableViewController
+"Confirm Sign Out" = "Confirm Sign Out";
+"Are you sure to sign out?\nAll data related to this account would be erased." = "Are you sure to sign out?\nAll data related to this account would be erased.";
+"Sign Out" = "Sign Out";
+"Cancel" = "Cancel";
+
+//LoginViewController
+"Unknown Error" = "Unknown Error";
+"Login Failed" = "Login Failed";
+
+//NotificationManager
+"Reserve Reminder" = "Reserve Reminder";
+"Seat reservation for the next day is about to open." = "Seat reservation for the next day is about to open.";
+
+"Upcoming Seat Reservation In 10mins" = "Upcoming Seat Reservation In 10mins";
+
+"Reservation Complete" =  "Reservation Complete";
+"Make sure to take all your belongings before leave." = "Make sure to take all your belongings before leave.";
+
+"Reservation Expire Alert" = "Reservation Expire Alert";
+"Reservation is about to expire in 10mins, back to library or cancel the reservation to avoid violation." = "Reservation is about to expire in 10mins, back to library or cancel the reservation to avoid violation.";
+
+//NotificationSettingsTableViewController
+"Notification Was Disabled" = "Notification Was Disabled";
+"Please go the \"Settings\" App and open the notification for this App" = "Please go the \"Settings\" App and open the notification for this App";
+"Settings" = "Settings";

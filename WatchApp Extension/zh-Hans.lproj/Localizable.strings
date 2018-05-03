@@ -1,0 +1,60 @@
+/* 
+  Localizable.strings
+  LibraryReservation
+
+  Created by Weston Wu on 2018/04/30.
+  Copyright © 2018 Weston Wu. All rights reserved.
+*/
+
+//SeatBaseResponse
+"SeatBaseResponse.unknownError" = "请求错误\n错误码: %@\n错误信息:%@";
+
+"SeatBaseResponse.success" = "请求成功";
+
+//SeatAPIError
+"SeatAPIError.dataCorrupt" = "数据损坏, 请稍候重试";
+
+"SeatAPIError.dataMissing" = "无法从服务器获取数据, 请稍候重试";
+
+"SeatAPIError.unknown" = "未知错误, 请稍候重试";
+
+//Library
+"总馆" = "总馆";
+"工学分馆" = "工学分馆";
+"信息科学分馆" = "信息科学分馆";
+"医学分馆" = "医学分馆";
+
+//SeatTime
+"SeatTime.now" = "现在";
+"Hour" = "%d小时";
+"h" = "%d小时";
+"Mins" = "%d分钟";
+"mins" = "%d分钟";
+
+//SeatLocation
+"Floor" = "%d楼";
+"SeatNo" = "座位号:%@";
+
+
+//SeatCurrentReservationState
+//SeatCurrentReservationState
+"SeatCurrentReservationState.invalid" = "需要刷新";
+"SeatCurrentReservationState.upcoming" = "即将开始";
+"SeatCurrentReservationState.ongoing" = "剩余时间";
+"SeatCurrentReservationState.tempAway" = "暂离剩余时间";
+"SeatCurrentReservationState.late" = "迟到剩余时间";
+"SeatCurrentReservationState.autoEnd" = "自动结束时间";
+
+"Start In" = "%@ %@后开始";
+"End In" = "%@ %@后结束";
+"Expire In" = "%@后过期";
+"Auto End In" = "%@后自动结束";
+"Please Refresh First" = "请先刷新数据";
+
+//WatchApp
+"Refresh" = "刷新";
+"No." = "%@号";
+"Refreshing..." = "刷新中...";
+"Login On iPhone" = "请在iPhone中登录";
+"Please login on your iPhone or enable save-password in the iPhone App" = "请在iPhone应用中登录或启用\"记住密码\"选项";
+"Failed To Refresh" = "刷新失败";

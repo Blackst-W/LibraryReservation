@@ -1,0 +1,46 @@
+/* 
+  Localizable.strings
+  LibraryReservation
+
+  Created by Weston Wu on 2018/05/02.
+  Copyright © 2018 Weston Wu. All rights reserved.
+*/
+
+/*
+ Localizable.strings
+ LibraryReservation
+ 
+ Created by Weston Wu on 2018/05/02.
+ Copyright © 2018 Weston Wu. All rights reserved.
+ */
+
+//Library
+"总馆" = "总馆";
+"工学分馆" = "工学分馆";
+"信息科学分馆" = "信息科学分馆";
+"医学分馆" = "医学分馆";
+
+//SeatTime
+"SeatTime.now" = "现在";
+"Hour" = "%d小时";
+"h" = "%d小时";
+"Mins" = "%d分钟";
+"mins" = "%d分钟";
+
+//SeatLocation
+"Floor" = "%d楼";
+"No." = "座位号:%@";
+
+//SeatCurrentReservationState
+"SeatCurrentReservationState.invalid" = "无效";
+"SeatCurrentReservationState.upcoming" = "即将开始";
+"SeatCurrentReservationState.ongoing" = "进行中";
+"SeatCurrentReservationState.tempAway" = "暂离";
+"SeatCurrentReservationState.late" = "迟到";
+"SeatCurrentReservationState.autoEnd" = "自动结束";
+
+"Start In" = "%@ %@后开始";
+"End In" = "%@ %@后结束";
+"Expire In" = "%@后过期";
+"Auto End In" = "%@后自动结束";
+"Please Refresh First" = "请先刷新数据";

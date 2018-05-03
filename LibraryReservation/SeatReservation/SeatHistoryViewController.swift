@@ -17,25 +17,31 @@ class SeatHistoryViewController: UIViewController {
     
     var manager: SeatHistoryManager!
     
+    var data: [SeatReservation] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         manager.delegate = self
+        data = manager.reservations
         let control = UIRefreshControl()
         control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
         tableView.refreshControl = control
+        tableView.reloadData()
+        control.beginRefreshing()
+        manager.reload()
     }
     
     @objc func refreshStateChanged() {
         if tableView.refreshControl!.isRefreshing {
-            manager.update()
+            manager.reload()
         }
     }
 
     @objc func checkMore() {
         if !manager.loadMore() {
-            loadMoreLabel.text = "No more reservations in the last 30 days"
+            loadMoreLabel.text = "No more reservations in the last 30 days".localized
         }
     }
     
@@ -64,12 +70,12 @@ extension SeatHistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return manager.reservations.count
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! SeatHistoryTableViewCell
-        cell.update(reservation: manager.reservations[indexPath.row])
+        cell.update(reservation: data[indexPath.row])
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: cell)
         }
@@ -86,14 +92,14 @@ extension SeatHistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let reservation = manager.reservations[indexPath.row]
+        let reservation = data[indexPath.row]
         let viewController = SeatHistoryDetailViewController.makeFromStoryboard()
         viewController.reservation = reservation
         navigationController?.pushViewController(viewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == manager.reservations.count - 1 {
+        if indexPath.row == data.count - 1 {
             checkMore()
         }
     }
@@ -101,43 +107,49 @@ extension SeatHistoryViewController: UITableViewDelegate {
 
 extension SeatHistoryViewController: SeatHistoryManagerDelegate {
     func requireLogin() {
-        autoLogin(delegate: self, force: true)
+        autoLogin(delegate: self)
     }
     func updateFailed(error: Error) {
         tableView.refreshControl?.endRefreshing()
-        let alertController = UIAlertController(title: "Failed To Update", message: error.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
     
     func updateFailed(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" {
-            autoLogin(delegate: self, force: true)
+            autoLogin(delegate: self)
             return
         }
         tableView.refreshControl?.endRefreshing()
-        let alertController = UIAlertController(title: "Failed To Update", message: failedResponse.localizedDescription, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+        let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
     
-    func update(reservations: [SeatHistoryReservation]) {
+    func update(reservations: [SeatReservation]) {
         if reservations.isEmpty {
             remindLabel.isHidden = false
         }else{
             remindLabel.isHidden = true
         }
+        data = reservations
         tableView.reloadData()
         tableView.refreshControl!.perform(#selector(tableView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
-        
+    }
+    
+    func update(current: SeatCurrentReservationRepresentable?) {
+        NotificationManager.shared.schedule(reservation: current)
+        WatchAppDelegate.shared.transferSeatReservation()
+        return
     }
     
     func loadMore() {
         tableView.reloadData()
         if manager.end {
-            loadMoreLabel.text = "No more reservations in the last 30 days"
+            loadMoreLabel.text = "No more reservations in the last 30 days".localized
         }
     }
 }
@@ -148,7 +160,7 @@ extension SeatHistoryViewController: LoginViewDelegate {
         case .cancel:
             navigationController?.popViewController(animated: true)
         case .success(_):
-            manager.loginResult(result: result)
+            return
         }
     }
 }
@@ -157,7 +169,7 @@ extension SeatHistoryViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let sourceCell = previewingContext.sourceView as? SeatHistoryTableViewCell {
             let indexPath = tableView.indexPath(for: sourceCell)!
-            let reservation = manager.reservations[indexPath.row]
+            let reservation = data[indexPath.row]
             let viewController = SeatHistoryDetailViewController.makeFromStoryboard()
             viewController.reservation = reservation
             viewController.preferredContentSize = CGSize(width: 0, height: 0)

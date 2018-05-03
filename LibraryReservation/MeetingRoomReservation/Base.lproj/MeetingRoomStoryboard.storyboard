@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AQi-tP-Oj2">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Meeting Room-->
+        <scene sceneID="mEd-3n-eHs">
+            <objects>
+                <viewController id="ZKe-6G-atB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z1d-J4-252">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wxs-h4-tlI">
+                                <rect key="frame" x="0.0" y="140" width="375" height="589"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nie-tj-swn">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MeetingroomCell" id="x4w-JL-pI4">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wxs-h4-tlI" firstAttribute="top" secondItem="Te5-Q5-NcV" secondAttribute="top" id="Xi5-xH-ttt"/>
+                            <constraint firstItem="Te5-Q5-NcV" firstAttribute="bottom" secondItem="wxs-h4-tlI" secondAttribute="bottom" id="pJJ-hc-FVu"/>
+                            <constraint firstItem="Te5-Q5-NcV" firstAttribute="trailing" secondItem="wxs-h4-tlI" secondAttribute="trailing" id="pKG-gt-lYm"/>
+                            <constraint firstItem="wxs-h4-tlI" firstAttribute="leading" secondItem="Te5-Q5-NcV" secondAttribute="leading" id="ycz-50-7Xs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Te5-Q5-NcV"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Meeting Room" id="86e-f6-gUW">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="SettingsIcon" id="4bd-Da-L6b">
+                            <connections>
+                                <segue destination="cIN-sZ-UhO" kind="presentation" modalPresentationStyle="formSheet" id="Qhr-lR-vvE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hme-m5-uF9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1574" y="304"/>
+        </scene>
+        <!--Meeting Room-->
+        <scene sceneID="yiH-uz-SbR">
+            <objects>
+                <navigationController id="AQi-tP-Oj2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Meeting Room" image="second" id="07X-b0-giw"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="iPH-Vo-Dqb">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ZKe-6G-atB" kind="relationship" relationship="rootViewController" id="taP-KM-VyI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cLL-dD-s4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="304"/>
+        </scene>
+        <!--SettingsStoryboard-->
+        <scene sceneID="1x4-YU-hOY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SettingsStoryboard" id="cIN-sZ-UhO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G9p-TL-VlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2223" y="-47"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="SettingsIcon" width="16" height="16"/>
+        <image name="second" width="30" height="30"/>
+    </resources>
+</document>

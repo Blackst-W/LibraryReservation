@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14031"/>
+    </dependencies>
+    <scenes>
+        <!--Seat-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller identifier="SeatHomeInterfaceController" title="Seat" id="AgC-eL-Hgc" customClass="SeatHomeInterfaceController" customModule="WatchApp_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="XGz-dd-U0S">
+                            <items>
+                                <label alignment="center" text="Not Reservation" id="w6z-yD-lAk"/>
+                                <group width="1" alignment="left" layout="vertical" id="bqe-IG-AFP">
+                                    <items>
+                                        <group width="1" alignment="right" id="az7-k8-Ow7">
+                                            <items>
+                                                <label alignment="left" text="Upcoming" id="Asw-op-bU6"/>
+                                                <timer alignment="right" enabled="YES" format="abbreviated" previewedSeconds="3660" id="vWd-2F-Cfd">
+                                                    <calendarUnit key="units" hour="YES" minute="YES"/>
+                                                </timer>
+                                            </items>
+                                        </group>
+                                        <group width="1" alignment="left" id="4nI-rP-6zZ">
+                                            <items>
+                                                <label alignment="left" text="信息科学分馆" id="sDn-Cf-j2h"/>
+                                                <label alignment="right" text="4F" id="4Ts-Bq-3Lz"/>
+                                            </items>
+                                        </group>
+                                        <group width="1" alignment="left" id="VD9-Vj-ZBt">
+                                            <items>
+                                                <label alignment="left" text="西图书浏览区" id="e7r-xe-Xue"/>
+                                            </items>
+                                        </group>
+                                        <group width="1" alignment="left" id="ymi-Bq-gag">
+                                            <items>
+                                                <label alignment="right" text="No.70" id="zCv-4T-HMv"/>
+                                            </items>
+                                        </group>
+                                        <group width="1" alignment="left" id="K6q-zr-PYn">
+                                            <items>
+                                                <label alignment="center" text="-" id="Ncu-kN-Z4B"/>
+                                                <label alignment="right" text="20:00" id="2bh-V8-pCa"/>
+                                                <label alignment="left" text="18:00" id="8KE-iH-p8u"/>
+                                            </items>
+                                        </group>
+                                    </items>
+                                </group>
+                                <button width="1" alignment="left" title="Refresh" id="WYr-ex-xzd">
+                                    <connections>
+                                        <action selector="refreshReservation" destination="AgC-eL-Hgc" id="K3v-MZ-vp0"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="View History" id="tCn-He-Dfa">
+                            <connections>
+                                <action selector="viewHistory" destination="AgC-eL-Hgc" id="hus-bK-BHO"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="endTimeLabel" destination="2bh-V8-pCa" id="cT1-Pa-ev2"/>
+                        <outlet property="floorLabel" destination="4Ts-Bq-3Lz" id="rQt-wK-j6B"/>
+                        <outlet property="libraryLabel" destination="sDn-Cf-j2h" id="5oT-1f-LFw"/>
+                        <outlet property="notReservationLabel" destination="w6z-yD-lAk" id="uZU-LH-Qs4"/>
+                        <outlet property="refreshButton" destination="WYr-ex-xzd" id="qtO-k0-b2i"/>
+                        <outlet property="reservationGroup" destination="bqe-IG-AFP" id="4Vr-eA-UaK"/>
+                        <outlet property="roomLabel" destination="e7r-xe-Xue" id="Odw-2h-Udr"/>
+                        <outlet property="seatLabel" destination="zCv-4T-HMv" id="v7i-Sn-h5C"/>
+                        <outlet property="startTimeLabel" destination="8KE-iH-p8u" id="5jd-iF-9Xn"/>
+                        <outlet property="stateLabel" destination="Asw-op-bU6" id="y48-po-YcT"/>
+                        <outlet property="stateTimeTimer" destination="vWd-2F-Cfd" id="Mqp-TH-wfX"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="HD9-tg-i2O">
+            <objects>
+                <controller identifier="SeatHistoryInterfaceController" title="History" id="j8H-6K-uDW" customClass="SeatHistoryInterfaceController" customModule="WatchApp_Extension">
+                    <items>
+                        <label alignment="center" text="Not History Found" id="pfk-qJ-LeF"/>
+                        <table alignment="left" id="Ui6-fC-bNg">
+                            <items>
+                                <tableRow identifier="HistoryRow" selectable="NO" id="p4p-2i-xYI" customClass="SeatHistoryRowController" customModule="WatchApp_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="3aJ-3S-UT5">
+                                        <items>
+                                            <label alignment="left" text="MM-dd" id="58t-pr-sdm"/>
+                                            <group width="1" alignment="left" id="GhK-WA-s39">
+                                                <items>
+                                                    <label alignment="left" text="信息科学分馆" id="Xj4-1n-n1L"/>
+                                                    <label alignment="right" text="4F" id="g7P-t6-ph1"/>
+                                                </items>
+                                            </group>
+                                            <group width="1" alignment="left" id="172-fY-ZLO">
+                                                <items>
+                                                    <label alignment="left" text="西图书浏览区" id="svS-Vl-iNm"/>
+                                                </items>
+                                            </group>
+                                            <group width="1" alignment="left" id="DOi-XP-UDu">
+                                                <items>
+                                                    <label alignment="right" text="No.70" id="l5P-YC-zkW"/>
+                                                </items>
+                                            </group>
+                                            <group width="1" alignment="left" id="O6C-YE-qdb">
+                                                <items>
+                                                    <label alignment="center" text="-" id="7qx-0O-Q8m"/>
+                                                    <label alignment="right" text="20:00" id="zPL-2g-4B7"/>
+                                                    <label alignment="left" text="18:00" id="9tP-Q0-qbY"/>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="dateLabel" destination="58t-pr-sdm" id="ES8-iz-fnI"/>
+                                        <outlet property="endLabel" destination="zPL-2g-4B7" id="pgo-Tl-drO"/>
+                                        <outlet property="floorLabel" destination="g7P-t6-ph1" id="YMQ-Qd-Acd"/>
+                                        <outlet property="libraryLabel" destination="Xj4-1n-n1L" id="MlJ-Ml-2ZP"/>
+                                        <outlet property="roomLabel" destination="svS-Vl-iNm" id="O8W-fv-J52"/>
+                                        <outlet property="seatLabel" destination="l5P-YC-zkW" id="uuj-YC-yZj"/>
+                                        <outlet property="startLabel" destination="9tP-Q0-qbY" id="ouR-LL-7Yf"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="historyTable" destination="Ui6-fC-bNg" id="KbZ-IY-ibL"/>
+                        <outlet property="noHistoryLabel" destination="pfk-qJ-LeF" id="ATQ-Xb-yyk"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="463" y="310"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="New Notification" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="SeatUpcomingReservationCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="WatchApp" customModuleProvider="target">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="C3O-gy-qti">
+                            <items>
+                                <group width="1" alignment="right" id="mHa-ex-Q1Y">
+                                    <items>
+                                        <label alignment="left" text="Upcoming" id="3Cc-W8-SSe"/>
+                                        <timer alignment="right" enabled="YES" format="abbreviated" previewedSeconds="3660" id="BLV-Lr-HnE">
+                                            <calendarUnit key="units" hour="YES" minute="YES"/>
+                                        </timer>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" id="Ofa-Ol-d3d">
+                                    <items>
+                                        <label alignment="left" text="信息科学分馆" id="EOl-OK-so3"/>
+                                        <label alignment="right" text="4F" id="cRl-Ox-oo9"/>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" id="Rkf-ea-TyF">
+                                    <items>
+                                        <label alignment="left" text="西图书浏览区" id="3oV-AA-Vzd"/>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" id="hv8-Zf-YAR">
+                                    <items>
+                                        <label alignment="right" text="No.70" id="nJe-4u-Aqg"/>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" id="Y1M-d1-Ibz">
+                                    <items>
+                                        <label alignment="center" text="-" id="iia-8s-xar"/>
+                                        <label alignment="right" text="20:00" id="Du9-9m-85q"/>
+                                        <label alignment="left" text="18:00" id="6db-aj-v4j"/>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="endLabel" destination="Du9-9m-85q" id="IPJ-Yn-us7"/>
+                        <outlet property="floorLabel" destination="cRl-Ox-oo9" id="Iz5-ax-Q8n"/>
+                        <outlet property="libraryLabel" destination="EOl-OK-so3" id="zMT-Jr-GqS"/>
+                        <outlet property="roomLabel" destination="3oV-AA-Vzd" id="e49-Z6-cxa"/>
+                        <outlet property="seatLabel" destination="nJe-4u-Aqg" id="Y2o-jF-H0d"/>
+                        <outlet property="startLabel" destination="6db-aj-v4j" id="fJ9-id-fz0"/>
+                        <outlet property="stateLabel" destination="3Cc-W8-SSe" id="v5Y-fY-hV5"/>
+                        <outlet property="stateTimeTimer" destination="BLV-Lr-HnE" id="VRS-4y-i0j"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>

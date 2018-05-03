@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "13:00 - 14:00"; ObjectID = "46g-Jc-Oz3"; */
+"46g-Jc-Oz3.text" = "13:00 - 14:00";
+
+/* Class = "UILabel"; text = "Canceled"; ObjectID = "5jY-j8-c71"; */
+"5jY-j8-c71.text" = "已取消";
+
+/* Class = "UILabel"; text = "Seat No."; ObjectID = "At8-na-y5g"; */
+"At8-na-y5g.text" = "座位号:";
+
+/* Class = "UILabel"; text = "Library Name"; ObjectID = "QGk-gE-F1a"; */
+"QGk-gE-F1a.text" = "图书馆名";
+
+/* Class = "UILabel"; text = "Room Name"; ObjectID = "e6Q-9v-BsS"; */
+"e6Q-9v-BsS.text" = "房间名";
+
+/* Class = "UILabel"; text = "in 30min"; ObjectID = "jRM-ho-DhB"; */
+"jRM-ho-DhB.text" = "30分钟后";
+
+/* Class = "UILabel"; text = "Upcoming Reservation"; ObjectID = "lus-oF-FsC"; */
+"lus-oF-FsC.text" = "即将开始的预约";
+
+/* Class = "UILabel"; text = "4F"; ObjectID = "uda-OW-8gj"; */
+"uda-OW-8gj.text" = "4楼";

@@ -46,15 +46,15 @@ class SeatCurrentReservationView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(showCancelEffect), name: .SeatReservationCancel, object: nil)
     }
 
-    func update(reservation: SeatCurrentReservation) {
+    func update(reservation: SeatCurrentReservationRepresentable) {
         if showingCancelEffect {
             hideCancelEffect()
         }
         if let location = reservation.location {
             libraryLabel.text = location.library.rawValue
             roomLabel.text = location.room
-            seatLabel.text = "Seat No.\(location.seat)"
-            floorLabel.text = "\(location.floor)F"
+            seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
+            floorLabel.text = "Floor".localized(arguments: location.floor)
         }
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         stateLabel.text = reservation.currentState.localizedState
@@ -62,22 +62,31 @@ class SeatCurrentReservationView: UIView {
         case .upcoming(let next):
             let hour = next / 60
             let min = next % 60
-            stateTimeLabel.text = "Start in\(hour == 0 ? "": " \(hour)h") \(min)mins"
+            let hourString = hour == 0 ? "": "h".localized(arguments: hour)
+            let minString = "mins".localized(arguments: min)
+            stateTimeLabel.text = "Start In".localized(arguments: hourString, minString)
         case .ongoing(let remain):
             let hour = remain / 60
             let min = remain % 60
-            stateTimeLabel.text = "End in\(hour == 0 ? "": " \(hour)h") \(min)mins"
+            let hourString = hour == 0 ? "": "\("h".localized(arguments: hour))"
+            let minString = " \("mins".localized(arguments: min))"
+            stateTimeLabel.text = "End In".localized(arguments: hourString, minString)
         case .tempAway(let remain):
-            stateTimeLabel.text = "Expire in \(remain)mins"
+            let minString = " \("mins".localized(arguments: remain))"
+            stateTimeLabel.text = "Expire In".localized(arguments: minString)
         case .late(let remain):
-            stateTimeLabel.text = "Expire in \(remain)mins"
+            let minString = " \("mins".localized(arguments: remain))"
+            stateTimeLabel.text = "Expire In".localized(arguments: minString)
         case .autoEnd(let remain):
-            stateTimeLabel.text = "Auto End in \(remain)mins"
+            let minString = " \("mins".localized(arguments: remain))"
+            stateTimeLabel.text = "Auto End In".localized(arguments: minString)
+        case .invalid:
+            stateTimeLabel.text = "Please Refresh First".localized
         }
     }
     
     @objc func showCancelEffect() {
-        cancelLabel.text = "Canceled"
+        cancelLabel.text = "Canceled".localized
         showingCancelEffect = true
         cancelEffectView.isHidden = false
         cancelEffectView.alpha = 0
@@ -99,7 +108,7 @@ class SeatCurrentReservationView: UIView {
     }
     
     func startCanceling() {
-        cancelLabel.text = "Canceling..."
+        cancelLabel.text = "Canceling...".localized
         showingCancelEffect = true
         cancelEffectView.isHidden = false
         cancelEffectView.alpha = 0

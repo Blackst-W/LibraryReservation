@@ -30,13 +30,13 @@ class SeatCollectionView: UIControl {
     func update(seat: Seat) {
         self.seat = seat
         layer.cornerRadius = 8
-        layer.shadowRadius = 8
-        layer.shadowOpacity = 0.15
-        layer.shadowOffset = CGSize(width: 0, height: 5)
+//        layer.shadowRadius = 8
+//        layer.shadowOpacity = 0.15
+//        layer.shadowOffset = CGSize(width: 0, height: 5)
         seatLabel.text = seat.name
-        computerImageView.isHidden = !seat.hasComputer
-        windowImageView.isHidden = !seat.hasWindow
-        powerImageView.isHidden = !seat.hasPower
+        computerImageView.alpha = seat.hasComputer ? 1 : 0
+        windowImageView.alpha = seat.hasWindow ? 1 : 0
+        powerImageView.alpha = seat.hasPower ? 1 : 0
         addSubview(contentView)
         if !seat.available {
             disable()
@@ -57,6 +57,7 @@ class SeatCollectionView: UIControl {
             return
         }
         isUserInteractionEnabled = true
+        windowImageView.image = #imageLiteral(resourceName: "WindowIcon")
         if seat.availableNow {
             contentView.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
             seatLabel.textColor = .white
@@ -77,6 +78,7 @@ class SeatCollectionView: UIControl {
         seatLabel.textColor = .white
         computerImageView.image = #imageLiteral(resourceName: "ScreenInvertIcon")
         powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
+        windowImageView.image = #imageLiteral(resourceName: "WindowIcon")
     }
     
     func selected() {
@@ -84,6 +86,15 @@ class SeatCollectionView: UIControl {
         seatLabel.textColor = .white
         computerImageView.image = #imageLiteral(resourceName: "ScreenIcon")
         powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
+        windowImageView.image = #imageLiteral(resourceName: "WindowIcon")
+    }
+    
+    func viewed() {
+        contentView.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+        seatLabel.textColor = .white
+        computerImageView.image = #imageLiteral(resourceName: "ScreenIcon")
+        powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
+        windowImageView.image = #imageLiteral(resourceName: "WindowInvertIcon")
     }
     
 }

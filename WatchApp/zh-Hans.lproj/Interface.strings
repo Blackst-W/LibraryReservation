@@ -1,0 +1,93 @@
+
+/* Class = "WKInterfaceLabel"; text = "20:00"; ObjectID = "2bh-V8-pCa"; */
+"2bh-V8-pCa.text" = "20:00";
+
+/* Class = "WKInterfaceLabel"; text = "Upcoming"; ObjectID = "3Cc-W8-SSe"; */
+"3Cc-W8-SSe.text" = "Upcoming";
+
+/* Class = "WKInterfaceLabel"; text = "西图书浏览区"; ObjectID = "3oV-AA-Vzd"; */
+"3oV-AA-Vzd.text" = "西图书浏览区";
+
+/* Class = "WKInterfaceLabel"; text = "4F"; ObjectID = "4Ts-Bq-3Lz"; */
+"4Ts-Bq-3Lz.text" = "4F";
+
+/* Class = "WKInterfaceLabel"; text = "MM-dd"; ObjectID = "58t-pr-sdm"; */
+"58t-pr-sdm.text" = "MM-dd";
+
+/* Class = "WKInterfaceLabel"; text = "18:00"; ObjectID = "6db-aj-v4j"; */
+"6db-aj-v4j.text" = "18:00";
+
+/* Class = "WKInterfaceLabel"; text = "-"; ObjectID = "7qx-0O-Q8m"; */
+"7qx-0O-Q8m.text" = "-";
+
+/* Class = "WKInterfaceLabel"; text = "18:00"; ObjectID = "8KE-iH-p8u"; */
+"8KE-iH-p8u.text" = "18:00";
+
+/* Class = "WKInterfaceLabel"; text = "18:00"; ObjectID = "9tP-Q0-qbY"; */
+"9tP-Q0-qbY.text" = "18:00";
+
+/* Class = "WKInterfaceController"; title = "Seat"; ObjectID = "AgC-eL-Hgc"; */
+"AgC-eL-Hgc.title" = "座位预约";
+
+/* Class = "WKInterfaceLabel"; text = "Upcoming"; ObjectID = "Asw-op-bU6"; */
+"Asw-op-bU6.text" = "Upcoming";
+
+/* Class = "WKInterfaceLabel"; text = "20:00"; ObjectID = "Du9-9m-85q"; */
+"Du9-9m-85q.text" = "20:00";
+
+/* Class = "WKInterfaceLabel"; text = "信息科学分馆"; ObjectID = "EOl-OK-so3"; */
+"EOl-OK-so3.text" = "信息科学分馆";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "IdU-wH-bcW"; */
+"IdU-wH-bcW.text" = "Alert Label";
+
+/* Class = "WKInterfaceLabel"; text = "-"; ObjectID = "Ncu-kN-Z4B"; */
+"Ncu-kN-Z4B.text" = "-";
+
+/* Class = "WKInterfaceButton"; title = "Refresh"; ObjectID = "WYr-ex-xzd"; */
+"WYr-ex-xzd.title" = "刷新";
+
+/* Class = "WKInterfaceLabel"; text = "信息科学分馆"; ObjectID = "Xj4-1n-n1L"; */
+"Xj4-1n-n1L.text" = "信息科学分馆";
+
+/* Class = "WKInterfaceLabel"; text = "4F"; ObjectID = "cRl-Ox-oo9"; */
+"cRl-Ox-oo9.text" = "4F";
+
+/* Class = "WKInterfaceLabel"; text = "西图书浏览区"; ObjectID = "e7r-xe-Xue"; */
+"e7r-xe-Xue.text" = "西图书浏览区";
+
+/* Class = "WKInterfaceLabel"; text = "4F"; ObjectID = "g7P-t6-ph1"; */
+"g7P-t6-ph1.text" = "4F";
+
+/* Class = "WKInterfaceLabel"; text = "-"; ObjectID = "iia-8s-xar"; */
+"iia-8s-xar.text" = "-";
+
+/* Class = "WKInterfaceController"; title = "History"; ObjectID = "j8H-6K-uDW"; */
+"j8H-6K-uDW.title" = "历史记录";
+
+/* Class = "WKInterfaceLabel"; text = "No.70"; ObjectID = "l5P-YC-zkW"; */
+"l5P-YC-zkW.text" = "No.70";
+
+/* Class = "WKInterfaceLabel"; text = "No.70"; ObjectID = "nJe-4u-Aqg"; */
+"nJe-4u-Aqg.text" = "No.70";
+
+/* Class = "WKInterfaceLabel"; text = "Not History Found"; ObjectID = "pfk-qJ-LeF"; */
+"pfk-qJ-LeF.text" = "没有历史记录";
+
+/* Class = "WKInterfaceLabel"; text = "信息科学分馆"; ObjectID = "sDn-Cf-j2h"; */
+"sDn-Cf-j2h.text" = "信息科学分馆";
+
+/* Class = "WKInterfaceLabel"; text = "西图书浏览区"; ObjectID = "svS-Vl-iNm"; */
+"svS-Vl-iNm.text" = "西图书浏览区";
+
+/* Class = "WKInterfaceButton"; title = "View History"; ObjectID = "tCn-He-Dfa"; */
+"tCn-He-Dfa.title" = "查看历史记录";
+
+/* Class = "WKInterfaceLabel"; text = "Not Reservation"; ObjectID = "w6z-yD-lAk"; */
+"w6z-yD-lAk.text" = "当前没有预约";
+
+/* Class = "WKInterfaceLabel"; text = "No.70"; ObjectID = "zCv-4T-HMv"; */
+"zCv-4T-HMv.text" = "No.70";
+
+/* Class = "WKInterfaceLabel"; text = "20:00"; ObjectID = "zPL-2g-4B7"; */
+"zPL-2g-4B7.text" = "20:00";

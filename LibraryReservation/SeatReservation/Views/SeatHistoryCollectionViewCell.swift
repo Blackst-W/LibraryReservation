@@ -22,16 +22,16 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     
-    func update(reservation: SeatHistoryReservation) {
+    func update(reservation: SeatReservation) {
         dateLabel.text = reservation.rawDate
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         guard let location = reservation.location else {
             return
         }
         libraryNameLabel.text = location.library.rawValue
-        floorLabel.text = "\(location.floor)F"
+        floorLabel.text = "Floor".localized(arguments: location.floor)
         areaNameLabel.text = location.room
-        seatLabel.text = "Seat No.\(location.seat)"
+        seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         stateLabel.text = reservation.state.localizedDescription
         stateImageView.isHidden = !reservation.isFailed
     }
