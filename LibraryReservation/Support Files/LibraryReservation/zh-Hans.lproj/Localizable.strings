@@ -75,7 +75,7 @@
 
 //SeatSelectionViewController
 "Save" = "保存";
-"Change" = "修改";
+"Time Filter" = "按时间筛选";
 "Not Available Time For This Seat" = "此座位无可预约时间段";
 "Reserve Success" = "预约成功";
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MlD-IK-dUm">
-    <device id="ipad9_7" orientation="landscape">
-        <adaptation id="splitview1_3"/>
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -18,11 +18,11 @@
             <objects>
                 <viewController id="Aal-8c-Rlo" customClass="SeatHomepageViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H8X-mW-KAV">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kco-Y3-X0I">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="719"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eq0-PQ-FVk">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
@@ -399,7 +399,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWT-hg-NKd">
-                                <rect key="frame" x="16" y="667" width="288" height="44"/>
+                                <rect key="frame" x="16" y="467" width="288" height="44"/>
                                 <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="QFF-kJ-YPe"/>
@@ -489,11 +489,11 @@
             <objects>
                 <viewController title="History" hidesBottomBarWhenPushed="YES" id="ymD-QZ-QgG" customClass="SeatHistoryViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Ro-Hv-UaQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="146" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="RjI-wT-Zws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="d1j-c7-0CI">
                                     <rect key="frame" x="0.0" y="219.5" width="320" height="44"/>
@@ -646,7 +646,7 @@
                                 <sections/>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Reservation In 30 days." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zy-Dd-p32">
-                                <rect key="frame" x="22.5" y="371" width="275" height="26"/>
+                                <rect key="frame" x="22.5" y="271" width="275" height="26"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -678,7 +678,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ReservationDetailViewController" title="Current Reservation" hidesBottomBarWhenPushed="YES" id="SMx-tQ-KjF" customClass="SeatCurrentReservationDetailTableViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="VmU-G0-P9b">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Xge-Je-XAE">
@@ -1061,11 +1061,11 @@
             <objects>
                 <viewController id="QzK-u9-Jc3" customClass="SeatReservationViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1zW-Dv-mHl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whU-VY-7sc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Id-CA-Wnu" userLabel="Library View" customClass="SeatLibraryView" customModule="LibraryReservation" customModuleProvider="target">
                                         <rect key="frame" x="8" y="8" width="304" height="148"/>
@@ -1269,28 +1269,28 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3I8-hK-3bA">
-                                                                    <rect key="frame" x="0.0" y="4" width="584" height="44"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="359" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUF-YG-fT4" userLabel="Left Shadow View">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="175.5" height="44"/>
                                                                             <subviews>
                                                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="age-7g-sdh" customClass="UIControl">
-                                                                                    <rect key="frame" x="0.0" y="-0.5" width="288" height="44"/>
+                                                                                    <rect key="frame" x="0.0" y="-0.5" width="175.5" height="44"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Room Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="pkS-kk-qdg">
-                                                                                            <rect key="frame" x="8" y="2" width="272" height="20.5"/>
+                                                                                            <rect key="frame" x="8" y="2" width="159.5" height="20.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                             <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Available: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FB3-WG-VJd">
-                                                                                            <rect key="frame" x="112" y="26.5" width="172" height="13.5"/>
+                                                                                            <rect key="frame" x="74.5" y="26.5" width="97" height="13.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="1F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZO-Tl-3lJ">
-                                                                                            <rect key="frame" x="8" y="26.5" width="96" height="13.5"/>
+                                                                                            <rect key="frame" x="8" y="26.5" width="58.5" height="13.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -1340,25 +1340,25 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iL9-lJ-t6q" userLabel="Right Shadow View">
-                                                                            <rect key="frame" x="296" y="0.0" width="288" height="44"/>
+                                                                            <rect key="frame" x="183.5" y="0.0" width="175.5" height="44"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8d2-22-D7R" customClass="UIControl">
-                                                                                    <rect key="frame" x="-0.5" y="-0.5" width="288.5" height="44"/>
+                                                                                    <rect key="frame" x="-0.5" y="-0.5" width="176" height="44"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Room Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-Rh-XJy">
-                                                                                            <rect key="frame" x="8" y="2" width="272.5" height="20.5"/>
+                                                                                            <rect key="frame" x="8" y="2" width="160" height="20.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                             <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="1F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmI-Bv-dlX">
-                                                                                            <rect key="frame" x="8" y="26.5" width="96" height="13.5"/>
+                                                                                            <rect key="frame" x="8" y="26.5" width="58.5" height="13.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Available: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WR-dW-qas">
-                                                                                            <rect key="frame" x="112" y="26.5" width="168.5" height="13.5"/>
+                                                                                            <rect key="frame" x="74.5" y="26.5" width="93.5" height="13.5"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -1488,11 +1488,11 @@
             <objects>
                 <viewController storyboardIdentifier="SeatLayoutController" id="qxb-Xb-MR1" customClass="SeatSelectionViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xZp-Q1-KAj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kBH-Rd-WT2">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Enh-IX-T4q">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
@@ -1761,9 +1761,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGX-zJ-jBT">
-                                                <rect key="frame" x="236" y="8" width="60" height="28"/>
+                                                <rect key="frame" x="215" y="8" width="81" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="Change"/>
+                                                <state key="normal" title="Time Filter"/>
                                                 <connections>
                                                     <action selector="toggleTimeFilter:" destination="qxb-Xb-MR1" eventType="touchUpInside" id="ov4-dI-f33"/>
                                                 </connections>
@@ -1812,17 +1812,17 @@
                                 </subviews>
                             </stackView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2ab-Ws-FPq">
-                                <rect key="frame" x="150" y="374" width="20" height="20"/>
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
                             </activityIndicatorView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JS3-qp-Ytj" customClass="UIControl">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="dismissReserveView:" destination="qxb-Xb-MR1" eventType="touchUpInside" id="zwT-et-plb"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkT-w5-pOR" userLabel="Time View">
-                                <rect key="frame" x="8" y="768" width="304" height="270"/>
+                                <rect key="frame" x="8" y="568" width="304" height="270"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlc-8Q-Nbz" userLabel="Shadow View">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="270"/>
@@ -2017,7 +2017,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="HistoryDetailViewController" title="Reservation Detail" hidesBottomBarWhenPushed="YES" id="zXJ-LF-tr0" customClass="SeatHistoryDetailViewController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="qoo-8T-knx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
