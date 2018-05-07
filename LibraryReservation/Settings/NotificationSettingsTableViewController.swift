@@ -59,22 +59,17 @@ class NotificationSettingsTableViewController: UITableViewController {
     
     @IBAction func notificationSwitchChanged(_ sender: UISwitch) {
         if sender.isOn {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 DispatchQueue.main.async {
-                    if let error = error {
-                        print(error.localizedDescription)
+                    switch settings.authorizationStatus {
+                    case .denied, .notDetermined:
+                        self.notificationAlert()
                         Settings.shared.disableNotification()
                         sender.setOn(false, animated: true)
-                    }else{
-                        if granted {
-                            Settings.shared.enableNotification()
-                        }else{
-                            self.notificationAlert()
-                            Settings.shared.disableNotification()
-                            sender.setOn(false, animated: true)
-                        }
-                        self.tableView.reloadData()
+                    default:
+                        Settings.shared.enableNotification()
                     }
+                    self.tableView.reloadData()
                 }
             }
         }else{

@@ -5,3 +5,5 @@
 
 #import <UIKit/UIKit.h>
 #import "SeatKit/SeatKit.h"
+#import <UMCommon/UMCommon.h>
+#import <UMPush/UMessage.h>

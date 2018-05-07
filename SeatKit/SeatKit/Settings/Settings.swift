@@ -53,7 +53,7 @@ public struct NotificationSettings: Codable {
     public var seat: SeatNotificationSettings
     public var meetingRoom: MeetingRoomNotificationSettings
     
-    public static let `default` = NotificationSettings(enable: false, seat: .default, meetingRoom: .default)
+    public static let `default` = NotificationSettings(enable: true, seat: .default, meetingRoom: .default)
     
 }
 

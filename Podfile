@@ -7,6 +7,10 @@ target 'LibraryReservation' do
   pod 'Reveal-SDK', :configurations => ['Debug']
   pod 'SwiftyJSON'
   pod 'PKHUD'
+  pod 'UMCCommon'
+  pod 'UMCAnalytics'
+  pod 'UMCPush'
+  pod 'UMCCommonLog', :configurations => ['Debug']
   # Pods for LibraryReservation
 
   target 'LibraryReservationTests' do

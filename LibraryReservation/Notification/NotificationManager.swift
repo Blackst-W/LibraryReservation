@@ -26,7 +26,7 @@ class NotificationManager: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationSettings(notification:)), name: .NotificationSettingsChanged, object: nil)
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             switch settings.authorizationStatus {
-            case .notDetermined, .denied:
+            case .denied:
                 Settings.shared.disableNotification()
             default:
                 return
@@ -93,7 +93,7 @@ class NotificationManager: NSObject {
             }
             let calender = Calendar.current
             let dateComponents = calender.dateComponents([.hour, .minute, .day], from: reservation.time.start.addingTimeInterval(-10 * 60))
-//            let dateComponents = calender.dateComponents([.hour, .minute, .second, .day], from: Date().addingTimeInterval(10))
+            //            let dateComponents = calender.dateComponents([.hour, .minute, .second, .day], from: Date().addingTimeInterval(10))
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             let request = UNNotificationRequest(identifier: .SeatUpcomingNotificationIdentifier, content: content, trigger: trigger)
             notificationCenter.add(request, withCompletionHandler: nil)
@@ -121,10 +121,10 @@ class NotificationManager: NSObject {
         if seatSettings.tempAway,
             case .tempAway(_) = reservation.currentState,
             let leftDate = reservation.awayStart {
-//            notificationCenter.getPendingNotificationRequests { (requests) in
-//                if requests.contains(where: {$0.identifier == .SeatAwayEndNotificationIdentifier}) {
-//                }
-//            }
+            //            notificationCenter.getPendingNotificationRequests { (requests) in
+            //                if requests.contains(where: {$0.identifier == .SeatAwayEndNotificationIdentifier}) {
+            //                }
+            //            }
             let content = UNMutableNotificationContent()
             content.userInfo = ["SeatReservationData": reservation.jsonData]
             content.categoryIdentifier = "SeatReservationCategory"
@@ -165,10 +165,23 @@ class NotificationManager: NSObject {
 extension NotificationManager: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        guard let trigger = response.notification.request.trigger,
+            trigger.isKind(of: UNPushNotificationTrigger.self) else {
+                completionHandler()
+                return
+        }
+        UMessage.didReceiveRemoteNotification(response.notification.request.content.userInfo)
         completionHandler()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        guard let trigger = notification.request.trigger,
+            trigger.isKind(of: UNPushNotificationTrigger.self) else {
+                completionHandler([.sound, .alert])
+                return
+        }
+        
+        UMessage.didReceiveRemoteNotification(notification.request.content.userInfo)
         completionHandler([.sound, .alert])
     }
     

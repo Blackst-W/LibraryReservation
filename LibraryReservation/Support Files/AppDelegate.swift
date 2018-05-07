@@ -9,16 +9,34 @@
 import UIKit
 import UserNotifications
 
+fileprivate let UMCAppKey = "5af0590f8f4a9d1da0000153"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        UMConfigure.initWithAppkey(UMCAppKey, channel: nil)
+        UMessage.setAutoAlert(false)
+        // Push组件基本功能配置
+        let entity = UMessageRegisterEntity()
+        entity.types = [UMessageAuthorizationOptions.alert, UMessageAuthorizationOptions.sound, UMessageAuthorizationOptions.badge].reduce(0, { (previous, nextOption) -> Int in
+            return previous + Int(nextOption.rawValue)
+        })
+        UNUserNotificationCenter.current().delegate = NotificationManager.shared
+        UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (granted, error) in
+            if let error = error {
+                Settings.shared.disableNotification()
+                print(error.localizedDescription)
+                return
+            }
+            if !granted {
+                Settings.shared.disableNotification()
+            }
+        }
         // Override point for customization after application launch.
         window?.backgroundColor = .white
-        UNUserNotificationCenter.current().delegate = NotificationManager.shared
-        UIApplication.shared.applicationIconBadgeNumber = 0
         WatchAppDelegate.shared.setup()
         return true
     }
@@ -47,6 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("Token: \((deviceToken as NSData).description)")
+        UMessage.registerDeviceToken(deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        completionHandler(.noData)
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let host = url.host?.removingPercentEncoding else {
             return false
