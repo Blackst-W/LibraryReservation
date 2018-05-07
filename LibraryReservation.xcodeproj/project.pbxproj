@@ -721,6 +721,7 @@
 				AD6629E020978F4F006353F2 /* Frameworks */,
 				AD6629E120978F4F006353F2 /* Resources */,
 				AD662A2220979391006353F2 /* Embed Frameworks */,
+				AD3D0D85209B09B300998288 /* Auto Increase Build Number */,
 			);
 			buildRules = (
 			);
@@ -804,6 +805,7 @@
 				ADCB2D2A20996AFC0096C57E /* Sources */,
 				ADCB2D2B20996AFC0096C57E /* Frameworks */,
 				ADCB2D2C20996AFC0096C57E /* Resources */,
+				AD3D0D86209B09C900998288 /* Auto Increase Build Number */,
 			);
 			buildRules = (
 			);
@@ -821,6 +823,7 @@
 				ADF2F8F02096249900092893 /* Sources */,
 				ADF2F8F12096249900092893 /* Frameworks */,
 				ADF2F8F22096249900092893 /* Resources */,
+				AD3D0D84209B098600998288 /* Auto Increase Build Number */,
 			);
 			buildRules = (
 			);
@@ -1053,6 +1056,48 @@
 			showEnvVarsInLog = 0;
 		};
 		AD3D0D82209B057300998288 /* Auto Increase Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Auto Increase Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		AD3D0D84209B098600998288 /* Auto Increase Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Auto Increase Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		AD3D0D85209B09B300998288 /* Auto Increase Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Auto Increase Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		AD3D0D86209B09C900998288 /* Auto Increase Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (

@@ -29,7 +29,6 @@ class SeatHistoryViewController: UIViewController {
         control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
         tableView.refreshControl = control
         tableView.reloadData()
-        control.beginRefreshing()
         manager.reload()
     }
     
@@ -132,7 +131,9 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
     func update(reservations: [SeatReservation]) {
         if reservations.isEmpty {
             remindLabel.isHidden = false
+            tableView.isHidden = true
         }else{
+            tableView.isHidden = false
             remindLabel.isHidden = true
         }
         data = reservations
