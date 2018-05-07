@@ -226,7 +226,7 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
         }else if count != 0 {
             historyEmptyLabel.isHidden = true
         }
-        return count
+        return min(count, 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
