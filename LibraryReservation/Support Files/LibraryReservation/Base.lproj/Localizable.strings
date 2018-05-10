@@ -75,7 +75,7 @@
 
 //SeatSelectionViewController
 "Save" = "Save";
-"Change" = "Change";
+"Time Filter" = "Time Filter";
 "Not Available Time For This Seat" = "Not Available Time For This Seat";
 "Reserve Success" = "Reserve Success";
 
