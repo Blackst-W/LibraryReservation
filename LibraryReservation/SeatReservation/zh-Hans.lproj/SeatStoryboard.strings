@@ -141,7 +141,7 @@
 "RxL-cu-mHM.text" = "预约ID";
 
 /* Class = "UIButton"; normalTitle = "Change"; ObjectID = "SGX-zJ-jBT"; */
-"SGX-zJ-jBT.normalTitle" = "修改";
+"SGX-zJ-jBT.normalTitle" = "按时间筛选";
 
 /* Class = "UITableViewController"; title = "Current Reservation"; ObjectID = "SMx-tQ-KjF"; */
 "SMx-tQ-KjF.title" = "当前预约";
