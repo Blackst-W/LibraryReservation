@@ -38,8 +38,15 @@ class SeatReservationViewController: UIViewController {
         date = Date()
         let calender = Calendar.current
         var dayTitle = "(Today)".localized
-        if calender.component(.hour, from: date) >= 22 {
-            date = date.addingTimeInterval(3 * 60 * 60)
+        let hour = calender.component(.hour, from: date)
+        let minute = calender.component(.minute, from: date)
+        let reserveDateComponents = AppSettings.shared.libraryConfiguration.reserveTimeComponents
+        if hour > reserveDateComponents.hour! {
+            date = date.addingTimeInterval(24 * 60 * 60)
+            dayTitle = "(Tomorrow)".localized
+        }else if hour == reserveDateComponents.hour!,
+            minute >= reserveDateComponents.minute! {
+            date = date.addingTimeInterval(24 * 60 * 60)
             dayTitle = "(Tomorrow)".localized
         }
         let dateFormatter = DateFormatter()
