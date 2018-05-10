@@ -43,8 +43,9 @@ public class SeatTimeFilter: NSObject {
     }
     
     func generateStartTimes() {
-        let start = 8 * 60  //8:00
-        let end = 22 * 60   //22:00
+        let configuration = AppSettings.shared.libraryConfiguration
+        let start = configuration.startMinutes
+        let end = configuration.endMinutes
         startTimes = []
         var current = start
         repeat {
@@ -55,8 +56,9 @@ public class SeatTimeFilter: NSObject {
     }
     
     func generateEndTimes(selection: Int) {
-        let start = 8 * 60 + selection * 30
-        let end = 22 * 60
+        let configuration = AppSettings.shared.libraryConfiguration
+        let start = configuration.startMinutes + selection * 30
+        let end = configuration.endMinutes
         endTimes = []
         var current = start + 30
         repeat {

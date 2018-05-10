@@ -44,7 +44,6 @@
 		ADBDA48F2097520C00644D33 /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4852097520C00644D33 /* SeatReservationManager.swift */; };
 		ADBDA4902097520C00644D33 /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4862097520C00644D33 /* SeatResponse.swift */; };
 		ADBDA4912097520C00644D33 /* SeatReserveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4872097520C00644D33 /* SeatReserveManager.swift */; };
-		ADBDA4922097520C00644D33 /* SeatTimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4882097520C00644D33 /* SeatTimeFilter.swift */; };
 		ADBDA4932097520C00644D33 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4892097520C00644D33 /* SeatReservation.swift */; };
 		ADBDA498209754C600644D33 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA497209754C600644D33 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
@@ -91,7 +90,6 @@
 		ADBDA4852097520C00644D33 /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
 		ADBDA4862097520C00644D33 /* SeatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
 		ADBDA4872097520C00644D33 /* SeatReserveManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReserveManager.swift; sourceTree = "<group>"; };
-		ADBDA4882097520C00644D33 /* SeatTimeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatTimeFilter.swift; sourceTree = "<group>"; };
 		ADBDA4892097520C00644D33 /* SeatReservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
 		ADBDA497209754C600644D33 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,7 +253,6 @@
 				ADBDA4852097520C00644D33 /* SeatReservationManager.swift */,
 				ADBDA4872097520C00644D33 /* SeatReserveManager.swift */,
 				ADBDA4862097520C00644D33 /* SeatResponse.swift */,
-				ADBDA4882097520C00644D33 /* SeatTimeFilter.swift */,
 			);
 			path = Seat;
 			sourceTree = "<group>";
@@ -413,7 +410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADBDA479209750E300644D33 /* Settings.swift in Sources */,
-				ADBDA4922097520C00644D33 /* SeatTimeFilter.swift in Sources */,
 				ADBDA47D2097516B00644D33 /* SeatBaseResponse.swift in Sources */,
 				ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */,
 				ADBDA48A2097520C00644D33 /* SeatHistoryManager.swift in Sources */,

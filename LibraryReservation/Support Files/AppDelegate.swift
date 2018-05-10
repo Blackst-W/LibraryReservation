@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import CloudKit
 
 fileprivate let UMCAppKey = "5af0590f8f4a9d1da0000153"
 
@@ -35,6 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 Settings.shared.disableNotification()
             }
         }
+        application.registerForRemoteNotifications()
+        
+        _ = AppSettings.shared
         // Override point for customization after application launch.
         window?.backgroundColor = .white
         WatchAppDelegate.shared.setup()

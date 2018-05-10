@@ -20,7 +20,7 @@ public struct SeatTime: Codable, Equatable {
     public let id: String
     public let value: String
     
-    init(time: Int) {
+    public init(time: Int) {
         id = String(time)
         let hour = time / 60
         let min = time % 60
@@ -29,7 +29,7 @@ public struct SeatTime: Codable, Equatable {
         value = hourString + ":" + minString
     }
     
-    var next: SeatTime? {
+    public var next: SeatTime? {
         if let time = Int(id) {
             return SeatTime(time: time + 30)
         }else{
