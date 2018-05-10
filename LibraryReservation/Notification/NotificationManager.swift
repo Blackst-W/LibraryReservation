@@ -56,9 +56,16 @@ class NotificationManager: NSObject {
             content.sound = UNNotificationSound.default()
             content.title = "Reserve Reminder".localized
             content.body = "Seat reservation for the next day is about to open.".localized
-            var dateComponents = DateComponents()
-            dateComponents.hour = 22
-            dateComponents.minute = 40
+            
+            var dateComponents = AppSettings.shared.libraryConfiguration.reserveTimeComponents
+            dateComponents.hour = dateComponents.hour! - 1
+            if dateComponents.hour! < 0 {
+                dateComponents.hour = dateComponents.hour! + 24
+            }
+            dateComponents.minute = dateComponents.minute! + 60 - 2
+            if dateComponents.minute! < 0 {
+               dateComponents.minute = dateComponents.minute! + 60
+            }
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
             let request = UNNotificationRequest(identifier: .SeatReserveNotificationIdentifier, content: content, trigger: trigger)
             notificationCenter.add(request, withCompletionHandler: nil)

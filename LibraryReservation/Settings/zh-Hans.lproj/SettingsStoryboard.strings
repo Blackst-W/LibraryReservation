@@ -32,7 +32,7 @@
 "FYF-NU-AXu.text" = "20153012000XX";
 
 /* Class = "UILabel"; text = "Remind you to make reservation at 22:10"; ObjectID = "GsH-H7-nVl"; */
-"GsH-H7-nVl.text" = "每天 22:40 提醒你预约明天的座位";
+"GsH-H7-nVl.text" = "提醒你预约明天的座位";
 
 /* Class = "UILabel"; text = "Temp Away Reminder"; ObjectID = "KEd-yu-Tfn"; */
 "KEd-yu-Tfn.text" = "暂离提醒";
@@ -44,7 +44,7 @@
 "MBt-GZ-pe8.text" = "预约提醒";
 
 /* Class = "UILabel"; text = "Remind you to make reservation at 22:10"; ObjectID = "Pav-L6-Oo0"; */
-"Pav-L6-Oo0.text" = "每天 22:40 提醒你预约明天的座位";
+"Pav-L6-Oo0.text" = "提醒你预约明天的座位";
 
 /* Class = "UILabel"; text = "Enable Notification"; ObjectID = "Pu6-f9-xqz"; */
 "Pu6-f9-xqz.text" = "开启推送提醒";

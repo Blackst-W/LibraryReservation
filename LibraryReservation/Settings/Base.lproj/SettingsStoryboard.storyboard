@@ -200,7 +200,7 @@
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
                                                 </switch>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="odR-hU-uNM">
-                                                    <rect key="frame" x="16" y="4.6666666666666679" width="215.33333333333334" height="34.333333333333329"/>
+                                                    <rect key="frame" x="16" y="4.6666666666666679" width="179.66666666666666" height="34.333333333333329"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make Reservation Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6J-X3-g2f">
                                                             <rect key="frame" x="0.0" y="0.0" width="179.66666666666666" height="17"/>
@@ -208,8 +208,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind you to make reservation at 22:40" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pav-L6-Oo0">
-                                                            <rect key="frame" x="0.0" y="21" width="215.33333333333334" height="13.333333333333336"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind you to make reservation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pav-L6-Oo0">
+                                                            <rect key="frame" x="0.0" y="21" width="168" height="13.333333333333336"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -529,7 +529,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CtB-YZ-9hk">
                                 <rect key="frame" x="8" y="268" width="359" height="502"/>
-                                <mutableString key="text">This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com.</mutableString>
+                                <string key="text">This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
