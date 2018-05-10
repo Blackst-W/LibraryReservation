@@ -145,6 +145,25 @@ class SeatSelectionViewController: UIViewController {
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard displayStyleControl.selectedSegmentIndex == 0 else {
+            return
+        }
+        coordinator.animate(alongsideTransition: { (_) in
+//            let animator = UIViewPropertyAnimator(duration: coordinator.transitionDuration / 2, curve: .easeInOut, animations: {
+//                self.layoutView.alpha = 0
+//            })
+//            animator.startAnimation()
+        }) { (_) in
+            self.reloadListDisplayData()
+//            let animator = UIViewPropertyAnimator(duration: coordinator.transitionDuration / 2, curve: .easeInOut, animations: {
+//                self.layoutView.alpha = 1
+//            })
+//            animator.startAnimation()
+        }
+    }
+    
     @IBAction func toggleComputer(_ sender: Any) {
         filter.needComputer = !filter.needComputer
         if filter.needComputer {
@@ -279,7 +298,7 @@ class SeatSelectionViewController: UIViewController {
             timeFilterLabel.text = "08:00 - 08:30"
         }else{
             //save time filter
-            changeTimeFilterButton.setTitle("Change".localized, for: .normal)
+            changeTimeFilterButton.setTitle("Time Filter".localized, for: .normal)
             let (start, end) = timeFilterManager.selectedTimes
             startLoading()
             timeFilterStart = start

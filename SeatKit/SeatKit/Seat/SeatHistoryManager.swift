@@ -307,7 +307,73 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         reservationTask.resume()
     }
     
+    func stopReservation(retry: Bool) {
+        guard let account = AccountManager.shared.currentAccount,
+            let token = account.token else {
+                delegate?.requireLogin()
+                return
+        }
+        let cancelURL = URL(string: "v2/stop", relativeTo: SeatAPIURL)!
+        var cancelRequest = URLRequest(url: cancelURL)
+        cancelRequest.httpMethod = "GET"
+        cancelRequest.allHTTPHeaderFields = CommonHeader
+        cancelRequest.addValue(token, forHTTPHeaderField: "token")
+        let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.delegate?.updateFailed(error: error)
+                }
+                return
+            }
+            
+            guard let data = data else {
+                print("Failed to retrive data")
+                DispatchQueue.main.async {
+                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let cancelResponse = try decoder.decode(SeatBaseResponse.self, from: data)
+                if cancelResponse.code == "0" {
+                    DispatchQueue.main.async {
+                        self.current = nil
+                        self.save()
+                        self.reload()
+                        NotificationCenter.default.post(name: .SeatReservationCancel, object: nil)
+                    }
+                }else if retry && cancelResponse.code == "1" {
+                    self.cancelReservation(retry: false)
+                }else{
+                    DispatchQueue.main.async {
+                        self.delegate?.updateFailed(failedResponse: cancelResponse)
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.delegate?.updateFailed(error: error)
+                }
+            }
+        }
+        cancelTask.resume()
+    }
+    
     public func cancelReservation() {
+        guard let reservation = current else {
+            delegate?.update(current: nil)
+            return
+        }
+        switch reservation.currentState {
+        case .late(_), .upcoming(_):
+            stopReservation(retry: true)
+        default:
+            cancelReservation(retry: true)
+        }
+    }
+    
+    func cancelReservation(retry: Bool) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
                 delegate?.requireLogin()
@@ -349,6 +415,8 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                         self.reload()
                         NotificationCenter.default.post(name: .SeatReservationCancel, object: nil)
                     }
+                }else if retry && cancelResponse.code == "1" {
+                    self.stopReservation(retry: false)
                 }else{
                     DispatchQueue.main.async {
                         self.delegate?.updateFailed(failedResponse: cancelResponse)
