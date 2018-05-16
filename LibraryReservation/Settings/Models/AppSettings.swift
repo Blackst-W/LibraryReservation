@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CloudKit
+import CoreLocation
 
 extension Notification.Name {
     static let LibraryConfigurationChanged = Notification.Name("LibraryConfigurationChangedNotification")
@@ -68,18 +68,6 @@ struct LibraryInfo: Codable {
         LibraryInfo(name: "总馆", ID: 4, latitude: 30.535002, longitude: 114.36285)
     ]
     
-    init?(record: CKRecord) {
-        guard let name = record["libraryName"] as? String,
-            let ID = record["libraryID"] as? Int,
-            let location = record["location"] as? CLLocation else {
-                print("Failed to update with record")
-                return nil
-        }
-        self.name = name
-        self.ID = ID
-        self.location = location
-    }
-    
 }
 
 struct LibraryConfiguration: Codable {
@@ -124,7 +112,11 @@ struct LibraryConfiguration: Codable {
 
 class AppSettings: NSObject, Codable {
     
-    static let shared = AppSettings()
+    static let shared: AppSettings = {
+        let shared = AppSettings.load() ?? AppSettings()
+        shared.refresh()
+        return shared
+    }()
     
     private(set) var libraryConfiguration = LibraryConfiguration()
     private(set) var librarys = LibraryInfo.defaultAll
@@ -132,28 +124,19 @@ class AppSettings: NSObject, Codable {
     
     private override init() {
         super.init()
-        load()
-        refresh()
     }
     
-    private func load() {
+    private static func load() -> AppSettings? {
         let filePath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first! + "/AppSettings.archive"
         let fileManager = FileManager.default
         let decoder = JSONDecoder()
-        if fileManager.fileExists(atPath: filePath) {
-            guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
-                let newSettings = try? decoder.decode(AppSettings.self, from: data)
-                else {
-                    do {
-                        try fileManager.removeItem(atPath: filePath)
-                    }catch{
-                        print(error.localizedDescription)
-                    }
-                    return
-            }
-            libraryConfiguration = newSettings.libraryConfiguration
-            librarys = newSettings.librarys
+        guard fileManager.fileExists(atPath: filePath),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
+            let newSettings = try? decoder.decode(AppSettings.self, from: data) else {
+                try? fileManager.removeItem(atPath: filePath)
+                return nil
         }
+        return newSettings
     }
     
     func refresh() {
