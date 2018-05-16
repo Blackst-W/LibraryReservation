@@ -287,19 +287,30 @@ class SeatSelectionViewController: UIViewController {
     
     func setupFilter() {
         timeFilterManager = SeatTimeFilter(pickerView: timeFilterPickerView, delegate: self)
+        if timeFilterManager.startTimes.isEmpty {
+            changeTimeFilterButton.isEnabled = false
+        }
     }
     
     @IBAction func toggleTimeFilter(_ sender: Any) {
         isTimeFilterDisplay = !isTimeFilterDisplay
         if isTimeFilterDisplay {
             //setting time filter
-            cleanTimeFilterButton.isEnabled = true
             changeTimeFilterButton.setTitle("Save".localized, for: .normal)
-            timeFilterLabel.text = "08:00 - 08:30"
+            if !cleanTimeFilterButton.isEnabled {
+                if let start = timeFilterManager.startTimes.first,
+                    let end = timeFilterManager.endTimes.first {
+                    pickerUpdate(start: start, end: end)
+                }
+                cleanTimeFilterButton.isEnabled = true
+            }
         }else{
             //save time filter
-            changeTimeFilterButton.setTitle("Time Filter".localized, for: .normal)
-            let (start, end) = timeFilterManager.selectedTimes
+            guard let (start, end) = timeFilterManager.selectedTimes else {
+                cleanTimeFilter(self)
+                return
+            }
+            changeTimeFilterButton.setTitle("Change".localized, for: .normal)
             startLoading()
             timeFilterStart = start
             timeFilterEnd = end
@@ -312,7 +323,7 @@ class SeatSelectionViewController: UIViewController {
             isTimeFilterDisplay = false
         }
         cleanTimeFilterButton.isEnabled = false
-        changeTimeFilterButton.setTitle("Change".localized, for: .normal)
+        changeTimeFilterButton.setTitle("Time Filter".localized, for: .normal)
         timeFiltedSeats = nil
         timeFilterLabel.text = "--:-- - --:--"
         timeFilterManager.reset()

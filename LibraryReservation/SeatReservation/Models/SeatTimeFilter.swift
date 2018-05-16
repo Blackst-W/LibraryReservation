@@ -36,36 +36,54 @@ public class SeatTimeFilter: NSObject {
         timePickerView.selectRow(0, inComponent: 1, animated: false)
     }
     
-    public var selectedTimes: (start: SeatTime, end: SeatTime) {
+    public var selectedTimes: (start: SeatTime, end: SeatTime)? {
         let startIndex = timePickerView.selectedRow(inComponent: 0)
         let endIndex = timePickerView.selectedRow(inComponent: 1)
+        guard startIndex >= 0, endIndex >= 0 else {
+            return nil
+        }
         return (start: startTimes[startIndex], end: endTimes[endIndex])
+    }
+    
+    func actualStartMinutes() -> Int {
+        let configuration = AppSettings.shared.libraryConfiguration
+        var start = configuration.startMinutes
+        let end = configuration.endMinutes
+        let currentDate = Date()
+        if currentDate.minutes < end,
+            currentDate.minutes > start {
+            start = currentDate.minutes / 60 * 60 + 30
+        }
+        return start
     }
     
     func generateStartTimes() {
         let configuration = AppSettings.shared.libraryConfiguration
-        let start = configuration.startMinutes
+        let start = actualStartMinutes()
         let end = configuration.endMinutes
         startTimes = []
         var current = start
-        repeat {
+        while current < end {
             let seatTime = SeatTime(time: current)
             startTimes.append(seatTime)
             current += 30
-        }while(current < end)
+        }
     }
     
     func generateEndTimes(selection: Int) {
-        let configuration = AppSettings.shared.libraryConfiguration
-        let start = configuration.startMinutes + selection * 30
-        let end = configuration.endMinutes
         endTimes = []
+        if startTimes.isEmpty {
+            return
+        }
+        let configuration = AppSettings.shared.libraryConfiguration
+        let start = startTimes[selection].minutes
+        let end = configuration.endMinutes
         var current = start + 30
-        repeat {
+        while (current <= end) {
             let seatTime = SeatTime(time: current)
             endTimes.append(seatTime)
             current += 30
-        }while(current <= end)
+        }
     }
 }
 

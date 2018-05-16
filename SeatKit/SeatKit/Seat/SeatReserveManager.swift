@@ -19,8 +19,10 @@ public struct SeatTime: Codable, Equatable {
 //    }
     public let id: String
     public let value: String
+    public let minutes: Int
     
     public init(time: Int) {
+        minutes = time
         id = String(time)
         let hour = time / 60
         let min = time % 60
