@@ -39,13 +39,17 @@
 		ADBDA48A2097520C00644D33 /* SeatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */; };
 		ADBDA48B2097520C00644D33 /* SeatFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */; };
 		ADBDA48C2097520C00644D33 /* RoomData.json in Resources */ = {isa = PBXBuildFile; fileRef = ADBDA4822097520C00644D33 /* RoomData.json */; };
-		ADBDA48D2097520C00644D33 /* SeatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4832097520C00644D33 /* SeatData.swift */; };
+		ADBDA48D2097520C00644D33 /* LibraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4832097520C00644D33 /* LibraryData.swift */; };
 		ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */; };
 		ADBDA48F2097520C00644D33 /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4852097520C00644D33 /* SeatReservationManager.swift */; };
 		ADBDA4902097520C00644D33 /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4862097520C00644D33 /* SeatResponse.swift */; };
 		ADBDA4912097520C00644D33 /* SeatReserveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4872097520C00644D33 /* SeatReserveManager.swift */; };
 		ADBDA4932097520C00644D33 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4892097520C00644D33 /* SeatReservation.swift */; };
-		ADBDA498209754C600644D33 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA497209754C600644D33 /* SwiftyJSON.swift */; };
+		ADC9DF4720AD2B2A00BB886D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4620AD2B2A00BB886D /* Library.swift */; };
+		ADC9DF4920AD2B4700BB886D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4820AD2B4700BB886D /* Room.swift */; };
+		ADC9DF4B20AD2B9600BB886D /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4A20AD2B9600BB886D /* Seat.swift */; };
+		ADC9DF4D20AD2C3C00BB886D /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4C20AD2C3C00BB886D /* Handler.swift */; };
+		ADC9DF4F20AD36AC00BB886D /* SeatTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4E20AD36AC00BB886D /* SeatTime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,13 +89,17 @@
 		ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatHistoryManager.swift; sourceTree = "<group>"; };
 		ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatFilterCondition.swift; sourceTree = "<group>"; };
 		ADBDA4822097520C00644D33 /* RoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoomData.json; sourceTree = "<group>"; };
-		ADBDA4832097520C00644D33 /* SeatData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatData.swift; sourceTree = "<group>"; };
+		ADBDA4832097520C00644D33 /* LibraryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryData.swift; sourceTree = "<group>"; };
 		ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableSeatManager.swift; sourceTree = "<group>"; };
 		ADBDA4852097520C00644D33 /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
 		ADBDA4862097520C00644D33 /* SeatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
 		ADBDA4872097520C00644D33 /* SeatReserveManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReserveManager.swift; sourceTree = "<group>"; };
 		ADBDA4892097520C00644D33 /* SeatReservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
-		ADBDA497209754C600644D33 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		ADC9DF4620AD2B2A00BB886D /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		ADC9DF4820AD2B4700BB886D /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		ADC9DF4A20AD2B9600BB886D /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
+		ADC9DF4C20AD2C3C00BB886D /* Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
+		ADC9DF4E20AD36AC00BB886D /* SeatTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +209,6 @@
 		ADBDA45820974DEB00644D33 /* SeatKit */ = {
 			isa = PBXGroup;
 			children = (
-				ADBDA4942097522100644D33 /* Framework */,
 				ADBDA47F209751EA00644D33 /* Seat */,
 				ADBDA47A2097515500644D33 /* Network */,
 				ADBDA477209750CB00644D33 /* Settings */,
@@ -246,23 +253,20 @@
 			children = (
 				ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */,
 				ADBDA4822097520C00644D33 /* RoomData.json */,
-				ADBDA4832097520C00644D33 /* SeatData.swift */,
+				ADBDA4832097520C00644D33 /* LibraryData.swift */,
 				ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */,
 				ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */,
 				ADBDA4892097520C00644D33 /* SeatReservation.swift */,
 				ADBDA4852097520C00644D33 /* SeatReservationManager.swift */,
 				ADBDA4872097520C00644D33 /* SeatReserveManager.swift */,
 				ADBDA4862097520C00644D33 /* SeatResponse.swift */,
+				ADC9DF4620AD2B2A00BB886D /* Library.swift */,
+				ADC9DF4820AD2B4700BB886D /* Room.swift */,
+				ADC9DF4A20AD2B9600BB886D /* Seat.swift */,
+				ADC9DF4C20AD2C3C00BB886D /* Handler.swift */,
+				ADC9DF4E20AD36AC00BB886D /* SeatTime.swift */,
 			);
 			path = Seat;
-			sourceTree = "<group>";
-		};
-		ADBDA4942097522100644D33 /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				ADBDA497209754C600644D33 /* SwiftyJSON.swift */,
-			);
-			path = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,8 +413,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC9DF4D20AD2C3C00BB886D /* Handler.swift in Sources */,
+				ADC9DF4F20AD36AC00BB886D /* SeatTime.swift in Sources */,
 				ADBDA479209750E300644D33 /* Settings.swift in Sources */,
 				ADBDA47D2097516B00644D33 /* SeatBaseResponse.swift in Sources */,
+				ADC9DF4920AD2B4700BB886D /* Room.swift in Sources */,
 				ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */,
 				ADBDA48A2097520C00644D33 /* SeatHistoryManager.swift in Sources */,
 				ADBDA4742097500200644D33 /* UserInfo.swift in Sources */,
@@ -423,9 +430,10 @@
 				ADBDA4722097500200644D33 /* AccountManager.swift in Sources */,
 				ADBDA4732097500200644D33 /* Account.swift in Sources */,
 				ADBDA48B2097520C00644D33 /* SeatFilterCondition.swift in Sources */,
-				ADBDA498209754C600644D33 /* SwiftyJSON.swift in Sources */,
 				ADBDA4752097500200644D33 /* LoginResponse.swift in Sources */,
-				ADBDA48D2097520C00644D33 /* SeatData.swift in Sources */,
+				ADBDA48D2097520C00644D33 /* LibraryData.swift in Sources */,
+				ADC9DF4B20AD2B9600BB886D /* Seat.swift in Sources */,
+				ADC9DF4720AD2B2A00BB886D /* Library.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

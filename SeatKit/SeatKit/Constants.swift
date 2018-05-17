@@ -6,8 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
 public extension String {
     var urlQueryEncoded: String? {
         return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

@@ -6,14 +6,14 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
 public struct SeatHistoryData: Codable {
     let reservations: [SeatReservation]
 }
-
 public typealias SeatHistoryResponse = SeatAPIResponse<SeatHistoryData>
+
 public typealias SeatCurrentReservationResponse = SeatAPIArrayResponse<SeatCurrentReservation>
+
+public typealias SeatLibraryResponse = SeatAPIArrayResponse<Room>
 
 public struct SeatStartTimeData: Codable {
     let startTimes: [SeatTime]

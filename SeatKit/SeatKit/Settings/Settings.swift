@@ -7,8 +7,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
 public extension Notification.Name {
     public static let SettingsChanged = Notification.Name("kSettingsChangedNotification")
     public static let PasswordSettingChanged = Notification.Name("kPasswordSettingChangedNotification")

@@ -6,29 +6,67 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
-public struct SeatLayoutData {
+public struct RoomLayoutData: Codable {
+    public let roomID: Int
+    public let roomName: String
     public let cols: Int
     public let rows: Int
     public let seats: [Seat]
-}
-
-public protocol AvailableSeatDelegate: SeatBaseDelegate {
-    func update(layoutData: SeatLayoutData)
-    func timeFilterUpdate(seats: [Seat])
+    
+    enum CodingKeys: String, CodingKey {
+        case roomID = "id"
+        case roomName = "name"
+        case cols
+        case rows
+        case layout
+        case seats
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        roomID = try container.decode(Int.self, forKey: .roomID)
+        roomName = try container.decode(String.self, forKey: .roomName)
+        cols = try container.decode(Int.self, forKey: .cols)
+        rows = try container.decode(Int.self, forKey: .rows)
+        if let seats = try container.decodeIfPresent([Seat].self, forKey: .seats) {
+            self.seats = seats
+            return
+        }
+        let seatsData = try container.decode(Data.self, forKey: .layout)
+        guard let seatsDict = try JSONSerialization.jsonObject(with: seatsData, options: []) as? [String: Any] else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.layout, in: container, debugDescription: "Failed to phrase seats data")
+        }
+        var seats = [Seat]()
+        for (key, value) in seatsDict {
+            guard let value = value as? [String: Any],
+                let seat = Seat(layoutKey: key, values: value) else {
+                continue
+            }
+            seats.append(seat)
+        }
+        self.seats = seats
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(roomID, forKey: .roomID)
+        try container.encode(roomName, forKey: .roomName)
+        try container.encode(cols, forKey: .cols)
+        try container.encode(rows, forKey: .rows)
+        try container.encode(seats, forKey: .seats)
+    }
+    
 }
 
 public class AvailableSeatManager: SeatBaseNetworkManager {
-    public weak var delegate: AvailableSeatDelegate?
-    public init(delegate: AvailableSeatDelegate?) {
-        self.delegate = delegate
+    
+    public init() {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.layout"))
     }
     
-    public func check(room: Room, date: Date) {
+    public func check(room: Room, date: Date, callback: SeatHandler<RoomLayoutData>?) {
         guard let token = AccountManager.shared.currentAccount?.token else {
-            delegate?.requireLogin()
+            callback?(.requireLogin)
             return
         }
         let dateFormatter = DateFormatter()
@@ -42,59 +80,50 @@ public class AvailableSeatManager: SeatBaseNetworkManager {
         let task = session.dataTask(with: layoutRequest) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
             
-            guard let data = data,
-                let json = try? JSON(data: data) else {
+            guard let data = data else {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
-            
-            if let result = json["data"].dictionary {
-                guard let cols = result["cols"]?.int,
-                    let rows = result["rows"]?.int,
-                    let layoutData = result["layout"]?.dictionary else {
-                    DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: SeatAPIError.dataCorrupt)
-                    }
-                    return
-                }
-                let validSeat = layoutData.compactMap{ (key, content) -> Seat? in
-                    guard let roomData = content.dictionary else {
-                        return nil
-                    }
-                    return Seat(layoutKey: key, json: roomData)
-                }
+            let decoder = JSONDecoder()
+            do {
+                let result = try decoder.decode(SeatAPIResponse<RoomLayoutData>.self, from: data)
                 DispatchQueue.main.async {
-                    let layoutData = SeatLayoutData(cols: cols, rows: rows, seats: validSeat)
-                    self.delegate?.update(layoutData: layoutData)
+                    callback?(.success(result.data))
                 }
-            }else{
+                
+            } catch where error is DecodingError {
+                print(error.localizedDescription)
                 do {
                     let decoder = JSONDecoder()
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: failedResponse)
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    callback?(.error(error))
                 }
             }
         }
         task.resume()
     }
     
-    public func check(library: Library, room: Room, date: Date, start: SeatTime, end: SeatTime) {
+    public func check(library: Library, room: Room, date: Date, start: SeatTime, end: SeatTime, callback: SeatHandler<[Seat]>?) {
         guard let token = AccountManager.shared.currentAccount?.token else {
-            delegate?.requireLogin()
+            callback?(.requireLogin)
             return
         }
         let dateFormatter = DateFormatter()
@@ -110,32 +139,20 @@ public class AvailableSeatManager: SeatBaseNetworkManager {
         let searchTask = session.dataTask(with: searchRequest) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
-            guard let data = data,
-                let json = try? JSON(data: data) else {
+            guard let data = data else {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                        callback?(.error(SeatAPIError.dataMissing))
                     }
                     return
             }
-            if let result = json["data"].dictionary {
-                guard let seatsData = result["seats"]?.dictionary else {
-                        DispatchQueue.main.async {
-                            self.delegate?.updateFailed(error: SeatAPIError.dataCorrupt)
-                        }
-                        return
-                }
-                let validSeats = seatsData.compactMap{ (key, content) -> Seat? in
-                    guard let roomData = content.dictionary else {
-                        return nil
-                    }
-                    return Seat(layoutKey: key, json: roomData)
-                }
+            let decoder = JSONDecoder()
+            if let result = try? decoder.decode(SeatAPIResponse<RoomLayoutData>.self, from: data) {
                 DispatchQueue.main.async {
-                    self.delegate?.timeFilterUpdate(seats: validSeats)
+                    callback?(.success(result.data.seats))
                 }
             }else{
                 do {
@@ -143,11 +160,11 @@ public class AvailableSeatManager: SeatBaseNetworkManager {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: failedResponse)
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
                 }
             }

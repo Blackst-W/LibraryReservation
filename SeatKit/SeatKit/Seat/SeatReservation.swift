@@ -6,24 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
-public protocol SeatCurrentReservationRepresentable {
-    var id: Int {get}
-    var time: SeatReservationTime {get}
-    var location: SeatLocation? {get}
-    var currentState: SeatCurrentReservationState {get}
-    var seatID: Int? {get}
-    var receiptID: String? {get}
-    var awayStart: Date? {get}
-    var isStarted: Bool {get}
-    var rawLocation: String {get}
-    var rawDate: String {get}
-    var rawBegin: String {get}
-    var rawEnd: String {get}
-    var jsonData: Data {get}
-}
-
 public struct SeatReservationTime {
     public let date: Date
     public let start: Date
@@ -263,7 +245,7 @@ extension SeatReservation: Comparable {
     }
 }
 
-extension SeatReservation: SeatCurrentReservationRepresentable {
+extension SeatReservation {
     
     public var currentState: SeatCurrentReservationState {
         let current = Date()
@@ -484,7 +466,7 @@ extension SeatCurrentReservation: Comparable {
     }
 }
 
-extension SeatCurrentReservation: SeatCurrentReservationRepresentable {
+extension SeatCurrentReservation {
     
     public var seatID: Int? {
         return seatId

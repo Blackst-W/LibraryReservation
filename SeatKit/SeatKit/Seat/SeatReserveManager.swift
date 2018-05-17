@@ -6,62 +6,13 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
-public extension Notification.Name {
-    static let SeatReserved = Notification.Name("kSeatReservedNotification")
-}
-
-public struct SeatTime: Codable, Equatable {
-//{
-//    "id": "now",
-//    "value": "现在"
-//    }
-    public let id: String
-    public let value: String
-    public var minutes: Int? {
-        return Int(id)
-    }
-    
-    public init(time: Int) {
-        id = String(time)
-        let hour = time / 60
-        let min = time % 60
-        let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
-        let minString = min < 10 ? "0\(min)" : "\(min)"
-        value = hourString + ":" + minString
-    }
-    
-    public var next: SeatTime? {
-        if let time = minutes {
-            return SeatTime(time: time + 30)
-        }else{
-            return nil
-        }
-    }
-    
-    public static func==(lhs: SeatTime, rhs: SeatTime) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
-
-public protocol SeatReserveDelegate: SeatBaseDelegate {
-    func update(seat: Seat, start: [SeatTime], end: [SeatTime])
-    func reserveSuccess()
-}
-
 public class SeatReserveManager: SeatBaseNetworkManager {
     
     var startTimes: [SeatTime] = []
-    
     var now: Date = Date()
-    weak var delegate: SeatReserveDelegate?
-    
-    public init(delegate: SeatReserveDelegate?) {
-        self.delegate = delegate
+    public init() {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.time"))
     }
-    
     
     public func endTimes(`for` timeIndex: Int) -> [SeatTime] {
         if startTimes.isEmpty {
@@ -101,10 +52,10 @@ public class SeatReserveManager: SeatBaseNetworkManager {
         return SeatTime(time: time)
     }
     
-    public func check(seat: Seat, date: Date) {
+    public func check(seat: Seat, date: Date, callback: SeatHandler<(seat: Seat, start: [SeatTime], end: [SeatTime])>?) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
-                delegate?.requireLogin()
+                callback?(.requireLogin)
                 return
         }
         let dateFormatter = DateFormatter()
@@ -118,14 +69,14 @@ public class SeatReserveManager: SeatBaseNetworkManager {
         let task = session.dataTask(with: timeRequest) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
             guard let data = data else {
                 print("Failed to retrive data")
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
@@ -137,7 +88,7 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                     self.now = Date()
                     self.startTimes = startTimes
                     let end = self.endTimes(for: 0)
-                    self.delegate?.update(seat: seat, start: startTimes, end: end)
+                    callback?(.success((seat: seat, start: startTimes, end: end)))
                 }
             } catch DecodingError.keyNotFound {
                 do {
@@ -145,31 +96,31 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                     if failedResponse.code == "0" {
                         DispatchQueue.main.async {
                             self.startTimes = []
-                            self.delegate?.update(seat: seat, start: [],end: [])
                             self.now = Date()
+                            callback?(.success((seat: seat, start: [], end: [])))
                         }
                     }else{
                         DispatchQueue.main.async {
-                            self.delegate?.updateFailed(failedResponse: failedResponse)
+                            callback?(.failed(failedResponse))
                         }
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
             }
         }
         task.resume()
     }
     
-    public func reserve(seat: Seat, date: Date, start: SeatTime, end: SeatTime) {
+    public func reserve(seat: Seat, date: Date, start: SeatTime, end: SeatTime, callback: SeatHandler<Void>?) {
         guard let token = AccountManager.shared.currentAccount?.token else {
-            delegate?.requireLogin()
+            callback?(.requireLogin)
             return
         }
         let dateFormatter = DateFormatter()
@@ -188,13 +139,13 @@ public class SeatReserveManager: SeatBaseNetworkManager {
         let reserveTask = session.dataTask(with: reserveRequest) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
             guard let data = data else {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                        callback?(.error(SeatAPIError.dataMissing))
                     }
                     return
             }
@@ -203,17 +154,16 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                 let response = try decoder.decode(SeatBaseResponse.self, from: data)
                 if response.code == "0" {
                     DispatchQueue.main.async {
-                        self.delegate?.reserveSuccess()
-                        NotificationCenter.default.post(name: .SeatReserved, object: nil)
+                        callback?(.success(()))
                     }
                 }else{
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: response)
+                        callback?(.failed(response))
                     }
                 }
             }catch{
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
             }
         }
