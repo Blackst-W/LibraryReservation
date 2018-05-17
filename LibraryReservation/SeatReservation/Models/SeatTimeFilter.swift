@@ -76,7 +76,7 @@ public class SeatTimeFilter: NSObject {
             return
         }
         let configuration = AppSettings.shared.libraryConfiguration
-        let start = startTimes[selection].minutes
+        let start = startTimes[selection].minutes!
         let end = configuration.endMinutes
         var current = start + 30
         while (current <= end) {
