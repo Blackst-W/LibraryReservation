@@ -22,6 +22,21 @@ public struct RoomLayoutData: Codable {
         case seats
     }
     
+    struct DynamicCodingKeys: CodingKey {
+        var stringValue: String
+        
+        init?(stringValue: String) {
+            self.stringValue = stringValue
+        }
+        
+        var intValue: Int?
+        
+        init?(intValue: Int) {
+            self.init(stringValue: "")
+            self.intValue = intValue
+        }
+    }
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         roomID = try container.decode(Int.self, forKey: .roomID)
@@ -32,17 +47,14 @@ public struct RoomLayoutData: Codable {
             self.seats = seats
             return
         }
-        let seatsData = try container.decode(Data.self, forKey: .layout)
-        guard let seatsDict = try JSONSerialization.jsonObject(with: seatsData, options: []) as? [String: Any] else {
-            throw DecodingError.dataCorruptedError(forKey: CodingKeys.layout, in: container, debugDescription: "Failed to phrase seats data")
-        }
         var seats = [Seat]()
-        for (key, value) in seatsDict {
-            guard let value = value as? [String: Any],
-                let seat = Seat(layoutKey: key, values: value) else {
-                continue
+        let seatDecoder = try container.superDecoder(forKey: .layout)
+        let seatContainer = try seatDecoder.container(keyedBy: DynamicCodingKeys.self)
+        for key in seatContainer.allKeys {
+            if var seat = try? seatContainer.decode(Seat.self, forKey: key) {
+                seat.layout = RoomLayout(key: key.stringValue)
+                seats.append(seat)
             }
-            seats.append(seat)
         }
         self.seats = seats
     }

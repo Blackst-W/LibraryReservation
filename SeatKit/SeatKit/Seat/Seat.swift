@@ -27,7 +27,17 @@ public struct Seat: Codable, Equatable {
     public let hasWindow: Bool
     public let hasPower: Bool
     public let hasComputer: Bool
-    public let layout: RoomLayout
+    public var layout: RoomLayout!
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case status
+        case hasWindow = "window"
+        case hasPower = "power"
+        case hasComputer = "computer"
+        case layout
+    }
     
     public var available: Bool {
         return status == "FREE" || status == "AWAY" || status == "IN_USE"

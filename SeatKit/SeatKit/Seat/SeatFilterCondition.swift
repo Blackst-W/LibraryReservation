@@ -11,7 +11,7 @@ public struct SeatFilterCondition: Equatable {
     public var needWindow: Bool
     public var needComputer: Bool
     public var passDirectly: Bool {
-        return self != SeatFilterCondition()
+        return self == SeatFilterCondition()
     }
     
     public init(needPower: Bool, needWindow: Bool, needComputer: Bool) {

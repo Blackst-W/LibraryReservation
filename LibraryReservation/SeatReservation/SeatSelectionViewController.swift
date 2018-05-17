@@ -42,7 +42,6 @@ class SeatSelectionViewController: UIViewController {
     @IBOutlet weak var floorLabel: UILabel!
     @IBOutlet weak var roomLabel: UILabel!
     @IBOutlet weak var seatLabel: UILabel!
-    @IBOutlet weak var timePickerView: UIPickerView!
     @IBOutlet weak var reserveButton: UIButton!
     
     @IBOutlet weak var displayStyleControl: UISegmentedControl!
@@ -51,7 +50,7 @@ class SeatSelectionViewController: UIViewController {
     var library: Library!
     var room: Room!
     var date: Date!
-    var layoutData: SeatLayoutData?
+    var layoutData: RoomLayoutData?
     var seatTimeManager: SeatReserveManager!
     var selectedSeat: Seat? {
         didSet {
@@ -69,9 +68,6 @@ class SeatSelectionViewController: UIViewController {
     weak var delegate: SeatSelectionViewDelegate?
     var filter = SeatFilterCondition()
     
-    var startTimes = [SeatTime]()
-    var endTimes = [SeatTime]()
-    
     override func viewDidLoad() {
         PKHUD.sharedHUD.dimsBackground = false
         PKHUD.sharedHUD.userInteractionOnUnderlyingViewsEnabled = true
@@ -83,12 +79,13 @@ class SeatSelectionViewController: UIViewController {
         roomLabel.text = room.name
         scrollView.delegate = self
 //        scrollView.setZoomScale(0.6, animated: false)
-        manager = AvailableSeatManager(delegate: self)
-        manager.check(room: room, date: date)
-        seatTimeManager = SeatReserveManager(delegate: self)
+        manager = AvailableSeatManager()
+        manager.check(room: room, date: date) { (response) in
+            self.handle(response: response)
+        }
+        seatTimeManager = SeatReserveManager()
         startLoading()
-        timePickerView.delegate = self
-        timePickerView.dataSource = self
+        setupPicker()
         setupFilter()
         navigationController?.hidesBarsOnSwipe = true
         // Do any additional setup after loading the view.
@@ -117,16 +114,18 @@ class SeatSelectionViewController: UIViewController {
     @IBAction func refresh(_ sender: Any) {
         if indicatorView.isAnimating {return}
         if let start = timeFilterStart, let end = timeFilterEnd {
-            manager.check(library: library, room: room, date: date, start: start, end: end)
+            manager.check(library: library, room: room, date: date, start: start, end: end) { (response) in
+                self.handle(response: response)
+            }
         }else{
-            manager.check(room: room, date: date)
+            manager.check(room: room, date: date) {self.handle(response: $0)}
         }
         startLoading()
     }
     
     @IBAction func displayStyleChanged(_ sender: UISegmentedControl) {
         guard let layoutData = layoutData else {
-            manager.check(room: room, date: date)
+            manager.check(room: room, date: date) {self.handle(response: $0)}
             startLoading()
             return
         }
@@ -150,17 +149,8 @@ class SeatSelectionViewController: UIViewController {
         guard displayStyleControl.selectedSegmentIndex == 0 else {
             return
         }
-        coordinator.animate(alongsideTransition: { (_) in
-//            let animator = UIViewPropertyAnimator(duration: coordinator.transitionDuration / 2, curve: .easeInOut, animations: {
-//                self.layoutView.alpha = 0
-//            })
-//            animator.startAnimation()
-        }) { (_) in
+        coordinator.animate(alongsideTransition: {(_) in}) { (_) in
             self.reloadListDisplayData()
-//            let animator = UIViewPropertyAnimator(duration: coordinator.transitionDuration / 2, curve: .easeInOut, animations: {
-//                self.layoutView.alpha = 1
-//            })
-//            animator.startAnimation()
         }
     }
     
@@ -216,7 +206,10 @@ class SeatSelectionViewController: UIViewController {
         }
         selectedSeat = seat
         startLoading()
-        seatTimeManager.check(seat: seat, date: date)
+        seatTimeManager.check(seat: seat, date: date) {
+            self.handle(response: $0)
+        }
+
     }
     
     func showReserveView() {
@@ -247,11 +240,19 @@ class SeatSelectionViewController: UIViewController {
     
     @IBAction func reserve(_ sender: Any) {
         reserveButton.isEnabled = false
-        let start = startTimes[timePickerView.selectedRow(inComponent: 0)]
-        let end = endTimes[timePickerView.selectedRow(inComponent: 1)]
-        print(start)
-        print(end)
-        seatTimeManager.reserve(seat: selectedSeat!, date: date, start: start, end: end)
+        guard let (start, end) = timePickerManager.selectedTimes else {
+            return
+        }
+        seatTimeManager.reserve(seat: selectedSeat!, date: date, start: start, end: end) { (response) in
+            self.handle(response: response)
+        }
+    }
+    
+    // MARK: Time Picker
+    @IBOutlet weak var timePickerView: UIPickerView!
+    var timePickerManager: SeatTimePicker!
+    func setupPicker() {
+        timePickerManager = SeatTimePicker(pickerView: timePickerView, delegate: nil)
     }
     
     // MARK: Time Filter
@@ -314,7 +315,9 @@ class SeatSelectionViewController: UIViewController {
             startLoading()
             timeFilterStart = start
             timeFilterEnd = end
-            manager.check(library: library, room: room, date: date, start: start, end: end)
+            manager.check(library: library, room: room, date: date, start: start, end: end) { (response) in
+                self.handle(response: response)
+            }
         }
     }
     
@@ -339,9 +342,22 @@ class SeatSelectionViewController: UIViewController {
     
 }
 
-extension SeatSelectionViewController: AvailableSeatDelegate {
+extension SeatSelectionViewController {
     
-    func updateFailed(error: Error) {
+    func handle(response: SeatResponse<RoomLayoutData>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let failed):
+            handle(failedResponse: failed)
+        case .requireLogin:
+            requireLogin()
+        case .success(let layoutData):
+            update(layoutData: layoutData)
+        }
+    }
+
+    func handle(error: Error) {
         reserveButton.isEnabled = true
         endLoading()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
@@ -350,7 +366,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
+    func handle(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" {
             requireLogin()
             return
@@ -396,7 +412,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
             seatView.reset()
         }
         
-        let needFilter = filter.isEnabled
+        let needFilter = !filter.passDirectly
         if let timeFiltedSeats = timeFiltedSeats {
             //Time Filter Enabled
             for seat in timeFiltedSeats {
@@ -417,7 +433,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         }
     }
     
-    func update(layoutData: SeatLayoutData) {
+    func update(layoutData: RoomLayoutData) {
         self.layoutData = layoutData
         switch displayStyleControl.selectedSegmentIndex {
         case 0:
@@ -442,7 +458,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         }
         let numberPerRow = Int((scrollViewWidth - 16 + 8) / (cellWidth + gap))
         
-        let needFilter = filter.isEnabled
+        let needFilter = !filter.passDirectly
         let seats = (needFilter ? seats.filter{filter.fullfill(seat: $0)} : seats).sorted {$0.name<$1.name}
         let rows = Int(ceil(Double(seats.count) / Double(numberPerRow)))
         let topOffset: CGFloat = 226
@@ -494,7 +510,7 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         layoutView.subviews.forEach { (subview) in
             subview.removeFromSuperview()
         }
-        let needFilter = filter.isEnabled
+        let needFilter = !filter.passDirectly
         for seat in layoutData.seats {
             let x = (cellWidth + gap) * CGFloat(seat.layout.col) + gap
             let y = (cellHeight + gap) * CGFloat(seat.layout.row) + gap + topOffset
@@ -510,6 +526,19 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
         }
     }
     
+    func handle(response: SeatResponse<[Seat]>) {
+        switch response {
+        case .success(let seats):
+            timeFilterUpdate(seats: seats)
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        }
+    }
+    
     func timeFilterUpdate(seats: [Seat]) {
         timeFiltedSeats = seats
         reloadData()
@@ -517,31 +546,43 @@ extension SeatSelectionViewController: AvailableSeatDelegate {
     }
 }
 
-extension SeatSelectionViewController: SeatReserveDelegate {
-    func update(seat: Seat, start: [SeatTime], end: [SeatTime]) {
+extension SeatSelectionViewController {
+    
+    func handle(response: SeatResponse<(seat: Seat, start: [SeatTime])>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(let data):
+            update(seat: data.seat, start: data.start)
+        }
+    }
+    
+    func update(seat: Seat, start: [SeatTime]) {
         guard seat == self.selectedSeat else {return}
         endLoading()
         if start.isEmpty {
             HUD.flash(.label("Not Available Time For This Seat".localized), delay: 1.0)
             return
         }
-        startTimes = start
-        endTimes = end
-        timePickerView.reloadAllComponents()
-        if let filterStart = timeFilterStart, let index = start.index(of: filterStart) {
-            timePickerView.selectRow(index, inComponent: 0, animated: false)
-            endTimes = seatTimeManager.endTimes(for: index)
-            timePickerView.reloadComponent(1)
-            if let filterEnd = timeFilterEnd, let endIndex = endTimes.index(of: filterEnd) {
-                timePickerView.selectRow(endIndex, inComponent: 1, animated: false)
-            }else{
-                timePickerView.selectRow(0, inComponent: 1, animated: false)
-            }
-        }else{
-            timePickerView.selectRow(0, inComponent: 0, animated: false)
-            timePickerView.selectRow(0, inComponent: 1, animated: false)
-        }
+        timePickerManager.update(startTimes: start, filterStart: timeFilterStart, filterEnd: timeFilterEnd)
         showReserveView()
+    }
+    
+    func handle(response: SeatResponse<Void>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(_):
+            reserveSuccess()
+        }
     }
     
     func reserveSuccess() {
@@ -556,13 +597,14 @@ extension SeatSelectionViewController: SeatReserveDelegate {
 }
 
 extension SeatSelectionViewController: LoginViewDelegate {
+    
     func loginResult(result: LoginResult) {
         switch result {
         case .cancel:
             endLoading()
             return
         case .success(_):
-            manager.check(room: room, date: date)
+            manager.check(room: room, date: date) {self.handle(response: $0)}
             startLoading()
         }
     }
@@ -571,29 +613,6 @@ extension SeatSelectionViewController: LoginViewDelegate {
 extension SeatSelectionViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return layoutView
-    }
-}
-
-extension SeatSelectionViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return component == 0 ? startTimes.count : endTimes.count
-    }
-}
-
-extension SeatSelectionViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return component == 0 ? startTimes[row].value : endTimes[row].value
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
-            endTimes = seatTimeManager.endTimes(for: row)
-            pickerView.reloadComponent(1)
-        }
     }
 }
 

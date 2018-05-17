@@ -13,7 +13,7 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding {
         
     @IBOutlet weak var loginButton: UIButton!
-    var historyManager: SeatHistoryManager!
+    var manager: ReservationManager!
     
     @IBOutlet weak var reservationView: UIView!
     @IBOutlet weak var stateLabel: UILabel!
@@ -34,11 +34,22 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         
-        historyManager = SeatHistoryManager(delegate: self)
-        historyManager.reload()
+        manager = ReservationManager()
         refreshButton.isEnabled = false
-        if let reservation = historyManager.current {
+        if let reservation = manager.reservation {
             updateUI(reservation: reservation)
+        }
+        manager.refresh { (response) in
+            switch response {
+            case .requireLogin:
+                self.requireLogin()
+            case .error(let error):
+                self.handle(error: error)
+            case .failed(let failedResponse):
+                self.handle(failedResponse: failedResponse)
+            case .success(let reservation):
+                self.update(reservation: reservation)
+            }
         }
     }
     
@@ -50,17 +61,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         Settings.shared.reload()
         AccountManager.shared.reload()
-        historyManager.checkCurrent()
+        manager.refresh { (response) in
+            switch response {
+            case .error(_), .failed(_):
+                completionHandler(NCUpdateResult.failed)
+            case .success(let reservation):
+                self.update(reservation: reservation)
+                completionHandler(NCUpdateResult.newData)
+            case .requireLogin:
+                completionHandler(NCUpdateResult.failed)
+            }
+        }
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        
-        completionHandler(NCUpdateResult.newData)
     }
     
-    func updateUI(reservation: SeatCurrentReservationRepresentable) {
+    func updateUI(reservation: SeatReservation) {
         loginButton.isHidden = true
         alertView.isHidden = true
         reservationView.isHidden = false
@@ -105,7 +124,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     @IBAction func refresh(_ sender: Any) {
-        historyManager.checkCurrent()
+        manager.refresh { (response) in
+            switch response {
+            case .requireLogin:
+                self.requireLogin()
+            case .error(let error):
+                self.handle(error: error)
+            case .failed(let failedResponse):
+                self.handle(failedResponse: failedResponse)
+            case .success(let reservation):
+                self.update(reservation: reservation)
+            }
+        }
         refreshButton.isEnabled = false
     }
     
@@ -114,7 +144,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             extensionContext?.open(URL(string: "whuseat://")!, completionHandler: nil)
             return
         }else{
-            historyManager.checkCurrent()
+            manager.refresh { (response) in
+                switch response {
+                case .requireLogin:
+                    self.requireLogin()
+                case .error(let error):
+                    self.handle(error: error)
+                case .failed(let failedResponse):
+                    self.handle(failedResponse: failedResponse)
+                case .success(let reservation):
+                    self.update(reservation: reservation)
+                }
+            }
             alertButton.isEnabled = false
         }
     }
@@ -138,12 +179,34 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 return
         }
         let username = account.username
-        SeatBaseNetworkManager.default.login(username: username, password: password) { (error, loginResponse, failResponse) in
-            if let loginResponse = loginResponse {
+        SeatBaseNetworkManager.default.login(username: username, password: password) { (response) in
+            switch response {
+            case .success(let loginResponse):
                 let account = UserAccount(username: username, password: password, token: loginResponse.data.token)
                 AccountManager.shared.login(account: account)
-                self.historyManager.reload()
-            }else{
+                self.manager.refresh { (response) in
+                    switch response {
+                    case .requireLogin:
+                        DispatchQueue.main.async {
+                            self.refreshButton.isEnabled = true
+                            self.alertButton.isEnabled = true
+                            self.loginButton.isHidden = false
+                            self.alertView.isHidden = true
+                            self.reservationView.isHidden = true
+                        }
+                    case .error(let error):
+                        self.handle(error: error)
+                    case .failed(let failedResponse):
+                        self.handle(failedResponse: failedResponse)
+                    case .success(let reservation):
+                        self.update(reservation: reservation)
+                    }
+                }
+            case .error(let error):
+                self.handle(error: error)
+            case .failed(let failedResponse):
+                self.handle(failedResponse: failedResponse)
+            case .requireLogin:
                 DispatchQueue.main.async {
                     self.refreshButton.isEnabled = true
                     self.alertButton.isEnabled = true
@@ -153,12 +216,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 }
             }
         }
-
     }
     
 }
 
-extension TodayViewController: SeatHistoryManagerDelegate {
+extension TodayViewController {
     func requireLogin() {
         if canLogin {
             autoLogin()
@@ -172,7 +234,7 @@ extension TodayViewController: SeatHistoryManagerDelegate {
         return
     }
     
-    func updateFailed(error: Error) {
+    func handle(error: Error) {
         refreshButton.isEnabled = true
         alertButton.isEnabled = true
         alertButton.tag = 0
@@ -183,7 +245,7 @@ extension TodayViewController: SeatHistoryManagerDelegate {
         return
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
+    func handle(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" {
             requireLogin()
             return
@@ -198,16 +260,10 @@ extension TodayViewController: SeatHistoryManagerDelegate {
         return
     }
     
-    func update(reservations: [SeatReservation]) {
+    func update(reservation: SeatReservation?) {
         refreshButton.isEnabled = true
         alertButton.isEnabled = true
-        return
-    }
-    
-    func update(current: SeatCurrentReservationRepresentable?) {
-        refreshButton.isEnabled = true
-        alertButton.isEnabled = true
-        guard let reservation = current else {
+        guard let reservation = reservation else {
             alertTitle.text = "Not Reservation Found".localized
             alertBody.text = "Go make a reservation in the app and check back later.".localized
             alertButton.setTitle("Reserve".localized, for: .normal)

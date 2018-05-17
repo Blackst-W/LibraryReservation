@@ -8,51 +8,11 @@
 
 public class SeatReserveManager: SeatBaseNetworkManager {
     
-    var startTimes: [SeatTime] = []
-    var now: Date = Date()
     public init() {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.time"))
     }
     
-    public func endTimes(`for` timeIndex: Int) -> [SeatTime] {
-        if startTimes.isEmpty {
-            return []
-        }
-        var endTimes = [SeatTime]()
-        let firstIndex = timeIndex + 1
-        var validNext = startTimes[timeIndex].next ?? nextForNow
-        for index in firstIndex ... startTimes.count {
-            if index == startTimes.count {
-                endTimes.append(validNext)
-                return endTimes
-            }
-            let next = startTimes[index]
-            if next == validNext {
-                endTimes.append(next)
-                validNext = validNext.next!
-            }else{
-                endTimes.append(validNext)
-                break
-            }
-        }
-        return endTimes
-    }
-    
-    var nextForNow: SeatTime {
-        let calender = Calendar.current
-        var hour = calender.component(.hour, from: now)
-        var min = calender.component(.minute, from: now)
-        if min < 30 {
-            min = 30
-        }else{
-            hour += 1
-            min = 0
-        }
-        let time = hour * 60 + min
-        return SeatTime(time: time)
-    }
-    
-    public func check(seat: Seat, date: Date, callback: SeatHandler<(seat: Seat, start: [SeatTime], end: [SeatTime])>?) {
+    public func check(seat: Seat, date: Date, callback: SeatHandler<(seat: Seat, start: [SeatTime])>?) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
                 callback?(.requireLogin)
@@ -85,19 +45,14 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                 let timeResponse = try decoder.decode(SeatStartTimeResponse.self, from: data)
                 let startTimes = timeResponse.data.startTimes
                 DispatchQueue.main.async {
-                    self.now = Date()
-                    self.startTimes = startTimes
-                    let end = self.endTimes(for: 0)
-                    callback?(.success((seat: seat, start: startTimes, end: end)))
+                    callback?(.success((seat: seat, start: startTimes)))
                 }
             } catch DecodingError.keyNotFound {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     if failedResponse.code == "0" {
                         DispatchQueue.main.async {
-                            self.startTimes = []
-                            self.now = Date()
-                            callback?(.success((seat: seat, start: [], end: [])))
+                            callback?(.success((seat: seat, start: [])))
                         }
                     }else{
                         DispatchQueue.main.async {

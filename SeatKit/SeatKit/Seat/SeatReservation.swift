@@ -209,7 +209,7 @@ public struct SeatReservation: Codable {
         return formatter.date(from: "\(rawDate) \(endTime)")
     }
     
-    var isHistory: Bool {
+    public var isHistory: Bool {
         switch state {
         case .reserve, .checkIn, .away:
             return false

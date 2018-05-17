@@ -23,7 +23,8 @@ class SettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userInfoChanged), name: .UserInfoUpdated, object: nil)
         
     }

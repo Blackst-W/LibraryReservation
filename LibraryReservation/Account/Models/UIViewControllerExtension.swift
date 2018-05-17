@@ -41,16 +41,17 @@ extension UIViewController {
         }
         //Silence login with found username and password
         let username = account.username
-        SeatBaseNetworkManager.default.login(username: username, password: password) { (error, loginResponse, failResponse) in
-            if let loginResponse = loginResponse {
-                let account = UserAccount(username: username, password: password, token: loginResponse.data.token)
+        SeatBaseNetworkManager.default.login(username: username, password: password) { (response) in
+            switch response {
+            case .error(_), .failed(_), .requireLogin:
+                DispatchQueue.main.async {
+                    self.presentLoginViewController(delegate: delegate)
+                }
+            case .success(let login):
+                let account = UserAccount(username: username, password: password, token: login.data.token)
                 AccountManager.shared.login(account: account)
                 DispatchQueue.main.async {
                     delegate?.loginResult(result: .success(account))
-                }
-            }else{
-                DispatchQueue.main.async {
-                    self.presentLoginViewController(delegate: delegate)
                 }
             }
         }

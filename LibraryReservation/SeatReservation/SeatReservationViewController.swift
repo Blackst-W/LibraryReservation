@@ -22,7 +22,9 @@ class SeatReservationViewController: UIViewController {
         didSet {
             if let library = selectedLibrary {
                 roomData = libraryManager.libraryData[library]
-                libraryManager.check(library: library)
+                libraryManager.check(library: library) { (response) in
+                    self.handle(response: response, library: library)
+                }
             }else{
                 roomData = []
             }
@@ -56,7 +58,7 @@ class SeatReservationViewController: UIViewController {
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
         libraryView.delegate = self
-        libraryManager = SeatLibraryManager(delegate: self)
+        libraryManager = SeatLibraryManager()
         // Do any additional setup after loading the view.
     }
     
@@ -142,19 +144,33 @@ extension SeatReservationViewController: SeatLibraryViewDelegate {
     }
 }
 
-extension SeatReservationViewController: SeatLibraryDelegate {
+extension SeatReservationViewController {
+    
+    func handle(response: SeatResponse<[Room]>, library: Library) {
+        switch response {
+        case .requireLogin:
+            requireLogin()
+        case .error(let error):
+            handle(error: error)
+        case .failed(let failedResponse):
+            handle(failedResponse: failedResponse)
+        case .success(let rooms):
+            update(rooms: rooms, for: library)
+        }
+    }
+    
     func requireLogin() {
         return
     }
     
-    func updateFailed(error: Error) {
+    func handle(error: Error) {
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
+    func handle(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" {
             autoLogin(delegate: self, force: false)
             return
@@ -180,7 +196,9 @@ extension SeatReservationViewController: LoginViewDelegate {
             return
         case .success(_):
             if let library = selectedLibrary {
-                libraryManager.check(library: library)
+                libraryManager.check(library: library) { (response) in
+                    self.handle(response: response, library: library)
+                }
             }
         }
     }

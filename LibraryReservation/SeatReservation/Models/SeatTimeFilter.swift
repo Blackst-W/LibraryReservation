@@ -36,7 +36,7 @@ public class SeatTimeFilter: NSObject {
         timePickerView.selectRow(0, inComponent: 1, animated: false)
     }
     
-    public var selectedTimes: (start: SeatTime, end: SeatTime)? {
+    var selectedTimes: (start: SeatTime, end: SeatTime)? {
         let startIndex = timePickerView.selectedRow(inComponent: 0)
         let endIndex = timePickerView.selectedRow(inComponent: 1)
         guard startIndex >= 0, endIndex >= 0 else {

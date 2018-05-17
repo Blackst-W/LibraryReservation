@@ -36,7 +36,7 @@ class SeatRoomTableViewCell: UITableViewCell {
     func update(left: Room, right: Room?) {
         leftRoomLabel.text = left.name
         leftFloorLabel.text = "Floor".localized(arguments: left.floor)
-        if let leftSeat = left.availableSeat {
+        if let leftSeat = left.availableSeats {
             leftAvailableLabel.text = "Available: %d".localized(arguments: leftSeat)
         }else{
             leftAvailableLabel.text = "Available: -".localized
@@ -46,7 +46,7 @@ class SeatRoomTableViewCell: UITableViewCell {
             rightShadowView.layer.shadowOpacity = 0.15
             rightRoomLabel.text = right.name
             rightFloorLabel.text = "Floor".localized(arguments: right.floor)
-            if let rightSeat = right.availableSeat {
+            if let rightSeat = right.availableSeats {
                 rightAvailableLabel.text = "Available: %d".localized(arguments: rightSeat)
             }else{
                 rightAvailableLabel.text = "Available: -".localized

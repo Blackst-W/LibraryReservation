@@ -73,30 +73,33 @@ class LoginViewController: UITableViewController {
         settings.set(savePassword: savePasswordSwitch.isOn)
         settings.set(autoLogin: autoLoginSwitch.isOn)
         
-        SeatBaseNetworkManager.default.login(username: username, password: password) { (error, loginResponse, failResponse) in
-            
-            if let loginResponse = loginResponse {
+        SeatBaseNetworkManager.default.login(username: username, password: password) { (response) in
+            var errorDescription = "Unknown Error".localized
+            switch response {
+            case .success(let loginResponse):
                 let account = UserAccount(username: username, password: password, token: loginResponse.data.token)
                 AccountManager.shared.login(account: account)
                 DispatchQueue.main.async {
                     self.delegate?.loginResult(result: .success(account))
                     self.dismiss(animated: true, completion: nil)
                 }
-            }else{
-                let errorDescription = error?.localizedDescription ?? failResponse?.localizedDescription ?? "Unknown Error".localized
-                print(errorDescription)
-                let alertController = UIAlertController(title: "Login Failed".localized, message: errorDescription, preferredStyle: .alert)
-                let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
-                alertController.addAction(closeAction)
-                DispatchQueue.main.async {
-                    self.loginButton.isEnabled = true
-                    self.present(alertController, animated: true, completion: nil)
-                }
+                return
+            case .error(let error):
+                errorDescription = error.localizedDescription
+            case .failed(let fail):
+                errorDescription = fail.localizedDescription
+            case .requireLogin:
+                fatalError()
+            }
+            let alertController = UIAlertController(title: "Login Failed".localized, message: errorDescription, preferredStyle: .alert)
+            let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
+            alertController.addAction(closeAction)
+            DispatchQueue.main.async {
+                self.loginButton.isEnabled = true
+                self.present(alertController, animated: true, completion: nil)
             }
         }
-        
         loginButton.isEnabled = false
-        
     }
     
     func checkSID() -> Bool {
@@ -143,16 +146,6 @@ class LoginViewController: UITableViewController {
             savePasswordSwitch.setOn(true, animated: true)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension LoginViewController: UITextFieldDelegate {

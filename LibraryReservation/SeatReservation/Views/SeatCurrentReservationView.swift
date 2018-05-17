@@ -43,10 +43,9 @@ class SeatCurrentReservationView: UIView {
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
         cancelEffectView.alpha = 0
         cancelEffectView.isHidden = true
-        NotificationCenter.default.addObserver(self, selector: #selector(showCancelEffect), name: .SeatReservationCancel, object: nil)
     }
 
-    func update(reservation: SeatCurrentReservationRepresentable) {
+    func update(reservation: SeatReservation) {
         if showingCancelEffect {
             hideCancelEffect()
         }
@@ -85,7 +84,7 @@ class SeatCurrentReservationView: UIView {
         }
     }
     
-    @objc func showCancelEffect() {
+    func showCancelEffect() {
         cancelLabel.text = "Canceled".localized
         showingCancelEffect = true
         cancelEffectView.isHidden = false

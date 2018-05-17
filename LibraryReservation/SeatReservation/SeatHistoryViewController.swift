@@ -12,35 +12,52 @@ class SeatHistoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var remindLabel: UILabel!
-    
     @IBOutlet weak var loadMoreLabel: UILabel!
     
-    var manager: SeatHistoryManager!
-    
+    var manager = ReservationManager.shared
     var data: [SeatReservation] = []
-    
+    var page = 1
+    var reachBottom = false
+    var fetching = false
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        manager.delegate = self
-        data = manager.reservations
+        data = manager.historys
+        if data.isEmpty {
+            remindLabel.isHidden = false
+            tableView.isHidden = true
+        }else{
+            tableView.isHidden = false
+            remindLabel.isHidden = true
+        }
         let control = UIRefreshControl()
         control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
         tableView.refreshControl = control
         tableView.reloadData()
-        manager.reload()
+        loadHistory()
+    }
+    
+    func loadHistory() {
+        if fetching {return}
+        fetching = true
+        manager.fetch(page: page) { (response) in
+            self.fetching = false
+            self.handle(response: response)
+        }
     }
     
     @objc func refreshStateChanged() {
         if tableView.refreshControl!.isRefreshing {
-            manager.reload()
+            loadHistory()
         }
     }
 
     @objc func checkMore() {
-        if !manager.loadMore() {
+        if reachBottom {
             loadMoreLabel.text = "No more reservations in the last 30 days".localized
+        }else{
+            loadHistory()
         }
     }
     
@@ -104,11 +121,43 @@ extension SeatHistoryViewController: UITableViewDelegate {
     }
 }
 
-extension SeatHistoryViewController: SeatHistoryManagerDelegate {
+extension SeatHistoryViewController {
+    
+    func handle(response: SeatResponse<[SeatReservation]>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(let reservations):
+            if page == 0 {
+                data = reservations
+                if data.isEmpty {
+                    remindLabel.isHidden = false
+                    tableView.isHidden = true
+                }else{
+                    tableView.isHidden = false
+                    remindLabel.isHidden = true
+                }
+            }else{
+                data.append(contentsOf: reservations)
+            }
+            page += 1
+            if reservations.count < 10 {
+                reachBottom = true
+            }
+            tableView.reloadData()
+            tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
     func requireLogin() {
         autoLogin(delegate: self)
     }
-    func updateFailed(error: Error) {
+    
+    func handle(error: Error) {
         tableView.refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
@@ -116,7 +165,7 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
+    func handle(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" {
             autoLogin(delegate: self)
             return
@@ -137,21 +186,6 @@ extension SeatHistoryViewController: SeatHistoryManagerDelegate {
             remindLabel.isHidden = true
         }
         data = reservations
-        tableView.reloadData()
-        tableView.refreshControl!.perform(#selector(tableView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
-    }
-    
-    func update(current: SeatCurrentReservationRepresentable?) {
-        NotificationManager.shared.schedule(reservation: current)
-        WatchAppDelegate.shared.transferSeatReservation()
-        return
-    }
-    
-    func loadMore() {
-        tableView.reloadData()
-        if manager.end {
-            loadMoreLabel.text = "No more reservations in the last 30 days".localized
-        }
     }
 }
 

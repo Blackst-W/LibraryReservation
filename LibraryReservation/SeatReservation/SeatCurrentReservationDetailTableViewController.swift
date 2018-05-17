@@ -9,14 +9,14 @@
 import UIKit
 
 protocol SeatReservationPreviewDelegate: class {
-    func handle(error: Error)
-    func handle(failedResponse: SeatFailedResponse)
-    func handleStartCancel()
+    func handle(_ previewObject: Any, error: Error)
+    func handle(_ previewObject: Any, failedResponse: SeatFailedResponse)
+    func handleCancel()
 }
 
 class SeatCurrentReservationDetailTableViewController: UITableViewController {
 
-    var reservation: SeatCurrentReservationRepresentable!
+    var reservation: SeatReservation!
     weak var previewDelegate: SeatReservationPreviewDelegate?
     
     @IBOutlet weak var fullLocationLabel: UILabel!
@@ -39,7 +39,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     
-    var manager: SeatHistoryManager!
+    var manager: ReservationManager!
     
     class func makeFromStoryboard() -> SeatCurrentReservationDetailTableViewController {
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
@@ -49,16 +49,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        manager = ReservationManager.shared
+        reservation = manager.reservation
         updateUI()
-        manager = SeatHistoryManager(delegate: self)
     }
     
     func updateUI() {
@@ -149,7 +142,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     @IBAction func requireCancel(_ sender: Any) {
         let alertController = UIAlertController(title: "Cancel Reservation".localized, message: "Are you sure to cancel this reservation?".localized, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Confirm".localized, style: .destructive) { (_) in
-            self.manager.cancelReservation()
+            self.manager.cancel() { (response) in
+                self.handle(cancelResponse: response)
+            }
             self.cancelButton.isEnabled = false
         }
         let cancelAction = UIAlertAction(title: "Back".localized, style: .cancel, handler: nil)
@@ -169,9 +164,10 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             UIPasteboard.general.string = self.reservation.rawLocation
         }
         let confirmCancelAction = UIPreviewAction(title: "Confirm".localized, style: .destructive) { (_, viewController) in
-            self.previewDelegate?.handleStartCancel()
-            self.manager.cancelReservation()
-//            NotificationCenter.default.post(name: .SeatReservationCancel, object: nil, userInfo: nil)
+            self.previewDelegate?.handleCancel()
+            self.manager.cancel() { (response) in
+                self.handle(cancelResponse: response)
+            }
         }
         
         let cancelAction = UIPreviewAction(title: "Back".localized, style: .default) { (_, _) in
@@ -185,72 +181,46 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     }
     
     @IBAction func refreshStateChanged(_ sender: UIRefreshControl) {
-        if sender.isRefreshing {
-            manager.checkCurrent()
+        guard sender.isRefreshing else {
+            return
+        }
+        manager.refresh { (response) in
+            self.handle(refreshResponse: response)
         }
     }
-    
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
-extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDelegate {
+extension SeatCurrentReservationDetailTableViewController {
     
-    func updateFailed(error: Error) {
-        previewDelegate?.handle(error: error)
+    func handle(cancelResponse: SeatResponse<Void>) {
+        switch cancelResponse {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(_):
+            update(reservation: nil)
+        }
+    }
+    
+    func handle(refreshResponse: SeatResponse<SeatReservation?>) {
+        switch refreshResponse {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(let reservation):
+            update(reservation: reservation)
+        }
+    }
+    
+    func handle(error: Error) {
+        previewDelegate?.handle(self, error: error)
         refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
@@ -259,9 +229,9 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
         cancelButton.isEnabled = true
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
+    func handle(failedResponse: SeatFailedResponse) {
         if let delegate = previewDelegate {
-            delegate.handle(failedResponse: failedResponse)
+            delegate.handle(self, failedResponse: failedResponse)
             return
         }
         if failedResponse.code == "12" {
@@ -275,16 +245,12 @@ extension SeatCurrentReservationDetailTableViewController: SeatHistoryManagerDel
         present(alertController, animated: true, completion: nil)
         cancelButton.isEnabled = true
     }
-    
-    func update(reservations: [SeatReservation]) {
-        return
-    }
-    
-    func update(current: SeatCurrentReservationRepresentable?) {
-        NotificationManager.shared.schedule(reservation: current)
-        WatchAppDelegate.shared.transferSeatReservation()
+
+    func update(reservation: SeatReservation?) {
+//        NotificationManager.shared.schedule(reservation: current)
+//        WatchAppDelegate.shared.transferSeatReservation()
         refreshControl?.endRefreshing()
-        guard let reservation = current else {
+        guard let reservation = reservation else {
             //Reservation Not Exist
             navigationController?.popViewController(animated: true)
             return

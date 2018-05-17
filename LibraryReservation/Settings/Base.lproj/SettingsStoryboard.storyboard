@@ -529,7 +529,7 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CtB-YZ-9hk">
                                 <rect key="frame" x="8" y="268" width="359" height="502"/>
-                                <string key="text">This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com.</string>
+                                <mutableString key="text">This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>

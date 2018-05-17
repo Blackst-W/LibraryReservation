@@ -24,7 +24,7 @@ class SeatHomepageViewController: UIViewController {
     
     private let reminderHeight: CGFloat = 168
     
-    var historyManager: SeatHistoryManager!
+    var historyManager = ReservationManager.shared
     var isLogining = false
     
     override func viewDidLoad() {
@@ -40,27 +40,29 @@ class SeatHomepageViewController: UIViewController {
         control.addTarget(self, action: #selector(refreshStateChanged), for: .valueChanged)
         contentScrollView.refreshControl = control
         
-        historyManager = SeatHistoryManager(delegate: self)
         reminderViewDisplayConstraint.constant = 0
         view.layoutIfNeeded()
-        if let reservation = historyManager.current {
+        if let reservation = historyManager.reservation {
             currentReservationView.update(reservation: reservation)
             showReminder()
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(newReservedSuccess(notification:)), name: .SeatReserved, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogout, object: nil)
         // Do any additional setup after loading the view.
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: currentReservationView)
         }
-        historyManager.checkCurrent()
+        historyManager.refresh { (response) in
+            self.handle(response: response)
+        }
     }
     
     @objc func refreshStateChanged() {
         if contentScrollView.refreshControl!.isRefreshing {
-            historyManager.reload()
-            historyManager.checkCurrent()
+            historyManager.refresh { (response) in
+                self.handle(response: response)
+            }
         }
     }
 
@@ -76,12 +78,9 @@ class SeatHomepageViewController: UIViewController {
     }
     
     @objc func newReservedSuccess(notification: Notification) {
-        historyManager.reload()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        historyManager.delegate = self
+        historyManager.refresh { (response) in
+            self.handle(response: response)
+        }
     }
     
     func hideReminder(animated: Bool) {
@@ -199,7 +198,7 @@ class SeatHomepageViewController: UIViewController {
 
     
     @IBAction func displayDetail(_ sender: UITapGestureRecognizer) {
-        guard let reservation = historyManager.current else {
+        guard let reservation = historyManager.reservation else {
             return
         }
         let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
@@ -220,7 +219,7 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
         if historyLoadingIndicator.isAnimating {
             hideLoginView()
         }
-        let count = historyManager.history.count
+        let count = historyManager.historys.count
         if count == 0 && AccountManager.isLogin {
             historyEmptyLabel.isHidden = false
         }else if count != 0 {
@@ -231,7 +230,7 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as! SeatHistoryCollectionViewCell
-        cell.update(reservation: historyManager.history[indexPath.item])
+        cell.update(reservation: historyManager.historys[indexPath.item])
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: cell)
         }
@@ -245,7 +244,7 @@ extension SeatHomepageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
-        let reservation = historyManager.history[indexPath.item]
+        let reservation = historyManager.historys[indexPath.item]
         let viewController = SeatHistoryDetailViewController.makeFromStoryboard()
         viewController.reservation = reservation
         navigationController?.pushViewController(viewController, animated: true)
@@ -267,7 +266,7 @@ extension SeatHomepageViewController: LoginViewDelegate {
     }
 }
 
-extension SeatHomepageViewController: SeatBaseDelegate {
+extension SeatHomepageViewController {
     func requireLogin() {
         if isLogining {
             return
@@ -276,7 +275,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         autoLogin(delegate: self, force: false)
     }
     
-    func updateFailed(error: Error) {
+    func handle(error: Error) {
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
@@ -284,7 +283,7 @@ extension SeatHomepageViewController: SeatBaseDelegate {
         contentScrollView.refreshControl?.endRefreshing()
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
+    func handle(failedResponse: SeatFailedResponse) {
         if failedResponse.code == "12" && !isLogining {
             currentReservationView.endCanceling()
             autoLogin(delegate: self)
@@ -298,11 +297,25 @@ extension SeatHomepageViewController: SeatBaseDelegate {
     }
 }
 
-extension SeatHomepageViewController: SeatHistoryManagerDelegate {
-    func update(current: SeatCurrentReservationRepresentable?) {
-        NotificationManager.shared.schedule(reservation: current)
-        WatchAppDelegate.shared.transferSeatReservation()
-        if let reservation = current {
+extension SeatHomepageViewController {
+    
+    func handle(response: SeatResponse<SeatReservation?>) {
+        switch response {
+        case .success(let reservation):
+            hideLoginView()
+            update(reservation: reservation)
+            update(reservations: historyManager.historys)
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        }
+    }
+    
+    func update(reservation: SeatReservation?) {
+        if let reservation = reservation {
             currentReservationView.update(reservation: reservation)
             showReminder()
         }else{
@@ -313,11 +326,9 @@ extension SeatHomepageViewController: SeatHistoryManagerDelegate {
         contentScrollView.refreshControl?.endRefreshing()
     }
     
-    
     func update(reservations: [SeatReservation]) {
         collectionView.reloadData()
         contentScrollView.refreshControl!.endRefreshing()
-//        contentScrollView.refreshControl!.perform(#selector(contentScrollView.refreshControl!.endRefreshing), with: nil, afterDelay: 0.5)
     }
 }
 
@@ -325,13 +336,13 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let sourceCell = previewingContext.sourceView as? SeatHistoryCollectionViewCell {
             let indexPath = collectionView.indexPath(for: sourceCell)!
-            let reservation = historyManager.history[indexPath.item]
+            let reservation = historyManager.historys[indexPath.item]
             let viewController = SeatHistoryDetailViewController.makeFromStoryboard()
             viewController.reservation = reservation
             viewController.preferredContentSize = CGSize(width: 0, height: 0)
             return viewController
         }else if let _ = previewingContext.sourceView as? SeatCurrentReservationView {
-            guard let reservation = historyManager.current else {
+            guard let reservation = historyManager.reservation else {
                 return nil
             }
             let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
@@ -353,15 +364,15 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
 }
 
 extension SeatHomepageViewController: SeatReservationPreviewDelegate {
-    func handle(error: Error) {
+    func handle(_ previewObject: Any, error: Error) {
         currentReservationView.endCanceling()
-        updateFailed(error: error)
+        handle(error: error)
     }
-    func handle(failedResponse: SeatFailedResponse) {
+    func handle(_ previewObject: Any, failedResponse: SeatFailedResponse) {
         currentReservationView.endCanceling()
-        updateFailed(failedResponse: failedResponse)
+        handle(failedResponse: failedResponse)
     }
-    func handleStartCancel() {
+    func handleCancel() {
         currentReservationView.startCanceling()
     }
 }
