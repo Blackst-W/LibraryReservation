@@ -8,8 +8,8 @@
 
 //SeatBaseResponse
 "SeatBaseResponse.unknownError" = "Request Error\nCode: %@\nMessage:%@";
-
 "SeatBaseResponse.success" = "Success";
+"SeatBaseResponse.maintenance" = "System Maintaining, please try again later.";
 
 //SeatAPIError
 "SeatAPIError.dataCorrupt" = "Data corrputed, please try again";

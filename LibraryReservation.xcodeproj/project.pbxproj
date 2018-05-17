@@ -68,6 +68,7 @@
 		ADC9DF5120AD64A400BB886D /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5020AD64A400BB886D /* ReservationManager.swift */; };
 		ADC9DF5320AD6ACB00BB886D /* ReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5220AD6ACB00BB886D /* ReservationManager.swift */; };
 		ADC9DF5520AD704200BB886D /* SeatTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5420AD704200BB886D /* SeatTimePicker.swift */; };
+		ADC9DF5920ADE9F000BB886D /* RecentUsedSeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5820ADE9F000BB886D /* RecentUsedSeat.swift */; };
 		ADCB2D3020996AFC0096C57E /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */; };
 		ADCB2D3220996AFC0096C57E /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D3120996AFC0096C57E /* UserNotificationsUI.framework */; };
 		ADCB2D3520996AFC0096C57E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB2D3420996AFC0096C57E /* NotificationViewController.swift */; };
@@ -318,6 +319,7 @@
 		ADC9DF5020AD64A400BB886D /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
 		ADC9DF5220AD6ACB00BB886D /* ReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationManager.swift; sourceTree = "<group>"; };
 		ADC9DF5420AD704200BB886D /* SeatTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTimePicker.swift; sourceTree = "<group>"; };
+		ADC9DF5820ADE9F000BB886D /* RecentUsedSeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentUsedSeat.swift; sourceTree = "<group>"; };
 		ADCB2D2E20996AFC0096C57E /* UpcomingNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = UpcomingNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		ADCB2D3120996AFC0096C57E /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -469,6 +471,7 @@
 				AD39DD4920A2EFBF00C8F6E5 /* SeatTimeFilter.swift */,
 				ADC9DF5220AD6ACB00BB886D /* ReservationManager.swift */,
 				ADC9DF5420AD704200BB886D /* SeatTimePicker.swift */,
+				ADC9DF5820ADE9F000BB886D /* RecentUsedSeat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1261,6 +1264,7 @@
 				AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */,
 				AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */,
 				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
+				ADC9DF5920ADE9F000BB886D /* RecentUsedSeat.swift in Sources */,
 				ADF367CC20890A1700C9379D /* SeatLibraryView.swift in Sources */,
 				ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,

@@ -9,6 +9,8 @@
 struct ReservationArchive: Codable {
     let reservation: SeatReservation?
     let historys: [SeatReservation]
+    let recentSeats: [DetailSeat]
+    let savedSeats: [DetailSeat]
 }
 
 class ReservationManager: NSObject {
@@ -20,6 +22,8 @@ class ReservationManager: NSObject {
         }
     }
     var historys: [SeatReservation] = []
+    var recentSeats: [DetailSeat] = []
+    var savedSeats: [DetailSeat] = []
     var manager = SeatHistoryManager()
     static let shared = ReservationManager()
     
@@ -67,6 +71,8 @@ class ReservationManager: NSObject {
         }
         reservation = archive.reservation
         historys = archive.historys
+        savedSeats = archive.savedSeats
+        recentSeats = archive.recentSeats
     }
     
     func save() {
@@ -77,7 +83,7 @@ class ReservationManager: NSObject {
         guard let account = account else {
             return
         }
-        let archive = ReservationArchive(reservation: reservation, historys: historys)
+        let archive = ReservationArchive(reservation: reservation, historys: historys, recentSeats: recentSeats, savedSeats: savedSeats)
         let encoder = JSONEncoder()
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         let data = try! encoder.encode(archive)
@@ -99,6 +105,41 @@ class ReservationManager: NSObject {
         let fileManager = FileManager.default
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         try? fileManager.removeItem(atPath: filePath.absoluteString)
+    }
+    
+    func add(recentSeat: DetailSeat) {
+        if let index = recentSeats.index(of: recentSeat) {
+            recentSeats.remove(at: index)
+        }
+        recentSeats.insert(recentSeat, at: 0)
+        if recentSeats.count > 10 {
+            recentSeats.removeLast()
+        }
+        save()
+    }
+    
+    func add(savedSeat: DetailSeat) {
+        if let index = savedSeats.index(of: savedSeat) {
+            savedSeats.remove(at: index)
+        }
+        savedSeats.insert(savedSeat, at: 0)
+        save()
+    }
+    
+    func remove(recentSeatIndex: Int) {
+        guard recentSeatIndex < recentSeats.count else {
+            return
+        }
+        recentSeats.remove(at: recentSeatIndex)
+        save()
+    }
+    
+    func remove(savedSeatIndex: Int) {
+        guard savedSeatIndex < savedSeats.count else {
+            return
+        }
+        savedSeats.remove(at: savedSeatIndex)
+        save()
     }
     
     func refresh(callback: SeatHandler<SeatReservation?>?) {
@@ -124,6 +165,24 @@ class ReservationManager: NSObject {
             }
         }
     }
+    
+    func reserve(seat: Seat, room: Room, library: Library, date: Date, start: SeatTime, end: SeatTime, cols: Int, rows: Int, seats: [Seat], callback: SeatHandler<Void>?) {
+        SeatReserveManager().reserve(seat: seat, date: date, start: start, end: end) { (response) in
+            if case .success(_) = response {
+                let location = SeatLocationData(cols: cols, rows: rows, seats: seats.map{ReducedSeat(seat: $0)})
+                let recentSeat = DetailSeat(seat: seat, room: room, library: library, startTime: start, endTime: end, date: date, location: location)
+                self.add(recentSeat: recentSeat)
+            }
+            callback?(response)
+        }
+    }
+    
+    func save(seat: Seat, room: Room, library: Library, date: Date, start: SeatTime, end: SeatTime, cols: Int, rows: Int, seats: [Seat]) {
+        let location = SeatLocationData(cols: cols, rows: rows, seats: seats.map{ReducedSeat(seat: $0)})
+        let savedSeat = DetailSeat(seat: seat, room: room, library: library, startTime: start, endTime: end, date: date, location: location)
+        self.add(savedSeat: savedSeat)
+    }
+    
     
     func cancel(callback: SeatHandler<Void>?) {
         guard let reservation = reservation else {

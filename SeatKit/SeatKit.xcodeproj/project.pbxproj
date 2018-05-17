@@ -40,8 +40,7 @@
 		ADBDA48B2097520C00644D33 /* SeatFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */; };
 		ADBDA48C2097520C00644D33 /* RoomData.json in Resources */ = {isa = PBXBuildFile; fileRef = ADBDA4822097520C00644D33 /* RoomData.json */; };
 		ADBDA48D2097520C00644D33 /* LibraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4832097520C00644D33 /* LibraryData.swift */; };
-		ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */; };
-		ADBDA48F2097520C00644D33 /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4852097520C00644D33 /* SeatReservationManager.swift */; };
+		ADBDA48F2097520C00644D33 /* SeatLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4852097520C00644D33 /* SeatLibraryManager.swift */; };
 		ADBDA4902097520C00644D33 /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4862097520C00644D33 /* SeatResponse.swift */; };
 		ADBDA4912097520C00644D33 /* SeatReserveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4872097520C00644D33 /* SeatReserveManager.swift */; };
 		ADBDA4932097520C00644D33 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4892097520C00644D33 /* SeatReservation.swift */; };
@@ -90,8 +89,7 @@
 		ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatFilterCondition.swift; sourceTree = "<group>"; };
 		ADBDA4822097520C00644D33 /* RoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoomData.json; sourceTree = "<group>"; };
 		ADBDA4832097520C00644D33 /* LibraryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryData.swift; sourceTree = "<group>"; };
-		ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableSeatManager.swift; sourceTree = "<group>"; };
-		ADBDA4852097520C00644D33 /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
+		ADBDA4852097520C00644D33 /* SeatLibraryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatLibraryManager.swift; sourceTree = "<group>"; };
 		ADBDA4862097520C00644D33 /* SeatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
 		ADBDA4872097520C00644D33 /* SeatReserveManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReserveManager.swift; sourceTree = "<group>"; };
 		ADBDA4892097520C00644D33 /* SeatReservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
@@ -251,14 +249,13 @@
 		ADBDA47F209751EA00644D33 /* Seat */ = {
 			isa = PBXGroup;
 			children = (
-				ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */,
+				ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */,
+				ADBDA4852097520C00644D33 /* SeatLibraryManager.swift */,
+				ADBDA4872097520C00644D33 /* SeatReserveManager.swift */,
 				ADBDA4822097520C00644D33 /* RoomData.json */,
 				ADBDA4832097520C00644D33 /* LibraryData.swift */,
 				ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */,
-				ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */,
 				ADBDA4892097520C00644D33 /* SeatReservation.swift */,
-				ADBDA4852097520C00644D33 /* SeatReservationManager.swift */,
-				ADBDA4872097520C00644D33 /* SeatReserveManager.swift */,
 				ADBDA4862097520C00644D33 /* SeatResponse.swift */,
 				ADC9DF4620AD2B2A00BB886D /* Library.swift */,
 				ADC9DF4820AD2B4700BB886D /* Room.swift */,
@@ -418,7 +415,6 @@
 				ADBDA479209750E300644D33 /* Settings.swift in Sources */,
 				ADBDA47D2097516B00644D33 /* SeatBaseResponse.swift in Sources */,
 				ADC9DF4920AD2B4700BB886D /* Room.swift in Sources */,
-				ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */,
 				ADBDA48A2097520C00644D33 /* SeatHistoryManager.swift in Sources */,
 				ADBDA4742097500200644D33 /* UserInfo.swift in Sources */,
 				ADBDA4902097520C00644D33 /* SeatResponse.swift in Sources */,
@@ -426,7 +422,7 @@
 				ADBDA4912097520C00644D33 /* SeatReserveManager.swift in Sources */,
 				ADBDA47E2097516B00644D33 /* SeatNetworkBaseManager.swift in Sources */,
 				ADBDA4932097520C00644D33 /* SeatReservation.swift in Sources */,
-				ADBDA48F2097520C00644D33 /* SeatReservationManager.swift in Sources */,
+				ADBDA48F2097520C00644D33 /* SeatLibraryManager.swift in Sources */,
 				ADBDA4722097500200644D33 /* AccountManager.swift in Sources */,
 				ADBDA4732097500200644D33 /* Account.swift in Sources */,
 				ADBDA48B2097520C00644D33 /* SeatFilterCondition.swift in Sources */,

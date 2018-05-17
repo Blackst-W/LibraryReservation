@@ -157,16 +157,19 @@ class ReservationManager: NSObject {
     func fetch(page: Int, callback: SeatHandler<[SeatReservation]>?) {
         manager.fetchHistory(page: page) { (response) in
             callback?(response)
-            if page == 0,
-                case .success(let reservations) = response {
-                self.historys = reservations
-                for reservation in reservations {
-                    if !reservation.isHistory {
-                        self.reservation = reservation
-                        break
-                    }
-                }
+            guard page == 0,
+                case .success(let reservations) = response else {
+                    return
             }
+            self.historys = reservations
+            for reservation in reservations {
+                guard !reservation.isHistory else{
+                    continue
+                }
+                self.reservation = reservation
+                break
+            }
+            
         }
     }
 }

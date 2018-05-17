@@ -9,9 +9,8 @@
 import UIKit
 
 protocol SeatReservationPreviewDelegate: class {
-    func handle(_ previewObject: Any, error: Error)
-    func handle(_ previewObject: Any, failedResponse: SeatFailedResponse)
-    func handleCancel()
+    func handleCancel(_ previewObject: Any)
+    func handle(_ previewObject: Any, cancelResponse: SeatResponse<Void>)
 }
 
 class SeatCurrentReservationDetailTableViewController: UITableViewController {
@@ -164,9 +163,9 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
             UIPasteboard.general.string = self.reservation.rawLocation
         }
         let confirmCancelAction = UIPreviewAction(title: "Confirm".localized, style: .destructive) { (_, viewController) in
-            self.previewDelegate?.handleCancel()
+            self.previewDelegate?.handleCancel(self)
             self.manager.cancel() { (response) in
-                self.handle(cancelResponse: response)
+                self.previewDelegate?.handle(self, cancelResponse: response)
             }
         }
         
@@ -220,7 +219,6 @@ extension SeatCurrentReservationDetailTableViewController {
     }
     
     func handle(error: Error) {
-        previewDelegate?.handle(self, error: error)
         refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
@@ -230,10 +228,6 @@ extension SeatCurrentReservationDetailTableViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if let delegate = previewDelegate {
-            delegate.handle(self, failedResponse: failedResponse)
-            return
-        }
         if failedResponse.code == "12" {
             autoLogin(delegate: self)
             return

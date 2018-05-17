@@ -6,11 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-struct SeatReservationArchive: Codable {
-    let sid: String
-    let reservations: [SeatReservation]
-}
-
 public class SeatHistoryManager: SeatBaseNetworkManager {
     
     public init() {
@@ -56,7 +51,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                 DispatchQueue.main.async {
                     callback?(.success(newReservations))
                 }
-            } catch DecodingError.keyNotFound {
+            } catch DecodingError.valueNotFound {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     DispatchQueue.main.async {
@@ -149,6 +144,15 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         }
         reservationTask.resume()
     }
+
+    public func cancel(reservation: SeatReservation, callback: SeatHandler<Void>?) {
+        switch reservation.currentState {
+        case .late(_), .upcoming(_):
+            stop(reservation: reservation, retry: true, callback: callback)
+        default:
+            cancel(reservation: reservation, retry: true, callback: callback)
+        }
+    }
     
     func stop(reservation: SeatReservation, retry: Bool, callback: SeatHandler<Void>?) {
         guard let account = AccountManager.shared.currentAccount,
@@ -198,15 +202,6 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
             }
         }
         cancelTask.resume()
-    }
-    
-    public func cancel(reservation: SeatReservation, callback: SeatHandler<Void>?) {
-        switch reservation.currentState {
-        case .late(_), .upcoming(_):
-            stop(reservation: reservation, retry: true, callback: callback)
-        default:
-            cancel(reservation: reservation, retry: true, callback: callback)
-        }
     }
     
     func cancel(reservation: SeatReservation, retry: Bool, callback: SeatHandler<Void>?) {

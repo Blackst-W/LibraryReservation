@@ -27,7 +27,7 @@ public struct Seat: Codable, Equatable {
     public let hasWindow: Bool
     public let hasPower: Bool
     public let hasComputer: Bool
-    public var layout: RoomLayout!
+    public var layout: SeatLayout!
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -40,7 +40,7 @@ public struct Seat: Codable, Equatable {
     }
     
     public var available: Bool {
-        return status == "FREE" || status == "AWAY" || status == "IN_USE"
+        return status == "FREE" || status == "AWAY" || status == "IN_USE" || status == "FULL"
     }
     
     public var availableNow: Bool {
@@ -48,7 +48,7 @@ public struct Seat: Codable, Equatable {
     }
     
     init?(layoutKey: String, values: [String: Any]) {
-        guard let layout = RoomLayout(key: layoutKey) else {
+        guard let layout = SeatLayout(key: layoutKey) else {
             return nil
         }
         self.layout = layout

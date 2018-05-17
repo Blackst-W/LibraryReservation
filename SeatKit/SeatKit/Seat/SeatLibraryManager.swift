@@ -1,5 +1,5 @@
 //
-//  SeatReservationManager.swift
+//  SeatLibraryManager.swift
 //  LibraryReservation
 //
 //  Created by Weston Wu on 2018/04/20.

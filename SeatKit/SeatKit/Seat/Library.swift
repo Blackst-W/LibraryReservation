@@ -6,7 +6,7 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-public enum Library: String {
+public enum Library: String, Codable {
     case main = "总馆"
     case engineering = "工学分馆"
     case info = "信息科学分馆"

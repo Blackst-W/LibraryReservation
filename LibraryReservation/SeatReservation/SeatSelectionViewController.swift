@@ -46,12 +46,11 @@ class SeatSelectionViewController: UIViewController {
     
     @IBOutlet weak var displayStyleControl: UISegmentedControl!
     
-    var manager: AvailableSeatManager!
     var library: Library!
     var room: Room!
     var date: Date!
     var layoutData: RoomLayoutData?
-    var seatTimeManager: SeatReserveManager!
+    var manager: SeatReserveManager!
     var selectedSeat: Seat? {
         didSet {
             if let oldSeat = oldValue {
@@ -69,6 +68,7 @@ class SeatSelectionViewController: UIViewController {
     var filter = SeatFilterCondition()
     
     override func viewDidLoad() {
+        manager = SeatReserveManager()
         PKHUD.sharedHUD.dimsBackground = false
         PKHUD.sharedHUD.userInteractionOnUnderlyingViewsEnabled = true
         super.viewDidLoad()
@@ -79,11 +79,9 @@ class SeatSelectionViewController: UIViewController {
         roomLabel.text = room.name
         scrollView.delegate = self
 //        scrollView.setZoomScale(0.6, animated: false)
-        manager = AvailableSeatManager()
         manager.check(room: room, date: date) { (response) in
             self.handle(response: response)
         }
-        seatTimeManager = SeatReserveManager()
         startLoading()
         setupPicker()
         setupFilter()
@@ -206,7 +204,7 @@ class SeatSelectionViewController: UIViewController {
         }
         selectedSeat = seat
         startLoading()
-        seatTimeManager.check(seat: seat, date: date) {
+        manager.check(seat: seat, date: date) {
             self.handle(response: $0)
         }
 
@@ -243,7 +241,7 @@ class SeatSelectionViewController: UIViewController {
         guard let (start, end) = timePickerManager.selectedTimes else {
             return
         }
-        seatTimeManager.reserve(seat: selectedSeat!, date: date, start: start, end: end) { (response) in
+        ReservationManager.shared.reserve(seat: selectedSeat!, room: room, library: library, date: date, start: start, end: end, cols: layoutData!.cols, rows: layoutData!.rows, seats: layoutData!.seats) { (response) in
             self.handle(response: response)
         }
     }

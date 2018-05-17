@@ -320,9 +320,7 @@ extension SeatHomepageViewController {
             currentReservationView.update(reservation: reservation)
             showReminder()
         }else{
-            if !currentReservationView.showingCancelEffect {
-                hideReminder(animated: true)
-            }
+            hideReminder(animated: true)
         }
         contentScrollView.refreshControl?.endRefreshing()
     }
@@ -365,15 +363,24 @@ extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
 }
 
 extension SeatHomepageViewController: SeatReservationPreviewDelegate {
-    func handle(_ previewObject: Any, error: Error) {
-        currentReservationView.endCanceling()
-        handle(error: error)
+    func handle(_ previewObject: Any, cancelResponse response: SeatResponse<Void>) {
+        switch response {
+        case .error(let error):
+            currentReservationView.endCanceling()
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+            currentReservationView.endCanceling()
+        case .requireLogin:
+            currentReservationView.endCanceling()
+            requireLogin()
+        case .success(_):
+            currentReservationView.showCancelEffect()
+            break
+        }
     }
-    func handle(_ previewObject: Any, failedResponse: SeatFailedResponse) {
-        currentReservationView.endCanceling()
-        handle(failedResponse: failedResponse)
-    }
-    func handleCancel() {
+    
+    func handleCancel(_ previewObject: Any) {
         currentReservationView.startCanceling()
     }
 }

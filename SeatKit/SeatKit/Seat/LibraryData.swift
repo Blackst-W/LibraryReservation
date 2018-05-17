@@ -6,7 +6,7 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-public struct RoomLayout: Codable {
+public struct SeatLayout: Codable {
     public let col: Int
     public let row: Int
     
