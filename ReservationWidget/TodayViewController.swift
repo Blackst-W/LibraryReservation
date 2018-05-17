@@ -34,7 +34,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         
-        manager = ReservationManager()
+        manager = ReservationManager.shared
         refreshButton.isEnabled = false
         if let reservation = manager.reservation {
             updateUI(reservation: reservation)

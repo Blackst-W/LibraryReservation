@@ -77,13 +77,10 @@ class ReservationManager: NSObject {
         guard let account = account else {
             return
         }
-        guard let reservation = reservation else {
-            delete()
-            return
-        }
+        let archive = ReservationArchive(reservation: reservation, historys: historys)
         let encoder = JSONEncoder()
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
-        let data = try! encoder.encode(reservation)
+        let data = try! encoder.encode(archive)
         do {
             try data.write(to: filePath)
         }catch{

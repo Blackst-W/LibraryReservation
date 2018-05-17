@@ -53,6 +53,7 @@ class SeatHomepageViewController: UIViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: currentReservationView)
         }
+        collectionView.reloadData()
         historyManager.refresh { (response) in
             self.handle(response: response)
         }
