@@ -70,6 +70,7 @@
 		ADC9DF6D20AEA49800BB886D /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6C20AEA49800BB886D /* SeatReservationManager.swift */; };
 		ADC9DF7320AEAD0B00BB886D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7220AEAD0B00BB886D /* Constants.swift */; };
 		ADC9DF7920AEBA9000BB886D /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7820AEBA8F00BB886D /* SeatReservationManager.swift */; };
+		ADC9DF7E20AEBE4D00BB886D /* ThemeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7D20AEBE4D00BB886D /* ThemeSettings.swift */; };
 		ADCB2D3020996AFC0096C57E /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */; };
 		ADCB2D3220996AFC0096C57E /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D3120996AFC0096C57E /* UserNotificationsUI.framework */; };
 		ADCB2D3520996AFC0096C57E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB2D3420996AFC0096C57E /* NotificationViewController.swift */; };
@@ -322,6 +323,7 @@
 		ADC9DF6C20AEA49800BB886D /* SeatReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
 		ADC9DF7220AEAD0B00BB886D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ADC9DF7820AEBA8F00BB886D /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
+		ADC9DF7D20AEBE4D00BB886D /* ThemeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettings.swift; sourceTree = "<group>"; };
 		ADCB2D2E20996AFC0096C57E /* UpcomingNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = UpcomingNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		ADCB2D3120996AFC0096C57E /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -628,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				AD7D1BC420A2E1AD00A0C6A7 /* AppSettings.swift */,
+				ADC9DF7D20AEBE4D00BB886D /* ThemeSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1265,6 +1268,7 @@
 				AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */,
 				AD50F2AE208A0C1700A7BD6A /* SeatCollectionView.swift in Sources */,
 				AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */,
+				ADC9DF7E20AEBE4D00BB886D /* ThemeSettings.swift in Sources */,
 				AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */,
 				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
 				ADF367CC20890A1700C9379D /* SeatLibraryView.swift in Sources */,
@@ -1594,7 +1598,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = "WatchApp Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1613,7 +1621,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = "WatchApp Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1751,7 +1763,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = "LibraryReservation/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LibraryReservation/Support Files/LibraryReservation-Bridging-Header.h";
@@ -1772,7 +1787,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = "LibraryReservation/Support Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LibraryReservation/Support Files/LibraryReservation-Bridging-Header.h";
@@ -1790,7 +1808,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = LibraryReservationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1808,7 +1830,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = LibraryReservationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1825,7 +1851,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = LibraryReservationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1842,7 +1872,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = LibraryReservationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.LibraryReservationUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1858,7 +1892,11 @@
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = UpcomingNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation.UpcomingNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1874,7 +1912,11 @@
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = UpcomingNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation.UpcomingNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1890,7 +1932,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = ReservationWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation.ReservationWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1906,7 +1952,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VW89X33YCD;
 				INFOPLIST_FILE = ReservationWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.westonwu.ios.SeatReservation.ReservationWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
