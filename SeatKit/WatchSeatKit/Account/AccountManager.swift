@@ -6,11 +6,11 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
 import Security
 
 public extension Notification.Name {
-    static let AccountChanged = Notification.Name("kAccountChangedNotification")
+    static let AccountLogin = Notification.Name("kAccountLoginNotification")
+    static let AccountLogout = Notification.Name("kAccountLoutoutNotification")
     static let UserInfoUpdated = Notification.Name("kUserInfoUpdatedNotification")
 }
 
@@ -43,17 +43,24 @@ public class AccountManager: NSObject {
     }
     
     public func login(account: UserAccount) {
+        if let _ = currentAccount {
+            logout()
+        }
         currentAccount = account
-        NotificationCenter.default.post(name: .AccountChanged, object: nil)
         save()
+        NotificationCenter.default.post(name: .AccountLogin, object: nil, userInfo: ["NewAccount": account])
+        
         fetchUserInfo()
     }
     
     public func logout() {
+        guard let account = currentAccount else {
+            return
+        }
+        NotificationCenter.default.post(name: .AccountLogout, object: nil, userInfo: ["OldAccount": account])
         deletePassword()
         userInfo = nil
         currentAccount = nil
-        NotificationCenter.default.post(name: .AccountChanged, object: nil)
         deleteAccount()
     }
     

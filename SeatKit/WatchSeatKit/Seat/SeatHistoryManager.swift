@@ -6,141 +6,18 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
-public extension Notification.Name {
-    static let SeatReservationCancel = Notification.Name("kSeatReservationCancelNotification")
-}
-
-public protocol SeatHistoryManagerDelegate: SeatBaseDelegate {
-    func update(reservations: [SeatReservation])
-    func update(current: SeatCurrentReservationRepresentable?)
-}
-
-struct SeatReservationArchive: Codable {
-    let sid: String
-    let reservations: [SeatReservation]
-    let current: SeatCurrentReservation?
-}
-
 public class SeatHistoryManager: SeatBaseNetworkManager {
     
-    private static let kFilePath = "SeatReservation.archive"
-    public var reservations: [SeatReservation] = [] {
-        didSet {
-            history = reservations.filter{$0.isHistory}
-        }
-    }
-    public var history: [SeatReservation] = []
-    public var current: SeatCurrentReservationRepresentable? {
-        didSet {
-            DispatchQueue.main.async {
-                self.delegate?.update(current: self.current)
-            }
-        }
-    }
-    public weak var delegate: SeatHistoryManagerDelegate?
-    private var pageCount = 0
-    public private(set) var end = false
-    private var loadingHistory = false
-    var timer: Timer?
-    
-    public init(delegate: SeatHistoryManagerDelegate?) {
+    public init() {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.librayrReservation.seat.history"))
-        self.delegate = delegate
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAccountChanged(notification:)), name: .AccountChanged, object: nil)
-        load()
-        startTimer()
     }
     
-    
-    func delete() {
-        delete(filePath: SeatHistoryManager.kFilePath)
-        reservations = []
-        current = nil
-        delegate?.update(reservations: [])
-    }
-    
-    public func startTimer() {
-        invalidateTimer()
-        let current = Date()
-        let second = 60 - Calendar.current.component(.second, from: current)
-        let nextMinute = current.addingTimeInterval(TimeInterval(second))
-        timer = Timer(fireAt: nextMinute, interval: 60, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-        RunLoop.current.add(timer!, forMode: .defaultRunLoopMode)
-    }
-    
-    public func invalidateTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    @objc func updateTime() {
-        guard let current = current else {
-            return
-        }
-        delegate?.update(current: current)
-    }
-    
-    func load() {
-        guard let username = AccountManager.shared.currentAccount?.username else {
-            delete()
-            return
-        }
-        guard let data = load(filePath: SeatHistoryManager.kFilePath) else {
-            print("Failed to load data from seat history file")
-            delete()
-            return
-        }
-        let decoder = JSONDecoder()
-        guard let archive = try? decoder.decode(SeatReservationArchive.self, from: data) else {
-            print("Failed to load archive from archive data")
-            delete()
-            return
-        }
-        guard archive.sid == username else {
-            delete()
-            return
-        }
-        reservations = archive.reservations
-        current = archive.current ?? reservations.filter{!$0.isHistory}.first
-    }
-    
-    func save() {
-        guard let username = AccountManager.shared.currentAccount?.username else {
-            //Not login
-            return
-        }
-        let encoder = JSONEncoder()
-        let currentReservation = current as? SeatCurrentReservation
-        let archive = SeatReservationArchive(sid: username, reservations: reservations, current: currentReservation)
-        let data = try! encoder.encode(archive)
-        save(data: data, filePath: SeatHistoryManager.kFilePath)
-    }
-    
-    public func reload() {
-        loadingHistory = true
-        pageCount = 1
-        fetchHistory(page: 1)
-    }
-    
-    public func loadMore() -> Bool {
-        if end {
-            return false
-        }
-        if loadingHistory {return true}
-        loadingHistory = true
-        pageCount += 1
-        fetchHistory(page: pageCount)
-        return true
-    }
-    
-    private func fetchHistory(page: Int) {
+    public func fetchHistory(page: Int, callback: SeatHandler<[SeatReservation]>?) {
         guard let account = AccountManager.shared.currentAccount,
         let token = account.token
             else {
             //Require Login
-            delegate?.requireLogin()
+            callback?(.requireLogin)
             return
         }
         
@@ -150,13 +27,11 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         historyRequest.httpMethod = "GET"
         historyRequest.allHTTPHeaderFields = CommonHeader
         historyRequest.addValue(token, forHTTPHeaderField: "token")
-        historyRequest.timeoutInterval = 10
         let historyTask = session.dataTask(with: historyRequest) { data, response, error in
-            self.loadingHistory = false
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
@@ -164,7 +39,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
             guard let data = data else {
                 print("Failed to retrive data")
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
@@ -173,71 +48,36 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
             do {
                 let historyResponse = try decoder.decode(SeatHistoryResponse.self, from: data)
                 let newReservations = historyResponse.data.reservations.sorted {$0 > $1}
-                if page == 1 {
-                    self.end = false
-                    self.reservations = newReservations
-                }else{
-                    let uniqueNewReservations = newReservations.filter{ (reservation) in
-                        !self.reservations.contains {$0 == reservation}
-                    }
-                    self.reservations.append(contentsOf: uniqueNewReservations)
-                }
-                if historyResponse.data.reservations.count < 10 {
-                    self.end = true
-                }
-                if let newReservation = self.reservations.filter({!$0.isHistory}).first {
-                    if let current = self.current {
-                        if current.id < newReservation.id {
-                            self.current = newReservation
-                            self.checkCurrent()
-                        }
-                    }else{
-                        self.current = newReservation
-                        self.checkCurrent()
-                    }
-                }else{
-                    self.current = nil
-                }
-                self.save()
                 DispatchQueue.main.async {
-                    self.delegate?.update(reservations: self.reservations)
-                }
-            } catch DecodingError.keyNotFound {
-                do {
-                    let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: failedResponse)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
-                    }
+                    callback?(.success(newReservations))
                 }
             } catch DecodingError.valueNotFound {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: failedResponse)
+                    if failedResponse.code == "12" {
+                        callback?(.requireLogin)
+                    }else{
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
             }
         }
         historyTask.resume()
     }
     
-    public func checkCurrent() {
+    public func checkCurrent(callback: SeatHandler<SeatCurrentReservation?>?) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token
             else {
-                delegate?.requireLogin()
+                callback?(.requireLogin)
                 return
         }
         let reservationURL = URL(string: "v2/user/reservations", relativeTo: SeatAPIURL)!
@@ -245,42 +85,40 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
         reservationRequest.httpMethod = "GET"
         reservationRequest.allHTTPHeaderFields = CommonHeader
         reservationRequest.addValue(token, forHTTPHeaderField: "token")
-        reservationRequest.timeoutInterval = 10
         let reservationTask = session.dataTask(with: reservationRequest) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
             guard let data = data else {
                 print("Failed to retrive data")
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
             let decoder = JSONDecoder()
             do {
                 let reservationResponse = try decoder.decode(SeatCurrentReservationResponse.self, from: data)
-                self.current = reservationResponse.data.first!
-                self.save()
+                callback?(.success(reservationResponse.data.first))
             } catch DecodingError.keyNotFound {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     if failedResponse.code == "0" {
                         DispatchQueue.main.async {
-                            self.delegate?.update(current: self.current)
+                            callback?(.success(nil))
                         }
+                    }else if failedResponse.code == "12" {
+                        callback?(.requireLogin)
                     }else{
-                        DispatchQueue.main.async {
-                            self.delegate?.updateFailed(failedResponse: failedResponse)
-                        }
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
                 }
             } catch DecodingError.valueNotFound {
@@ -288,48 +126,52 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     if failedResponse.code == "0" {
                         DispatchQueue.main.async {
-                            self.delegate?.update(current: self.current)
+                            callback?(.success(nil))
                         }
+                    }else if failedResponse.code == "12" {
+                        callback?(.requireLogin)
                     }else{
-                        DispatchQueue.main.async {
-                            self.delegate?.updateFailed(failedResponse: failedResponse)
-                        }
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
             }
         }
         reservationTask.resume()
     }
+
+    public func cancel(reservation: SeatReservation, callback: SeatHandler<Void>?) {
+        switch reservation.currentState {
+        case .late(_), .upcoming(_):
+            stop(reservation: reservation, retry: true, callback: callback)
+        default:
+            cancel(reservation: reservation, retry: true, callback: callback)
+        }
+    }
     
-    public func cancelReservation() {
+    func stop(reservation: SeatReservation, retry: Bool, callback: SeatHandler<Void>?) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
-                delegate?.requireLogin()
+                callback?(.requireLogin)
                 return
         }
-        guard let reservationID = current?.id else {
-            delegate?.update(current: nil)
-            return
-        }
-        let cancelURL = URL(string: "v2/cancel/\(reservationID)", relativeTo: SeatAPIURL)!
+        let cancelURL = URL(string: "v2/stop", relativeTo: SeatAPIURL)!
         var cancelRequest = URLRequest(url: cancelURL)
         cancelRequest.httpMethod = "GET"
         cancelRequest.allHTTPHeaderFields = CommonHeader
         cancelRequest.addValue(token, forHTTPHeaderField: "token")
-        cancelRequest.timeoutInterval = 10
         let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
@@ -337,7 +179,57 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
             guard let data = data else {
                 print("Failed to retrive data")
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                    callback?(.error(SeatAPIError.dataMissing))
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let cancelResponse = try decoder.decode(SeatBaseResponse.self, from: data)
+                if cancelResponse.code == "0" {
+                    DispatchQueue.main.async {
+                        callback?(.success(()))
+                    }
+                }else if retry && cancelResponse.code == "1" {
+                    self.cancel(reservation: reservation, retry: false, callback: callback)
+                }else if cancelResponse.code == "12" {
+                    callback?(.requireLogin)
+                }else{
+                    callback?(.failed(cancelResponse))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    callback?(.error(error))
+                }
+            }
+        }
+        cancelTask.resume()
+    }
+    
+    func cancel(reservation: SeatReservation, retry: Bool, callback: SeatHandler<Void>?) {
+        guard let account = AccountManager.shared.currentAccount,
+            let token = account.token else {
+                callback?(.requireLogin)
+                return
+        }
+        let cancelURL = URL(string: "v2/cancel/\(reservation.id)", relativeTo: SeatAPIURL)!
+        var cancelRequest = URLRequest(url: cancelURL)
+        cancelRequest.httpMethod = "GET"
+        cancelRequest.allHTTPHeaderFields = CommonHeader
+        cancelRequest.addValue(token, forHTTPHeaderField: "token")
+        let cancelTask = session.dataTask(with: cancelRequest) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    callback?(.error(error))
+                }
+                return
+            }
+            
+            guard let data = data else {
+                print("Failed to retrive data")
+                DispatchQueue.main.async {
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
@@ -347,35 +239,21 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                 let cancelResponse = try decoder.decode(SeatBaseResponse.self, from: data)
                 if cancelResponse.code == "0" {
                     DispatchQueue.main.async {
-                        self.current = nil
-                        self.save()
-                        self.reload()
-                        NotificationCenter.default.post(name: .SeatReservationCancel, object: nil)
+                        callback?(.success(()))
                     }
-                }else{
-                    DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: cancelResponse)
+                }else if retry && cancelResponse.code == "1" {
+                    self.stop(reservation: reservation, retry: false, callback: callback)
+                }else if cancelResponse.code == "12" {
+                        callback?(.requireLogin)
+                    }else{
+                        callback?(.failed(cancelResponse))
                     }
-                }
             } catch {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
             }
         }
         cancelTask.resume()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func handleAccountChanged(notification: Notification) {
-        if AccountManager.isLogin {
-            pageCount = 0
-            reload()
-        }else{
-            delete()
-        }
     }
 }

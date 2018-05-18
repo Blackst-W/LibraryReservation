@@ -24,7 +24,7 @@ class SeatHomepageViewController: UIViewController {
     
     private let reminderHeight: CGFloat = 168
     
-    var historyManager = ReservationManager.shared
+    var historyManager = SeatReservationManager.shared
     var isLogining = false
     
     override func viewDidLoad() {
@@ -48,6 +48,7 @@ class SeatHomepageViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogout, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reserveSuccess(notification:)), name: .ReserveSuccess, object: nil)
         // Do any additional setup after loading the view.
         
         if traitCollection.forceTouchCapability == .available {
@@ -66,6 +67,12 @@ class SeatHomepageViewController: UIViewController {
             }
         }
     }
+    
+    @objc func reserveSuccess(notification: Notification) {
+        historyManager.refresh { (response) in
+            self.handle(response: response)
+        }
+    }
 
     @objc func accountChanged(notification: Notification) {
         DispatchQueue.main.async {
@@ -75,6 +82,9 @@ class SeatHomepageViewController: UIViewController {
                 return
             }
             self.showIndicator()
+            self.historyManager.refresh(callback: { (response) in
+                self.handle(response: response)
+            })
         }
     }
     
@@ -285,11 +295,6 @@ extension SeatHomepageViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" && !isLogining {
-            currentReservationView.endCanceling()
-            autoLogin(delegate: self)
-            return
-        }
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)

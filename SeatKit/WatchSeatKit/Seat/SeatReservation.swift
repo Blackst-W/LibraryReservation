@@ -6,23 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
-public protocol SeatCurrentReservationRepresentable {
-    var id: Int {get}
-    var time: SeatReservationTime {get}
-    var location: SeatLocation? {get}
-    var currentState: SeatCurrentReservationState {get}
-    var seatID: Int? {get}
-    var receiptID: String? {get}
-    var awayStart: Date? {get}
-    var isStarted: Bool {get}
-    var rawLocation: String {get}
-    var rawDate: String {get}
-    var rawBegin: String {get}
-    var rawEnd: String {get}
-}
-
 public struct SeatReservationTime {
     public let date: Date
     public let start: Date
@@ -226,7 +209,7 @@ public struct SeatReservation: Codable {
         return formatter.date(from: "\(rawDate) \(endTime)")
     }
     
-    var isHistory: Bool {
+    public var isHistory: Bool {
         switch state {
         case .reserve, .checkIn, .away:
             return false
@@ -243,6 +226,11 @@ public struct SeatReservation: Codable {
             return false
         }
     }
+    
+    public var jsonData: Data {
+        let encoder = JSONEncoder()
+        return try! encoder.encode(self)
+    }
 }
 
 extension SeatReservation: Equatable {
@@ -257,7 +245,7 @@ extension SeatReservation: Comparable {
     }
 }
 
-extension SeatReservation: SeatCurrentReservationRepresentable {
+extension SeatReservation {
     
     public var currentState: SeatCurrentReservationState {
         let current = Date()
@@ -478,7 +466,7 @@ extension SeatCurrentReservation: Comparable {
     }
 }
 
-extension SeatCurrentReservation: SeatCurrentReservationRepresentable {
+extension SeatCurrentReservation {
     
     public var seatID: Int? {
         return seatId
@@ -486,5 +474,10 @@ extension SeatCurrentReservation: SeatCurrentReservationRepresentable {
     
     public var receiptID: String? {
         return receipt
+    }
+    
+    public var jsonData: Data {
+        let encoder = JSONEncoder()
+        return try! encoder.encode(self)
     }
 }

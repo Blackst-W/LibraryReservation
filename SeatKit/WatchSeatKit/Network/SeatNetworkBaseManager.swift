@@ -6,27 +6,15 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
-public enum SeatAPIError: Int, Error {
-    
-    case dataCorrupt
-    case dataMissing
-    case unknown
-    
-}
-
-public protocol SeatBaseDelegate: class {
-    func requireLogin()
-    func updateFailed(error: Error)
-    func updateFailed(failedResponse: SeatFailedResponse)
-}
-
 public class SeatBaseNetworkManager: NSObject {
     
     let taskQueue: DispatchQueue
     public static let `default` = SeatBaseNetworkManager(queue: DispatchQueue(label: "com.westonwu.ios.libraryReservation.seat.base.default"))
-    let session = URLSession.shared
+    let session: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 10
+        return URLSession(configuration: configuration)
+    }()
     
     private override init() {
         fatalError("invalid seat network manager init")
@@ -37,7 +25,7 @@ public class SeatBaseNetworkManager: NSObject {
         super.init()
     }
     
-    public func login(username: String, password: String, callback: ((Error?, SeatLoginResponse?, SeatFailedResponse?)->Void)?) {
+    public func login(username: String, password: String, callback: SeatHandler<SeatLoginResponse>?) {
         guard let username = username.urlQueryEncoded,
             let password = password.urlQueryEncoded else {
                 return
@@ -47,12 +35,11 @@ public class SeatBaseNetworkManager: NSObject {
         var loginRequest = URLRequest(url: loginURL)
         loginRequest.allHTTPHeaderFields = CommonHeader
         loginRequest.httpMethod = "GET"
-        loginRequest.timeoutInterval = 10
         let loginTask = session.dataTask(with: loginRequest) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
-                    callback?(error, nil, nil)
+                    callback?(.error(error))
                 }
                 return
             }
@@ -60,7 +47,7 @@ public class SeatBaseNetworkManager: NSObject {
             guard let data = data else {
                 print("Failed to retrive data")
                 DispatchQueue.main.async {
-                    callback?(SeatAPIError.dataMissing, nil, nil)
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
@@ -69,22 +56,22 @@ public class SeatBaseNetworkManager: NSObject {
             do {
                 let loginResponse = try decoder.decode(SeatLoginResponse.self, from: data)
                 DispatchQueue.main.async {
-                    callback?(nil, loginResponse, nil)
+                    callback?(.success(loginResponse))
                 }
             } catch DecodingError.valueNotFound {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     DispatchQueue.main.async {
-                        callback?(nil, nil, failedResponse)
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        callback?(error, nil, nil)
+                        callback?(.error(error))
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    callback?(error, nil, nil)
+                    callback?(.error(error))
                 }
             }
         }

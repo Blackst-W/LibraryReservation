@@ -7,8 +7,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
 public extension Notification.Name {
     public static let SettingsChanged = Notification.Name("kSettingsChangedNotification")
     public static let PasswordSettingChanged = Notification.Name("kPasswordSettingChangedNotification")
@@ -53,7 +51,7 @@ public struct NotificationSettings: Codable {
     public var seat: SeatNotificationSettings
     public var meetingRoom: MeetingRoomNotificationSettings
     
-    public static let `default` = NotificationSettings(enable: false, seat: .default, meetingRoom: .default)
+    public static let `default` = NotificationSettings(enable: true, seat: .default, meetingRoom: .default)
     
 }
 

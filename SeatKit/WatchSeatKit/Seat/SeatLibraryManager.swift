@@ -1,33 +1,23 @@
 //
-//  SeatReservationManager.swift
+//  SeatLibraryManager.swift
 //  LibraryReservation
 //
 //  Created by Weston Wu on 2018/04/20.
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
-public typealias SeatLibraryResponse = SeatAPIArrayResponse<Room>
-
-public protocol SeatLibraryDelegate: SeatBaseDelegate {
-    func update(rooms: [Room], `for` library: Library)
-}
-
 public class SeatLibraryManager: SeatBaseNetworkManager {
     
     public let libraryData = LibraryData()
-    weak var delegate: SeatLibraryDelegate?
     
-    public init(delegate: SeatLibraryDelegate?) {
-        self.delegate = delegate
+    public init() {
         super.init(queue: DispatchQueue(label: "com.westonwu.ios.LibraryReservation.seat.library"))
     }
     
-    public func check(library: Library) {
+    public func check(library: Library, callback: SeatHandler<[Room]>?) {
         guard let account = AccountManager.shared.currentAccount,
             let token = account.token else {
-                delegate?.requireLogin()
+                callback?(.requireLogin)
                 return
         }
         let libraryURL = URL(string: "v2/room/stats2/\(library.areaID)", relativeTo: SeatAPIURL)!
@@ -39,14 +29,14 @@ public class SeatLibraryManager: SeatBaseNetworkManager {
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
                 return
             }
             guard let data = data else {
                 print("Failed to retrive data")
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: SeatAPIError.dataMissing)
+                    callback?(.error(SeatAPIError.dataMissing))
                 }
                 return
             }
@@ -55,22 +45,24 @@ public class SeatLibraryManager: SeatBaseNetworkManager {
                 let libraryResponse = try decoder.decode(SeatLibraryResponse.self, from: data)
                 self.libraryData[library] = libraryResponse.data
                 DispatchQueue.main.async {
-                    self.delegate?.update(rooms: libraryResponse.data, for: library)
+                    callback?(.success(libraryResponse.data))
                 }
             } catch DecodingError.valueNotFound {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.delegate?.updateFailed(failedResponse: failedResponse)
+                    if failedResponse.code == "12" {
+                        callback?(.requireLogin)
+                    }else{
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        self.delegate?.updateFailed(error: error)
+                        callback?(.error(error))
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self.delegate?.updateFailed(error: error)
+                    callback?(.error(error))
                 }
             }
         }

@@ -38,7 +38,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     @IBOutlet weak var cancelButton: UIButton!
     
     
-    var manager: ReservationManager!
+    var manager: SeatReservationManager!
     
     class func makeFromStoryboard() -> SeatCurrentReservationDetailTableViewController {
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
@@ -48,7 +48,7 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager = ReservationManager.shared
+        manager = SeatReservationManager.shared
         reservation = manager.reservation
         updateUI()
     }
@@ -228,10 +228,6 @@ extension SeatCurrentReservationDetailTableViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            autoLogin(delegate: self)
-            return
-        }
         refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)

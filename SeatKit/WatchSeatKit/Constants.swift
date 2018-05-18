@@ -6,8 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
 public extension String {
     var urlQueryEncoded: String? {
         return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -24,8 +22,8 @@ extension String {
 }
 
 public let CommonHeader: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                                      "User-Agent": "doSingle/11 CFNetwork/897.15 Darwin/17.5.0",
-                                      "Accept-Encoding":"gzip, deflate"]
+                                             "User-Agent": "doSingle/11 CFNetwork/897.15 Darwin/17.5.0",
+                                             "Accept-Encoding":"gzip, deflate"]
 
 let GroupID = "group.com.westonwu.ios.whu"
 

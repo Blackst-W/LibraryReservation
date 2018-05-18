@@ -14,7 +14,7 @@ class SeatHistoryViewController: UIViewController {
     @IBOutlet weak var remindLabel: UILabel!
     @IBOutlet weak var loadMoreLabel: UILabel!
     
-    var manager = ReservationManager.shared
+    var manager = SeatReservationManager.shared
     var data: [SeatReservation] = []
     var page = 1
     var reachBottom = false
@@ -166,10 +166,6 @@ extension SeatHistoryViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            autoLogin(delegate: self)
-            return
-        }
         tableView.refreshControl?.endRefreshing()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)

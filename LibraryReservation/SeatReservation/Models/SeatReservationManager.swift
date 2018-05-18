@@ -6,14 +6,18 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-struct ReservationArchive: Codable {
+struct SeatReservationArchive: Codable {
     let reservation: SeatReservation?
     let historys: [SeatReservation]
     let recentSeats: [DetailSeat]
     let savedSeats: [DetailSeat]
 }
 
-class ReservationManager: NSObject {
+extension Notification.Name {
+    static let ReserveSuccess = Notification.Name("ReserveSuccessNotification")
+}
+
+class SeatReservationManager: NSObject {
     var account = AccountManager.shared.currentAccount
     var reservation: SeatReservation? {
         didSet {
@@ -25,7 +29,7 @@ class ReservationManager: NSObject {
     var recentSeats: [DetailSeat] = []
     var savedSeats: [DetailSeat] = []
     var manager = SeatHistoryManager()
-    static let shared = ReservationManager()
+    static let shared = SeatReservationManager()
     
     private override init() {
         super.init()
@@ -64,7 +68,7 @@ class ReservationManager: NSObject {
         let path = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         let decoder = JSONDecoder()
         guard let data = try? Data(contentsOf: path),
-            let archive = try? decoder.decode(ReservationArchive.self, from: data) else {
+            let archive = try? decoder.decode(SeatReservationArchive.self, from: data) else {
                 reservation = nil
                 historys = []
                 return
@@ -83,7 +87,7 @@ class ReservationManager: NSObject {
         guard let account = account else {
             return
         }
-        let archive = ReservationArchive(reservation: reservation, historys: historys, recentSeats: recentSeats, savedSeats: savedSeats)
+        let archive = SeatReservationArchive(reservation: reservation, historys: historys, recentSeats: recentSeats, savedSeats: savedSeats)
         let encoder = JSONEncoder()
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         let data = try! encoder.encode(archive)
@@ -172,6 +176,7 @@ class ReservationManager: NSObject {
                 let location = SeatLocationData(cols: cols, rows: rows, seats: seats.map{ReducedSeat(seat: $0)})
                 let recentSeat = DetailSeat(seat: seat, room: room, library: library, startTime: start, endTime: end, date: date, location: location)
                 self.add(recentSeat: recentSeat)
+                NotificationCenter.default.post(name: .ReserveSuccess, object: recentSeat)
             }
             callback?(response)
         }

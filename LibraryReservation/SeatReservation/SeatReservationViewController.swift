@@ -171,10 +171,6 @@ extension SeatReservationViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            autoLogin(delegate: self, force: false)
-            return
-        }
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)

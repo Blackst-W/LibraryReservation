@@ -55,7 +55,11 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     DispatchQueue.main.async {
-                        callback?(.failed(failedResponse))
+                        if failedResponse.code == "12" {
+                            callback?(.requireLogin)
+                        }else{
+                            callback?(.failed(failedResponse))
+                        }
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -109,10 +113,10 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                         DispatchQueue.main.async {
                             callback?(.success(nil))
                         }
+                    }else if failedResponse.code == "12" {
+                        callback?(.requireLogin)
                     }else{
-                        DispatchQueue.main.async {
-                            callback?(.failed(failedResponse))
-                        }
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -126,11 +130,12 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                         DispatchQueue.main.async {
                             callback?(.success(nil))
                         }
+                    }else if failedResponse.code == "12" {
+                        callback?(.requireLogin)
                     }else{
-                        DispatchQueue.main.async {
-                            callback?(.failed(failedResponse))
-                        }
+                        callback?(.failed(failedResponse))
                     }
+                    
                 } catch {
                     DispatchQueue.main.async {
                         callback?(.error(error))
@@ -190,10 +195,10 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                     }
                 }else if retry && cancelResponse.code == "1" {
                     self.cancel(reservation: reservation, retry: false, callback: callback)
+                }else if cancelResponse.code == "12" {
+                    callback?(.requireLogin)
                 }else{
-                    DispatchQueue.main.async {
-                        callback?(.failed(cancelResponse))
-                    }
+                    callback?(.failed(cancelResponse))
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -241,10 +246,10 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                     }
                 }else if retry && cancelResponse.code == "1" {
                     self.stop(reservation: reservation, retry: false, callback: callback)
+                }else if cancelResponse.code == "12" {
+                    callback?(.requireLogin)
                 }else{
-                    DispatchQueue.main.async {
-                        callback?(.failed(cancelResponse))
-                    }
+                    callback?(.failed(cancelResponse))
                 }
             } catch {
                 DispatchQueue.main.async {

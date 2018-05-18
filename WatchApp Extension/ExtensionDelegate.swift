@@ -11,7 +11,8 @@ import WatchConnectivity
 import WatchSeatKit
 
 extension Notification.Name {
-    static let CurrentSeatReservationChanged = Notification.Name("CurrentSeatReservationChangedNotificationName")
+    static let ReceiveAccountUpdate = Notification.Name("kReceiveAccountUpdateNotification")
+    static let ReceiveReservationUpdate = Notification.Name("kReceiveReservationUpdateReservation")
 }
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
@@ -21,17 +22,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     }
     
     var session: WCSession!
-    var currentSeatReservation: SeatCurrentReservationRepresentable? {
-        didSet {
-            NotificationCenter.default.post(name: .CurrentSeatReservationChanged, object: nil)
-        }
-    }
     
     func applicationDidFinishLaunching() {
         session = WCSession.default
         session.delegate = self
         session.activate()
-        currentSeatReservation = SeatHistoryManager(delegate: nil).current
         // Perform any final initialization of your application.
     }
     
@@ -123,14 +118,17 @@ extension ExtensionDelegate: WCSessionDelegate {
         
         guard let data = message["UpdateAccountDataKey"] as? Data else {
             AccountManager.shared.logout()
+            NotificationCenter.default.post(name: .ReceiveAccountUpdate, object: nil)
             return
         }
         let decoder = JSONDecoder()
         guard let account = try? decoder.decode(UserAccount.self, from: data) else {
             AccountManager.shared.logout()
+            NotificationCenter.default.post(name: .ReceiveAccountUpdate, object: nil)
             return
         }
         AccountManager.shared.login(account: account)
+        NotificationCenter.default.post(name: .ReceiveAccountUpdate, object: account)
     }
     
     func handleSeatReservation(message: [String: Any]) {
@@ -138,17 +136,15 @@ extension ExtensionDelegate: WCSessionDelegate {
             return
         }
         guard let data = message["SeatUpdateCurrentReservationDataKey"] as? Data else {
-            currentSeatReservation = nil
+            NotificationCenter.default.post(name: .ReceiveReservationUpdate, object: nil)
             return
         }
         let decoder = JSONDecoder()
-        if let reservation = try? decoder.decode(SeatCurrentReservation.self, from: data) {
-            currentSeatReservation = reservation
-        }else if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
-            currentSeatReservation = reservation
+        if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
+            NotificationCenter.default.post(name: .ReceiveReservationUpdate, object: reservation)
         }else{
             print("Failed to decode reservation data")
-            currentSeatReservation = nil
+            NotificationCenter.default.post(name: .ReceiveReservationUpdate, object: nil)
         }
     }
     

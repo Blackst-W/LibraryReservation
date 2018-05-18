@@ -6,8 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
 public struct SeatBaseResponse: Codable {
     public let status: String
     public let code: String

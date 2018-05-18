@@ -137,7 +137,7 @@ extension WatchAppDelegate: WCSessionDelegate {
         }
         transferSettings()
         transfer(account: AccountManager.shared.currentAccount)
-        transfer(reservation: ReservationManager.shared.reservation)
+        transfer(reservation: SeatReservationManager.shared.reservation)
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {

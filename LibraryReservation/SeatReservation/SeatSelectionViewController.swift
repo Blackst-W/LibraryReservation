@@ -241,7 +241,7 @@ class SeatSelectionViewController: UIViewController {
         guard let (start, end) = timePickerManager.selectedTimes else {
             return
         }
-        ReservationManager.shared.reserve(seat: selectedSeat!, room: room, library: library, date: date, start: start, end: end, cols: layoutData!.cols, rows: layoutData!.rows, seats: layoutData!.seats) { (response) in
+        SeatReservationManager.shared.reserve(seat: selectedSeat!, room: room, library: library, date: date, start: start, end: end, cols: layoutData!.cols, rows: layoutData!.rows, seats: layoutData!.seats) { (response) in
             self.handle(response: response)
         }
     }
@@ -365,10 +365,6 @@ extension SeatSelectionViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            requireLogin()
-            return
-        }
         reserveButton.isEnabled = true
         endLoading()
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)

@@ -6,8 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
-
 public struct SeatLoginData: Codable {
     public let token: String
 }

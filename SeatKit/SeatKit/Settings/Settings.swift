@@ -94,8 +94,8 @@ public class Settings: Codable {
     public init() {
         notificationSettings = .default
         geoFance = false
-        savePassword = false
-        autoLogin = false
+        savePassword = true
+        autoLogin = true
     }
     
     func save() {

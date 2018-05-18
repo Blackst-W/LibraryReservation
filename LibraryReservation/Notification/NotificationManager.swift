@@ -72,7 +72,7 @@ class NotificationManager: NSObject {
         }else{
             notificationCenter.removePendingNotificationRequests(withIdentifiers: [.SeatReserveNotificationIdentifier])
         }
-        guard let currentReservation = ReservationManager.shared.reservation else {
+        guard let currentReservation = SeatReservationManager.shared.reservation else {
             removeAllSeatNotifications()
             return
         }

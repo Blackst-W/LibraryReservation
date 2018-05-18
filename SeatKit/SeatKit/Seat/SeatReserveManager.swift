@@ -50,11 +50,12 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                     DispatchQueue.main.async {
                         callback?(.success(()))
                     }
+                }else if response.code == "12" {
+                    callback?(.requireLogin)
                 }else{
-                    DispatchQueue.main.async {
-                        callback?(.failed(response))
-                    }
+                    callback?(.failed(response))
                 }
+                    
             }catch{
                 DispatchQueue.main.async {
                     callback?(.error(error))
@@ -106,10 +107,10 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                         DispatchQueue.main.async {
                             callback?(.success((seat: seat, start: [])))
                         }
+                    }else if failedResponse.code == "12" {
+                        callback?(.requireLogin)
                     }else{
-                        DispatchQueue.main.async {
-                            callback?(.failed(failedResponse))
-                        }
+                        callback?(.failed(failedResponse))
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -164,8 +165,9 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
-                    
-                    DispatchQueue.main.async {
+                    if failedResponse.code == "12" {
+                        callback?(.requireLogin)
+                    }else{
                         callback?(.failed(failedResponse))
                     }
                 } catch {
@@ -218,8 +220,9 @@ public class SeatReserveManager: SeatBaseNetworkManager {
             }else{
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
-                    
-                    DispatchQueue.main.async {
+                    if failedResponse.code == "12" {
+                        callback?(.requireLogin)
+                    }else{
                         callback?(.failed(failedResponse))
                     }
                 } catch {
