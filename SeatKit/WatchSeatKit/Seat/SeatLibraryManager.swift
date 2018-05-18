@@ -47,7 +47,7 @@ public class SeatLibraryManager: SeatBaseNetworkManager {
                 DispatchQueue.main.async {
                     callback?(.success(libraryResponse.data))
                 }
-            } catch DecodingError.valueNotFound {
+            } catch where error is DecodingError {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     if failedResponse.code == "12" {

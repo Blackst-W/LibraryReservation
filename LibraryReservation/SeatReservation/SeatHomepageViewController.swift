@@ -88,12 +88,6 @@ class SeatHomepageViewController: UIViewController {
         }
     }
     
-    @objc func newReservedSuccess(notification: Notification) {
-        historyManager.refresh { (response) in
-            self.handle(response: response)
-        }
-    }
-    
     func hideReminder(animated: Bool) {
         if reminderView.isHidden {
             return

@@ -51,7 +51,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                 DispatchQueue.main.async {
                     callback?(.success(newReservations))
                 }
-            } catch DecodingError.valueNotFound {
+            } catch where error is DecodingError {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     DispatchQueue.main.async {
@@ -106,7 +106,7 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
             do {
                 let reservationResponse = try decoder.decode(SeatCurrentReservationResponse.self, from: data)
                 callback?(.success(reservationResponse.data.first))
-            } catch DecodingError.keyNotFound {
+            } catch where error is DecodingError {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     if failedResponse.code == "0" {
@@ -118,24 +118,6 @@ public class SeatHistoryManager: SeatBaseNetworkManager {
                     }else{
                         callback?(.failed(failedResponse))
                     }
-                } catch {
-                    DispatchQueue.main.async {
-                        callback?(.error(error))
-                    }
-                }
-            } catch DecodingError.valueNotFound {
-                do {
-                    let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
-                    if failedResponse.code == "0" {
-                        DispatchQueue.main.async {
-                            callback?(.success(nil))
-                        }
-                    }else if failedResponse.code == "12" {
-                        callback?(.requireLogin)
-                    }else{
-                        callback?(.failed(failedResponse))
-                    }
-                    
                 } catch {
                     DispatchQueue.main.async {
                         callback?(.error(error))

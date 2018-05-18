@@ -100,7 +100,7 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                 DispatchQueue.main.async {
                     callback?(.success((seat: seat, start: startTimes)))
                 }
-            } catch DecodingError.keyNotFound {
+            } catch where error is DecodingError {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     if failedResponse.code == "0" {

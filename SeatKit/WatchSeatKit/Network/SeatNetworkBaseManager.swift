@@ -58,7 +58,7 @@ public class SeatBaseNetworkManager: NSObject {
                 DispatchQueue.main.async {
                     callback?(.success(loginResponse))
                 }
-            } catch DecodingError.valueNotFound {
+            } catch where error is DecodingError {
                 do {
                     let failedResponse = try decoder.decode(SeatFailedResponse.self, from: data)
                     DispatchQueue.main.async {
