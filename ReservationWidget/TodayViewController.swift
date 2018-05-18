@@ -13,7 +13,7 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding {
         
     @IBOutlet weak var loginButton: UIButton!
-    var manager: ReservationManager!
+    var manager: SeatReservationManager!
     
     @IBOutlet weak var reservationView: UIView!
     @IBOutlet weak var stateLabel: UILabel!
@@ -34,22 +34,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
         
-        manager = ReservationManager.shared
+        manager = SeatReservationManager.shared
         refreshButton.isEnabled = false
         if let reservation = manager.reservation {
             updateUI(reservation: reservation)
         }
         manager.refresh { (response) in
-            switch response {
-            case .requireLogin:
-                self.requireLogin()
-            case .error(let error):
-                self.handle(error: error)
-            case .failed(let failedResponse):
-                self.handle(failedResponse: failedResponse)
-            case .success(let reservation):
-                self.update(reservation: reservation)
-            }
+            self.handle(response: response)
         }
     }
     
@@ -62,21 +53,27 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         Settings.shared.reload()
         AccountManager.shared.reload()
         manager.refresh { (response) in
-            switch response {
-            case .error(_), .failed(_):
-                completionHandler(NCUpdateResult.failed)
-            case .success(let reservation):
-                self.update(reservation: reservation)
-                completionHandler(NCUpdateResult.newData)
-            case .requireLogin:
-                completionHandler(NCUpdateResult.failed)
-            }
+            self.handle(response: response)
+            completionHandler(NCUpdateResult.newData)
         }
         // Perform any setup necessary in order to update the view.
         
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
+    }
+    
+    func handle(response: SeatResponse<SeatReservation?>) {
+        switch response {
+        case .requireLogin:
+            requireLogin()
+        case .error(let error):
+            handle(error: error)
+        case .failed(let failedResponse):
+            handle(failedResponse: failedResponse)
+        case .success(let reservation):
+            update(reservation: reservation)
+        }
     }
     
     func updateUI(reservation: SeatReservation) {
@@ -246,10 +243,6 @@ extension TodayViewController {
     }
     
     func handle(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            requireLogin()
-            return
-        }
         refreshButton.isEnabled = true
         alertButton.isEnabled = true
         alertButton.tag = 0

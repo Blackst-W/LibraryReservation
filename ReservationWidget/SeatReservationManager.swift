@@ -1,6 +1,6 @@
 //
 //  ReservationManager.swift
-//  ReservationWidget
+//  LibraryReservation
 //
 //  Created by Weston Wu on 2018/05/17.
 //  Copyright © 2018 Weston Wu. All rights reserved.
@@ -18,17 +18,25 @@ extension UserDefaults {
 
 let GroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GroupID)!
 
-struct ReservationArchive: Codable {
+struct SeatReservationArchive: Codable {
     let reservation: SeatReservation?
     let historys: [SeatReservation]
+    let recentSeats: [DetailSeat]
+    let savedSeats: [DetailSeat]
 }
 
-class ReservationManager: NSObject {
+extension Notification.Name {
+    static let ReserveSuccess = Notification.Name("ReserveSuccessNotification")
+}
+
+class SeatReservationManager: NSObject {
     var account = AccountManager.shared.currentAccount
     var reservation: SeatReservation?
     var historys: [SeatReservation] = []
+    var recentSeats: [DetailSeat] = []
+    var savedSeats: [DetailSeat] = []
     var manager = SeatHistoryManager()
-    static let shared = ReservationManager()
+    static let shared = SeatReservationManager()
     
     private override init() {
         super.init()
@@ -67,14 +75,15 @@ class ReservationManager: NSObject {
         let path = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         let decoder = JSONDecoder()
         guard let data = try? Data(contentsOf: path),
-            let archive = try? decoder.decode(ReservationArchive.self, from: data) else {
+            let archive = try? decoder.decode(SeatReservationArchive.self, from: data) else {
                 reservation = nil
                 historys = []
-                delete()
                 return
         }
         reservation = archive.reservation
         historys = archive.historys
+        savedSeats = archive.savedSeats
+        recentSeats = archive.recentSeats
     }
     
     func save() {
@@ -85,7 +94,7 @@ class ReservationManager: NSObject {
         guard let account = account else {
             return
         }
-        let archive = ReservationArchive(reservation: reservation, historys: historys)
+        let archive = SeatReservationArchive(reservation: reservation, historys: historys, recentSeats: recentSeats, savedSeats: savedSeats)
         let encoder = JSONEncoder()
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         let data = try! encoder.encode(archive)
@@ -107,6 +116,41 @@ class ReservationManager: NSObject {
         let fileManager = FileManager.default
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
         try? fileManager.removeItem(atPath: filePath.absoluteString)
+    }
+    
+    func add(recentSeat: DetailSeat) {
+        if let index = recentSeats.index(of: recentSeat) {
+            recentSeats.remove(at: index)
+        }
+        recentSeats.insert(recentSeat, at: 0)
+        if recentSeats.count > 10 {
+            recentSeats.removeLast()
+        }
+        save()
+    }
+    
+    func add(savedSeat: DetailSeat) {
+        if let index = savedSeats.index(of: savedSeat) {
+            savedSeats.remove(at: index)
+        }
+        savedSeats.insert(savedSeat, at: 0)
+        save()
+    }
+    
+    func remove(recentSeatIndex: Int) {
+        guard recentSeatIndex < recentSeats.count else {
+            return
+        }
+        recentSeats.remove(at: recentSeatIndex)
+        save()
+    }
+    
+    func remove(savedSeatIndex: Int) {
+        guard savedSeatIndex < savedSeats.count else {
+            return
+        }
+        savedSeats.remove(at: savedSeatIndex)
+        save()
     }
     
     func refresh(callback: SeatHandler<SeatReservation?>?) {
@@ -133,6 +177,25 @@ class ReservationManager: NSObject {
         }
     }
     
+    func reserve(seat: Seat, room: Room, library: Library, date: Date, start: SeatTime, end: SeatTime, cols: Int, rows: Int, seats: [Seat], callback: SeatHandler<Void>?) {
+        SeatReserveManager().reserve(seat: seat, date: date, start: start, end: end) { (response) in
+            if case .success(_) = response {
+                let location = SeatLocationData(cols: cols, rows: rows, seats: seats.map{ReducedSeat(seat: $0)})
+                let recentSeat = DetailSeat(seat: seat, room: room, library: library, startTime: start, endTime: end, date: date, location: location)
+                self.add(recentSeat: recentSeat)
+                NotificationCenter.default.post(name: .ReserveSuccess, object: recentSeat)
+            }
+            callback?(response)
+        }
+    }
+    
+    func save(seat: Seat, room: Room, library: Library, date: Date, start: SeatTime, end: SeatTime, cols: Int, rows: Int, seats: [Seat]) {
+        let location = SeatLocationData(cols: cols, rows: rows, seats: seats.map{ReducedSeat(seat: $0)})
+        let savedSeat = DetailSeat(seat: seat, room: room, library: library, startTime: start, endTime: end, date: date, location: location)
+        self.add(savedSeat: savedSeat)
+    }
+    
+    
     func cancel(callback: SeatHandler<Void>?) {
         guard let reservation = reservation else {
             callback?(.success(()))
@@ -157,19 +220,16 @@ class ReservationManager: NSObject {
     func fetch(page: Int, callback: SeatHandler<[SeatReservation]>?) {
         manager.fetchHistory(page: page) { (response) in
             callback?(response)
-            guard page == 0,
-                case .success(let reservations) = response else {
-                    return
-            }
-            self.historys = reservations
-            for reservation in reservations {
-                guard !reservation.isHistory else{
-                    continue
+            if page == 0,
+                case .success(let reservations) = response {
+                self.historys = reservations
+                for reservation in reservations {
+                    if !reservation.isHistory {
+                        self.reservation = reservation
+                        break
+                    }
                 }
-                self.reservation = reservation
-                break
             }
-            
         }
     }
 }
