@@ -22,7 +22,34 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     
+    @IBOutlet var labels: [UILabel]!
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var backgroundColor: UIColor!
+        var labelColor: UIColor!
+        var shadowColor: UIColor!
+        switch theme {
+        case .black:
+            labelColor = .white
+            shadowColor = .white
+            backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+        case .standard:
+            labelColor = .black
+            shadowColor = .black
+            backgroundColor = .white
+        }
+        UIViewPropertyAnimator(duration: 1, curve: .linear) {
+            self.contentView.backgroundColor = backgroundColor
+            self.labels.forEach { (label) in
+                label.textColor = labelColor
+            }
+            self.layer.shadowColor = shadowColor.cgColor
+        }.startAnimation()
+    }
+    
     func update(reservation: SeatReservation) {
+        updateTheme()
         dateLabel.text = reservation.rawDate
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         guard let location = reservation.location else {

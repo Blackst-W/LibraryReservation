@@ -51,6 +51,28 @@ class SeatHistoryDetailViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    @IBOutlet var labels: [UILabel]!
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var labelColor: UIColor!
+        switch theme {
+        case .black:
+            labelColor = .white
+        case .standard:
+            labelColor = .black
+        }
+        labels.forEach { (label) in
+            label.textColor = labelColor
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

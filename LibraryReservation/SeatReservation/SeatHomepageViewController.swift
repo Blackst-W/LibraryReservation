@@ -22,6 +22,12 @@ class SeatHomepageViewController: UIViewController {
     @IBOutlet weak var reminderView: UIView!
     @IBOutlet weak var reminderViewDisplayConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var reserveButton: UIButton!
+    
+    @IBOutlet var labels: [UILabel]!
+    
+    @IBOutlet var buttons: [UIButton]!
+    
     private let reminderHeight: CGFloat = 168
     
     var historyManager = SeatReservationManager.shared
@@ -49,14 +55,98 @@ class SeatHomepageViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reserveSuccess(notification:)), name: .ReserveSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
         // Do any additional setup after loading the view.
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: currentReservationView)
         }
+        updateTheme(false)
         collectionView.reloadData()
         historyManager.refresh { (response) in
             self.handle(response: response)
+        }
+    }
+    
+    @objc func handleThemeChanged() {
+        updateTheme(true)
+        collectionView.visibleCells.forEach { (cell) in
+            guard let cell = cell as? SeatHistoryCollectionViewCell else {
+                return
+            }
+            cell.updateTheme()
+        }
+    }
+    
+    @IBOutlet weak var loginShadowView: UIView!
+    
+    func updateTheme(_ animated: Bool) {
+        let theme = ThemeSettings.shared.theme
+        var backgroundColor: UIColor!
+        var navigationBarTintColor: UIColor?
+        var navigationTintColor: UIColor?
+        var navigationTitleColor: UIColor!
+        var refreshTintColor: UIColor!
+        var labelColor: UIColor!
+        var buttonTintColor: UIColor!
+        var reserveButtonColor: UIColor!
+        var statusBarStyle: UIBarStyle!
+        var indicatorColor: UIColor!
+        var loginShadowViewColor: UIColor!
+        switch theme {
+        case .black:
+            labelColor = .white
+            backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
+            navigationBarTintColor = .black
+            navigationTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            refreshTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            buttonTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            reserveButtonColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            indicatorColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            navigationTitleColor = .white
+            statusBarStyle = .black
+            loginShadowViewColor = .black
+        case .standard:
+            labelColor = .black
+            backgroundColor = .white
+            navigationBarTintColor = nil
+            navigationTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            refreshTintColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4470588235, alpha: 1)
+            buttonTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            reserveButtonColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            indicatorColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            navigationTitleColor = .black
+            statusBarStyle = .default
+            loginShadowViewColor = .white
+        }
+        contentScrollView.refreshControl?.tintColor = refreshTintColor
+        
+        let animation = {
+            self.historyLoadingIndicator.tintColor = indicatorColor
+            self.loginShadowView.backgroundColor = loginShadowViewColor
+            self.reserveButton.backgroundColor = reserveButtonColor
+            self.labels.forEach({ (label) in
+                label.textColor = labelColor
+            })
+            self.buttons.forEach({ (button) in
+                button.tintColor = buttonTintColor
+            })
+            self.view.backgroundColor = backgroundColor
+            let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: navigationTitleColor]
+            
+            self.navigationController?.navigationBar.barTintColor = navigationBarTintColor
+            self.navigationController?.navigationBar.tintColor = navigationTintColor
+            self.navigationController?.navigationBar.barStyle = statusBarStyle
+            self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+            if #available(iOS 11.0, *) {
+                self.navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
+            }
+            self.navigationController?.navigationBar.layoutIfNeeded()
+        }
+        if animated {
+            UIViewPropertyAnimator(duration: 1, curve: .linear, animations: animation).startAnimation()
+        }else{
+            animation()
         }
     }
     

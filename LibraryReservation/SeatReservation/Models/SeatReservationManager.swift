@@ -108,7 +108,7 @@ class SeatReservationManager: NSObject {
         }
         let fileManager = FileManager.default
         let filePath = GroupURL.appendingPathComponent("SeatReservation-\(account.username).archive")
-        try? fileManager.removeItem(atPath: filePath.absoluteString)
+        try? fileManager.removeItem(at: filePath)
     }
     
     func add(recentSeat: DetailSeat) {

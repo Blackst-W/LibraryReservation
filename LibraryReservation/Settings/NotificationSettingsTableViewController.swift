@@ -34,6 +34,28 @@ class NotificationSettingsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    @IBOutlet var labels: [UILabel]!
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        themeUpdate()
+    }
+    
+    func themeUpdate() {
+        let theme = ThemeSettings.shared.theme
+        var textColor: UIColor!
+        switch theme {
+        case .black:
+            textColor = .white
+        case .standard:
+            textColor = .black
+        }
+        labels.forEach { (label) in
+            label.textColor = textColor
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let newSettings = SeatNotificationSettings(make: seatReserveSwitch.isOn, upcoming: seatUpcomingSwitch.isOn, end: seatEndSwitch.isOn, tempAway: seatAwaySwitch.isOn)

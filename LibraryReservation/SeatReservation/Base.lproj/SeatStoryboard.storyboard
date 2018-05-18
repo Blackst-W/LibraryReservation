@@ -35,16 +35,16 @@
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="14"/>
+                                                        <integer key="value" value="8"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                        <real key="value" value="0.10000000000000001"/>
+                                                        <real key="value" value="0.14999999999999999"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                                        <size key="value" width="0.0" height="5"/>
+                                                        <size key="value" width="0.0" height="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                        <integer key="value" value="8"/>
+                                                        <integer key="value" value="14"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -52,7 +52,6 @@
                                                 </connections>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="168" id="1je-8p-IVs"/>
                                             <constraint firstAttribute="bottom" secondItem="w62-fq-kHs" secondAttribute="bottom" constant="24" id="JyY-10-wuu"/>
@@ -140,7 +139,6 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstItem="pyy-9F-dCI" firstAttribute="top" secondItem="Ef6-VY-KrD" secondAttribute="top" constant="8" id="3FY-Dn-SZn"/>
                                                                         <constraint firstItem="AkE-Br-ahS" firstAttribute="top" secondItem="vEH-n8-pc9" secondAttribute="bottom" constant="8" id="566-SS-N91"/>
@@ -199,6 +197,14 @@
                                                             <outlet property="stateImageView" destination="kQR-bW-w2h" id="gS0-cq-ina"/>
                                                             <outlet property="stateLabel" destination="eTa-fP-EmP" id="W4M-JB-VH3"/>
                                                             <outlet property="timeLabel" destination="pyy-9F-dCI" id="fdf-7Y-Msa"/>
+                                                            <outletCollection property="labels" destination="vEH-n8-pc9" collectionClass="NSMutableArray" id="v2C-wP-Hra"/>
+                                                            <outletCollection property="labels" destination="pyy-9F-dCI" collectionClass="NSMutableArray" id="y8M-qN-q7K"/>
+                                                            <outletCollection property="labels" destination="AkE-Br-ahS" collectionClass="NSMutableArray" id="8Hq-us-POs"/>
+                                                            <outletCollection property="labels" destination="Xh8-TL-YVd" collectionClass="NSMutableArray" id="9mN-nX-dag"/>
+                                                            <outletCollection property="labels" destination="FZe-qF-Ch5" collectionClass="NSMutableArray" id="h5v-Y0-WcR"/>
+                                                            <outletCollection property="labels" destination="yCa-aE-KYv" collectionClass="NSMutableArray" id="S5Q-Ap-BFe"/>
+                                                            <outletCollection property="labels" destination="Yjf-fo-u3T" collectionClass="NSMutableArray" id="pde-da-rYR"/>
+                                                            <outletCollection property="labels" destination="eTa-fP-EmP" collectionClass="NSMutableArray" id="vRJ-Wr-4m1"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -335,7 +341,6 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="0s6-JH-jix" firstAttribute="top" secondItem="Q4r-yJ-awo" secondAttribute="top" id="LVJ-My-8eg"/>
                                                     <constraint firstItem="0s6-JH-jix" firstAttribute="leading" secondItem="Q4r-yJ-awo" secondAttribute="leading" id="Tt4-i8-GX2"/>
@@ -366,7 +371,6 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="x0v-Kw-AXm" secondAttribute="bottom" id="5u3-e3-gGe"/>
                                             <constraint firstItem="Q4r-yJ-awo" firstAttribute="centerX" secondItem="k8p-VR-Kbw" secondAttribute="centerX" id="9Xu-gi-W8q"/>
@@ -444,9 +448,14 @@
                         <outlet property="historyEmptyLabel" destination="wr9-uq-Dxg" id="dZe-Sb-Ndn"/>
                         <outlet property="historyLoadingIndicator" destination="XqB-A4-Pgc" id="T02-ES-PSw"/>
                         <outlet property="loginButton" destination="rBa-wQ-MY0" id="8EB-yA-Efu"/>
+                        <outlet property="loginShadowView" destination="0s6-JH-jix" id="rjI-lI-o9B"/>
                         <outlet property="loginView" destination="Q4r-yJ-awo" id="T7s-q5-wLs"/>
                         <outlet property="reminderView" destination="eq0-PQ-FVk" id="jdM-91-Nnx"/>
                         <outlet property="reminderViewDisplayConstraint" destination="YNy-2y-KFe" id="duX-6c-Izt"/>
+                        <outlet property="reserveButton" destination="oWT-hg-NKd" id="4yv-61-s0C"/>
+                        <outletCollection property="labels" destination="cyJ-1H-agl" collectionClass="NSMutableArray" id="KKL-Cl-g9v"/>
+                        <outletCollection property="buttons" destination="9ot-BD-6RA" collectionClass="NSMutableArray" id="vgO-Hj-RND"/>
+                        <outletCollection property="buttons" destination="rBa-wQ-MY0" collectionClass="NSMutableArray" id="OxT-9x-FU6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u92-r5-jXJ" sceneMemberID="firstResponder"/>
@@ -465,7 +474,7 @@
                     <tabBarItem key="tabBarItem" title="Reserve" image="first" id="iE3-dO-CWq"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="T1A-62-wxI">
-                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -600,7 +609,6 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="BS8-je-pLz" firstAttribute="top" secondItem="4Wy-2M-ovH" secondAttribute="top" id="EuK-zl-zyo"/>
                                                         <constraint firstItem="BS8-je-pLz" firstAttribute="leading" secondItem="4Wy-2M-ovH" secondAttribute="leading" id="UqG-7J-EQa"/>
@@ -630,16 +638,26 @@
                                                 <constraint firstItem="4Wy-2M-ovH" firstAttribute="leading" secondItem="4WJ-Py-kT6" secondAttribute="leadingMargin" id="eVL-rB-TfG"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="areaNameLabel" destination="Wll-X0-lNb" id="mo7-jq-2Mm"/>
+                                            <outlet property="containerView" destination="BS8-je-pLz" id="b3L-aO-lWJ"/>
                                             <outlet property="dateLabel" destination="kp7-C6-6DB" id="zf8-F1-TVv"/>
                                             <outlet property="floorLabel" destination="QB1-Gk-cHe" id="iPN-Kb-mTz"/>
                                             <outlet property="libraryNameLabel" destination="jfX-4V-8we" id="fvL-Lm-OpC"/>
                                             <outlet property="seatLabel" destination="xtJ-7h-CjK" id="rh1-KA-GpW"/>
+                                            <outlet property="shadowView" destination="4Wy-2M-ovH" id="LCi-TP-DQs"/>
                                             <outlet property="stateImageView" destination="6Jw-LK-A26" id="nTa-lV-NL9"/>
                                             <outlet property="stateLabel" destination="acg-zi-Iiv" id="Axt-Gq-qnh"/>
                                             <outlet property="timeLabel" destination="wTr-hd-SHY" id="iEi-xJ-SBe"/>
+                                            <outletCollection property="labels" destination="jfX-4V-8we" collectionClass="NSMutableArray" id="lzn-Om-RWi"/>
+                                            <outletCollection property="labels" destination="kp7-C6-6DB" collectionClass="NSMutableArray" id="Euq-0D-V10"/>
+                                            <outletCollection property="labels" destination="wTr-hd-SHY" collectionClass="NSMutableArray" id="nF6-Ap-Qx7"/>
+                                            <outletCollection property="labels" destination="QB1-Gk-cHe" collectionClass="NSMutableArray" id="9ZJ-pe-YtP"/>
+                                            <outletCollection property="labels" destination="xtJ-7h-CjK" collectionClass="NSMutableArray" id="dWE-EQ-QLe"/>
+                                            <outletCollection property="labels" destination="Wll-X0-lNb" collectionClass="NSMutableArray" id="iBR-nm-n0V"/>
+                                            <outletCollection property="labels" destination="X3D-0Q-6qe" collectionClass="NSMutableArray" id="Ghp-R1-KZM"/>
+                                            <outletCollection property="labels" destination="acg-zi-Iiv" collectionClass="NSMutableArray" id="Aah-uM-9FT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -652,7 +670,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RjI-wT-Zws" secondAttribute="bottom" id="1Cw-ww-54I"/>
                             <constraint firstItem="6Zy-Dd-p32" firstAttribute="centerY" secondItem="7Ro-Hv-UaQ" secondAttribute="centerY" id="6b0-N6-zPf"/>
@@ -707,7 +724,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="8o1-ux-cjW" firstAttribute="centerX" secondItem="Xge-Je-XAE" secondAttribute="centerX" id="XYc-8w-pyc"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="8o1-ux-cjW" secondAttribute="trailing" priority="999" constant="16" id="iAJ-lh-fuH"/>
@@ -1033,6 +1049,28 @@
                         <outlet property="statusLabel" destination="G4C-Ha-Vdg" id="RgT-Ty-aw1"/>
                         <outlet property="statusTimeLabel" destination="Onw-zn-Wx4" id="X8s-NO-WWg"/>
                         <outlet property="timeLabel" destination="V6L-vd-LGJ" id="EV2-zJ-t4h"/>
+                        <outletCollection property="labels" destination="Ihr-4f-oUB" collectionClass="NSMutableArray" id="d1J-Hn-Hh9"/>
+                        <outletCollection property="labels" destination="JpO-zn-x8b" collectionClass="NSMutableArray" id="Ytb-2x-QKU"/>
+                        <outletCollection property="labels" destination="uHg-qY-oqb" collectionClass="NSMutableArray" id="UBF-TN-Oj0"/>
+                        <outletCollection property="labels" destination="rYP-nZ-5bM" collectionClass="NSMutableArray" id="aaN-IS-VtW"/>
+                        <outletCollection property="labels" destination="dTV-oz-kjF" collectionClass="NSMutableArray" id="p1v-aW-Vmn"/>
+                        <outletCollection property="labels" destination="Rnn-8E-mc3" collectionClass="NSMutableArray" id="iBQ-0L-efw"/>
+                        <outletCollection property="labels" destination="3YI-IS-ETb" collectionClass="NSMutableArray" id="m1J-A5-exW"/>
+                        <outletCollection property="labels" destination="G4C-Ha-Vdg" collectionClass="NSMutableArray" id="JVm-Kp-Jxo"/>
+                        <outletCollection property="labels" destination="Onw-zn-Wx4" collectionClass="NSMutableArray" id="Rez-70-bYd"/>
+                        <outletCollection property="labels" destination="0KL-M1-u3e" collectionClass="NSMutableArray" id="Zo1-04-XDI"/>
+                        <outletCollection property="labels" destination="OLa-Db-hJ9" collectionClass="NSMutableArray" id="68f-8l-jSv"/>
+                        <outletCollection property="labels" destination="Sb4-Nc-SF3" collectionClass="NSMutableArray" id="fgy-jx-RqP"/>
+                        <outletCollection property="labels" destination="V6L-vd-LGJ" collectionClass="NSMutableArray" id="Rpk-9D-oRg"/>
+                        <outletCollection property="labels" destination="Dcf-1f-hEk" collectionClass="NSMutableArray" id="DNX-Gz-MyL"/>
+                        <outletCollection property="labels" destination="pPJ-s9-lkh" collectionClass="NSMutableArray" id="ccB-6a-t4P"/>
+                        <outletCollection property="labels" destination="Ild-pn-BRz" collectionClass="NSMutableArray" id="BaJ-0A-Ufy"/>
+                        <outletCollection property="labels" destination="gig-I5-you" collectionClass="NSMutableArray" id="xfd-uf-i5e"/>
+                        <outletCollection property="labels" destination="Nkp-6t-whq" collectionClass="NSMutableArray" id="6jg-jB-IYw"/>
+                        <outletCollection property="labels" destination="1ru-rL-ZGc" collectionClass="NSMutableArray" id="APb-Gx-Nun"/>
+                        <outletCollection property="labels" destination="0gj-G1-1x4" collectionClass="NSMutableArray" id="7FP-g6-Kil"/>
+                        <outletCollection property="labels" destination="aqG-iX-Mm9" collectionClass="NSMutableArray" id="jUU-XN-4fg"/>
+                        <outletCollection property="labels" destination="pNf-MX-lrA" collectionClass="NSMutableArray" id="iUG-Hl-qe8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyY-KC-oU3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2231,6 +2269,21 @@
                         <outlet property="seatLabel" destination="Yuz-xc-0xf" id="VPr-fW-g0V"/>
                         <outlet property="stateLabel" destination="8Ag-do-Vah" id="PdC-fS-kcu"/>
                         <outlet property="timeLabel" destination="mA7-bp-Tgb" id="lyp-Q7-1bi"/>
+                        <outletCollection property="labels" destination="RxL-cu-mHM" collectionClass="NSMutableArray" id="0XT-8x-34j"/>
+                        <outletCollection property="labels" destination="vu5-N2-6Vs" collectionClass="NSMutableArray" id="hRI-ha-SrX"/>
+                        <outletCollection property="labels" destination="VNQ-jI-ajV" collectionClass="NSMutableArray" id="vdM-Fa-7tU"/>
+                        <outletCollection property="labels" destination="JtM-o7-Gfz" collectionClass="NSMutableArray" id="BzH-AV-bwU"/>
+                        <outletCollection property="labels" destination="F1N-Ln-eJO" collectionClass="NSMutableArray" id="jiQ-fy-ybR"/>
+                        <outletCollection property="labels" destination="mA7-bp-Tgb" collectionClass="NSMutableArray" id="Vjq-qI-6p3"/>
+                        <outletCollection property="labels" destination="sJ7-km-f6j" collectionClass="NSMutableArray" id="KEA-WZ-veh"/>
+                        <outletCollection property="labels" destination="8Ag-do-Vah" collectionClass="NSMutableArray" id="3LF-5g-YxO"/>
+                        <outletCollection property="labels" destination="Y58-rg-L5w" collectionClass="NSMutableArray" id="MCO-Pm-r3v"/>
+                        <outletCollection property="labels" destination="pIo-eJ-U9G" collectionClass="NSMutableArray" id="k7Y-6h-Z3t"/>
+                        <outletCollection property="labels" destination="nAZ-Mc-n5A" collectionClass="NSMutableArray" id="42T-VA-g0s"/>
+                        <outletCollection property="labels" destination="bX5-a6-BVG" collectionClass="NSMutableArray" id="1bs-Gt-vgK"/>
+                        <outletCollection property="labels" destination="Ucg-0L-KDn" collectionClass="NSMutableArray" id="9Y4-ws-RH6"/>
+                        <outletCollection property="labels" destination="7Nu-5D-yDf" collectionClass="NSMutableArray" id="t6i-TT-wWT"/>
+                        <outletCollection property="labels" destination="Yuz-xc-0xf" collectionClass="NSMutableArray" id="Fq0-YH-Tga"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1S-H1-4pR" userLabel="First Responder" sceneMemberID="firstResponder"/>

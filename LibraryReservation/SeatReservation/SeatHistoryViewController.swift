@@ -38,6 +38,31 @@ class SeatHistoryViewController: UIViewController {
         loadHistory()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var backgroundColor: UIColor!
+        var remindColor: UIColor!
+        var loadingColor: UIColor!
+        switch theme {
+        case .black:
+            backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
+            remindColor = .white
+            loadingColor = .white
+        case .standard:
+            backgroundColor = .white
+            remindColor = .lightGray
+            loadingColor = .darkGray
+        }
+        remindLabel.textColor = remindColor
+        loadMoreLabel.textColor = loadingColor
+        view.backgroundColor = backgroundColor
+    }
+    
     func loadHistory() {
         if fetching {return}
         fetching = true

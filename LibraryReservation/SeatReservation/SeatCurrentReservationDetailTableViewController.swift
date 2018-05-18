@@ -37,6 +37,8 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var cancelButton: UIButton!
     
+    @IBOutlet var labels: [UILabel]!
+    
     
     var manager: SeatReservationManager!
     
@@ -51,6 +53,25 @@ class SeatCurrentReservationDetailTableViewController: UITableViewController {
         manager = SeatReservationManager.shared
         reservation = manager.reservation
         updateUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var labelColor: UIColor!
+        switch theme {
+        case .black:
+            labelColor = .white
+        case .standard:
+            labelColor = .black
+        }
+        labels.forEach { (label) in
+            label.textColor = labelColor
+        }
     }
     
     func updateUI() {

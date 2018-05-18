@@ -157,7 +157,7 @@ public class AccountManager: NSObject {
     func deleteAccount() {
         let fileManager = FileManager.default
         let path = GroupURL.appendingPathComponent(AccountManager.kAccountFilePath)
-        try? fileManager.removeItem(atPath: path.absoluteString)
+        try? fileManager.removeItem(at: path)
     }
     
     static let kUserInfoFilePath = "UserInfo.archive"

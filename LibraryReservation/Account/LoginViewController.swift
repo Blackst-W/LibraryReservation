@@ -49,6 +49,37 @@ class LoginViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    @IBOutlet var labels: [UILabel]!
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var labelColor: UIColor!
+        var textFieldColor: UIColor!
+        var placeHolderColor: UIColor!
+        switch theme {
+        case .black:
+            labelColor = .white
+            textFieldColor = .white
+            placeHolderColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4549019608, alpha: 1)
+        case .standard:
+            labelColor = .black
+            textFieldColor = .black
+            placeHolderColor = .lightGray
+        }
+        labels.forEach { (label) in
+            label.textColor = labelColor
+        }
+        sidTextField.textColor = textFieldColor
+        passwordTextField.textColor = textFieldColor
+        sidTextField.attributedPlaceholder = NSAttributedString(string: sidTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : placeHolderColor])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : placeHolderColor])
+    }
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let settings = Settings.shared

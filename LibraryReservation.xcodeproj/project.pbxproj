@@ -46,6 +46,8 @@
 		AD7D1BC520A2E1AD00A0C6A7 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7D1BC420A2E1AD00A0C6A7 /* AppSettings.swift */; };
 		AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B045208622F4001F6768 /* LoginViewController.swift */; };
 		AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B04720863057001F6768 /* UIViewControllerExtension.swift */; };
+		AD9BC18320AF52AE003AC9E3 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC18220AF52AE003AC9E3 /* AboutViewController.swift */; };
+		ADA4ADA220AF1D1A002D0A61 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA4ADA120AF1D1A002D0A61 /* ThemeTableViewController.swift */; };
 		ADA87C9720A095630043B7F9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9620A095630043B7F9 /* libz.tbd */; };
 		ADA87C9920A0956D0043B7F9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9820A0956D0043B7F9 /* libsqlite3.tbd */; };
 		ADA87C9B20A095740043B7F9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9A20A095740043B7F9 /* CoreTelephony.framework */; };
@@ -291,6 +293,8 @@
 		AD7D1BC420A2E1AD00A0C6A7 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		AD95B045208622F4001F6768 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AD95B04720863057001F6768 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		AD9BC18220AF52AE003AC9E3 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		ADA4ADA120AF1D1A002D0A61 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
 		ADA87C9620A095630043B7F9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		ADA87C9820A0956D0043B7F9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		ADA87C9A20A095740043B7F9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -622,6 +626,8 @@
 				ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */,
 				ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */,
 				ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */,
+				ADA4ADA120AF1D1A002D0A61 /* ThemeTableViewController.swift */,
+				AD9BC18220AF52AE003AC9E3 /* AboutViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1270,6 +1276,7 @@
 				AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */,
 				ADC9DF7E20AEBE4D00BB886D /* ThemeSettings.swift in Sources */,
 				AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */,
+				AD9BC18320AF52AE003AC9E3 /* AboutViewController.swift in Sources */,
 				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
 				ADF367CC20890A1700C9379D /* SeatLibraryView.swift in Sources */,
 				ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */,
@@ -1277,6 +1284,7 @@
 				AD39DD4A20A2EFBF00C8F6E5 /* SeatTimeFilter.swift in Sources */,
 				ADC9DF5520AD704200BB886D /* SeatTimePicker.swift in Sources */,
 				ADCD2DAD20976490007BBC4C /* AccountNavigationController.swift in Sources */,
+				ADA4ADA220AF1D1A002D0A61 /* ThemeTableViewController.swift in Sources */,
 				AD662A6120986CCF006353F2 /* WatchAppDelegate.swift in Sources */,
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
 				ADCD2DAB20976482007BBC4C /* SettingsNavigationController.swift in Sources */,

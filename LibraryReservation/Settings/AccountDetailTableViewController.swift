@@ -32,6 +32,8 @@ class AccountDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var autoLoginSwitch: UISwitch!
     
+    @IBOutlet var labels: [UILabel]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         account = AccountManager.shared.currentAccount!
@@ -39,13 +41,31 @@ class AccountDetailTableViewController: UITableViewController {
         savePasswordSwitch.isOn = settings.savePassword
         autoLoginSwitch.isOn = settings.autoLogin
         userInfoUpdated()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(userInfoUpdated), name: .UserInfoUpdated, object: nil)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var labelColor: UIColor!
+        switch theme {
+        case .black:
+            labelColor = .white
+        case .standard:
+            labelColor = .black
+        }
+        labels.forEach { (label) in
+            label.textColor = labelColor
+        }
     }
     
     deinit {

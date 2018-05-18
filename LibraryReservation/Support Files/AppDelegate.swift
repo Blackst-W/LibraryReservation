@@ -39,8 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         
         _ = AppSettings.shared
+        ThemeSettings.shared.updateAppearance()
         // Override point for customization after application launch.
-        window?.backgroundColor = .white
         WatchAppDelegate.shared.setup()
         return true
     }

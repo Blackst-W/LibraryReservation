@@ -15,7 +15,7 @@
             <objects>
                 <navigationController id="6pd-PD-E2k" customClass="AccountNavigationController" customModule="LibraryReservation" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="MrA-7f-140">
-                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="93"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -59,7 +59,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="1Ig-b6-RMT" firstAttribute="leading" secondItem="79x-Ob-4NQ" secondAttribute="leadingMargin" constant="16" id="4Pe-U2-B9i"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="1Ig-b6-RMT" secondAttribute="trailing" constant="16" id="Ca8-rA-gYD"/>
@@ -221,6 +220,10 @@
                         <outlet property="savePasswordSwitch" destination="Ndu-b1-g26" id="q1K-0J-JlZ"/>
                         <outlet property="sidLabel" destination="1cv-E8-Vwp" id="0cI-4r-e3L"/>
                         <outlet property="sidTextField" destination="iq1-Qh-4Tq" id="eZH-7T-lML"/>
+                        <outletCollection property="labels" destination="1cv-E8-Vwp" collectionClass="NSMutableArray" id="NFS-bh-TJg"/>
+                        <outletCollection property="labels" destination="S4d-JK-sRh" collectionClass="NSMutableArray" id="BOT-O5-gaz"/>
+                        <outletCollection property="labels" destination="vh3-ia-tZK" collectionClass="NSMutableArray" id="2n5-PP-KMX"/>
+                        <outletCollection property="labels" destination="fs4-pH-eQe" collectionClass="NSMutableArray" id="5Tw-Ry-0zb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYV-VM-eFr" userLabel="First Responder" sceneMemberID="firstResponder"/>

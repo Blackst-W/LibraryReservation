@@ -26,7 +26,12 @@ class SettingsTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userInfoChanged), name: .UserInfoUpdated, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
     }
     
     deinit {
@@ -92,6 +97,30 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func pressDoneButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleThemeChanged() {
+        DispatchQueue.main.async {
+            self.updateTheme()
+        }
+    }
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        let cellTitleColor: UIColor!
+        switch theme {
+        case .black:
+            nameLabel.textColor = .white
+            sidLabel.textColor = .white
+            cellTitleColor = .white
+        case .standard:
+            nameLabel.textColor = .black
+            sidLabel.textColor = .black
+            cellTitleColor = .black
+        }
+        tableView.visibleCells.forEach { (cell) in
+            cell.textLabel?.textColor = cellTitleColor
+        }
     }
     
     //    override func numberOfSections(in tableView: UITableView) -> Int {

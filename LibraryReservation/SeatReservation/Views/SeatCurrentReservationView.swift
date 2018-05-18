@@ -29,6 +29,9 @@ class SeatCurrentReservationView: UIView {
     }
     */
     
+    @IBOutlet var labels: [UILabel]!
+    
+    
     var showingCancelEffect = false
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +46,48 @@ class SeatCurrentReservationView: UIView {
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
         cancelEffectView.alpha = 0
         cancelEffectView.isHidden = true
+        updateTheme()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func handleThemeChanged() {
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var labelColor: UIColor!
+        var backgroundColor: UIColor!
+        var shadowColor: UIColor!
+        var cancelColor: UIColor!
+        var cancelEffect: UIBlurEffect
+        switch theme {
+        case .black:
+            labelColor = .white
+            backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            shadowColor = .white
+            cancelColor = .white
+            cancelEffect = UIBlurEffect(style: .dark)
+        case .standard:
+            labelColor = .black
+            backgroundColor = .white
+            shadowColor = .black
+            cancelColor = .darkGray
+            cancelEffect = UIBlurEffect(style: .light)
+        }
+        UIViewPropertyAnimator(duration: 1, curve: .linear) {
+            self.labels.forEach { (label) in
+                label.textColor = labelColor
+            }
+            self.view.backgroundColor = backgroundColor
+            self.layer.shadowColor = shadowColor.cgColor
+            self.cancelLabel.textColor = cancelColor
+            self.cancelEffectView.effect = cancelEffect
+        }.startAnimation()
     }
 
     func update(reservation: SeatReservation) {
