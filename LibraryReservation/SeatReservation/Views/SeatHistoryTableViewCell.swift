@@ -36,7 +36,7 @@ class SeatHistoryTableViewCell: UITableViewCell {
         switch theme {
         case .black:
             labelColor = .white
-            backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            backgroundColor = .black
             shadowColor = .white
         case .standard:
             labelColor = .black

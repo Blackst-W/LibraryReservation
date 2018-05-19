@@ -90,6 +90,7 @@ class SeatHomepageViewController: UIViewController {
         var labelColor: UIColor!
         var buttonTintColor: UIColor!
         var reserveButtonColor: UIColor!
+        var reserveButtonTextColor: UIColor!
         var statusBarStyle: UIBarStyle!
         var indicatorColor: UIColor!
         var loginShadowViewColor: UIColor!
@@ -102,6 +103,7 @@ class SeatHomepageViewController: UIViewController {
 //            refreshTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             buttonTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             reserveButtonColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            reserveButtonTextColor = .black
             indicatorColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             navigationTitleColor = .white
             statusBarStyle = .black
@@ -114,6 +116,7 @@ class SeatHomepageViewController: UIViewController {
 //            refreshTintColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4470588235, alpha: 1)
             buttonTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
             reserveButtonColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            reserveButtonTextColor = .white
             indicatorColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
             navigationTitleColor = .black
             statusBarStyle = .default
@@ -124,6 +127,7 @@ class SeatHomepageViewController: UIViewController {
         let animation = {
             self.historyLoadingIndicator.tintColor = indicatorColor
             self.loginShadowView.backgroundColor = loginShadowViewColor
+            self.reserveButton.setTitleColor(reserveButtonTextColor, for: .normal)
             self.reserveButton.backgroundColor = reserveButtonColor
             self.labels.forEach({ (label) in
                 label.textColor = labelColor

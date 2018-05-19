@@ -177,7 +177,9 @@ class SeatSelectionViewController: UIViewController {
     }
     
     func endLoading() {
-        indicatorView.stopAnimating()
+        DispatchQueue.main.async {
+            self.indicatorView.stopAnimating()
+        }
         HUD.hide()
     }
     

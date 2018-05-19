@@ -48,7 +48,7 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
         case .black:
             themeLabelColor = .white
             themeShadowColor = .white
-            themeBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            themeBackgroundColor = .black
         case .standard:
             themeLabelColor = .black
             themeShadowColor = .black

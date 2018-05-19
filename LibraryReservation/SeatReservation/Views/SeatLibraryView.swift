@@ -76,7 +76,7 @@ class SeatLibraryView: UIStackView {
         case .black:
             tipLabel.textColor = .white
             buttonTextColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            buttonBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            buttonBackgroundColor = .black
             shadowColor = .white
         case .standard:
             tipLabel.textColor = .black
@@ -103,7 +103,7 @@ class SeatLibraryView: UIStackView {
             switch theme {
             case .black:
                 titleColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-                backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+                backgroundColor = .black
             case .standard:
                 titleColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
                 backgroundColor = .white
@@ -142,7 +142,7 @@ class SeatLibraryView: UIStackView {
             var backgroundColor: UIColor!
             switch theme {
             case .black:
-                titleColor = .white
+                titleColor = .black
                 backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             case .standard:
                 titleColor = .white

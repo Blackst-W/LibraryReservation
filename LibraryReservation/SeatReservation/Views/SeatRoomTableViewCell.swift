@@ -98,7 +98,7 @@ class SeatRoomTableViewCell: UITableViewCell {
         case .black:
             appearance.titleColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             appearance.labelColor = .white
-            appearance.roomViewBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            appearance.roomViewBackgroundColor = .black
             appearance.roomViewShadowColor = .white
         case .standard:
             appearance.titleColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
