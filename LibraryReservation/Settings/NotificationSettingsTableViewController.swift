@@ -43,16 +43,9 @@ class NotificationSettingsTableViewController: UITableViewController {
     }
     
     func themeUpdate() {
-        let theme = ThemeSettings.shared.theme
-        var textColor: UIColor!
-        switch theme {
-        case .black:
-            textColor = .white
-        case .standard:
-            textColor = .black
-        }
+        let configuration = ThemeConfiguration.current
         labels.forEach { (label) in
-            label.textColor = textColor
+            label.textColor = configuration.textColor
         }
     }
     

@@ -27,6 +27,7 @@ class AccountDetailTableViewController: UITableViewController {
     @IBOutlet weak var violationLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var signoutButton: UIButton!
     
     @IBOutlet weak var savePasswordSwitch: UISwitch!
     
@@ -55,17 +56,16 @@ class AccountDetailTableViewController: UITableViewController {
     }
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var labelColor: UIColor!
-        switch theme {
-        case .black:
-            labelColor = .white
-        case .standard:
-            labelColor = .black
-        }
+        let configuration = ThemeConfiguration.current
         labels.forEach { (label) in
-            label.textColor = labelColor
+            label.textColor = configuration.textColor
         }
+        refreshButton.tintColor = configuration.tintColor
+        refreshButton.backgroundColor = configuration.tintColor
+        refreshButton.setTitleColor(configuration.highlightTextColor, for: .normal)
+        signoutButton.tintColor = configuration.warnColor
+        signoutButton.backgroundColor = configuration.warnColor
+        signoutButton.setTitleColor(configuration.highlightTextColor, for: .normal)
     }
     
     deinit {

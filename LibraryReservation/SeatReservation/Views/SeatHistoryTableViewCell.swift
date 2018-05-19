@@ -29,25 +29,12 @@ class SeatHistoryTableViewCell: UITableViewCell {
     @IBOutlet var labels: [UILabel]!
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var labelColor: UIColor!
-        var backgroundColor: UIColor!
-        var shadowColor: UIColor!
-        switch theme {
-        case .black:
-            labelColor = .white
-            backgroundColor = .black
-            shadowColor = .white
-        case .standard:
-            labelColor = .black
-            backgroundColor = .white
-            shadowColor = .black
-        }
+        let configuration = ThemeConfiguration.current
         labels.forEach { (label) in
-            label.textColor = labelColor
+            label.textColor = configuration.textColor
         }
-        containerView.backgroundColor = backgroundColor
-        shadowView.layer.shadowColor = shadowColor.cgColor
+        containerView.backgroundColor = configuration.secondaryBackgroundColor
+        shadowView.layer.shadowColor = configuration.shadowColor.cgColor
         
     }
     

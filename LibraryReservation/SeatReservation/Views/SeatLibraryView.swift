@@ -68,49 +68,24 @@ class SeatLibraryView: UIStackView {
     }
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var buttonTextColor: UIColor!
-        var buttonBackgroundColor: UIColor!
-        var shadowColor: UIColor!
-        switch theme {
-        case .black:
-            tipLabel.textColor = .white
-            buttonTextColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            buttonBackgroundColor = .black
-            shadowColor = .white
-        case .standard:
-            tipLabel.textColor = .black
-            buttonTextColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            buttonBackgroundColor = .white
-            shadowColor = .black
-        }
+        let configuration = ThemeConfiguration.current
+        tipLabel.textColor = configuration.textColor
         [mainButton, engineeringButton, infoButton, medicineButton].forEach { (button) in
-            button?.setTitleColor(buttonTextColor, for: .normal)
-            button?.backgroundColor = buttonBackgroundColor
+            button?.setTitleColor(configuration.tintColor, for: .normal)
+            button?.backgroundColor = configuration.secondaryBackgroundColor
         }
         [mainLibraryView, engineeringLibraryView, infoLibraryView, medicineLibraryView].forEach { (view) in
-            view?.layer.shadowColor = shadowColor.cgColor
+            view?.layer.shadowColor = configuration.shadowColor.cgColor
         }
     }
     
     @objc func onButtonClick(_ sender: UIButton) {
+        let configuration = ThemeConfiguration.current
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
         if self.isSelected {
             //deselect
-            let theme = ThemeSettings.shared.theme
-            var titleColor: UIColor!
-            var backgroundColor: UIColor!
-            switch theme {
-            case .black:
-                titleColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-                backgroundColor = .black
-            case .standard:
-                titleColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-                backgroundColor = .white
-            }
-            
-            sender.setTitleColor(titleColor, for: .normal)
-            sender.backgroundColor = backgroundColor
+            sender.setTitleColor(configuration.tintColor, for: .normal)
+            sender.backgroundColor = configuration.secondaryBackgroundColor
             switch sender {
             case self.mainButton:
                 self.engineeringLibraryView.isHidden = false
@@ -137,19 +112,8 @@ class SeatLibraryView: UIStackView {
             }
         }else{
             //select
-            let theme = ThemeSettings.shared.theme
-            var titleColor: UIColor!
-            var backgroundColor: UIColor!
-            switch theme {
-            case .black:
-                titleColor = .black
-                backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            case .standard:
-                titleColor = .white
-                backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            }
-            sender.setTitleColor(titleColor, for: .normal)
-            sender.backgroundColor = backgroundColor
+            sender.setTitleColor(configuration.highlightTextColor, for: .normal)
+            sender.backgroundColor = configuration.tintColor
             switch sender {
             case self.mainButton:
                 self.engineeringLibraryView.isHidden = true

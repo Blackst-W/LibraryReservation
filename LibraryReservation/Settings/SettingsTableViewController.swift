@@ -106,20 +106,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        let cellTitleColor: UIColor!
-        switch theme {
-        case .black:
-            nameLabel.textColor = .white
-            sidLabel.textColor = .white
-            cellTitleColor = .white
-        case .standard:
-            nameLabel.textColor = .black
-            sidLabel.textColor = .black
-            cellTitleColor = .black
-        }
+        let configuration = ThemeConfiguration.current
+        nameLabel.textColor = configuration.textColor
+        sidLabel.textColor = configuration.textColor
         tableView.visibleCells.forEach { (cell) in
-            cell.textLabel?.textColor = cellTitleColor
+            cell.textLabel?.textColor = configuration.textColor
         }
     }
     

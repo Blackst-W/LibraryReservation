@@ -105,51 +105,26 @@ class SeatSelectionViewController: UIViewController {
     @IBOutlet var reserveLabels: [UILabel]!
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var legendViewColor: UIColor!
-        var legendTextColor: UIColor!
-        var reserveLabelColor: UIColor!
-        switch theme {
-        case .black:
-            view.backgroundColor = .black
-            controlDefaultColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
-            controlHighlightColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            controlTextDefaultColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            controlTextHighlightColor = .white
-            changeTimeFilterButton.setTitleColor(#colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1), for: .normal)
-            timeFilterLabel.textColor = .white
-            timeFilterView.backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
-            legendTextColor = .white
-            reserveLabelColor = .white
-            legendViewColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
-            reserveView.backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
-            reserveButton.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            dismissControl.backgroundColor = .darkGray
-        case .standard:
-            view.backgroundColor = .groupTableViewBackground
-            controlDefaultColor = .white
-            controlHighlightColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            controlTextDefaultColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            controlTextHighlightColor = .white
-            changeTimeFilterButton.setTitleColor(#colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1), for: .normal)
-            timeFilterLabel.textColor = .black
-            timeFilterView.backgroundColor = .white
-            legendTextColor = .black
-            reserveLabelColor = .black
-            legendViewColor = .white
-            reserveView.backgroundColor = .white
-            reserveButton.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            dismissControl.backgroundColor = .lightGray
-        }
+        let configuration = ThemeConfiguration.current
+        timeFilterLabel.textColor = configuration.textColor
+        controlHighlightColor = configuration.tintColor
+        controlTextDefaultColor = configuration.tintColor
+        controlTextHighlightColor = configuration.highlightTextColor
+        controlDefaultColor = configuration.secondaryBackgroundColor
+        timeFilterView.backgroundColor = configuration.secondaryBackgroundColor
+        reserveView.backgroundColor = configuration.secondaryBackgroundColor
+        dismissControl.backgroundColor = configuration.deactiveColor
+        reserveButton.backgroundColor = configuration.tintColor
+        changeTimeFilterButton.setTitleColor(configuration.tintColor, for: .normal)
+        view.backgroundColor = configuration.backgroundColor
         legendViews.forEach { (view) in
-            view.backgroundColor = legendViewColor
+            view.backgroundColor = configuration.secondaryBackgroundColor
         }
         legendLabels.forEach { (label) in
-            label.textColor = legendTextColor
+            label.textColor = configuration.textColor
         }
-        
         reserveLabels.forEach { (label) in
-            label.textColor = reserveLabelColor
+            label.textColor = configuration.textColor
         }
         
         [computerControl, windowControl, powerControl].forEach { (control) in
@@ -305,16 +280,9 @@ class SeatSelectionViewController: UIViewController {
     func updateTimeline(start: [SeatTime]) {
         var timelineActiveColor: UIColor!
         var timelineDeactiveColor: UIColor!
-        
-        switch ThemeSettings.shared.theme {
-        case .black:
-            timelineActiveColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            timelineDeactiveColor = .darkGray
-        case .standard:
-            timelineActiveColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            timelineDeactiveColor = .lightGray
-        }
-        
+        let configuration = ThemeConfiguration.current
+        timelineActiveColor = configuration.tintColor
+        timelineDeactiveColor = configuration.deactiveColor
         timelineView.arrangedSubviews.forEach { (view) in
             view.removeFromSuperview()
         }

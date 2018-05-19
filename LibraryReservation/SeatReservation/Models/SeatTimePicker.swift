@@ -93,12 +93,7 @@ class SeatTimePicker: NSObject {
     var textColor: UIColor!
     
     func updateTheme() {
-        switch ThemeSettings.shared.theme {
-        case .black:
-            textColor = .white
-        case .standard:
-            textColor = .black
-        }
+        textColor = ThemeConfiguration.current.textColor
     }
     
 }

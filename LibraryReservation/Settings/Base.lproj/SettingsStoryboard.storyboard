@@ -652,7 +652,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Voe-vc-jpo">
                                             <rect key="frame" x="0.0" y="60" width="343" height="44"/>
-                                            <color key="backgroundColor" red="1" green="0.17254901959999999" blue="0.35417509180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <state key="normal" title="Sign Out">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -905,6 +905,7 @@
                         <outlet property="refreshButton" destination="zis-RN-phh" id="CQl-eD-jSg"/>
                         <outlet property="savePasswordSwitch" destination="wgu-M7-xJz" id="qO5-hP-DZs"/>
                         <outlet property="sidLabel" destination="FYF-NU-AXu" id="J6p-dL-fKb"/>
+                        <outlet property="signoutButton" destination="Voe-vc-jpo" id="8ZC-aJ-NZq"/>
                         <outlet property="statusLabel" destination="cyX-40-YvI" id="HbU-aw-0T2"/>
                         <outlet property="tokenLabel" destination="0LT-Gz-f09" id="bG4-gX-4or"/>
                         <outlet property="violationLabel" destination="0rE-dg-w4P" id="ons-DY-cX2"/>

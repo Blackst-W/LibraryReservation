@@ -43,7 +43,6 @@ class SeatRoomTableViewCell: UITableViewCell {
         }
         if let right = right {
             rightRoomView.isUserInteractionEnabled = true
-            rightShadowView.layer.shadowOpacity = 0.15
             rightRoomLabel.text = right.name
             rightFloorLabel.text = "Floor".localized(arguments: right.floor)
             if let rightSeat = right.availableSeats {
@@ -54,58 +53,62 @@ class SeatRoomTableViewCell: UITableViewCell {
             rightRoomView.backgroundColor = roomViewBackgroundColor
         }else{
             rightRoomView.isUserInteractionEnabled = false
-            rightShadowView.layer.shadowOpacity = 0
             rightAvailableLabel.text = ""
             rightRoomLabel.text = ""
             rightFloorLabel.text = ""
-            rightRoomView.backgroundColor = .clear
+            rightRoomView.backgroundColor = nil
         }
     }
     
     @objc dynamic var titleColor: UIColor? {
-        didSet {
-            leftRoomLabel.textColor = titleColor
-            rightRoomLabel.textColor = titleColor
+        set {
+            leftRoomLabel.textColor = newValue
+            rightRoomLabel.textColor = newValue
+        }
+        get {
+            return nil
         }
     }
     
     @objc dynamic var labelColor: UIColor? {
-        didSet {
-            leftFloorLabel.textColor = labelColor
-            leftAvailableLabel.textColor = labelColor
-            rightFloorLabel.textColor = labelColor
-            rightAvailableLabel.textColor = labelColor
+        set {
+            leftFloorLabel.textColor = newValue
+            leftAvailableLabel.textColor = newValue
+            rightFloorLabel.textColor = newValue
+            rightAvailableLabel.textColor = newValue
+        }
+        get {
+            return nil
         }
     }
     
     @objc dynamic var roomViewBackgroundColor: UIColor? {
-        didSet {
-            leftRoomView.backgroundColor = roomViewBackgroundColor
+        set {
+            leftRoomView.backgroundColor = newValue
+        }
+        get {
+            return leftRoomView.backgroundColor
         }
     }
     
     @objc dynamic var roomViewShadowColor: UIColor? {
-        didSet {
-            leftShadowView.layer.shadowColor = roomViewShadowColor?.cgColor
-            rightShadowView.layer.shadowColor = roomViewShadowColor?.cgColor
+        set {
+            leftShadowView.layer.shadowColor = newValue?.cgColor
+            rightShadowView.layer.shadowColor = newValue?.cgColor
+        }
+        get {
+            return nil
         }
     }
     
     static func updateAppearance(theme: Theme) {
+        let configuration = ThemeConfiguration.current
         let appearance = SeatRoomTableViewCell.appearance()
         appearance.backgroundColor = nil
-        switch theme {
-        case .black:
-            appearance.titleColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            appearance.labelColor = .white
-            appearance.roomViewBackgroundColor = .black
-            appearance.roomViewShadowColor = .white
-        case .standard:
-            appearance.titleColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            appearance.labelColor = .black
-            appearance.roomViewBackgroundColor = .white
-            appearance.roomViewShadowColor = .black
-        }
+        appearance.titleColor = configuration.tintColor
+        appearance.labelColor = configuration.textColor
+        appearance.roomViewBackgroundColor = configuration.secondaryBackgroundColor
+        appearance.roomViewShadowColor = configuration.shadowColor
     }
     
 }

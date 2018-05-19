@@ -60,16 +60,9 @@ class SeatHistoryDetailViewController: UITableViewController {
     }
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var labelColor: UIColor!
-        switch theme {
-        case .black:
-            labelColor = .white
-        case .standard:
-            labelColor = .black
-        }
+        let configuration = ThemeConfiguration.current
         labels.forEach { (label) in
-            label.textColor = labelColor
+            label.textColor = configuration.textColor
         }
     }
     

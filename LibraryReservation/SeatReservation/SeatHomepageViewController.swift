@@ -79,68 +79,29 @@ class SeatHomepageViewController: UIViewController {
     }
     
     @IBOutlet weak var loginShadowView: UIView!
+    @IBOutlet weak var loginVisualEffectView: UIVisualEffectView!
     
     func updateTheme(_ animated: Bool) {
-        let theme = ThemeSettings.shared.theme
-        var backgroundColor: UIColor!
-        var navigationBarTintColor: UIColor?
-        var navigationTintColor: UIColor?
-        var navigationTitleColor: UIColor!
-//        var refreshTintColor: UIColor!
-        var labelColor: UIColor!
-        var buttonTintColor: UIColor!
-        var reserveButtonColor: UIColor!
-        var reserveButtonTextColor: UIColor!
-        var statusBarStyle: UIBarStyle!
-        var indicatorColor: UIColor!
-        var loginShadowViewColor: UIColor!
-        switch theme {
-        case .black:
-            labelColor = .white
-            backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
-            navigationBarTintColor = .black
-            navigationTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-//            refreshTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            buttonTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            reserveButtonColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            reserveButtonTextColor = .black
-            indicatorColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            navigationTitleColor = .white
-            statusBarStyle = .black
-            loginShadowViewColor = .black
-        case .standard:
-            labelColor = .black
-            backgroundColor = .white
-            navigationBarTintColor = nil
-            navigationTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-//            refreshTintColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4470588235, alpha: 1)
-            buttonTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            reserveButtonColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            reserveButtonTextColor = .white
-            indicatorColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            navigationTitleColor = .black
-            statusBarStyle = .default
-            loginShadowViewColor = .white
-        }
 //        contentScrollView.refreshControl?.tintColor = refreshTintColor
-        
         let animation = {
-            self.historyLoadingIndicator.tintColor = indicatorColor
-            self.loginShadowView.backgroundColor = loginShadowViewColor
-            self.reserveButton.setTitleColor(reserveButtonTextColor, for: .normal)
-            self.reserveButton.backgroundColor = reserveButtonColor
+            let configuration = ThemeConfiguration.current
+            self.historyLoadingIndicator.tintColor = configuration.tintColor
+            self.loginShadowView.backgroundColor = configuration.secondaryTextColor
+            self.loginVisualEffectView.effect = configuration.blurEffect
+            self.reserveButton.setTitleColor(configuration.highlightTextColor, for: .normal)
+            self.reserveButton.backgroundColor = configuration.tintColor
             self.labels.forEach({ (label) in
-                label.textColor = labelColor
+                label.textColor = configuration.textColor
             })
             self.buttons.forEach({ (button) in
-                button.tintColor = buttonTintColor
+                button.tintColor = configuration.tintColor
             })
-            self.view.backgroundColor = backgroundColor
-            let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: navigationTitleColor]
+            self.view.backgroundColor = configuration.backgroundColor
+            let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: configuration.textColor]
             
-            self.navigationController?.navigationBar.barTintColor = navigationBarTintColor
-            self.navigationController?.navigationBar.tintColor = navigationTintColor
-            self.navigationController?.navigationBar.barStyle = statusBarStyle
+            self.navigationController?.navigationBar.barTintColor = configuration.barTintColor
+            self.navigationController?.navigationBar.tintColor = configuration.tintColor
+            self.navigationController?.navigationBar.barStyle = configuration.statusBarStyle
             self.navigationController?.navigationBar.titleTextAttributes = textAttributes
             if #available(iOS 11.0, *) {
                 self.navigationController?.navigationBar.largeTitleTextAttributes = textAttributes

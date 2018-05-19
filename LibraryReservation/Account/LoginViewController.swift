@@ -29,7 +29,7 @@ class LoginViewController: UITableViewController {
     @IBOutlet weak var autoLoginSwitch: UISwitch!
     
     @IBOutlet weak var loginButton: UIButton!
-    
+    var sidEditable = false
     weak var delegate: LoginViewDelegate?
     
     override func viewDidLoad() {
@@ -45,7 +45,14 @@ class LoginViewController: UITableViewController {
         if let account = AccountManager.shared.currentAccount {
             sidTextField.text = account.username
             passwordTextField.text = account.password
+            if !sidEditable {
+                sidTextField.isUserInteractionEnabled = false
+            }
+            if account.password == nil {
+                passwordTextField.becomeFirstResponder()
+            }
         }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -56,27 +63,21 @@ class LoginViewController: UITableViewController {
     @IBOutlet var labels: [UILabel]!
     
     func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var labelColor: UIColor!
-        var textFieldColor: UIColor!
-        var placeHolderColor: UIColor!
-        switch theme {
-        case .black:
-            labelColor = .white
-            textFieldColor = .white
-            placeHolderColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4549019608, alpha: 1)
-        case .standard:
-            labelColor = .black
-            textFieldColor = .black
-            placeHolderColor = .lightGray
+        let configuration = ThemeConfiguration.current
+        loginButton.tintColor = configuration.tintColor
+        loginButton.setTitleColor(configuration.highlightTextColor, for: .normal)
+        loginButton.backgroundColor = configuration.tintColor
+        if sidTextField.isUserInteractionEnabled {
+            sidTextField.textColor = configuration.textColor
+        }else{
+            sidTextField.textColor = configuration.deactiveColor
         }
+        passwordTextField.textColor = configuration.textColor
+        sidTextField.attributedPlaceholder = NSAttributedString(string: sidTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : configuration.deactiveColor])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : configuration.deactiveColor])
         labels.forEach { (label) in
-            label.textColor = labelColor
+            label.textColor = configuration.textColor
         }
-        sidTextField.textColor = textFieldColor
-        passwordTextField.textColor = textFieldColor
-        sidTextField.attributedPlaceholder = NSAttributedString(string: sidTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : placeHolderColor])
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : placeHolderColor])
     }
     
     
@@ -137,7 +138,7 @@ class LoginViewController: UITableViewController {
         let result = sidTextField.text!.isEmpty
         if result {
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.sidLabel.textColor = .red
+                self.sidLabel.textColor = ThemeConfiguration.current.warnColor
             }
             animator.startAnimation()
         }
@@ -148,7 +149,7 @@ class LoginViewController: UITableViewController {
         let result = passwordTextField.text!.isEmpty
         if result {
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.passwordLabel.textColor = .red
+                self.passwordLabel.textColor = ThemeConfiguration.current.warnColor
             }
             animator.startAnimation()
         }
@@ -184,12 +185,12 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == sidTextField {
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.sidLabel.textColor = .black
+                self.sidLabel.textColor = ThemeConfiguration.current.textColor
             }
             animator.startAnimation()
         }else{
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.passwordLabel.textColor = .black
+                self.passwordLabel.textColor = ThemeConfiguration.current.textColor
             }
             animator.startAnimation()
         }

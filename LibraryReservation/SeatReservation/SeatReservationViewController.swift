@@ -25,11 +25,13 @@ class SeatReservationViewController: UIViewController {
                 libraryManager.check(library: library) { (response) in
                     self.handle(response: response, library: library)
                 }
+                resizeRoomTableView()
+                roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
             }else{
                 roomData = []
+                roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                resizeRoomTableView()
             }
-            resizeRoomTableView()
-            roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
         }
     }
     
@@ -65,17 +67,9 @@ class SeatReservationViewController: UIViewController {
     @IBOutlet weak var roomTipLabel: UILabel!
     
     func updateTheme() {
-        roomTableView.backgroundColor = .clear
-        let theme = ThemeSettings.shared.theme
-        switch theme {
-        case .black:
-            view.backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
-            roomTipLabel.textColor = .white
-        case .standard:
-            view.backgroundColor = .groupTableViewBackground
-            roomTipLabel.textColor = .black
-        }
-        
+        let configuration = ThemeConfiguration.current
+        view.backgroundColor = configuration.backgroundColor
+        roomTipLabel.textColor = configuration.textColor
     }
     
     func resizeRoomTableView(_ height: CGFloat? = nil) {

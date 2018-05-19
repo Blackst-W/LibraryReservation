@@ -40,27 +40,14 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
     }
     
     func updateTheme(_ animated: Bool) {
-        let theme = ThemeSettings.shared.theme
-        var themeLabelColor: UIColor!
-        var themeShadowColor: UIColor!
-        var themeBackgroundColor: UIColor!
-        switch theme {
-        case .black:
-            themeLabelColor = .white
-            themeShadowColor = .white
-            themeBackgroundColor = .black
-        case .standard:
-            themeLabelColor = .black
-            themeShadowColor = .black
-            themeBackgroundColor = .white
-        }
+        let configuration = ThemeConfiguration.current
         let animation = {
-            self.contentView.backgroundColor = themeBackgroundColor
+            self.contentView.backgroundColor = configuration.secondaryBackgroundColor
             self.contentView.layer.cornerRadius = 14
             self.labels.forEach { (label) in
-                label.textColor = themeLabelColor
+                label.textColor = configuration.textColor
             }
-            self.layer.shadowColor = themeShadowColor?.cgColor
+            self.layer.shadowColor = configuration.shadowColor.cgColor
         }
         if animated {
             UIViewPropertyAnimator(duration: 1, curve: .linear, animations: animation).startAnimation()

@@ -28,7 +28,7 @@ class ThemeTableViewController: UITableViewController {
         case .standard:
             let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))!
             cell.accessoryType = .checkmark
-        case .black:
+        case .dark:
             let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0))!
             cell.accessoryType = .checkmark
         }
@@ -41,47 +41,19 @@ class ThemeTableViewController: UITableViewController {
     }
 
     func update(theme: Theme, animated: Bool = false) {
-        var backgroundColor: UIColor!
-        var cellBackgroundColor: UIColor!
-        var cellLabelColor: UIColor!
-        var seperateColor: UIColor!
-        var navigationBarTintColor: UIColor?
-        var navigationTintColor: UIColor?
-        var navigationTitleColor: UIColor!
-        var statusBarStyle: UIBarStyle!
-        switch theme {
-        case .black:
-            backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
-            cellBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
-            cellLabelColor = .white
-            seperateColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2156862745, alpha: 1)
-            navigationBarTintColor = .black
-            navigationTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            navigationTitleColor = .white
-            statusBarStyle = .black
-        case .standard:
-            backgroundColor = .groupTableViewBackground
-            cellBackgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            cellLabelColor = .black
-            seperateColor = #colorLiteral(red: 0.7843137255, green: 0.7803921569, blue: 0.8, alpha: 1)
-            navigationBarTintColor = nil
-            navigationTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            navigationTitleColor = .black
-            statusBarStyle = .default
-        }
+        let configuration = ThemeConfiguration(theme: theme)
         let changed: ()-> Void = {
-            self.tableView.backgroundColor = backgroundColor
+            self.tableView.backgroundColor = configuration.backgroundColor
             self.tableView.visibleCells.forEach { (cell) in
-                cell.backgroundColor = cellBackgroundColor
-                cell.textLabel?.textColor = cellLabelColor
-                //                    cell.textLabel?.backgroundColor = cellBackgroundColor
+                cell.backgroundColor = configuration.secondaryBackgroundColor
+                cell.textLabel?.textColor = configuration.textColor
             }
-            self.tableView.separatorColor = seperateColor
-            let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: navigationTitleColor]
+            self.tableView.separatorColor = configuration.tableViewSeperatorColor
+            let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: configuration.textColor]
             
-            self.navigationController?.navigationBar.barTintColor = navigationBarTintColor
-            self.navigationController?.navigationBar.tintColor = navigationTintColor
-            self.navigationController?.navigationBar.barStyle = statusBarStyle
+            self.navigationController?.navigationBar.barTintColor = configuration.barTintColor
+            self.navigationController?.navigationBar.tintColor = configuration.tintColor
+            self.navigationController?.navigationBar.barStyle = configuration.statusBarStyle
             self.navigationController?.navigationBar.titleTextAttributes = textAttributes
             if #available(iOS 11.0, *) {
                 self.navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
@@ -107,8 +79,8 @@ class ThemeTableViewController: UITableViewController {
         case 1:
             let oldCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))!
             oldCell.accessoryType = .none
-            update(theme: .black, animated: true)
-            ThemeSettings.shared.update(theme: .black)
+            update(theme: .dark, animated: true)
+            ThemeSettings.shared.update(theme: .dark)
         default:
             return
         }
