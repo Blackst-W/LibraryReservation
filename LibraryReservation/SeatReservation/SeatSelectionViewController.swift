@@ -298,6 +298,54 @@ class SeatSelectionViewController: UIViewController {
         }.startAnimation()
     }
     
+    @IBOutlet weak var timelineView: UIStackView!
+    @IBOutlet weak var timelineStartLabel: UILabel!
+    @IBOutlet weak var timelineEndLabel: UILabel!
+    
+    func updateTimeline(start: [SeatTime]) {
+        var timelineActiveColor: UIColor!
+        var timelineDeactiveColor: UIColor!
+        
+        switch ThemeSettings.shared.theme {
+        case .black:
+            timelineActiveColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            timelineDeactiveColor = .darkGray
+        case .standard:
+            timelineActiveColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            timelineDeactiveColor = .lightGray
+        }
+        
+        timelineView.arrangedSubviews.forEach { (view) in
+            view.removeFromSuperview()
+        }
+        let allTimes = timeFilterManager.startTimes!
+        timelineStartLabel.text = allTimes[0].value
+        timelineEndLabel.text = timeFilterManager.endTimes!.last!.value
+        var views = [UIView]()
+        var heightConstraints = [NSLayoutConstraint]()
+        for time in allTimes {
+            let view = UIView()
+            if start.contains(time) {
+                view.backgroundColor = timelineActiveColor
+                let constraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30)
+                heightConstraints.append(constraint)
+            }else{
+                view.backgroundColor = timelineDeactiveColor
+                let constraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 15)
+                heightConstraints.append(constraint)
+            }
+            views.append(view)
+        }
+        if start.first?.id == "now" {
+            views.first?.backgroundColor = timelineActiveColor
+            heightConstraints[0].constant = 30
+        }
+        views.forEach { (view) in
+            timelineView.addArrangedSubview(view)
+        }
+        NSLayoutConstraint.activate(heightConstraints)
+    }
+    
     
     @IBAction func dismissReserveView(_ sender: Any) {
         if !reserveButton.isEnabled {return}
@@ -642,6 +690,7 @@ extension SeatSelectionViewController {
             return
         }
         timePickerManager.update(startTimes: start, filterStart: timeFilterStart, filterEnd: timeFilterEnd)
+        updateTimeline(start: start)
         showReserveView()
     }
     
