@@ -59,7 +59,23 @@ class SeatReservationViewController: UIViewController {
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
         libraryView.delegate = self
         libraryManager = SeatLibraryManager()
-        // Do any additional setup after loading the view.
+        updateTheme()
+    }
+    
+    @IBOutlet weak var roomTipLabel: UILabel!
+    
+    func updateTheme() {
+        roomTableView.backgroundColor = .clear
+        let theme = ThemeSettings.shared.theme
+        switch theme {
+        case .black:
+            view.backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
+            roomTipLabel.textColor = .white
+        case .standard:
+            view.backgroundColor = .groupTableViewBackground
+            roomTipLabel.textColor = .black
+        }
+        
     }
     
     func resizeRoomTableView(_ height: CGFloat? = nil) {

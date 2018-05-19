@@ -74,7 +74,7 @@ class SeatHomepageViewController: UIViewController {
             guard let cell = cell as? SeatHistoryCollectionViewCell else {
                 return
             }
-            cell.updateTheme()
+            cell.updateTheme(true)
         }
     }
     
@@ -86,7 +86,7 @@ class SeatHomepageViewController: UIViewController {
         var navigationBarTintColor: UIColor?
         var navigationTintColor: UIColor?
         var navigationTitleColor: UIColor!
-        var refreshTintColor: UIColor!
+//        var refreshTintColor: UIColor!
         var labelColor: UIColor!
         var buttonTintColor: UIColor!
         var reserveButtonColor: UIColor!
@@ -99,7 +99,7 @@ class SeatHomepageViewController: UIViewController {
             backgroundColor = #colorLiteral(red: 0.1137254902, green: 0.1137254902, blue: 0.1137254902, alpha: 1)
             navigationBarTintColor = .black
             navigationTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
-            refreshTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+//            refreshTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             buttonTintColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             reserveButtonColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
             indicatorColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
@@ -111,7 +111,7 @@ class SeatHomepageViewController: UIViewController {
             backgroundColor = .white
             navigationBarTintColor = nil
             navigationTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-            refreshTintColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4470588235, alpha: 1)
+//            refreshTintColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4470588235, alpha: 1)
             buttonTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
             reserveButtonColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
             indicatorColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
@@ -119,7 +119,7 @@ class SeatHomepageViewController: UIViewController {
             statusBarStyle = .default
             loginShadowViewColor = .white
         }
-        contentScrollView.refreshControl?.tintColor = refreshTintColor
+//        contentScrollView.refreshControl?.tintColor = refreshTintColor
         
         let animation = {
             self.historyLoadingIndicator.tintColor = indicatorColor

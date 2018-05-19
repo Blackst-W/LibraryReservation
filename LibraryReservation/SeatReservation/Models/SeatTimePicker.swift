@@ -25,6 +25,7 @@ class SeatTimePicker: NSObject {
     
     init(pickerView: UIPickerView, delegate: SeatTimeFilterDelegate?) {
         super.init()
+        updateTheme()
         timePickerView = pickerView
         timePickerView.delegate = self
         timePickerView.dataSource = self
@@ -89,6 +90,17 @@ class SeatTimePicker: NSObject {
         return endTimes
     }
     
+    var textColor: UIColor!
+    
+    func updateTheme() {
+        switch ThemeSettings.shared.theme {
+        case .black:
+            textColor = .white
+        case .standard:
+            textColor = .black
+        }
+    }
+    
 }
 
 extension SeatTimePicker: UIPickerViewDataSource {
@@ -102,8 +114,9 @@ extension SeatTimePicker: UIPickerViewDataSource {
 }
 
 extension SeatTimePicker: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return component == 0 ? startTimes[row].value : endTimes[row].value
+    public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let text = component == 0 ? startTimes[row].value : endTimes[row].value
+        return NSAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor : textColor])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

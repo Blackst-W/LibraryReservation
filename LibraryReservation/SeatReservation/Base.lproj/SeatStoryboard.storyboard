@@ -501,6 +501,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Reservation In 30 days." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zy-Dd-p32">
+                                <rect key="frame" x="22.5" y="271" width="275" height="26"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="146" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="RjI-wT-Zws">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -663,12 +669,6 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Reservation In 30 days." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zy-Dd-p32">
-                                <rect key="frame" x="22.5" y="271" width="275" height="26"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RjI-wT-Zws" secondAttribute="bottom" id="1Cw-ww-54I"/>
@@ -1131,7 +1131,6 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="A6R-ou-Urh" firstAttribute="leading" secondItem="Z7I-y0-B18" secondAttribute="leading" id="7Wd-vX-J44"/>
                                                             <constraint firstAttribute="height" constant="44" id="CSA-zF-uKO"/>
@@ -1168,7 +1167,6 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="KV8-iV-9Ia" firstAttribute="top" secondItem="PPr-GE-t3u" secondAttribute="top" id="Cpg-S4-jTs"/>
                                                             <constraint firstAttribute="height" constant="44" id="Sxr-3T-qcq"/>
@@ -1213,7 +1211,6 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="IH6-KA-8qH" secondAttribute="trailing" id="9t9-rl-yyb"/>
                                                             <constraint firstAttribute="bottom" secondItem="IH6-KA-8qH" secondAttribute="bottom" id="WXw-4t-Hry"/>
@@ -1250,7 +1247,6 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="lHu-Id-Thf" firstAttribute="top" secondItem="7cS-6o-D57" secondAttribute="top" id="9ev-U1-iv4"/>
                                                             <constraint firstAttribute="height" constant="44" id="9g2-iU-Nzx"/>
@@ -1515,6 +1511,7 @@
                         <outlet property="libraryView" destination="8Id-CA-Wnu" id="dK4-4r-sD1"/>
                         <outlet property="roomTableView" destination="WWL-Cm-ASz" id="NE9-UV-Bhh"/>
                         <outlet property="roomTableViewHeightConstraint" destination="ojx-Rf-AMH" id="jgs-rM-SWe"/>
+                        <outlet property="roomTipLabel" destination="siO-zo-F1D" id="Qpe-PA-32X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fsM-iG-h8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1859,8 +1856,8 @@
                                     <action selector="dismissReserveView:" destination="qxb-Xb-MR1" eventType="touchUpInside" id="zwT-et-plb"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkT-w5-pOR" userLabel="Time View">
-                                <rect key="frame" x="8" y="568" width="304" height="270"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fkT-w5-pOR" userLabel="Time View">
+                                <rect key="frame" x="8" y="200" width="304" height="270"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlc-8Q-Nbz" userLabel="Shadow View">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="270"/>
@@ -2034,16 +2031,28 @@
                         <outlet property="powerImageView" destination="4Ll-T8-b80" id="JaC-GQ-zoU"/>
                         <outlet property="powerLabel" destination="fTh-YM-boQ" id="REX-kz-KQG"/>
                         <outlet property="reserveButton" destination="bjB-hd-ISB" id="owa-8p-kco"/>
+                        <outlet property="reserveView" destination="wlc-8Q-Nbz" id="Sb9-G2-cnV"/>
                         <outlet property="roomLabel" destination="ESA-cW-q9e" id="rpZ-gs-77e"/>
                         <outlet property="scrollView" destination="kBH-Rd-WT2" id="X9b-dH-tXG"/>
                         <outlet property="seatLabel" destination="cwm-aW-CmP" id="c6y-tM-nbF"/>
                         <outlet property="timeFilterLabel" destination="K7A-Nu-97J" id="K1J-RF-9X6"/>
                         <outlet property="timeFilterPickerHeightConstraint" destination="mZ8-Nk-dNS" id="SkA-4B-fhq"/>
                         <outlet property="timeFilterPickerView" destination="db1-WR-eI2" id="ACR-M9-rRh"/>
+                        <outlet property="timeFilterView" destination="cG2-Gu-bW7" id="jNj-iN-VS8"/>
                         <outlet property="timePickerView" destination="eEQ-AL-cq9" id="o00-VN-3MK"/>
                         <outlet property="windowControl" destination="48V-5P-PLf" id="z7A-D8-aJP"/>
                         <outlet property="windowImageView" destination="GSC-zX-q0K" id="U4c-uV-yuf"/>
                         <outlet property="windowLabel" destination="oKt-xo-2Vn" id="DnM-6a-jri"/>
+                        <outletCollection property="legendViews" destination="3AH-fG-MTb" collectionClass="NSMutableArray" id="vFq-Mz-xST"/>
+                        <outletCollection property="legendViews" destination="MV5-3I-4CL" collectionClass="NSMutableArray" id="2q0-fI-dWI"/>
+                        <outletCollection property="legendViews" destination="VER-de-RQ7" collectionClass="NSMutableArray" id="hqn-N8-guA"/>
+                        <outletCollection property="legendLabels" destination="SZK-vH-eTd" collectionClass="NSMutableArray" id="zWd-tR-i7F"/>
+                        <outletCollection property="legendLabels" destination="w32-IQ-R2F" collectionClass="NSMutableArray" id="6fL-p8-8Xy"/>
+                        <outletCollection property="legendLabels" destination="oDx-0M-pKe" collectionClass="NSMutableArray" id="Brq-8l-whn"/>
+                        <outletCollection property="reserveLabels" destination="MUf-Ig-GGB" collectionClass="NSMutableArray" id="eFH-gF-TGQ"/>
+                        <outletCollection property="reserveLabels" destination="fO1-D6-IKz" collectionClass="NSMutableArray" id="P92-Nc-1Ys"/>
+                        <outletCollection property="reserveLabels" destination="ESA-cW-q9e" collectionClass="NSMutableArray" id="Fxb-XP-Vds"/>
+                        <outletCollection property="reserveLabels" destination="cwm-aW-CmP" collectionClass="NSMutableArray" id="2UO-p2-rXO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yCL-Jg-iEl" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -51,7 +51,7 @@ class SeatRoomTableViewCell: UITableViewCell {
             }else{
                 rightAvailableLabel.text = "Available: -".localized
             }
-            rightRoomView.backgroundColor = .white
+            rightRoomView.backgroundColor = roomViewBackgroundColor
         }else{
             rightRoomView.isUserInteractionEnabled = false
             rightShadowView.layer.shadowOpacity = 0
@@ -61,4 +61,51 @@ class SeatRoomTableViewCell: UITableViewCell {
             rightRoomView.backgroundColor = .clear
         }
     }
+    
+    @objc dynamic var titleColor: UIColor? {
+        didSet {
+            leftRoomLabel.textColor = titleColor
+            rightRoomLabel.textColor = titleColor
+        }
+    }
+    
+    @objc dynamic var labelColor: UIColor? {
+        didSet {
+            leftFloorLabel.textColor = labelColor
+            leftAvailableLabel.textColor = labelColor
+            rightFloorLabel.textColor = labelColor
+            rightAvailableLabel.textColor = labelColor
+        }
+    }
+    
+    @objc dynamic var roomViewBackgroundColor: UIColor? {
+        didSet {
+            leftRoomView.backgroundColor = roomViewBackgroundColor
+        }
+    }
+    
+    @objc dynamic var roomViewShadowColor: UIColor? {
+        didSet {
+            leftShadowView.layer.shadowColor = roomViewShadowColor?.cgColor
+            rightShadowView.layer.shadowColor = roomViewShadowColor?.cgColor
+        }
+    }
+    
+    static func updateAppearance(theme: Theme) {
+        let appearance = SeatRoomTableViewCell.appearance()
+        appearance.backgroundColor = nil
+        switch theme {
+        case .black:
+            appearance.titleColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            appearance.labelColor = .white
+            appearance.roomViewBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            appearance.roomViewShadowColor = .white
+        case .standard:
+            appearance.titleColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+            appearance.labelColor = .black
+            appearance.roomViewBackgroundColor = .white
+            appearance.roomViewShadowColor = .black
+        }
+    }
+    
 }

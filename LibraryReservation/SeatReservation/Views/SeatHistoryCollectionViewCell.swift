@@ -24,32 +24,8 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var labels: [UILabel]!
     
-    func updateTheme() {
-        let theme = ThemeSettings.shared.theme
-        var backgroundColor: UIColor!
-        var labelColor: UIColor!
-        var shadowColor: UIColor!
-        switch theme {
-        case .black:
-            labelColor = .white
-            shadowColor = .white
-            backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
-        case .standard:
-            labelColor = .black
-            shadowColor = .black
-            backgroundColor = .white
-        }
-        UIViewPropertyAnimator(duration: 1, curve: .linear) {
-            self.contentView.backgroundColor = backgroundColor
-            self.labels.forEach { (label) in
-                label.textColor = labelColor
-            }
-            self.layer.shadowColor = shadowColor.cgColor
-        }.startAnimation()
-    }
-    
     func update(reservation: SeatReservation) {
-        updateTheme()
+        updateTheme(false)
         dateLabel.text = reservation.rawDate
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         guard let location = reservation.location else {
@@ -61,6 +37,36 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
         seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         stateLabel.text = reservation.state.localizedDescription
         stateImageView.isHidden = !reservation.isFailed
+    }
+    
+    func updateTheme(_ animated: Bool) {
+        let theme = ThemeSettings.shared.theme
+        var themeLabelColor: UIColor!
+        var themeShadowColor: UIColor!
+        var themeBackgroundColor: UIColor!
+        switch theme {
+        case .black:
+            themeLabelColor = .white
+            themeShadowColor = .white
+            themeBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+        case .standard:
+            themeLabelColor = .black
+            themeShadowColor = .black
+            themeBackgroundColor = .white
+        }
+        let animation = {
+            self.contentView.backgroundColor = themeBackgroundColor
+            self.contentView.layer.cornerRadius = 14
+            self.labels.forEach { (label) in
+                label.textColor = themeLabelColor
+            }
+            self.layer.shadowColor = themeShadowColor?.cgColor
+        }
+        if animated {
+            UIViewPropertyAnimator(duration: 1, curve: .linear, animations: animation).startAnimation()
+        }else{
+            animation()
+        }
     }
     
 }

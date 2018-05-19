@@ -51,9 +51,13 @@ public class SeatReserveManager: SeatBaseNetworkManager {
                         callback?(.success(()))
                     }
                 }else if response.code == "12" {
-                    callback?(.requireLogin)
+                    DispatchQueue.main.async {
+                        callback?(.requireLogin)
+                    }
                 }else{
-                    callback?(.failed(response))
+                    DispatchQueue.main.async {
+                        callback?(.failed(response))
+                    }
                 }
                     
             }catch{

@@ -95,6 +95,7 @@ class ThemeSettings: NSObject, Codable {
             keyboard = .default
         }
         
+        //MARK: NavigationBar
         let barAppearance = UINavigationBar.appearance()
         barAppearance.barTintColor = navigationBarTintColor
         barAppearance.tintColor = navigationTintColor
@@ -106,17 +107,21 @@ class ThemeSettings: NSObject, Codable {
             barAppearance.largeTitleTextAttributes = textAttributes
         }
         
+        //MARK: TableView
         let tableViewAppearance = UITableView.appearance()
         tableViewAppearance.backgroundColor = backgroundColor
         tableViewAppearance.separatorColor = seperateColor
         let cellAppearance = UITableViewCell.appearance()
         cellAppearance.backgroundColor = cellBackgroundColor
         
+        //MARK: TextField
         let textFieldAppearance = UITextField.appearance()
         textFieldAppearance.keyboardAppearance = keyboard
         
+        //MARK: UIWindow
         UIApplication.shared.delegate!.window!!.backgroundColor = windowColor
         
+        SeatRoomTableViewCell.updateAppearance(theme: theme)
     }
     
 }

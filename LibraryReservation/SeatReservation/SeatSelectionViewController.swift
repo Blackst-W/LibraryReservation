@@ -87,6 +87,78 @@ class SeatSelectionViewController: UIViewController {
         setupFilter()
         navigationController?.hidesBarsOnSwipe = true
         // Do any additional setup after loading the view.
+        updateTheme()
+    }
+    
+    var controlDefaultColor: UIColor!
+    var controlHighlightColor: UIColor!
+    var controlTextDefaultColor: UIColor!
+    var controlTextHighlightColor: UIColor!
+    
+    @IBOutlet var legendViews: [UIView]!
+    
+    @IBOutlet var legendLabels: [UILabel]!
+    
+    @IBOutlet weak var reserveView: UIView!
+    
+    
+    @IBOutlet var reserveLabels: [UILabel]!
+    
+    func updateTheme() {
+        let theme = ThemeSettings.shared.theme
+        var legendViewColor: UIColor!
+        var legendTextColor: UIColor!
+        var reserveLabelColor: UIColor!
+        switch theme {
+        case .black:
+            view.backgroundColor = .black
+            controlDefaultColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            controlHighlightColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            controlTextDefaultColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            controlTextHighlightColor = .white
+            changeTimeFilterButton.setTitleColor(#colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1), for: .normal)
+            timeFilterLabel.textColor = .white
+            timeFilterView.backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            legendTextColor = .white
+            reserveLabelColor = .white
+            legendViewColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            reserveView.backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+            reserveButton.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+            dismissControl.backgroundColor = .darkGray
+        case .standard:
+            view.backgroundColor = .groupTableViewBackground
+            controlDefaultColor = .white
+            controlHighlightColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            controlTextDefaultColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            controlTextHighlightColor = .white
+            changeTimeFilterButton.setTitleColor(#colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1), for: .normal)
+            timeFilterLabel.textColor = .black
+            timeFilterView.backgroundColor = .white
+            legendTextColor = .black
+            reserveLabelColor = .black
+            legendViewColor = .white
+            reserveView.backgroundColor = .white
+            reserveButton.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            dismissControl.backgroundColor = .lightGray
+        }
+        legendViews.forEach { (view) in
+            view.backgroundColor = legendViewColor
+        }
+        legendLabels.forEach { (label) in
+            label.textColor = legendTextColor
+        }
+        
+        reserveLabels.forEach { (label) in
+            label.textColor = reserveLabelColor
+        }
+        
+        [computerControl, windowControl, powerControl].forEach { (control) in
+            control?.backgroundColor = controlDefaultColor
+        }
+        
+        [computerLabel, windowLabel, powerLabel].forEach { (label) in
+            label?.textColor = controlTextDefaultColor
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,6 +200,9 @@ class SeatSelectionViewController: UIViewController {
             return
         }
         update(layoutData: layoutData)
+        if let _ = timeFiltedSeats {
+            reloadData()
+        }
         switch sender.selectedSegmentIndex {
         case 0:
             scrollView.setZoomScale(1, animated: false)
@@ -155,12 +230,12 @@ class SeatSelectionViewController: UIViewController {
     @IBAction func toggleComputer(_ sender: Any) {
         filter.needComputer = !filter.needComputer
         if filter.needComputer {
-            computerControl.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            computerLabel.textColor = .white
+            computerControl.backgroundColor = controlHighlightColor
+            computerLabel.textColor = controlTextHighlightColor
             computerImageView.isHighlighted = true
         }else{
-            computerControl.backgroundColor = .white
-            computerLabel.textColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            computerControl.backgroundColor = controlDefaultColor
+            computerLabel.textColor = controlTextDefaultColor
             computerImageView.isHighlighted = false
         }
         reloadData()
@@ -170,12 +245,12 @@ class SeatSelectionViewController: UIViewController {
     @IBAction func toggleWindow(_ sender: Any) {
         filter.needWindow = !filter.needWindow
         if filter.needWindow {
-            windowControl.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            windowLabel.textColor = .white
+            windowControl.backgroundColor = controlHighlightColor
+            windowLabel.textColor = controlTextHighlightColor
             windowImageView.isHighlighted = true
         }else{
-            windowControl.backgroundColor = .white
-            windowLabel.textColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            windowControl.backgroundColor = controlDefaultColor
+            windowLabel.textColor = controlTextDefaultColor
             windowImageView.isHighlighted = false
         }
         reloadData()
@@ -185,12 +260,12 @@ class SeatSelectionViewController: UIViewController {
     @IBAction func togglePower(_ sender: Any) {
         filter.needPower = !filter.needPower
         if filter.needPower {
-            powerControl.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-            powerLabel.textColor = .white
+            powerControl.backgroundColor = controlHighlightColor
+            powerLabel.textColor = controlTextHighlightColor
             powerImageView.isHighlighted = true
         }else{
-            powerControl.backgroundColor = .white
-            powerLabel.textColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            powerControl.backgroundColor = controlDefaultColor
+            powerLabel.textColor = controlTextDefaultColor
             powerImageView.isHighlighted = false
         }
         reloadData()
@@ -254,6 +329,8 @@ class SeatSelectionViewController: UIViewController {
     }
     
     // MARK: Time Filter
+    
+    @IBOutlet weak var timeFilterView: UIView!
     @IBOutlet weak var changeTimeFilterButton: UIButton!
     @IBOutlet weak var cleanTimeFilterButton: UIButton!
     @IBOutlet weak var timeFilterLabel: UILabel!
