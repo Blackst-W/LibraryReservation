@@ -101,11 +101,17 @@ class SeatSelectionViewController: UIViewController {
     
     @IBOutlet weak var reserveView: UIView!
     
+    @IBOutlet weak var availableNowLegend: UIView!
+    @IBOutlet weak var filterLegend: UIView!
+    @IBOutlet weak var unavailableLegend: UIView!
     
     @IBOutlet var reserveLabels: [UILabel]!
     
     func updateTheme() {
         let configuration = ThemeConfiguration.current
+        availableNowLegend.backgroundColor = configuration.seatAvailableNowColor
+        filterLegend.backgroundColor = configuration.seatFilterColor
+        unavailableLegend.backgroundColor = configuration.seatUnavailableColor
         timeFilterLabel.textColor = configuration.textColor
         controlHighlightColor = configuration.tintColor
         controlTextDefaultColor = configuration.tintColor
@@ -209,11 +215,9 @@ class SeatSelectionViewController: UIViewController {
         if filter.needComputer {
             computerControl.backgroundColor = controlHighlightColor
             computerLabel.textColor = controlTextHighlightColor
-            computerImageView.isHighlighted = true
         }else{
             computerControl.backgroundColor = controlDefaultColor
             computerLabel.textColor = controlTextDefaultColor
-            computerImageView.isHighlighted = false
         }
         reloadData()
     }
@@ -224,11 +228,9 @@ class SeatSelectionViewController: UIViewController {
         if filter.needWindow {
             windowControl.backgroundColor = controlHighlightColor
             windowLabel.textColor = controlTextHighlightColor
-            windowImageView.isHighlighted = true
         }else{
             windowControl.backgroundColor = controlDefaultColor
             windowLabel.textColor = controlTextDefaultColor
-            windowImageView.isHighlighted = false
         }
         reloadData()
     }
@@ -239,11 +241,9 @@ class SeatSelectionViewController: UIViewController {
         if filter.needPower {
             powerControl.backgroundColor = controlHighlightColor
             powerLabel.textColor = controlTextHighlightColor
-            powerImageView.isHighlighted = true
         }else{
             powerControl.backgroundColor = controlDefaultColor
             powerLabel.textColor = controlTextDefaultColor
-            powerImageView.isHighlighted = false
         }
         reloadData()
     }

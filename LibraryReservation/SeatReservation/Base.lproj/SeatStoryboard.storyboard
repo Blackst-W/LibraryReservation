@@ -1642,7 +1642,7 @@
                                                         <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ScreenIcon" highlightedImage="ScreenInvertIcon" translatesAutoresizingMaskIntoConstraints="NO" id="cwV-Fl-mjx">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ScreenIcon" translatesAutoresizingMaskIntoConstraints="NO" id="cwV-Fl-mjx">
                                                         <rect key="frame" x="68.5" y="4" width="22" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="cwV-Fl-mjx" secondAttribute="height" multiplier="1:1" id="a9I-C5-tX1"/>
@@ -1712,7 +1712,7 @@
                                                         <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PowerIcon" highlightedImage="PowerInvertIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4Ll-T8-b80">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PowerIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4Ll-T8-b80">
                                                         <rect key="frame" x="68.5" y="4" width="22" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="4Ll-T8-b80" secondAttribute="height" multiplier="1:1" id="3mU-ng-8CC"/>
@@ -2042,6 +2042,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="availableNowLegend" destination="mbt-L2-vFN" id="jYd-MR-o1K"/>
                         <outlet property="changeTimeFilterButton" destination="SGX-zJ-jBT" id="P0r-5k-Z3p"/>
                         <outlet property="cleanTimeFilterButton" destination="Ty3-4l-pPo" id="1of-S8-HiV"/>
                         <outlet property="computerControl" destination="Rfs-h9-ssg" id="ssF-PJ-YuA"/>
@@ -2050,6 +2051,7 @@
                         <outlet property="dismissBottomConstraint" destination="5MP-5g-RpQ" id="F8O-Q1-Iyp"/>
                         <outlet property="dismissControl" destination="JS3-qp-Ytj" id="2aF-6j-kVV"/>
                         <outlet property="displayStyleControl" destination="Lsm-hm-Aev" id="fx2-7e-FDk"/>
+                        <outlet property="filterLegend" destination="Kod-oF-hJh" id="iC9-gW-qSE"/>
                         <outlet property="floorLabel" destination="fO1-D6-IKz" id="bFn-l0-Io0"/>
                         <outlet property="indicatorView" destination="2ab-Ws-FPq" id="ysE-9E-hBJ"/>
                         <outlet property="layoutView" destination="Enh-IX-T4q" id="zyl-AZ-7tx"/>
@@ -2072,6 +2074,7 @@
                         <outlet property="timelineEndLabel" destination="9FP-uo-xKO" id="dso-sx-L4k"/>
                         <outlet property="timelineStartLabel" destination="ON8-eY-KHl" id="9dZ-Zp-mtg"/>
                         <outlet property="timelineView" destination="24D-hG-XJw" id="uBE-f0-4fx"/>
+                        <outlet property="unavailableLegend" destination="VVB-7E-Hwb" id="YIc-6C-wqK"/>
                         <outlet property="windowControl" destination="48V-5P-PLf" id="z7A-D8-aJP"/>
                         <outlet property="windowImageView" destination="GSC-zX-q0K" id="U4c-uV-yuf"/>
                         <outlet property="windowLabel" destination="oKt-xo-2Vn" id="DnM-6a-jri"/>
@@ -2337,11 +2340,9 @@
     <resources>
         <image name="FailedIcon" width="152" height="154"/>
         <image name="PowerIcon" width="175" height="175"/>
-        <image name="PowerInvertIcon" width="175" height="175"/>
         <image name="ScreenIcon" width="150" height="150"/>
-        <image name="ScreenInvertIcon" width="150" height="150"/>
         <image name="SettingsIcon" width="16" height="16"/>
-        <image name="WindowIcon" width="150" height="150"/>
+        <image name="WindowIcon" width="155" height="155"/>
         <image name="first" width="30" height="30"/>
     </resources>
 </document>

@@ -8,6 +8,22 @@
 
 import UIKit
 
+extension UIColor {
+    var contrastTextColor: UIColor {
+        let redPointer = UnsafeMutablePointer<CGFloat>.allocate(capacity: 1)
+        let greenPointer = UnsafeMutablePointer<CGFloat>.allocate(capacity: 1)
+        let bluePointer = UnsafeMutablePointer<CGFloat>.allocate(capacity: 1)
+        guard getRed(redPointer, green: greenPointer, blue: bluePointer, alpha: nil) else {
+            fatalError()
+        }
+        if redPointer.pointee + greenPointer.pointee + bluePointer.pointee >= 1.5 {
+            return .black
+        }else{
+            return .white
+        }
+    }
+}
+
 enum Theme: String, Codable {
     case standard = "Standard"
     case dark = "Dark"
@@ -28,6 +44,20 @@ class ThemeConfiguration: NSObject {
     private(set) var tableViewSeperatorColor: UIColor!
     private(set) var deactiveColor: UIColor!
     private(set) var warnColor: UIColor!
+    
+    private(set) var seatAvailableNowColor: UIColor!
+    private(set) var seatAvailableColor: UIColor!
+    private(set) var seatFilterColor: UIColor!
+    private(set) var seatUnavailableColor: UIColor!
+    private(set) var seatHighlightColor: UIColor!
+    private(set) var seatViewedColor: UIColor!
+    
+    private(set) var seatAvailableNowTextColor: UIColor!
+    private(set) var seatAvailableTextColor: UIColor!
+    private(set) var seatFilterTextColor: UIColor!
+    private(set) var seatUnavailableTextColor: UIColor!
+    private(set) var seatHighlightTextColor: UIColor!
+    private(set) var seatViewedTextColor: UIColor!
     
     private(set) var keyboardAppearance: UIKeyboardAppearance!
     private(set) var statusBarStyle: UIBarStyle!
@@ -54,6 +84,20 @@ class ThemeConfiguration: NSObject {
             secondaryBackgroundColor = UIColor(named: "\(theme.rawValue)SecondaryBackgroundColor")!
             deactiveColor = UIColor(named: "\(theme.rawValue)DeactiveColor")!
             warnColor = UIColor(named: "\(theme.rawValue)WarnColor")!
+            seatFilterColor = UIColor(named: "\(theme.rawValue)SeatFilterColor")!
+            seatViewedColor = UIColor(named: "\(theme.rawValue)SeatViewedColor")!
+            seatAvailableNowColor = UIColor(named: "\(theme.rawValue)SeatAvailableNowColor")!
+            seatAvailableColor = UIColor(named: "\(theme.rawValue)SeatAvailableColor")!
+            seatHighlightColor = UIColor(named: "\(theme.rawValue)SeatHighlightColor")!
+            seatUnavailableColor = UIColor(named: "\(theme.rawValue)SeatUnavailableColor")!
+            
+            seatFilterTextColor = UIColor(named: "\(theme.rawValue)SeatFilterTextColor")!
+            seatViewedTextColor = UIColor(named: "\(theme.rawValue)SeatViewedTextColor")!
+            seatAvailableNowTextColor = UIColor(named: "\(theme.rawValue)SeatAvailableNowTextColor")!
+            seatAvailableTextColor = UIColor(named: "\(theme.rawValue)SeatAvailableTextColor")!
+            seatHighlightTextColor = UIColor(named: "\(theme.rawValue)SeatHighlightTextColor")!
+            seatUnavailableTextColor = UIColor(named: "\(theme.rawValue)SeatUnavailableTextColor")!
+
         } else {
             switch theme {
             case .dark:
@@ -68,6 +112,19 @@ class ThemeConfiguration: NSObject {
                 secondaryBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
                 deactiveColor = .darkGray
                 warnColor = .red
+                
+                seatFilterColor = #colorLiteral(red: 0.7960784314, green: 0, blue: 0.937254902, alpha: 1)
+                seatViewedColor = #colorLiteral(red: 0.5583756345, green: 0.002555139019, blue: 0.3713010098, alpha: 1)
+                seatAvailableNowColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+                seatAvailableColor = #colorLiteral(red: 0.2509803922, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+                seatHighlightColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
+                seatUnavailableColor = .black
+                seatAvailableNowTextColor = .white
+                seatAvailableTextColor = #colorLiteral(red: 0.9019607843, green: 0.5803921569, blue: 0.137254902, alpha: 1)
+                seatFilterTextColor = .white
+                seatUnavailableTextColor = .lightGray
+                seatHighlightTextColor = .white
+                seatViewedTextColor = .white
             case .standard:
                 backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.9372549057, blue: 0.9568627477, alpha: 1)
                 shadowColor = .black
@@ -80,6 +137,20 @@ class ThemeConfiguration: NSObject {
                 secondaryBackgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 deactiveColor = .lightGray
                 warnColor = .red
+                
+                seatFilterColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+                seatViewedColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+                seatAvailableNowColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
+                seatAvailableColor = .white
+                seatHighlightColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
+                seatUnavailableColor = .darkGray
+                seatAvailableNowTextColor = .white
+                seatAvailableTextColor = .black
+                seatFilterTextColor = .white
+                seatUnavailableTextColor = .lightGray
+                seatHighlightTextColor = .white
+                seatViewedTextColor = .white
+                
             }
             // Fallback on earlier versions
         }
