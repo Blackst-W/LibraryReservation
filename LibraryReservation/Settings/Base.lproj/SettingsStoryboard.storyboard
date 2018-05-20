@@ -116,6 +116,30 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="zYY-6q-g6s">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="OiN-lF-qZF" style="IBUITableViewCellStyleDefault" id="dax-Rf-xgP">
+                                        <rect key="frame" x="0.0" y="327" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dax-Rf-xgP" id="lgx-pN-l8F">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OiN-lF-qZF">
+                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="jv9-1b-HKD" kind="show" id="pSo-Px-r3h"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="oDT-AW-b4e" id="3tH-Tg-qxO"/>

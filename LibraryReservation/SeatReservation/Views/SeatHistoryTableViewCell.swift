@@ -35,7 +35,7 @@ class SeatHistoryTableViewCell: UITableViewCell {
         }
         containerView.backgroundColor = configuration.secondaryBackgroundColor
         shadowView.layer.shadowColor = configuration.shadowColor.cgColor
-        
+        backgroundColor = nil
     }
     
     func update(reservation: SeatReservation) {
