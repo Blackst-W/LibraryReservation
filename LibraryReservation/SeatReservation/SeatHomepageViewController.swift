@@ -86,7 +86,7 @@ class SeatHomepageViewController: UIViewController {
         let animation = {
             let configuration = ThemeConfiguration.current
             self.historyLoadingIndicator.tintColor = configuration.tintColor
-            self.loginShadowView.backgroundColor = configuration.secondaryTextColor
+            self.loginShadowView.backgroundColor = configuration.secondaryBackgroundColor
             self.loginVisualEffectView.effect = configuration.blurEffect
             self.reserveButton.setTitleColor(configuration.highlightTextColor, for: .normal)
             self.reserveButton.backgroundColor = configuration.tintColor
