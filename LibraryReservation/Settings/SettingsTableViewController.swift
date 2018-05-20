@@ -83,7 +83,6 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return
         case 1:
-            tableView.deselectRow(at: indexPath, animated: true)
             let mailController = MFMailComposeViewController()
             mailController.setToRecipients(["feedback@westonwu.com"])
             mailController.setSubject("Feedback For WHU Seat Reservation iOS App")
