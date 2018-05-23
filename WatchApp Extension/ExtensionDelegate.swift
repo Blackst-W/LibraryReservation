@@ -70,7 +70,10 @@ extension ExtensionDelegate: WCSessionDelegate {
         case .activated, .inactive:
             break
         case .notActivated:
-            print(error?.localizedDescription)
+            guard let error = error else {
+                return
+            }
+            print(error.localizedDescription)
             return
         }
     }
