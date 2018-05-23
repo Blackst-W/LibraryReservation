@@ -109,7 +109,7 @@ class ThemeConfiguration: NSObject {
                 secondaryTextColor = .lightGray
                 barTintColor = .black
                 tableViewSeperatorColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2156862745, alpha: 1)
-                secondaryBackgroundColor = #colorLiteral(red: 0.1294117647, green: 0.1294117647, blue: 0.1411764706, alpha: 1)
+                secondaryBackgroundColor = #colorLiteral(red: 0.1882352941, green: 0.1882352941, blue: 0.1882352941, alpha: 1)
                 deactiveColor = .darkGray
                 warnColor = .red
                 

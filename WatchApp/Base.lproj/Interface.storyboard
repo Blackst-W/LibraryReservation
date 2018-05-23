@@ -19,9 +19,9 @@
                                 <label alignment="center" text="Not Reservation" id="w6z-yD-lAk"/>
                                 <group width="1" alignment="left" layout="vertical" id="bqe-IG-AFP">
                                     <items>
-                                        <group width="1" alignment="right" id="az7-k8-Ow7">
+                                        <group width="1" alignment="right" layout="vertical" id="az7-k8-Ow7">
                                             <items>
-                                                <label alignment="left" text="Upcoming" id="Asw-op-bU6"/>
+                                                <label width="136" alignment="left" text="Upcoming" textAlignment="left" id="Asw-op-bU6"/>
                                                 <timer alignment="right" enabled="YES" format="abbreviated" previewedSeconds="3660" id="vWd-2F-Cfd">
                                                     <calendarUnit key="units" hour="YES" minute="YES"/>
                                                 </timer>
@@ -33,13 +33,9 @@
                                                 <label alignment="right" text="4F" id="4Ts-Bq-3Lz"/>
                                             </items>
                                         </group>
-                                        <group width="1" alignment="left" id="VD9-Vj-ZBt">
+                                        <group width="1" alignment="left" layout="vertical" id="VD9-Vj-ZBt">
                                             <items>
                                                 <label alignment="left" text="西图书浏览区" id="e7r-xe-Xue"/>
-                                            </items>
-                                        </group>
-                                        <group width="1" alignment="left" id="ymi-Bq-gag">
-                                            <items>
                                                 <label alignment="right" text="No.70" id="zCv-4T-HMv"/>
                                             </items>
                                         </group>
@@ -80,7 +76,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="220" y="264"/>
         </scene>
         <!--History-->
         <scene sceneID="HD9-tg-i2O">

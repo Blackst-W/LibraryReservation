@@ -92,6 +92,10 @@ class SeatHomeInterfaceController: WKInterfaceController {
     }
     
     @objc func accountUpdate(notification: Notification) {
+        guard let _ = notification.object as? UserAccount else {
+            updateUI(reservation: nil)
+            return
+        }
         seatManager.refresh { (response) in
             self.handle(response: response)
         }

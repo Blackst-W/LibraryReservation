@@ -47,8 +47,9 @@ class SeatCollectionView: UIControl {
     
     func disable() {
         isUserInteractionEnabled = false
-        contentView.backgroundColor = .darkGray
-        seatLabel.textColor = .white
+        let configuration = ThemeConfiguration.current
+        contentView.backgroundColor = configuration.seatUnavailableColor
+        seatLabel.textColor = configuration.seatUnavailableTextColor
     }
     
     func reset() {
