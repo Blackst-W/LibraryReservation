@@ -29,7 +29,7 @@ class LoginViewController: UITableViewController {
     @IBOutlet weak var autoLoginSwitch: UISwitch!
     
     @IBOutlet weak var loginButton: UIButton!
-    
+    var sidEditable = false
     weak var delegate: LoginViewDelegate?
     
     override func viewDidLoad() {
@@ -45,9 +45,41 @@ class LoginViewController: UITableViewController {
         if let account = AccountManager.shared.currentAccount {
             sidTextField.text = account.username
             passwordTextField.text = account.password
+            if !sidEditable {
+                sidTextField.isUserInteractionEnabled = false
+            }
+            if account.password == nil {
+                passwordTextField.becomeFirstResponder()
+            }
         }
+        
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    @IBOutlet var labels: [UILabel]!
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        loginButton.tintColor = configuration.tintColor
+        loginButton.setTitleColor(configuration.highlightTextColor, for: .normal)
+        loginButton.backgroundColor = configuration.tintColor
+        if sidTextField.isUserInteractionEnabled {
+            sidTextField.textColor = configuration.textColor
+        }else{
+            sidTextField.textColor = configuration.deactiveColor
+        }
+        passwordTextField.textColor = configuration.textColor
+        sidTextField.attributedPlaceholder = NSAttributedString(string: sidTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : configuration.deactiveColor])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : configuration.deactiveColor])
+        labels.forEach { (label) in
+            label.textColor = configuration.textColor
+        }
+    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -73,37 +105,40 @@ class LoginViewController: UITableViewController {
         settings.set(savePassword: savePasswordSwitch.isOn)
         settings.set(autoLogin: autoLoginSwitch.isOn)
         
-        SeatBaseNetworkManager.default.login(username: username, password: password) { (error, loginResponse, failResponse) in
-            
-            if let loginResponse = loginResponse {
+        SeatBaseNetworkManager.default.login(username: username, password: password) { (response) in
+            var errorDescription = "Unknown Error".localized
+            switch response {
+            case .success(let loginResponse):
                 let account = UserAccount(username: username, password: password, token: loginResponse.data.token)
                 AccountManager.shared.login(account: account)
                 DispatchQueue.main.async {
                     self.delegate?.loginResult(result: .success(account))
                     self.dismiss(animated: true, completion: nil)
                 }
-            }else{
-                let errorDescription = error?.localizedDescription ?? failResponse?.localizedDescription ?? "Unknown Error".localized
-                print(errorDescription)
-                let alertController = UIAlertController(title: "Login Failed".localized, message: errorDescription, preferredStyle: .alert)
-                let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
-                alertController.addAction(closeAction)
-                DispatchQueue.main.async {
-                    self.loginButton.isEnabled = true
-                    self.present(alertController, animated: true, completion: nil)
-                }
+                return
+            case .error(let error):
+                errorDescription = error.localizedDescription
+            case .failed(let fail):
+                errorDescription = fail.localizedDescription
+            case .requireLogin:
+                fatalError()
+            }
+            let alertController = UIAlertController(title: "Login Failed".localized, message: errorDescription, preferredStyle: .alert)
+            let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
+            alertController.addAction(closeAction)
+            DispatchQueue.main.async {
+                self.loginButton.isEnabled = true
+                self.present(alertController, animated: true, completion: nil)
             }
         }
-        
         loginButton.isEnabled = false
-        
     }
     
     func checkSID() -> Bool {
         let result = sidTextField.text!.isEmpty
         if result {
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.sidLabel.textColor = .red
+                self.sidLabel.textColor = ThemeConfiguration.current.warnColor
             }
             animator.startAnimation()
         }
@@ -114,7 +149,7 @@ class LoginViewController: UITableViewController {
         let result = passwordTextField.text!.isEmpty
         if result {
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.passwordLabel.textColor = .red
+                self.passwordLabel.textColor = ThemeConfiguration.current.warnColor
             }
             animator.startAnimation()
         }
@@ -143,16 +178,6 @@ class LoginViewController: UITableViewController {
             savePasswordSwitch.setOn(true, animated: true)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -160,12 +185,12 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == sidTextField {
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.sidLabel.textColor = .black
+                self.sidLabel.textColor = ThemeConfiguration.current.textColor
             }
             animator.startAnimation()
         }else{
             let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-                self.passwordLabel.textColor = .black
+                self.passwordLabel.textColor = ThemeConfiguration.current.textColor
             }
             animator.startAnimation()
         }

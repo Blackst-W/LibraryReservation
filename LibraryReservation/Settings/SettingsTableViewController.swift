@@ -23,9 +23,15 @@ class SettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userInfoChanged), name: .UserInfoUpdated, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
     }
     
     deinit {
@@ -77,7 +83,6 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return
         case 1:
-            tableView.deselectRow(at: indexPath, animated: true)
             let mailController = MFMailComposeViewController()
             mailController.setToRecipients(["feedback@westonwu.com"])
             mailController.setSubject("Feedback For WHU Seat Reservation iOS App")
@@ -91,6 +96,21 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func pressDoneButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleThemeChanged() {
+        DispatchQueue.main.async {
+            self.updateTheme()
+        }
+    }
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        nameLabel.textColor = configuration.textColor
+        sidLabel.textColor = configuration.textColor
+        tableView.visibleCells.forEach { (cell) in
+            cell.textLabel?.textColor = configuration.textColor
+        }
     }
     
     //    override func numberOfSections(in tableView: UITableView) -> Int {

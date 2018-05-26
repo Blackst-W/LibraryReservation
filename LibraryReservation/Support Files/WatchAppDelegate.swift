@@ -14,7 +14,8 @@ class WatchAppDelegate: NSObject {
     static let shared = WatchAppDelegate()
     override private init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountLogin(notification:)), name: .AccountLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountLogout), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(settingsChanged), name: .SettingsChanged, object: nil)
     }
     
@@ -31,20 +32,27 @@ class WatchAppDelegate: NSObject {
         transferSettings()
     }
     
-    @objc func accountChanged() {
-        transferAccount()
+    @objc func accountLogout() {
+        transfer(account: nil)
     }
     
-    func transferSeatReservation() {
+    @objc func accountLogin(notification: Notification) {
+        guard let account = notification.userInfo?["NewAccount"] as? UserAccount else {
+            transfer(account: nil)
+            return
+        }
+        transfer(account: account)
+    }
+    
+    func transfer(reservation: SeatReservation?) {
         guard let session = session, session.isPaired, session.isWatchAppInstalled else {
             return
         }
         
-        let historyManager = SeatHistoryManager(delegate: nil)
         if session.isReachable {
             var context: [String: Any] = [:]
             context["SeatUpdateCurrentReservationKey"] = true
-            context["SeatUpdateCurrentReservationDataKey"] = historyManager.current?.jsonData
+            context["SeatUpdateCurrentReservationDataKey"] = reservation?.jsonData
             session.sendMessage(context, replyHandler: nil) { error in
                 print(error.localizedDescription)
             }
@@ -52,7 +60,7 @@ class WatchAppDelegate: NSObject {
             do {
                 var previousContext = session.applicationContext
                 previousContext["SeatUpdateCurrentReservationKey"] = true
-                previousContext["SeatUpdateCurrentReservationKey"] = historyManager.current?.jsonData
+                previousContext["SeatUpdateCurrentReservationKey"] = reservation?.jsonData
                 try session.updateApplicationContext(previousContext)
             }catch{
                 print(error.localizedDescription)
@@ -85,15 +93,18 @@ class WatchAppDelegate: NSObject {
         }
     }
     
-    func transferAccount() {
+    func transfer(account: UserAccount?) {
         guard let session = session, session.isPaired, session.isWatchAppInstalled else {
             return
         }
-        let account = AccountManager.shared.currentAccount
         if session.isReachable {
             var context: [String: Any] = [:]
             context["UpdateAccountKey"] = true
-            context["UpdateAccountDataKey"] = try? JSONEncoder().encode(account)
+            if let account = account {
+                context["UpdateAccountDataKey"] = try? JSONEncoder().encode(account)
+            }else{
+                context["UpdateAccountDataKey"] = nil
+            }
             session.sendMessage(context, replyHandler: nil) { error in
                 print(error.localizedDescription)
             }
@@ -101,7 +112,11 @@ class WatchAppDelegate: NSObject {
             do {
                 var previousContext = session.applicationContext
                 previousContext["UpdateAccountKey"] = true
-                previousContext["UpdateAccountDataKey"] = try? JSONEncoder().encode(account)
+                if let account = account {
+                    previousContext["UpdateAccountDataKey"] = try? JSONEncoder().encode(account)
+                }else{
+                    previousContext["UpdateAccountDataKey"] = nil
+                }
                 try session.updateApplicationContext(previousContext)
             }catch{
                 print(error.localizedDescription)
@@ -121,8 +136,8 @@ extension WatchAppDelegate: WCSessionDelegate {
             return
         }
         transferSettings()
-        transferAccount()
-        transferSeatReservation()
+        transfer(account: AccountManager.shared.currentAccount)
+        transfer(reservation: SeatReservationManager.shared.reservation)
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {

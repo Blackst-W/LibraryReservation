@@ -16,6 +16,14 @@ extension UIAlertController {
     }
 }
 
+extension Date {
+    var minutes: Int {
+        let calender = Calendar.current
+        let components = calender.dateComponents([.hour, .minute], from: self)
+        return components.hour! * 60 + components.minute!
+    }
+}
+
 extension String {
     init?(_ intValue: Int?) {
         guard let intValue = intValue else {return nil}

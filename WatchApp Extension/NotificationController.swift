@@ -38,17 +38,17 @@ class NotificationController: WKUserNotificationInterfaceController {
         
         // Configure interface objects here.
     }
-
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
-
+    
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
+    
     
     override func didReceive(_ notification: UNNotification, withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Swift.Void) {
         // This method is called when a notification needs to be presented.
@@ -61,45 +61,26 @@ class NotificationController: WKUserNotificationInterfaceController {
             return
         }
         let decoder = JSONDecoder()
-        if let reservation = try? decoder.decode(SeatCurrentReservation.self, from: data) {
-            stateLabel.setText(reservation.currentState.localizedState)
-            if let location = reservation.location {
-                libraryLabel.setText(location.library.rawValue.localized)
-                roomLabel.setText(location.room)
-                seatLabel.setText("No.".localized(arguments: String(location.seat)))
-                floorLabel.setText("Floor".localized(arguments: location.floor))
-            }
-            startLabel.setText(reservation.rawBegin)
-            endLabel.setText(reservation.rawEnd)
-            switch reservation.currentState {
-            case .upcoming(_):
-                stateTimeTimer.setDate(reservation.time.start)
-            default:
-                completionHandler(.default)
-                return
-            }
-        }else if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
-            stateLabel.setText(reservation.currentState.localizedState)
-            if let location = reservation.location {
-                libraryLabel.setText(location.library.rawValue.localized)
-                roomLabel.setText(location.room)
-                seatLabel.setText("No.".localized(arguments: String(location.seat)))
-                floorLabel.setText("Floor".localized(arguments: location.floor))
-            }
-            startLabel.setText(reservation.rawBegin)
-            endLabel.setText(reservation.rawEnd)
-            switch reservation.currentState {
-            case .upcoming(_):
-                stateTimeTimer.setDate(reservation.time.start)
-            default:
-                completionHandler(.default)
-                return
-            }
-        }else{
+        guard let reservation = try? decoder.decode(SeatReservation.self, from: data) else {
             completionHandler(.default)
             return
         }
-        
+        switch reservation.currentState {
+        case .upcoming(_):
+            stateTimeTimer.setDate(reservation.time.start)
+        default:
+            completionHandler(.default)
+            return
+        }
+        stateLabel.setText(reservation.currentState.localizedState)
+        if let location = reservation.location {
+            libraryLabel.setText(location.library.rawValue.localized)
+            roomLabel.setText(location.room)
+            seatLabel.setText("No.".localized(arguments: String(location.seat)))
+            floorLabel.setText("Floor".localized(arguments: location.floor))
+        }
+        startLabel.setText(reservation.rawBegin)
+        endLabel.setText(reservation.rawEnd)
         completionHandler(.custom)
     }
     

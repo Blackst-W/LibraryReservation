@@ -16,17 +16,12 @@
 		AD662A4120979468006353F2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A4020979468006353F2 /* Settings.swift */; };
 		AD662A442097946B006353F2 /* SeatNetworkBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A422097946B006353F2 /* SeatNetworkBaseManager.swift */; };
 		AD662A452097946B006353F2 /* SeatBaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A432097946B006353F2 /* SeatBaseResponse.swift */; };
-		AD662A5020979470006353F2 /* SeatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A462097946F006353F2 /* SeatData.swift */; };
 		AD662A5120979470006353F2 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A472097946F006353F2 /* SeatReservation.swift */; };
 		AD662A5220979470006353F2 /* SeatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A482097946F006353F2 /* SeatHistoryManager.swift */; };
-		AD662A5320979470006353F2 /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A492097946F006353F2 /* SeatReservationManager.swift */; };
 		AD662A5420979470006353F2 /* SeatReserveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A4A2097946F006353F2 /* SeatReserveManager.swift */; };
-		AD662A5520979470006353F2 /* SeatTimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A4B2097946F006353F2 /* SeatTimeFilter.swift */; };
-		AD662A5620979470006353F2 /* AvailableSeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A4C2097946F006353F2 /* AvailableSeatManager.swift */; };
 		AD662A5720979470006353F2 /* RoomData.json in Resources */ = {isa = PBXBuildFile; fileRef = AD662A4D2097946F006353F2 /* RoomData.json */; };
 		AD662A5820979470006353F2 /* SeatFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A4E20979470006353F2 /* SeatFilterCondition.swift */; };
 		AD662A5920979470006353F2 /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A4F20979470006353F2 /* SeatResponse.swift */; };
-		AD662A5B20979474006353F2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD662A5A20979474006353F2 /* SwiftyJSON.swift */; };
 		ADBDA45B20974DEB00644D33 /* SeatKit.h in Headers */ = {isa = PBXBuildFile; fileRef = ADBDA45920974DEB00644D33 /* SeatKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADBDA46B20974FB000644D33 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA46A20974FB000644D33 /* Constants.swift */; };
 		ADBDA4722097500200644D33 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA46D2097500200644D33 /* AccountManager.swift */; };
@@ -39,14 +34,25 @@
 		ADBDA48A2097520C00644D33 /* SeatHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */; };
 		ADBDA48B2097520C00644D33 /* SeatFilterCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */; };
 		ADBDA48C2097520C00644D33 /* RoomData.json in Resources */ = {isa = PBXBuildFile; fileRef = ADBDA4822097520C00644D33 /* RoomData.json */; };
-		ADBDA48D2097520C00644D33 /* SeatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4832097520C00644D33 /* SeatData.swift */; };
-		ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */; };
-		ADBDA48F2097520C00644D33 /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4852097520C00644D33 /* SeatReservationManager.swift */; };
+		ADBDA48D2097520C00644D33 /* LibraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4832097520C00644D33 /* LibraryData.swift */; };
+		ADBDA48F2097520C00644D33 /* SeatLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4852097520C00644D33 /* SeatLibraryManager.swift */; };
 		ADBDA4902097520C00644D33 /* SeatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4862097520C00644D33 /* SeatResponse.swift */; };
 		ADBDA4912097520C00644D33 /* SeatReserveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4872097520C00644D33 /* SeatReserveManager.swift */; };
-		ADBDA4922097520C00644D33 /* SeatTimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4882097520C00644D33 /* SeatTimeFilter.swift */; };
 		ADBDA4932097520C00644D33 /* SeatReservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4892097520C00644D33 /* SeatReservation.swift */; };
-		ADBDA498209754C600644D33 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA497209754C600644D33 /* SwiftyJSON.swift */; };
+		ADC9DF4720AD2B2A00BB886D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4620AD2B2A00BB886D /* Library.swift */; };
+		ADC9DF4920AD2B4700BB886D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4820AD2B4700BB886D /* Room.swift */; };
+		ADC9DF4B20AD2B9600BB886D /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4A20AD2B9600BB886D /* Seat.swift */; };
+		ADC9DF4D20AD2C3C00BB886D /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4C20AD2C3C00BB886D /* Handler.swift */; };
+		ADC9DF4F20AD36AC00BB886D /* SeatTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF4E20AD36AC00BB886D /* SeatTime.swift */; };
+		ADC9DF6520AEA44C00BB886D /* SeatTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5E20AEA44B00BB886D /* SeatTime.swift */; };
+		ADC9DF6620AEA44C00BB886D /* SeatLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5F20AEA44B00BB886D /* SeatLibraryManager.swift */; };
+		ADC9DF6720AEA44C00BB886D /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6020AEA44B00BB886D /* Seat.swift */; };
+		ADC9DF6820AEA44C00BB886D /* Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6120AEA44B00BB886D /* Handler.swift */; };
+		ADC9DF6920AEA44C00BB886D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6220AEA44B00BB886D /* Library.swift */; };
+		ADC9DF6A20AEA44C00BB886D /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6320AEA44B00BB886D /* Room.swift */; };
+		ADC9DF6B20AEA44C00BB886D /* LibraryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6420AEA44C00BB886D /* LibraryData.swift */; };
+		ADC9DF6F20AEA4FC00BB886D /* RecentUsedSeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6E20AEA4FC00BB886D /* RecentUsedSeat.swift */; };
+		ADC9DF7120AEA51000BB886D /* RecentUsedSeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7020AEA51000BB886D /* RecentUsedSeat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,17 +67,12 @@
 		AD662A4020979468006353F2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AD662A422097946B006353F2 /* SeatNetworkBaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatNetworkBaseManager.swift; sourceTree = "<group>"; };
 		AD662A432097946B006353F2 /* SeatBaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatBaseResponse.swift; sourceTree = "<group>"; };
-		AD662A462097946F006353F2 /* SeatData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatData.swift; sourceTree = "<group>"; };
 		AD662A472097946F006353F2 /* SeatReservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
 		AD662A482097946F006353F2 /* SeatHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatHistoryManager.swift; sourceTree = "<group>"; };
-		AD662A492097946F006353F2 /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
 		AD662A4A2097946F006353F2 /* SeatReserveManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReserveManager.swift; sourceTree = "<group>"; };
-		AD662A4B2097946F006353F2 /* SeatTimeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatTimeFilter.swift; sourceTree = "<group>"; };
-		AD662A4C2097946F006353F2 /* AvailableSeatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableSeatManager.swift; sourceTree = "<group>"; };
 		AD662A4D2097946F006353F2 /* RoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoomData.json; sourceTree = "<group>"; };
 		AD662A4E20979470006353F2 /* SeatFilterCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatFilterCondition.swift; sourceTree = "<group>"; };
 		AD662A4F20979470006353F2 /* SeatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
-		AD662A5A20979474006353F2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		ADBDA45620974DEB00644D33 /* SeatKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SeatKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBDA45920974DEB00644D33 /* SeatKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeatKit.h; sourceTree = "<group>"; };
 		ADBDA45A20974DEB00644D33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,14 +87,25 @@
 		ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatHistoryManager.swift; sourceTree = "<group>"; };
 		ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatFilterCondition.swift; sourceTree = "<group>"; };
 		ADBDA4822097520C00644D33 /* RoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoomData.json; sourceTree = "<group>"; };
-		ADBDA4832097520C00644D33 /* SeatData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatData.swift; sourceTree = "<group>"; };
-		ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableSeatManager.swift; sourceTree = "<group>"; };
-		ADBDA4852097520C00644D33 /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
+		ADBDA4832097520C00644D33 /* LibraryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryData.swift; sourceTree = "<group>"; };
+		ADBDA4852097520C00644D33 /* SeatLibraryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatLibraryManager.swift; sourceTree = "<group>"; };
 		ADBDA4862097520C00644D33 /* SeatResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatResponse.swift; sourceTree = "<group>"; };
 		ADBDA4872097520C00644D33 /* SeatReserveManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReserveManager.swift; sourceTree = "<group>"; };
-		ADBDA4882097520C00644D33 /* SeatTimeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatTimeFilter.swift; sourceTree = "<group>"; };
 		ADBDA4892097520C00644D33 /* SeatReservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservation.swift; sourceTree = "<group>"; };
-		ADBDA497209754C600644D33 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		ADC9DF4620AD2B2A00BB886D /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		ADC9DF4820AD2B4700BB886D /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		ADC9DF4A20AD2B9600BB886D /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
+		ADC9DF4C20AD2C3C00BB886D /* Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
+		ADC9DF4E20AD36AC00BB886D /* SeatTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTime.swift; sourceTree = "<group>"; };
+		ADC9DF5E20AEA44B00BB886D /* SeatTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatTime.swift; sourceTree = "<group>"; };
+		ADC9DF5F20AEA44B00BB886D /* SeatLibraryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatLibraryManager.swift; sourceTree = "<group>"; };
+		ADC9DF6020AEA44B00BB886D /* Seat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seat.swift; sourceTree = "<group>"; };
+		ADC9DF6120AEA44B00BB886D /* Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Handler.swift; sourceTree = "<group>"; };
+		ADC9DF6220AEA44B00BB886D /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		ADC9DF6320AEA44B00BB886D /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		ADC9DF6420AEA44C00BB886D /* LibraryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryData.swift; sourceTree = "<group>"; };
+		ADC9DF6E20AEA4FC00BB886D /* RecentUsedSeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUsedSeat.swift; sourceTree = "<group>"; };
+		ADC9DF7020AEA51000BB886D /* RecentUsedSeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentUsedSeat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,39 +129,34 @@
 		AD662A142097933F006353F2 /* WatchSeatKit */ = {
 			isa = PBXGroup;
 			children = (
-				AD662A362097945F006353F2 /* Constants.swift */,
 				AD662A3520979446006353F2 /* Account */,
 				AD662A342097943E006353F2 /* Settings */,
 				AD662A3320979437006353F2 /* Network */,
 				AD662A3220979434006353F2 /* Seat */,
-				AD662A3020979429006353F2 /* Framework */,
+				AD662A362097945F006353F2 /* Constants.swift */,
 				AD662A152097933F006353F2 /* WatchSeatKit.h */,
 				AD662A162097933F006353F2 /* Info.plist */,
 			);
 			path = WatchSeatKit;
 			sourceTree = "<group>";
 		};
-		AD662A3020979429006353F2 /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				AD662A5A20979474006353F2 /* SwiftyJSON.swift */,
-			);
-			path = Framework;
-			sourceTree = "<group>";
-		};
 		AD662A3220979434006353F2 /* Seat */ = {
 			isa = PBXGroup;
 			children = (
-				AD662A4C2097946F006353F2 /* AvailableSeatManager.swift */,
+				ADC9DF7020AEA51000BB886D /* RecentUsedSeat.swift */,
+				ADC9DF6120AEA44B00BB886D /* Handler.swift */,
+				ADC9DF6220AEA44B00BB886D /* Library.swift */,
+				ADC9DF6420AEA44C00BB886D /* LibraryData.swift */,
+				ADC9DF6320AEA44B00BB886D /* Room.swift */,
+				ADC9DF6020AEA44B00BB886D /* Seat.swift */,
+				ADC9DF5F20AEA44B00BB886D /* SeatLibraryManager.swift */,
+				ADC9DF5E20AEA44B00BB886D /* SeatTime.swift */,
 				AD662A4D2097946F006353F2 /* RoomData.json */,
-				AD662A462097946F006353F2 /* SeatData.swift */,
 				AD662A4E20979470006353F2 /* SeatFilterCondition.swift */,
 				AD662A482097946F006353F2 /* SeatHistoryManager.swift */,
 				AD662A472097946F006353F2 /* SeatReservation.swift */,
-				AD662A492097946F006353F2 /* SeatReservationManager.swift */,
 				AD662A4A2097946F006353F2 /* SeatReserveManager.swift */,
 				AD662A4F20979470006353F2 /* SeatResponse.swift */,
-				AD662A4B2097946F006353F2 /* SeatTimeFilter.swift */,
 			);
 			path = Seat;
 			sourceTree = "<group>";
@@ -203,7 +210,6 @@
 		ADBDA45820974DEB00644D33 /* SeatKit */ = {
 			isa = PBXGroup;
 			children = (
-				ADBDA4942097522100644D33 /* Framework */,
 				ADBDA47F209751EA00644D33 /* Seat */,
 				ADBDA47A2097515500644D33 /* Network */,
 				ADBDA477209750CB00644D33 /* Settings */,
@@ -246,26 +252,22 @@
 		ADBDA47F209751EA00644D33 /* Seat */ = {
 			isa = PBXGroup;
 			children = (
-				ADBDA4842097520C00644D33 /* AvailableSeatManager.swift */,
-				ADBDA4822097520C00644D33 /* RoomData.json */,
-				ADBDA4832097520C00644D33 /* SeatData.swift */,
-				ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */,
+				ADC9DF6E20AEA4FC00BB886D /* RecentUsedSeat.swift */,
 				ADBDA4802097520C00644D33 /* SeatHistoryManager.swift */,
-				ADBDA4892097520C00644D33 /* SeatReservation.swift */,
-				ADBDA4852097520C00644D33 /* SeatReservationManager.swift */,
+				ADBDA4852097520C00644D33 /* SeatLibraryManager.swift */,
 				ADBDA4872097520C00644D33 /* SeatReserveManager.swift */,
+				ADBDA4822097520C00644D33 /* RoomData.json */,
+				ADBDA4832097520C00644D33 /* LibraryData.swift */,
+				ADBDA4812097520C00644D33 /* SeatFilterCondition.swift */,
+				ADBDA4892097520C00644D33 /* SeatReservation.swift */,
 				ADBDA4862097520C00644D33 /* SeatResponse.swift */,
-				ADBDA4882097520C00644D33 /* SeatTimeFilter.swift */,
+				ADC9DF4620AD2B2A00BB886D /* Library.swift */,
+				ADC9DF4820AD2B4700BB886D /* Room.swift */,
+				ADC9DF4A20AD2B9600BB886D /* Seat.swift */,
+				ADC9DF4C20AD2C3C00BB886D /* Handler.swift */,
+				ADC9DF4E20AD36AC00BB886D /* SeatTime.swift */,
 			);
 			path = Seat;
-			sourceTree = "<group>";
-		};
-		ADBDA4942097522100644D33 /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				ADBDA497209754C600644D33 /* SwiftyJSON.swift */,
-			);
-			path = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,24 +389,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC9DF6820AEA44C00BB886D /* Handler.swift in Sources */,
 				AD662A452097946B006353F2 /* SeatBaseResponse.swift in Sources */,
+				ADC9DF6A20AEA44C00BB886D /* Room.swift in Sources */,
 				AD662A4120979468006353F2 /* Settings.swift in Sources */,
+				ADC9DF6720AEA44C00BB886D /* Seat.swift in Sources */,
 				AD662A372097945F006353F2 /* Constants.swift in Sources */,
 				AD662A442097946B006353F2 /* SeatNetworkBaseManager.swift in Sources */,
 				AD662A5220979470006353F2 /* SeatHistoryManager.swift in Sources */,
-				AD662A5620979470006353F2 /* AvailableSeatManager.swift in Sources */,
-				AD662A5320979470006353F2 /* SeatReservationManager.swift in Sources */,
 				AD662A3D20979463006353F2 /* UserInfo.swift in Sources */,
 				AD662A3C20979463006353F2 /* Account.swift in Sources */,
+				ADC9DF6520AEA44C00BB886D /* SeatTime.swift in Sources */,
 				AD662A3E20979463006353F2 /* AccountManager.swift in Sources */,
 				AD662A5120979470006353F2 /* SeatReservation.swift in Sources */,
 				AD662A5420979470006353F2 /* SeatReserveManager.swift in Sources */,
-				AD662A5520979470006353F2 /* SeatTimeFilter.swift in Sources */,
+				ADC9DF7120AEA51000BB886D /* RecentUsedSeat.swift in Sources */,
 				AD662A5920979470006353F2 /* SeatResponse.swift in Sources */,
 				AD662A3F20979463006353F2 /* LoginResponse.swift in Sources */,
-				AD662A5B20979474006353F2 /* SwiftyJSON.swift in Sources */,
 				AD662A5820979470006353F2 /* SeatFilterCondition.swift in Sources */,
-				AD662A5020979470006353F2 /* SeatData.swift in Sources */,
+				ADC9DF6620AEA44C00BB886D /* SeatLibraryManager.swift in Sources */,
+				ADC9DF6920AEA44C00BB886D /* Library.swift in Sources */,
+				ADC9DF6B20AEA44C00BB886D /* LibraryData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,10 +417,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC9DF4D20AD2C3C00BB886D /* Handler.swift in Sources */,
+				ADC9DF4F20AD36AC00BB886D /* SeatTime.swift in Sources */,
 				ADBDA479209750E300644D33 /* Settings.swift in Sources */,
-				ADBDA4922097520C00644D33 /* SeatTimeFilter.swift in Sources */,
 				ADBDA47D2097516B00644D33 /* SeatBaseResponse.swift in Sources */,
-				ADBDA48E2097520C00644D33 /* AvailableSeatManager.swift in Sources */,
+				ADC9DF4920AD2B4700BB886D /* Room.swift in Sources */,
 				ADBDA48A2097520C00644D33 /* SeatHistoryManager.swift in Sources */,
 				ADBDA4742097500200644D33 /* UserInfo.swift in Sources */,
 				ADBDA4902097520C00644D33 /* SeatResponse.swift in Sources */,
@@ -423,13 +429,15 @@
 				ADBDA4912097520C00644D33 /* SeatReserveManager.swift in Sources */,
 				ADBDA47E2097516B00644D33 /* SeatNetworkBaseManager.swift in Sources */,
 				ADBDA4932097520C00644D33 /* SeatReservation.swift in Sources */,
-				ADBDA48F2097520C00644D33 /* SeatReservationManager.swift in Sources */,
+				ADBDA48F2097520C00644D33 /* SeatLibraryManager.swift in Sources */,
 				ADBDA4722097500200644D33 /* AccountManager.swift in Sources */,
+				ADC9DF6F20AEA4FC00BB886D /* RecentUsedSeat.swift in Sources */,
 				ADBDA4732097500200644D33 /* Account.swift in Sources */,
 				ADBDA48B2097520C00644D33 /* SeatFilterCondition.swift in Sources */,
-				ADBDA498209754C600644D33 /* SwiftyJSON.swift in Sources */,
 				ADBDA4752097500200644D33 /* LoginResponse.swift in Sources */,
-				ADBDA48D2097520C00644D33 /* SeatData.swift in Sources */,
+				ADBDA48D2097520C00644D33 /* LibraryData.swift in Sources */,
+				ADC9DF4B20AD2B9600BB886D /* Seat.swift in Sources */,
+				ADC9DF4720AD2B2A00BB886D /* Library.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

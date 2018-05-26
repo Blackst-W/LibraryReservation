@@ -33,27 +33,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             return
         }
         let decoder = JSONDecoder()
-        if let reservation = try? decoder.decode(SeatCurrentReservation.self, from: data) {
-            stateLabel.text = reservation.currentState.localizedState
-            if let location = reservation.location {
-                libraryLabel.text = location.library.rawValue.localized
-                roomLabel.text = location.room
-                seatLabel.text = "No.".localized(arguments: String(location.seat))
-                floorLabel.text = "Floor".localized(arguments: location.floor)
-            }
-            timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
-            switch reservation.currentState {
-            case .upcoming(let next):
-                let hour = next / 60
-                let min = next % 60
-                let hourString = hour == 0 ? "": "h".localized(arguments: hour)
-                let minString = "mins".localized(arguments: min)
-                stateTimeLabel.text = "Start In".localized(arguments: hourString, minString)
-            default:
-//                completionHandler(.default)
-                return
-            }
-        }else if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
+        if let reservation = try? decoder.decode(SeatReservation.self, from: data) {
             stateLabel.text = reservation.currentState.localizedState
             if let location = reservation.location {
                 libraryLabel.text = location.library.rawValue.localized

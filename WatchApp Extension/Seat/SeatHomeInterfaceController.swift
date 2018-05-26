@@ -25,15 +25,14 @@ class SeatHomeInterfaceController: WKInterfaceController {
     @IBOutlet var endTimeLabel: WKInterfaceLabel!
     
     @IBOutlet var refreshButton: WKInterfaceButton!
-    var historyManager: SeatHistoryManager!
+    var seatManager: SeatReservationManager!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        historyManager = SeatHistoryManager(delegate: self)
-        historyManager.invalidateTimer()
-        historyManager.reload()
-        self.updateUI(reservation: ExtensionDelegate.current.currentSeatReservation)
-        NotificationCenter.default.addObserver(self, selector: #selector(reservationChanged(notification:)), name: .CurrentSeatReservationChanged, object: nil)
+        seatManager = SeatReservationManager.shared
+        self.update(reservation: seatManager.reservation)
+        NotificationCenter.default.addObserver(self, selector: #selector(reservationUpdate(notification:)), name: .ReceiveReservationUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(accountUpdate(notification:)), name: .ReceiveAccountUpdate, object: nil)
         // Configure interface objects here.
     }
     
@@ -47,15 +46,7 @@ class SeatHomeInterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
     
-    @objc func reservationChanged(notification: Notification) {
-        if WKExtension.shared().applicationState == .active {
-            DispatchQueue.main.async {
-                self.updateUI(reservation: ExtensionDelegate.current.currentSeatReservation)
-            }
-        }
-    }
-    
-    func updateUI(reservation: SeatCurrentReservationRepresentable?) {
+    func updateUI(reservation: SeatReservation?) {
         if let reservation = reservation {
             notReservationLabel.setHidden(true)
             reservationGroup.setHidden(false)
@@ -89,24 +80,38 @@ class SeatHomeInterfaceController: WKInterfaceController {
     }
     
     @IBAction func refreshReservation() {
-        historyManager.checkCurrent()
+        seatManager.refresh { (response) in
+            self.handle(response: response)
+        }
         refreshButton.setEnabled(false)
         refreshButton.setTitle("Refreshing...".localized)
     }
     
     @IBAction func viewHistory() {
-        pushController(withName: "SeatHistoryInterfaceController", context: historyManager.history)
+        pushController(withName: "SeatHistoryInterfaceController", context: seatManager.historys)
     }
     
+    @objc func accountUpdate(notification: Notification) {
+        guard let _ = notification.object as? UserAccount else {
+            updateUI(reservation: nil)
+            return
+        }
+        seatManager.refresh { (response) in
+            self.handle(response: response)
+        }
+    }
+    
+    @objc func reservationUpdate(notification: Notification) {
+        DispatchQueue.main.async {
+            self.update(reservation: notification.object as? SeatReservation)
+        }
+    }
 }
 
-extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
-    func update(reservations: [SeatReservation]) {
-        return
-    }
+extension SeatHomeInterfaceController {
     
-    func update(current: SeatCurrentReservationRepresentable?) {
-        updateUI(reservation: current)
+    func update(reservation: SeatReservation?) {
+        updateUI(reservation: reservation)
         refreshButton.setEnabled(true)
         refreshButton.setTitle("Refresh".localized)
         WKInterfaceDevice.current().play(.success)
@@ -124,41 +129,39 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
                 }
             return
         }
-        SeatBaseNetworkManager.default.login(username: account.username, password: password) { (error, loginResponse, failedResponse) in
-            if let error = error {
-                DispatchQueue.main.async {
-                    self.updateFailed(error: error)
-                    return
-                }
-            }
-            if let failResponse = failedResponse {
-                DispatchQueue.main.async {
-                    self.refreshButton.setEnabled(true)
-                    self.refreshButton.setTitle("Refresh".localized)
-                    let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
-                    self.presentAlert(withTitle: "Failed To Refresh".localized, message: failResponse.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
-                    WKInterfaceDevice.current().play(.failure)
-                    return
-                }
-            }
-            guard let token = loginResponse?.data.token else {
-                DispatchQueue.main.async {
-                    self.refreshButton.setEnabled(true)
-                    self.refreshButton.setTitle("Refresh".localized)
-                    let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
-                    self.presentAlert(withTitle: "Failed To Refresh".localized, message: SeatAPIError.unknown.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
-                    WKInterfaceDevice.current().play(.failure)
-                    return
-                }
+        SeatBaseNetworkManager.default.login(username: account.username, password: password) { (response) in
+            switch response {
+            case .error(let error):
+                self.handle(error: error)
+            case .failed(let fail):
+                self.handle(failedResponse: fail)
+            case .requireLogin:
                 return
+            case .success(let loginResponse):
+                let token = loginResponse.data.token
+                let account = UserAccount(username: account.username, password: password, token: token)
+                AccountManager.shared.login(account: account)
+                self.seatManager.refresh() { (response) in
+                    self.handle(response: response)
+                }
             }
-            let account = UserAccount(username: account.username, password: password, token: token)
-            AccountManager.shared.login(account: account)
-            self.historyManager.reload()
         }
     }
     
-    func updateFailed(error: Error) {
+    func handle(response: SeatResponse<SeatReservation?>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(let reservation):
+            update(reservation: reservation)
+        }
+    }
+    
+    func handle(error: Error) {
         refreshButton.setEnabled(true)
         refreshButton.setTitle("Refresh".localized)
         let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
@@ -166,11 +169,7 @@ extension SeatHomeInterfaceController: SeatHistoryManagerDelegate {
         WKInterfaceDevice.current().play(.failure)
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            requireLogin()
-            return
-        }
+    func handle(failedResponse: SeatFailedResponse) {
         let dismissAction = WKAlertAction(title: "Dismiss".localized, style: .cancel, handler: {})
         presentAlert(withTitle: "Failed To Refresh".localized, message: failedResponse.localizedDescription, preferredStyle: .alert, actions: [dismissAction])
         refreshButton.setEnabled(true)

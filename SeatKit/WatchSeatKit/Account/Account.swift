@@ -6,7 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import WatchKit
 
 public struct UserAccount: Codable {
     public let username: String

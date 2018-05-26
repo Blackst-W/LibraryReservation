@@ -34,6 +34,21 @@ class NotificationSettingsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    @IBOutlet var labels: [UILabel]!
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        themeUpdate()
+    }
+    
+    func themeUpdate() {
+        let configuration = ThemeConfiguration.current
+        labels.forEach { (label) in
+            label.textColor = configuration.textColor
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let newSettings = SeatNotificationSettings(make: seatReserveSwitch.isOn, upcoming: seatUpcomingSwitch.isOn, end: seatEndSwitch.isOn, tempAway: seatAwaySwitch.isOn)
@@ -59,22 +74,17 @@ class NotificationSettingsTableViewController: UITableViewController {
     
     @IBAction func notificationSwitchChanged(_ sender: UISwitch) {
         if sender.isOn {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 DispatchQueue.main.async {
-                    if let error = error {
-                        print(error.localizedDescription)
+                    switch settings.authorizationStatus {
+                    case .denied, .notDetermined:
+                        self.notificationAlert()
                         Settings.shared.disableNotification()
                         sender.setOn(false, animated: true)
-                    }else{
-                        if granted {
-                            Settings.shared.enableNotification()
-                        }else{
-                            self.notificationAlert()
-                            Settings.shared.disableNotification()
-                            sender.setOn(false, animated: true)
-                        }
-                        self.tableView.reloadData()
+                    default:
+                        Settings.shared.enableNotification()
                     }
+                    self.tableView.reloadData()
                 }
             }
         }else{

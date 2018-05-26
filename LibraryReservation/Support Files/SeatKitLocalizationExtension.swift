@@ -14,6 +14,8 @@ extension SeatBaseResponse {
         switch statusCode {
         case 0:
             return "SeatBaseResponse.success".localized
+        case 10:
+            return "SeatBaseResponse.maintenance".localized
         default:
             return "SeatBaseResponse.unknownError".localized(arguments: code, message)
         }

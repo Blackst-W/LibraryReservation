@@ -22,7 +22,10 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     
+    @IBOutlet var labels: [UILabel]!
+    
     func update(reservation: SeatReservation) {
+        updateTheme(false)
         dateLabel.text = reservation.rawDate
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         guard let location = reservation.location else {
@@ -34,6 +37,23 @@ class SeatHistoryCollectionViewCell: UICollectionViewCell {
         seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         stateLabel.text = reservation.state.localizedDescription
         stateImageView.isHidden = !reservation.isFailed
+    }
+    
+    func updateTheme(_ animated: Bool) {
+        let configuration = ThemeConfiguration.current
+        let animation = {
+            self.contentView.backgroundColor = configuration.secondaryBackgroundColor
+            self.contentView.layer.cornerRadius = 14
+            self.labels.forEach { (label) in
+                label.textColor = configuration.textColor
+            }
+            self.layer.shadowColor = configuration.shadowColor.cgColor
+        }
+        if animated {
+            UIViewPropertyAnimator(duration: 1, curve: .linear, animations: animation).startAnimation()
+        }else{
+            animation()
+        }
     }
     
 }

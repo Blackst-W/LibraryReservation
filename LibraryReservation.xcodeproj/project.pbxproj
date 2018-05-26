@@ -12,6 +12,8 @@
 		AB39AE29FFB2E81F2E54083E /* Pods_LibraryReservationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */; };
 		AD2AB7B42098A9F70090F03F /* SeatHistoryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AB7B32098A9F70090F03F /* SeatHistoryInterfaceController.swift */; };
 		AD2AB7B62098AD0E0090F03F /* SeatHistoryRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AB7B52098AD0E0090F03F /* SeatHistoryRowController.swift */; };
+		AD365F5B20A08B1A00F145CA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD365F5A20A08B1A00F145CA /* CloudKit.framework */; };
+		AD39DD4A20A2EFBF00C8F6E5 /* SeatTimeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39DD4920A2EFBF00C8F6E5 /* SeatTimeFilter.swift */; };
 		AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4B3B122084F7FB00010B47 /* Utilities.swift */; };
 		AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114920878C0A0073AAA8 /* SeatCurrentReservationView.swift */; };
 		AD4D115020885CF10073AAA8 /* SeatHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */; };
@@ -41,8 +43,16 @@
 		AD7433D4208487FD005AAF11 /* LibraryReservationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433D3208487FD005AAF11 /* LibraryReservationTests.swift */; };
 		AD7433DF208487FD005AAF11 /* LibraryReservationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433DE208487FD005AAF11 /* LibraryReservationUITests.swift */; };
 		AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */; };
+		AD7D1BC520A2E1AD00A0C6A7 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7D1BC420A2E1AD00A0C6A7 /* AppSettings.swift */; };
 		AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B045208622F4001F6768 /* LoginViewController.swift */; };
 		AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95B04720863057001F6768 /* UIViewControllerExtension.swift */; };
+		AD9BC18320AF52AE003AC9E3 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BC18220AF52AE003AC9E3 /* AboutViewController.swift */; };
+		ADA4ADA220AF1D1A002D0A61 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA4ADA120AF1D1A002D0A61 /* ThemeTableViewController.swift */; };
+		ADA87C9720A095630043B7F9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9620A095630043B7F9 /* libz.tbd */; };
+		ADA87C9920A0956D0043B7F9 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9820A0956D0043B7F9 /* libsqlite3.tbd */; };
+		ADA87C9B20A095740043B7F9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9A20A095740043B7F9 /* CoreTelephony.framework */; };
+		ADA87C9D20A0957F0043B7F9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA87C9C20A0957F0043B7F9 /* SystemConfiguration.framework */; };
+		ADA87C9F20A0999C0043B7F9 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */; };
 		ADB9C9732090DF6D0086A00E /* TestRoomData.json in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C9722090DF6D0086A00E /* TestRoomData.json */; };
 		ADB9C9792091E12E0086A00E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C9772091E12E0086A00E /* Localizable.strings */; };
 		ADB9C97B2091E17F0086A00E /* MeetingRoomStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADB9C97D2091E17F0086A00E /* MeetingRoomStoryboard.storyboard */; };
@@ -57,6 +67,12 @@
 		ADBDA4A02097564B00644D33 /* SeatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDA46620974DEC00644D33 /* SeatKit.framework */; };
 		ADBDA4A12097564B00644D33 /* SeatKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDA46620974DEC00644D33 /* SeatKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ADBDA4A62097576900644D33 /* SeatKitLocalizationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBDA4A52097576900644D33 /* SeatKitLocalizationExtension.swift */; };
+		ADC9DF5320AD6ACB00BB886D /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5220AD6ACB00BB886D /* SeatReservationManager.swift */; };
+		ADC9DF5520AD704200BB886D /* SeatTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF5420AD704200BB886D /* SeatTimePicker.swift */; };
+		ADC9DF6D20AEA49800BB886D /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF6C20AEA49800BB886D /* SeatReservationManager.swift */; };
+		ADC9DF7320AEAD0B00BB886D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7220AEAD0B00BB886D /* Constants.swift */; };
+		ADC9DF7920AEBA9000BB886D /* SeatReservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7820AEBA8F00BB886D /* SeatReservationManager.swift */; };
+		ADC9DF7E20AEBE4D00BB886D /* ThemeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC9DF7D20AEBE4D00BB886D /* ThemeSettings.swift */; };
 		ADCB2D3020996AFC0096C57E /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */; };
 		ADCB2D3220996AFC0096C57E /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCB2D3120996AFC0096C57E /* UserNotificationsUI.framework */; };
 		ADCB2D3520996AFC0096C57E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCB2D3420996AFC0096C57E /* NotificationViewController.swift */; };
@@ -232,6 +248,8 @@
 		AD2AB7B32098A9F70090F03F /* SeatHistoryInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryInterfaceController.swift; sourceTree = "<group>"; };
 		AD2AB7B52098AD0E0090F03F /* SeatHistoryRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryRowController.swift; sourceTree = "<group>"; };
 		AD2AB7B82098B2000090F03F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Interface.strings"; sourceTree = "<group>"; };
+		AD365F5A20A08B1A00F145CA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		AD39DD4920A2EFBF00C8F6E5 /* SeatTimeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatTimeFilter.swift; sourceTree = "<group>"; };
 		AD4B3B122084F7FB00010B47 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		AD4D114920878C0A0073AAA8 /* SeatCurrentReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCurrentReservationView.swift; sourceTree = "<group>"; };
 		AD4D114F20885CF10073AAA8 /* SeatHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -272,8 +290,15 @@
 		AD7433DE208487FD005AAF11 /* LibraryReservationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryReservationUITests.swift; sourceTree = "<group>"; };
 		AD7433E0208487FD005AAF11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD7433EF20848A27005AAF11 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		AD7D1BC420A2E1AD00A0C6A7 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		AD95B045208622F4001F6768 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AD95B04720863057001F6768 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		AD9BC18220AF52AE003AC9E3 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		ADA4ADA120AF1D1A002D0A61 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
+		ADA87C9620A095630043B7F9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		ADA87C9820A0956D0043B7F9 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		ADA87C9A20A095740043B7F9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		ADA87C9C20A0957F0043B7F9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		ADB9C9722090DF6D0086A00E /* TestRoomData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRoomData.json; sourceTree = "<group>"; };
 		ADB9C9742091E0530086A00E /* LibraryReservation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LibraryReservation.entitlements; sourceTree = "<group>"; };
 		ADB9C9752091E0D60086A00E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -297,6 +322,12 @@
 		ADBDA46120974DEB00644D33 /* SeatKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SeatKit.xcodeproj; path = SeatKit/SeatKit.xcodeproj; sourceTree = "<group>"; };
 		ADBDA49C209755F700644D33 /* LibraryReservation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LibraryReservation-Bridging-Header.h"; sourceTree = "<group>"; };
 		ADBDA4A52097576900644D33 /* SeatKitLocalizationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatKitLocalizationExtension.swift; sourceTree = "<group>"; };
+		ADC9DF5220AD6ACB00BB886D /* SeatReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
+		ADC9DF5420AD704200BB886D /* SeatTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatTimePicker.swift; sourceTree = "<group>"; };
+		ADC9DF6C20AEA49800BB886D /* SeatReservationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
+		ADC9DF7220AEAD0B00BB886D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ADC9DF7820AEBA8F00BB886D /* SeatReservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatReservationManager.swift; sourceTree = "<group>"; };
+		ADC9DF7D20AEBE4D00BB886D /* ThemeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettings.swift; sourceTree = "<group>"; };
 		ADCB2D2E20996AFC0096C57E /* UpcomingNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = UpcomingNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADCB2D2F20996AFC0096C57E /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		ADCB2D3120996AFC0096C57E /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -355,6 +386,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADA87C9F20A0999C0043B7F9 /* UserNotifications.framework in Frameworks */,
+				ADA87C9D20A0957F0043B7F9 /* SystemConfiguration.framework in Frameworks */,
+				ADA87C9B20A095740043B7F9 /* CoreTelephony.framework in Frameworks */,
+				ADA87C9920A0956D0043B7F9 /* libsqlite3.tbd in Frameworks */,
+				ADA87C9720A095630043B7F9 /* libz.tbd in Frameworks */,
+				AD365F5B20A08B1A00F145CA /* CloudKit.framework in Frameworks */,
 				ADBDA4A02097564B00644D33 /* SeatKit.framework in Frameworks */,
 				839C2392624C937AC131A560 /* Pods_LibraryReservation.framework in Frameworks */,
 			);
@@ -401,6 +438,11 @@
 		6727620B5A1E6B5C8CB512A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADA87C9C20A0957F0043B7F9 /* SystemConfiguration.framework */,
+				ADA87C9A20A095740043B7F9 /* CoreTelephony.framework */,
+				ADA87C9820A0956D0043B7F9 /* libsqlite3.tbd */,
+				ADA87C9620A095630043B7F9 /* libz.tbd */,
+				AD365F5A20A08B1A00F145CA /* CloudKit.framework */,
 				7888AC61F365ED24C2CC0CC4 /* Pods_LibraryReservation.framework */,
 				6007481190CED623EA9BC00A /* Pods_LibraryReservationTests.framework */,
 				854D715760BE7166C91F4B1D /* Pods_LibraryReservationUITests.framework */,
@@ -434,6 +476,9 @@
 		AD4B3B092084F68A00010B47 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AD39DD4920A2EFBF00C8F6E5 /* SeatTimeFilter.swift */,
+				ADC9DF5220AD6ACB00BB886D /* SeatReservationManager.swift */,
+				ADC9DF5420AD704200BB886D /* SeatTimePicker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -480,6 +525,7 @@
 				AD6629F020978F50006353F2 /* Assets.xcassets */,
 				AD6629F220978F50006353F2 /* Info.plist */,
 				AD6629F320978F50006353F2 /* PushNotificationPayload.apns */,
+				ADC9DF7220AEAD0B00BB886D /* Constants.swift */,
 			);
 			path = "WatchApp Extension";
 			sourceTree = "<group>";
@@ -490,6 +536,7 @@
 				AD662A5C20985A43006353F2 /* SeatHomeInterfaceController.swift */,
 				AD2AB7B32098A9F70090F03F /* SeatHistoryInterfaceController.swift */,
 				AD2AB7B52098AD0E0090F03F /* SeatHistoryRowController.swift */,
+				ADC9DF6C20AEA49800BB886D /* SeatReservationManager.swift */,
 			);
 			path = Seat;
 			sourceTree = "<group>";
@@ -579,6 +626,8 @@
 				ADF0A1B320873594009F4B66 /* AccountDetailTableViewController.swift */,
 				ADB9C9A220937B810086A00E /* NotificationSettingsTableViewController.swift */,
 				ADCD2DAA20976482007BBC4C /* SettingsNavigationController.swift */,
+				ADA4ADA120AF1D1A002D0A61 /* ThemeTableViewController.swift */,
+				AD9BC18220AF52AE003AC9E3 /* AboutViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -586,6 +635,8 @@
 		AD7433F220848A43005AAF11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AD7D1BC420A2E1AD00A0C6A7 /* AppSettings.swift */,
+				ADC9DF7D20AEBE4D00BB886D /* ThemeSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -680,6 +731,7 @@
 		ADF2F8F72096249900092893 /* ReservationWidget */ = {
 			isa = PBXGroup;
 			children = (
+				ADC9DF7820AEBA8F00BB886D /* SeatReservationManager.swift */,
 				ADF2F9072096261900092893 /* ReservationWidget.entitlements */,
 				ADF2F8F82096249900092893 /* TodayViewController.swift */,
 				ADF2F8FA2096249900092893 /* MainInterface.storyboard */,
@@ -746,6 +798,7 @@
 				ADBDA4A42097564B00644D33 /* Embed Frameworks */,
 				AD6629FE20978F50006353F2 /* Embed Watch Content */,
 				ADD4C40D2099910A007BFBF6 /* Auto Increase Build Number */,
+				B7B42041766689A99928D020 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -865,6 +918,15 @@
 						LastSwiftMigration = 0930;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -1024,13 +1086,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LibraryReservation/Pods-LibraryReservation-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-14/iOS/RevealServer.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1125,6 +1185,24 @@
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
+		B7B42041766689A99928D020 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LibraryReservation/Pods-LibraryReservation-resources.sh",
+				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibraryReservation/Pods-LibraryReservation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CF0BCA22D7FE1EFBAC2CCCA9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1169,12 +1247,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6629ED20978F4F006353F2 /* NotificationController.swift in Sources */,
+				ADC9DF6D20AEA49800BB886D /* SeatReservationManager.swift in Sources */,
 				AD2AB7B42098A9F70090F03F /* SeatHistoryInterfaceController.swift in Sources */,
 				AD662A002097911B006353F2 /* Localization.swift in Sources */,
 				AD6629EF20978F4F006353F2 /* ComplicationController.swift in Sources */,
 				AD6629EB20978F4F006353F2 /* ExtensionDelegate.swift in Sources */,
 				AD2AB7B62098AD0E0090F03F /* SeatHistoryRowController.swift in Sources */,
 				AD662A5D20985A43006353F2 /* SeatHomeInterfaceController.swift in Sources */,
+				ADC9DF7320AEAD0B00BB886D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1182,6 +1262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD7D1BC520A2E1AD00A0C6A7 /* AppSettings.swift in Sources */,
 				AD7433F020848A27005AAF11 /* SettingsTableViewController.swift in Sources */,
 				ADF0A1B420873594009F4B66 /* AccountDetailTableViewController.swift in Sources */,
 				ADF367D020891B3700C9379D /* SeatRoomTableViewCell.swift in Sources */,
@@ -1189,15 +1270,21 @@
 				AD4D1154208883070073AAA8 /* SeatCurrentReservationDetailTableViewController.swift in Sources */,
 				AD50F2B4208A279300A7BD6A /* SeatSelectionViewController.swift in Sources */,
 				AD4D115020885CF10073AAA8 /* SeatHistoryTableViewCell.swift in Sources */,
+				ADC9DF5320AD6ACB00BB886D /* SeatReservationManager.swift in Sources */,
 				AD95B046208622F4001F6768 /* LoginViewController.swift in Sources */,
 				AD50F2AE208A0C1700A7BD6A /* SeatCollectionView.swift in Sources */,
 				AD95B04820863057001F6768 /* UIViewControllerExtension.swift in Sources */,
+				ADC9DF7E20AEBE4D00BB886D /* ThemeSettings.swift in Sources */,
 				AD4D114A20878C0A0073AAA8 /* SeatCurrentReservationView.swift in Sources */,
+				AD9BC18320AF52AE003AC9E3 /* AboutViewController.swift in Sources */,
 				ADCB5ED82084C40300E0CF5F /* SeatHomepageViewController.swift in Sources */,
 				ADF367CC20890A1700C9379D /* SeatLibraryView.swift in Sources */,
 				ADF367CA2089057400C9379D /* SeatReservationViewController.swift in Sources */,
 				AD7433BD208487FB005AAF11 /* AppDelegate.swift in Sources */,
+				AD39DD4A20A2EFBF00C8F6E5 /* SeatTimeFilter.swift in Sources */,
+				ADC9DF5520AD704200BB886D /* SeatTimePicker.swift in Sources */,
 				ADCD2DAD20976490007BBC4C /* AccountNavigationController.swift in Sources */,
+				ADA4ADA220AF1D1A002D0A61 /* ThemeTableViewController.swift in Sources */,
 				AD662A6120986CCF006353F2 /* WatchAppDelegate.swift in Sources */,
 				AD4B3B132084F7FB00010B47 /* Utilities.swift in Sources */,
 				ADCD2DAB20976482007BBC4C /* SettingsNavigationController.swift in Sources */,
@@ -1241,6 +1328,7 @@
 			files = (
 				ADF2F8F92096249900092893 /* TodayViewController.swift in Sources */,
 				ADFCD2EA20977244009690D4 /* Localization.swift in Sources */,
+				ADC9DF7920AEBA9000BB886D /* SeatReservationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

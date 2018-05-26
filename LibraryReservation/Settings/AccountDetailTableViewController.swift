@@ -27,10 +27,13 @@ class AccountDetailTableViewController: UITableViewController {
     @IBOutlet weak var violationLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var signoutButton: UIButton!
     
     @IBOutlet weak var savePasswordSwitch: UISwitch!
     
     @IBOutlet weak var autoLoginSwitch: UISwitch!
+    
+    @IBOutlet var labels: [UILabel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +42,30 @@ class AccountDetailTableViewController: UITableViewController {
         savePasswordSwitch.isOn = settings.savePassword
         autoLoginSwitch.isOn = settings.autoLogin
         userInfoUpdated()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(userInfoUpdated), name: .UserInfoUpdated, object: nil)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        labels.forEach { (label) in
+            label.textColor = configuration.textColor
+        }
+        refreshButton.tintColor = configuration.tintColor
+        refreshButton.backgroundColor = configuration.tintColor
+        refreshButton.setTitleColor(configuration.highlightTextColor, for: .normal)
+        signoutButton.tintColor = configuration.warnColor
+        signoutButton.backgroundColor = configuration.warnColor
+        signoutButton.setTitleColor(configuration.highlightTextColor, for: .normal)
     }
     
     deinit {

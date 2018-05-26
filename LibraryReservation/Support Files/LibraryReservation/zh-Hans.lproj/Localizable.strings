@@ -8,8 +8,8 @@
 
 //SeatBaseResponse
 "SeatBaseResponse.unknownError" = "请求错误\n错误码: %@\n错误信息:%@";
-
 "SeatBaseResponse.success" = "请求成功";
+"SeatBaseResponse.maintenance" = "系统维护中，请稍后再试";
 
 //SeatAPIError
 "SeatAPIError.dataCorrupt" = "数据损坏, 请稍候重试";

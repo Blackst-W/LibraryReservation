@@ -10,6 +10,9 @@ import UIKit
 
 class SeatHistoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var stateImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     
@@ -22,7 +25,21 @@ class SeatHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
     
+    
+    @IBOutlet var labels: [UILabel]!
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        labels.forEach { (label) in
+            label.textColor = configuration.textColor
+        }
+        containerView.backgroundColor = configuration.secondaryBackgroundColor
+        shadowView.layer.shadowColor = configuration.shadowColor.cgColor
+        backgroundColor = nil
+    }
+    
     func update(reservation: SeatReservation) {
+        updateTheme()
         dateLabel.text = reservation.rawDate
         timeLabel.text = "\(reservation.rawBegin) - \(reservation.rawEnd)"
         guard let location = reservation.location else {

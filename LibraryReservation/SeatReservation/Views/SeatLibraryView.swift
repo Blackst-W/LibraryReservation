@@ -63,14 +63,29 @@ class SeatLibraryView: UIStackView {
         engineeringButton.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
         infoButton.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
         medicineButton.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
+        
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        tipLabel.textColor = configuration.textColor
+        [mainButton, engineeringButton, infoButton, medicineButton].forEach { (button) in
+            button?.setTitleColor(configuration.tintColor, for: .normal)
+            button?.backgroundColor = configuration.secondaryBackgroundColor
+        }
+        [mainLibraryView, engineeringLibraryView, infoLibraryView, medicineLibraryView].forEach { (view) in
+            view?.layer.shadowColor = configuration.shadowColor.cgColor
+        }
     }
     
     @objc func onButtonClick(_ sender: UIButton) {
+        let configuration = ThemeConfiguration.current
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
         if self.isSelected {
             //deselect
-            sender.setTitleColor(#colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1), for: .normal)
-            sender.backgroundColor = .white
+            sender.setTitleColor(configuration.tintColor, for: .normal)
+            sender.backgroundColor = configuration.secondaryBackgroundColor
             switch sender {
             case self.mainButton:
                 self.engineeringLibraryView.isHidden = false
@@ -97,10 +112,8 @@ class SeatLibraryView: UIStackView {
             }
         }else{
             //select
-//            self.tipLabel.isHidden = true
-//            self.tipLabel.alpha = 0
-            sender.setTitleColor(.white, for: .normal)
-            sender.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
+            sender.setTitleColor(configuration.highlightTextColor, for: .normal)
+            sender.backgroundColor = configuration.tintColor
             switch sender {
             case self.mainButton:
                 self.engineeringLibraryView.isHidden = true

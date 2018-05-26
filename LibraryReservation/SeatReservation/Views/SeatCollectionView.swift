@@ -47,8 +47,9 @@ class SeatCollectionView: UIControl {
     
     func disable() {
         isUserInteractionEnabled = false
-        contentView.backgroundColor = .darkGray
-        seatLabel.textColor = .white
+        let configuration = ThemeConfiguration.current
+        contentView.backgroundColor = configuration.seatUnavailableColor
+        seatLabel.textColor = configuration.seatUnavailableTextColor
     }
     
     func reset() {
@@ -57,44 +58,34 @@ class SeatCollectionView: UIControl {
             return
         }
         isUserInteractionEnabled = true
-        windowImageView.image = #imageLiteral(resourceName: "WindowIcon")
+        let configuration = ThemeConfiguration.current
         if seat.availableNow {
-            contentView.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
-            seatLabel.textColor = .white
-            computerImageView.image = #imageLiteral(resourceName: "ScreenIcon")
-            powerImageView.image = #imageLiteral(resourceName: "PowerInvertIcon")
+            contentView.backgroundColor = configuration.seatAvailableNowColor
+            seatLabel.textColor = configuration.seatAvailableNowTextColor
         }else{
-            contentView.backgroundColor = .white
-            seatLabel.textColor = .black
-            computerImageView.image = #imageLiteral(resourceName: "ScreenIcon")
-            powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
+            contentView.backgroundColor = configuration.seatAvailableColor
+            seatLabel.textColor = configuration.seatAvailableTextColor
         }
     }
     
     func hightlight() {
         guard seat.available else {return}
+        let configuration = ThemeConfiguration.current
+        contentView.backgroundColor = configuration.seatFilterColor
+        seatLabel.textColor = configuration.seatFilterTextColor
         isUserInteractionEnabled = true
-        contentView.backgroundColor = #colorLiteral(red: 0, green: 0.5018912177, blue: 1, alpha: 1)
-        seatLabel.textColor = .white
-        computerImageView.image = #imageLiteral(resourceName: "ScreenInvertIcon")
-        powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
-        windowImageView.image = #imageLiteral(resourceName: "WindowIcon")
     }
     
     func selected() {
-        contentView.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
-        seatLabel.textColor = .white
-        computerImageView.image = #imageLiteral(resourceName: "ScreenIcon")
-        powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
-        windowImageView.image = #imageLiteral(resourceName: "WindowIcon")
+        let configuration = ThemeConfiguration.current
+        contentView.backgroundColor = configuration.seatHighlightColor
+        seatLabel.textColor = configuration.seatHighlightTextColor
     }
     
     func viewed() {
-        contentView.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-        seatLabel.textColor = .white
-        computerImageView.image = #imageLiteral(resourceName: "ScreenIcon")
-        powerImageView.image = #imageLiteral(resourceName: "PowerIcon")
-        windowImageView.image = #imageLiteral(resourceName: "WindowInvertIcon")
+        let configuration = ThemeConfiguration.current
+        contentView.backgroundColor = configuration.seatViewedColor
+        seatLabel.textColor = configuration.seatViewedTextColor
     }
     
 }

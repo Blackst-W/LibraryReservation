@@ -36,29 +36,79 @@ class SeatRoomTableViewCell: UITableViewCell {
     func update(left: Room, right: Room?) {
         leftRoomLabel.text = left.name
         leftFloorLabel.text = "Floor".localized(arguments: left.floor)
-        if let leftSeat = left.availableSeat {
+        if let leftSeat = left.availableSeats {
             leftAvailableLabel.text = "Available: %d".localized(arguments: leftSeat)
         }else{
             leftAvailableLabel.text = "Available: -".localized
         }
         if let right = right {
             rightRoomView.isUserInteractionEnabled = true
-            rightShadowView.layer.shadowOpacity = 0.15
             rightRoomLabel.text = right.name
             rightFloorLabel.text = "Floor".localized(arguments: right.floor)
-            if let rightSeat = right.availableSeat {
+            if let rightSeat = right.availableSeats {
                 rightAvailableLabel.text = "Available: %d".localized(arguments: rightSeat)
             }else{
                 rightAvailableLabel.text = "Available: -".localized
             }
-            rightRoomView.backgroundColor = .white
+            rightRoomView.backgroundColor = roomViewBackgroundColor
         }else{
             rightRoomView.isUserInteractionEnabled = false
-            rightShadowView.layer.shadowOpacity = 0
             rightAvailableLabel.text = ""
             rightRoomLabel.text = ""
             rightFloorLabel.text = ""
-            rightRoomView.backgroundColor = .clear
+            rightRoomView.backgroundColor = nil
         }
     }
+    
+    @objc dynamic var titleColor: UIColor? {
+        set {
+            leftRoomLabel.textColor = newValue
+            rightRoomLabel.textColor = newValue
+        }
+        get {
+            return nil
+        }
+    }
+    
+    @objc dynamic var labelColor: UIColor? {
+        set {
+            leftFloorLabel.textColor = newValue
+            leftAvailableLabel.textColor = newValue
+            rightFloorLabel.textColor = newValue
+            rightAvailableLabel.textColor = newValue
+        }
+        get {
+            return nil
+        }
+    }
+    
+    @objc dynamic var roomViewBackgroundColor: UIColor? {
+        set {
+            leftRoomView.backgroundColor = newValue
+        }
+        get {
+            return leftRoomView.backgroundColor
+        }
+    }
+    
+    @objc dynamic var roomViewShadowColor: UIColor? {
+        set {
+            leftShadowView.layer.shadowColor = newValue?.cgColor
+            rightShadowView.layer.shadowColor = newValue?.cgColor
+        }
+        get {
+            return nil
+        }
+    }
+    
+    static func updateAppearance(theme: Theme) {
+        let configuration = ThemeConfiguration.current
+        let appearance = SeatRoomTableViewCell.appearance()
+        appearance.backgroundColor = nil
+        appearance.titleColor = configuration.tintColor
+        appearance.labelColor = configuration.textColor
+        appearance.roomViewBackgroundColor = configuration.secondaryBackgroundColor
+        appearance.roomViewShadowColor = configuration.shadowColor
+    }
+    
 }

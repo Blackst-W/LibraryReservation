@@ -6,14 +6,12 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
-
 public struct SeatFilterCondition: Equatable {
     public var needPower: Bool
     public var needWindow: Bool
     public var needComputer: Bool
-    public var isEnabled: Bool {
-        return self != SeatFilterCondition()
+    public var passDirectly: Bool {
+        return self == SeatFilterCondition()
     }
     
     public init(needPower: Bool, needWindow: Bool, needComputer: Bool) {
@@ -38,7 +36,7 @@ public struct SeatFilterCondition: Equatable {
     }
     
     public func fullfill(seat: Seat) -> Bool {
-        guard isEnabled else {return true}
+        guard !passDirectly else {return true}
         if needComputer && !seat.hasComputer {
             return false
         }

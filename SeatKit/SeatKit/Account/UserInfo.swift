@@ -6,7 +6,6 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-import UIKit
 /*
 {
     "id": 6956,

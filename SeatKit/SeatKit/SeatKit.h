@@ -6,7 +6,7 @@
 //  Copyright © 2018 Weston Wu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for SeatKit.
 FOUNDATION_EXPORT double SeatKitVersionNumber;

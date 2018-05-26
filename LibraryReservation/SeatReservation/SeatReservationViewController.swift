@@ -22,12 +22,16 @@ class SeatReservationViewController: UIViewController {
         didSet {
             if let library = selectedLibrary {
                 roomData = libraryManager.libraryData[library]
-                libraryManager.check(library: library)
+                libraryManager.check(library: library) { (response) in
+                    self.handle(response: response, library: library)
+                }
+                resizeRoomTableView()
+                roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
             }else{
                 roomData = []
+                roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                resizeRoomTableView()
             }
-            resizeRoomTableView()
-            roomTableView.reloadSections(IndexSet(integer: 0), with: .fade)
         }
     }
     
@@ -38,8 +42,15 @@ class SeatReservationViewController: UIViewController {
         date = Date()
         let calender = Calendar.current
         var dayTitle = "(Today)".localized
-        if calender.component(.hour, from: date) >= 22 {
-            date = date.addingTimeInterval(3 * 60 * 60)
+        let hour = calender.component(.hour, from: date)
+        let minute = calender.component(.minute, from: date)
+        let reserveDateComponents = AppSettings.shared.libraryConfiguration.reserveTimeComponents
+        if hour > reserveDateComponents.hour! {
+            date = date.addingTimeInterval(24 * 60 * 60)
+            dayTitle = "(Tomorrow)".localized
+        }else if hour == reserveDateComponents.hour!,
+            minute >= reserveDateComponents.minute! {
+            date = date.addingTimeInterval(24 * 60 * 60)
             dayTitle = "(Tomorrow)".localized
         }
         let dateFormatter = DateFormatter()
@@ -49,8 +60,16 @@ class SeatReservationViewController: UIViewController {
         roomTableView.delegate = self
         roomTableView.contentInset = UIEdgeInsets(top: -34, left: 0, bottom: 0, right: 0)
         libraryView.delegate = self
-        libraryManager = SeatLibraryManager(delegate: self)
-        // Do any additional setup after loading the view.
+        libraryManager = SeatLibraryManager()
+        updateTheme()
+    }
+    
+    @IBOutlet weak var roomTipLabel: UILabel!
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        view.backgroundColor = configuration.backgroundColor
+        roomTipLabel.textColor = configuration.textColor
     }
     
     func resizeRoomTableView(_ height: CGFloat? = nil) {
@@ -135,23 +154,33 @@ extension SeatReservationViewController: SeatLibraryViewDelegate {
     }
 }
 
-extension SeatReservationViewController: SeatLibraryDelegate {
+extension SeatReservationViewController {
+    
+    func handle(response: SeatResponse<[Room]>, library: Library) {
+        switch response {
+        case .requireLogin:
+            requireLogin()
+        case .error(let error):
+            handle(error: error)
+        case .failed(let failedResponse):
+            handle(failedResponse: failedResponse)
+        case .success(let rooms):
+            update(rooms: rooms, for: library)
+        }
+    }
+    
     func requireLogin() {
         return
     }
     
-    func updateFailed(error: Error) {
+    func handle(error: Error) {
         let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
         present(alertController, animated: true, completion: nil)
     }
     
-    func updateFailed(failedResponse: SeatFailedResponse) {
-        if failedResponse.code == "12" {
-            autoLogin(delegate: self, force: false)
-            return
-        }
+    func handle(failedResponse: SeatFailedResponse) {
         let alertController = UIAlertController(title: "Failed To Update".localized, message: failedResponse.localizedDescription, preferredStyle: .alert)
         let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
         alertController.addAction(closeAction)
@@ -173,7 +202,9 @@ extension SeatReservationViewController: LoginViewDelegate {
             return
         case .success(_):
             if let library = selectedLibrary {
-                libraryManager.check(library: library)
+                libraryManager.check(library: library) { (response) in
+                    self.handle(response: response, library: library)
+                }
             }
         }
     }

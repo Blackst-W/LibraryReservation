@@ -29,6 +29,9 @@ class SeatCurrentReservationView: UIView {
     }
     */
     
+    @IBOutlet var labels: [UILabel]!
+    
+    
     var showingCancelEffect = false
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,10 +46,32 @@ class SeatCurrentReservationView: UIView {
         NSLayoutConstraint.activate([top, leading, trailing, bottom])
         cancelEffectView.alpha = 0
         cancelEffectView.isHidden = true
-        NotificationCenter.default.addObserver(self, selector: #selector(showCancelEffect), name: .SeatReservationCancel, object: nil)
+        updateTheme()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func handleThemeChanged() {
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        UIViewPropertyAnimator(duration: 1, curve: .linear) {
+            self.labels.forEach { (label) in
+                label.textColor = configuration.textColor
+            }
+            self.view.backgroundColor = configuration.secondaryBackgroundColor
+            self.layer.shadowColor = configuration.shadowColor.cgColor
+            self.cancelLabel.textColor = configuration.secondaryTextColor
+            self.cancelEffectView.effect = configuration.blurEffect
+        }.startAnimation()
     }
 
-    func update(reservation: SeatCurrentReservationRepresentable) {
+    func update(reservation: SeatReservation) {
         if showingCancelEffect {
             hideCancelEffect()
         }
@@ -85,7 +110,7 @@ class SeatCurrentReservationView: UIView {
         }
     }
     
-    @objc func showCancelEffect() {
+    func showCancelEffect() {
         cancelLabel.text = "Canceled".localized
         showingCancelEffect = true
         cancelEffectView.isHidden = false

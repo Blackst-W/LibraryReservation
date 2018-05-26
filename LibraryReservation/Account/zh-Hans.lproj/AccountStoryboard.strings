@@ -15,7 +15,7 @@
 "KZt-vc-6Af.footerTitle" = "你的密码仅会存储在本地设备中";
 
 /* Class = "UITextField"; placeholder = "last 6 digits of ID"; ObjectID = "RJ0-fD-9xh"; */
-"RJ0-fD-9xh.placeholder" = "身份证最后6位";
+"RJ0-fD-9xh.placeholder" = "图书馆系统密码";
 
 /* Class = "UILabel"; text = "Save Password"; ObjectID = "S4d-JK-sRh"; */
 "S4d-JK-sRh.text" = "记住密码";
