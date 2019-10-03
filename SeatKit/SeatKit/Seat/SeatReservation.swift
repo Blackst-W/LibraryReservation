@@ -283,6 +283,36 @@ extension SeatReservation {
     }
 }
 
+//Add by Morty
+extension SeatReservation {
+    public var seatTimes: [SeatTime] {
+        switch self.state {
+        case .reserve:
+            let beginTime = SeatTime(time: self.rawBegin)
+            let endTime = SeatTime(time: self.rawEnd)
+            return SeatTime.fetchTimeSections(beginTime: beginTime, endTime: endTime)
+        default:
+            let currentMin = Date().minutes
+            let beginTimeId: Int
+            if currentMin % 60 >= 30 {
+                beginTimeId = currentMin / 60 * 60 + 60
+            } else {
+                beginTimeId = currentMin / 60 * 60 + 30
+            }
+            
+            return SeatTime.fetchTimeSections(beginTime: SeatTime(time: beginTimeId), endTime: SeatTime(time: self.rawEnd))
+        }
+    }
+}
+
+extension Date {
+    var minutes: Int {
+        let calender = Calendar.current
+        let components = calender.dateComponents([.hour, .minute], from: self)
+        return components.hour! * 60 + components.minute!
+    }
+}
+
 public struct SeatCurrentReservation: Codable {
     
     public let id: Int

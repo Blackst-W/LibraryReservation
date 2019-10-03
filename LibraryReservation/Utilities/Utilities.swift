@@ -55,7 +55,7 @@ let TestRoomData: Data? = {
     return data
 }()
 
-let GroupID = "group.com.westonwu.ios.whu"
+let GroupID = "group.com.morty.ios.whu"
 
 extension UserDefaults {
     class var group: UserDefaults {

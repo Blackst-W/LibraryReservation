@@ -259,7 +259,6 @@ class SeatSelectionViewController: UIViewController {
         manager.check(seat: seat, date: date) {
             self.handle(response: $0)
         }
-
     }
     
     func showReserveView() {
@@ -286,6 +285,7 @@ class SeatSelectionViewController: UIViewController {
         timelineView.arrangedSubviews.forEach { (view) in
             view.removeFromSuperview()
         }
+        
         let allTimes = timeFilterManager.startTimes!
         timelineStartLabel.text = allTimes[0].value
         timelineEndLabel.text = timeFilterManager.endTimes!.last!.value
@@ -313,7 +313,6 @@ class SeatSelectionViewController: UIViewController {
         }
         NSLayoutConstraint.activate(heightConstraints)
     }
-    
     
     @IBAction func dismissReserveView(_ sender: Any) {
         if !reserveButton.isEnabled {return}
@@ -347,7 +346,7 @@ class SeatSelectionViewController: UIViewController {
     }
     
     // MARK: Time Filter
-    
+
     @IBOutlet weak var timeFilterView: UIView!
     @IBOutlet weak var changeTimeFilterButton: UIButton!
     @IBOutlet weak var cleanTimeFilterButton: UIButton!
@@ -450,6 +449,19 @@ extension SeatSelectionViewController {
         }
     }
 
+    func handle(response: SeatResponse<[Seat]>) {
+        switch response {
+        case .success(let seats):
+            timeFilterUpdate(seats: seats)
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        }
+    }
+    
     func handle(error: Error) {
         reserveButton.isEnabled = true
         endLoading()
@@ -545,7 +557,8 @@ extension SeatSelectionViewController {
         } else {
             scrollViewWidth = scrollView.frame.width
         }
-        let numberPerRow = Int((scrollViewWidth - 16 + 8) / (cellWidth + gap))
+        let tempNum = (scrollViewWidth - 16 + 8) / (cellWidth + gap)
+        let numberPerRow = Int(tempNum)
         
         let needFilter = !filter.passDirectly
         let seats = (needFilter ? seats.filter{filter.fullfill(seat: $0)} : seats).sorted {$0.name<$1.name}
@@ -615,19 +628,6 @@ extension SeatSelectionViewController {
         }
     }
     
-    func handle(response: SeatResponse<[Seat]>) {
-        switch response {
-        case .success(let seats):
-            timeFilterUpdate(seats: seats)
-        case .error(let error):
-            handle(error: error)
-        case .failed(let fail):
-            handle(failedResponse: fail)
-        case .requireLogin:
-            requireLogin()
-        }
-    }
-    
     func timeFilterUpdate(seats: [Seat]) {
         timeFiltedSeats = seats
         reloadData()
@@ -650,18 +650,6 @@ extension SeatSelectionViewController {
         }
     }
     
-    func update(seat: Seat, start: [SeatTime]) {
-        guard seat == self.selectedSeat else {return}
-        endLoading()
-        if start.isEmpty {
-            HUD.flash(.label("Not Available Time For This Seat".localized), delay: 1.0)
-            return
-        }
-        timePickerManager.update(startTimes: start, filterStart: timeFilterStart, filterEnd: timeFilterEnd)
-        updateTimeline(start: start)
-        showReserveView()
-    }
-    
     func handle(response: SeatResponse<Void>) {
         switch response {
         case .error(let error):
@@ -673,6 +661,18 @@ extension SeatSelectionViewController {
         case .success(_):
             reserveSuccess()
         }
+    }
+    
+    func update(seat: Seat, start: [SeatTime]) {
+        guard seat == self.selectedSeat else {return}
+        endLoading()
+        if start.isEmpty {
+            HUD.flash(.label("Not Available Time For This Seat".localized), delay: 1.0)
+            return
+        }
+        timePickerManager.update(startTimes: start, filterStart: timeFilterStart, filterEnd: timeFilterEnd)
+        updateTimeline(start: start)
+        showReserveView()
     }
     
     func reserveSuccess() {

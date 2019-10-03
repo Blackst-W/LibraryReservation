@@ -89,7 +89,7 @@ struct LibraryConfiguration: Codable {
     
     let reserveTime: String
     var reserveTimeComponents: DateComponents {
-        let timeComponents = endTime.split(separator: ":")
+        let timeComponents = reserveTime.split(separator: ":")
         let hour = Int(timeComponents[0])!
         let minute = Int(timeComponents[1])!
         var components = DateComponents()
@@ -104,7 +104,7 @@ struct LibraryConfiguration: Codable {
     init() {
         startTime = "8:00"
         endTime = "22:30"
-        reserveTime = "22:45"
+        reserveTime = "22:43"
         version = 1
         updateNote = ""
     }

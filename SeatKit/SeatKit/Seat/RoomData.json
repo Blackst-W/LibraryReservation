@@ -2,12 +2,12 @@
     [
         {
             "roomId": 14,
-            "room": "3C创客-双屏电脑（20台）",
+            "room": "3C创客双屏电脑",
             "floor": 1
         },
         {
             "roomId": 13,
-            "room": "3C创客-电子资源阅览区（20台）",
+            "room": "3C创客电子阅读",
             "floor": 1
         },
         {
@@ -16,33 +16,33 @@
             "floor": 1
         },
         {
-            "roomId": 5,
-            "room": "创新学习讨论区",
+            "roomId": 16,
+            "room": "创新学习云桌面",
             "floor": 1
         },
         {
             "roomId": 15,
-            "room": "创新学习-MAC电脑（12台）",
+            "room": "创新学习苹果区",
             "floor": 1
         },
         {
-            "roomId": 16,
-            "room": "创新学习-云桌面（42台）",
+            "roomId": 90,
+            "room": "创新学习讨论区",
             "floor": 1
         },
         {
             "roomId": 7,
-            "room": "东自然科学图书借阅区",
+            "room": "东自然科学区",
             "floor": 2
         },
         {
             "roomId": 6,
-            "room": "西自然科学图书借阅区",
+            "room": "西自然科学区",
             "floor": 2
         },
         {
             "roomId": 10,
-            "room": "东社会科学图书借阅区",
+            "room": "东社会科学区",
             "floor": 3
         },
         {
@@ -52,7 +52,7 @@
         },
         {
             "roomId": 8,
-            "room": "西社会科学图书借阅区",
+            "room": "西社会科学区",
             "floor": 3
         },
         {
@@ -68,112 +68,122 @@
     ],
     [
         {
+            "roomId": 101,
+            "room": "103支点空间",
+            "floor": 1
+        },
+        {
+            "roomId": 93,
+            "room": "103空间双屏云桌面区",
+            "floor": 1
+        },
+        {
+            "roomId": 100,
+            "room": "一楼中部走廊",
+            "floor": 1
+        },
+        {
             "roomId": 19,
-            "room": "201室自科图书借阅区",
+            "room": "201自科图书区",
             "floor": 2
         },
         {
             "roomId": 68,
-            "room": "205室电阅云桌面区",
+            "room": "205电阅云桌面区",
             "floor": 2
         },
         {
             "roomId": 31,
-            "room": "205室电阅笔记本区",
+            "room": "205电阅笔记本区",
             "floor": 2
         },
         {
             "roomId": 29,
-            "room": "二楼走廊",
+            "room": "2楼走廊",
             "floor": 2
         },
         {
             "roomId": 32,
-            "room": "301室+东部自科图书借阅区",
+            "room": "301东自科借阅区",
             "floor": 3
         },
         {
             "roomId": 33,
-            "room": "305室+中部自科图书借阅区",
+            "room": "305中自科借阅区",
             "floor": 3
         },
         {
             "roomId": 34,
-            "room": "401室+东部自科图书借阅区",
+            "room": "401东自科借阅区",
             "floor": 4
         },
         {
             "roomId": 35,
-            "room": "405室+中部期刊阅览区",
+            "room": "405中期刊阅览区",
             "floor": 4
         },
         {
             "roomId": 37,
-            "room": "501室+东部外文图书借阅区",
+            "room": "501东外文借阅区",
             "floor": 5
         },
         {
             "roomId": 38,
-            "room": "505室+中部自科图书借阅区",
+            "room": "505中自科借阅区",
             "floor": 5
         }
     ],
     [
         {
-            "roomId": 18,
-            "room": "202中文科技图书借阅A区",
-            "floor": 2
-        },
-        {
             "roomId": 20,
-            "room": "204教学参考书借阅区",
+            "room": "204教学参考区",
             "floor": 2
         },
         {
             "roomId": 21,
-            "room": "302中文科技图书借阅B区",
+            "room": "302中文科技B区",
             "floor": 3
         },
         {
             "roomId": 23,
-            "room": "305科技期刊阅览区",
+            "room": "305科技期刊区",
             "floor": 3
         },
         {
             "roomId": 24,
-            "room": "402中文文科图书借阅区",
-            "floor": 4
+            "room": "402中文文科区",
+            "floor": 3
         },
         {
             "roomId": 26,
-            "room": "502外文图书借阅区",
+            "room": "502外文区",
             "floor": 5
         },
         {
             "roomId": 27,
-            "room": "506医学人文阅览区",
+            "room": "506医学人文区",
             "floor": 5
         }
     ],
     [
         {
             "roomId": 39,
-            "room": "A1-座位区",
+            "room": "A1座位区",
+            "floor": 1
+        },
+        {
+            "roomId": 76,
+            "room": "A1手提电脑区",
             "floor": 1
         },
         {
             "roomId": 62,
-            "room": "A1-沙发区",
+            "room": "A1沙发区",
             "floor": 1
         },
         {
             "roomId": 63,
-            "room": "A1-电子阅览室",
-            "floor": 1
-        },
-        {
-            "roomId": 66,
-            "room": "A1-苹果区",
+            "room": "A1电子阅览室",
             "floor": 1
         },
         {
@@ -182,18 +192,68 @@
             "floor": 1
         },
         {
-            "roomId": 40,
+            "roomId": 106,
+            "room": "B1笔记本自习区",
+            "floor": 1
+        },
+        {
+            "roomId": 96,
+            "room": "C1(现场选座)",
+            "floor": 1
+        },
+        {
+            "roomId": 94,
             "room": "C1自习区",
             "floor": 1
         },
         {
+            "roomId": 91,
+            "room": "E1信息共享空间",
+            "floor": 1
+        },
+        {
+            "roomId": 92,
+            "room": "E1信息共享空间双屏云桌面区",
+            "floor": 1
+        },
+        {
             "roomId": 51,
-            "room": "A2",
+            "room": "A2借阅区",
             "floor": 2
         },
         {
-            "roomId": 59,
-            "room": "B2",
+            "roomId": 102,
+            "room": "A2多媒体双屏电脑区",
+            "floor": 2
+        },
+        {
+            "roomId": 103,
+            "room": "A2多媒体苹果电脑区",
+            "floor": 2
+        },
+        {
+            "roomId": 104,
+            "room": "A2多媒体视频工作站区",
+            "floor": 2
+        },
+        {
+            "roomId": 77,
+            "room": "B2(现场选座)",
+            "floor": 2
+        },
+        {
+            "roomId": 97,
+            "room": "C2(现场选座)",
+            "floor": 2
+        },
+        {
+            "roomId": 84,
+            "room": "E2 报刊阅览区",
+            "floor": 2
+        },
+        {
+            "roomId": 89,
+            "room": "E2大厅",
             "floor": 2
         },
         {
@@ -202,8 +262,18 @@
             "floor": 3
         },
         {
-            "roomId": 56,
-            "room": "B3",
+            "roomId": 78,
+            "room": "B3(现场选座)",
+            "floor": 3
+        },
+        {
+            "roomId": 98,
+            "room": "C3(现场选座)",
+            "floor": 3
+        },
+        {
+            "roomId": 85,
+            "room": "E3学位论文阅览区",
             "floor": 3
         },
         {
@@ -212,9 +282,34 @@
             "floor": 4
         },
         {
+            "roomId": 95,
+            "room": "B4(现场选座)",
+            "floor": 4
+        },
+        {
+            "roomId": 99,
+            "room": "C4(现场选座)",
+            "floor": 4
+        },
+        {
+            "roomId": 86,
+            "room": "E4 港台文献阅览区",
+            "floor": 4
+        },
+        {
             "roomId": 61,
             "room": "A5",
             "floor": 5
+        },
+        {
+            "roomId": 87,
+            "room": "E5 地方文献阅览区",
+            "floor": 5
+        },
+        {
+            "roomId": 88,
+            "room": "E6 影印文献（古籍/民国）阅览区",
+            "floor": 6
         }
     ]
 ]

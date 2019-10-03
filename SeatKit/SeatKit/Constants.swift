@@ -25,7 +25,7 @@ public let CommonHeader: [String: String] = ["Content-Type": "application/x-www-
                                       "User-Agent": "doSingle/11 CFNetwork/897.15 Darwin/17.5.0",
                                       "Accept-Encoding":"gzip, deflate"]
 
-let GroupID = "group.com.westonwu.ios.whu"
+let GroupID = "group.com.morty.ios.whu"
 
 extension UserDefaults {
     class var group: UserDefaults {

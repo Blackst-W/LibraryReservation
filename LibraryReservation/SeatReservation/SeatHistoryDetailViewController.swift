@@ -22,6 +22,7 @@ class SeatHistoryDetailViewController: UITableViewController {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     
+    @IBOutlet var labels: [UILabel]!
     
     class func makeFromStoryboard() -> SeatHistoryDetailViewController {
         let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
@@ -42,28 +43,11 @@ class SeatHistoryDetailViewController: UITableViewController {
             seatLabel.text = "SeatNo".localized(arguments: String(location.seat))
         }
         locationLabel.text = reservation.rawLocation
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    @IBOutlet var labels: [UILabel]!
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTheme()
-    }
-    
-    func updateTheme() {
-        let configuration = ThemeConfiguration.current
-        labels.forEach { (label) in
-            label.textColor = configuration.textColor
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,5 +61,11 @@ class SeatHistoryDetailViewController: UITableViewController {
         }
         return [copyAction]
     }
-
+    
+    func updateTheme() {
+        let configuration = ThemeConfiguration.current
+        labels.forEach { (label) in
+            label.textColor = configuration.textColor
+        }
+    }
 }

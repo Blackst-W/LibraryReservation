@@ -17,6 +17,7 @@ public class SeatReserveManager: SeatBaseNetworkManager {
             callback?(.requireLogin)
             return
         }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)

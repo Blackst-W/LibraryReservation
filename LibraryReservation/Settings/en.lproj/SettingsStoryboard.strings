@@ -3,79 +3,79 @@
 "0LT-Gz-f09.text" = "-";
 
 /* Class = "UILabel"; text = "Remind you 10min ahead for upcoming reservation"; ObjectID = "0XH-Jc-ZQ0"; */
-"0XH-Jc-ZQ0.text" = "提前10分钟提醒你预约即将开始";
+"0XH-Jc-ZQ0.text" = "Remind you 10min ahead for upcoming reservation";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "0rE-dg-w4P"; */
 "0rE-dg-w4P.text" = "-";
 
 /* Class = "UILabel"; text = "Violation Times"; ObjectID = "3ld-ab-VKP"; */
-"3ld-ab-VKP.text" = "违约次数";
+"3ld-ab-VKP.text" = "Violation Times";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "8Lk-zb-CrM"; */
-"8Lk-zb-CrM.text" = "状态";
+"8Lk-zb-CrM.text" = "Status";
 
 /* Class = "UILabel"; text = "Upcoming Reservation Reminder"; ObjectID = "8tZ-Y2-xlD"; */
-"8tZ-Y2-xlD.text" = "即将开始的预约提醒";
+"8tZ-Y2-xlD.text" = "Upcoming Reservation Reminder";
 
 /* Class = "UITableViewSection"; headerTitle = "Seat Reservation"; ObjectID = "Az2-YM-t2B"; */
-"Az2-YM-t2B.headerTitle" = "预约座位";
+"Az2-YM-t2B.headerTitle" = "Seat Reservation";
 
 /* Class = "UILabel"; text = "Remind you when reservation end"; ObjectID = "BEQ-cj-bRy"; */
-"BEQ-cj-bRy.text" = "预约结束时提醒你";
+"BEQ-cj-bRy.text" = "Remind you when reservation end";
 
 /* Class = "UITextView"; text = "This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com, or you can scan the QRCode to join our club!"; ObjectID = "CtB-YZ-9hk"; */
-"CtB-YZ-9hk.text" = "本应用是本人在武大 iOS 俱乐部的帮助下设计并完成。  此应用的设计初衷是作为武大官方应用的替代产品以提供更好的用户体验,并非用于通过不正当的方式进行抢座。此应用不会并且在将来也不会收集任何个人资料，所有数据仅会保存在本地。  如果你对此应用有浓厚的兴趣并且希望能有更加深入的了解，欢迎通过 admin@westonwu.com 这一邮箱联系我。或者，如果你对我们俱乐部感兴趣的话，也可以扫下方二维码加入我们！";
+"CtB-YZ-9hk.text" = "This app is design and finish by myself with the help of the WHU iOS Club.  I create this app as an alternation of the WHU Official App for a better user experience, not for grab a seat maliciously. This app don't and wouldn't collect any personal informations, all the data would be saved locally only.  If you interested in this app and want to learn more about it, feel free to contact me at admin@westonwu.com, or you can scan the QRCode to join our club!";
 
 /* Class = "UILabel"; text = "20153012000XX"; ObjectID = "FYF-NU-AXu"; */
 "FYF-NU-AXu.text" = "20153012000XX";
 
 /* Class = "UILabel"; text = "Remind you to make reservation at 22:40"; ObjectID = "GsH-H7-nVl"; */
-"GsH-H7-nVl.text" = "22:40时提醒你预约明天的座位";
+"GsH-H7-nVl.text" = "Remind you to make reservation at 22:40";
 
 /* Class = "UILabel"; text = "Temp Away Reminder"; ObjectID = "KEd-yu-Tfn"; */
-"KEd-yu-Tfn.text" = "暂离提醒";
+"KEd-yu-Tfn.text" = "Temp Away Reminder";
 
 /* Class = "UILabel"; text = "Notification"; ObjectID = "Lfu-Dx-KR3"; */
-"Lfu-Dx-KR3.text" = "推送提醒";
+"Lfu-Dx-KR3.text" = "Notification";
 
 /* Class = "UILabel"; text = "Make Reservation Reminder"; ObjectID = "MBt-GZ-pe8"; */
-"MBt-GZ-pe8.text" = "预约提醒";
+"MBt-GZ-pe8.text" = "Make Reservation Reminder";
 
 /* Class = "UIViewController"; title = "About"; ObjectID = "NsH-U5-oyb"; */
-"NsH-U5-oyb.title" = "关于";
+"NsH-U5-oyb.title" = "About";
 
 /* Class = "UILabel"; text = "Theme"; ObjectID = "OiN-lF-qZF"; */
-"OiN-lF-qZF.text" = "主题";
+"OiN-lF-qZF.text" = "Theme";
 
 /* Class = "UILabel"; text = "Remind you to make reservation"; ObjectID = "Pav-L6-Oo0"; */
-"Pav-L6-Oo0.text" = "提醒你预约明天的座位";
+"Pav-L6-Oo0.text" = "Remind you to make reservation";
 
 /* Class = "UILabel"; text = "Enable Notification"; ObjectID = "Pu6-f9-xqz"; */
-"Pu6-f9-xqz.text" = "开启推送提醒";
+"Pu6-f9-xqz.text" = "Enable Notification";
 
 /* Class = "UITableViewSection"; footerTitle = "Violation times for seat reservation in the last 30 days"; ObjectID = "Tx3-Ih-kmR"; */
-"Tx3-Ih-kmR.footerTitle" = "最近30天内座位预约的违约次数";
+"Tx3-Ih-kmR.footerTitle" = "Violation times for seat reservation in the last 30 days";
 
 /* Class = "UILabel"; text = "NameLabel"; ObjectID = "Ud5-Ly-8UV"; */
-"Ud5-Ly-8UV.text" = "姓名";
+"Ud5-Ly-8UV.text" = "NameLabel";
 
 /* Class = "UIButton"; normalTitle = "Sign Out"; ObjectID = "Voe-vc-jpo"; */
-"Voe-vc-jpo.normalTitle" = "退出登录";
+"Voe-vc-jpo.normalTitle" = "Sign Out";
 
 /* Class = "UITableViewSection"; headerTitle = "Meeting Room Reservation"; ObjectID = "W35-Kn-RDa"; */
-"W35-Kn-RDa.headerTitle" = "预约研修室";
+"W35-Kn-RDa.headerTitle" = "Meeting Room Reservation";
 
 /* Class = "UILabel"; text = "Make Reservation Reminder"; ObjectID = "W6J-X3-g2f"; */
-"W6J-X3-g2f.text" = "预约提醒";
+"W6J-X3-g2f.text" = "Make Reservation Reminder";
 
 /* Class = "UILabel"; text = "Reservation End Reminder"; ObjectID = "WSS-O0-sx4"; */
-"WSS-O0-sx4.text" = "预约到期提醒";
+"WSS-O0-sx4.text" = "Reservation End Reminder";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "XMq-zy-A33"; */
-"XMq-zy-A33.title" = "设置";
+"XMq-zy-A33.title" = "Settings";
 
 /* Class = "UILabel"; text = "Upcoming Reservation Reminder"; ObjectID = "ZoW-VD-f7m"; */
-"ZoW-VD-f7m.text" = "即将开始的预约提醒";
+"ZoW-VD-f7m.text" = "Upcoming Reservation Reminder";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "aTh-8a-zXP"; */
 "aTh-8a-zXP.text" = "-";
@@ -84,64 +84,64 @@
 "cyX-40-YvI.text" = "-";
 
 /* Class = "UILabel"; text = "Remind you when reservation end"; ObjectID = "dVH-Dz-3sM"; */
-"dVH-Dz-3sM.text" = "预约结束时提醒你";
+"dVH-Dz-3sM.text" = "Remind you when reservation end";
 
 /* Class = "UITableViewSection"; footerTitle = "Your password would be saved locally only"; ObjectID = "ddn-0V-udZ"; */
-"ddn-0V-udZ.footerTitle" = "你的密码只会存储在本地,不会被上传至任何服务器";
+"ddn-0V-udZ.footerTitle" = "Your password would be saved locally only";
 
 /* Class = "UILabel"; text = "Standard"; ObjectID = "e99-K0-xT1"; */
-"e99-K0-xT1.text" = "标准模式";
+"e99-K0-xT1.text" = "Standard";
 
 /* Class = "UILabel"; text = "Token"; ObjectID = "hDe-9M-js6"; */
 "hDe-9M-js6.text" = "Token";
 
 /* Class = "UILabel"; text = "Dark"; ObjectID = "hS5-h7-tvJ"; */
-"hS5-h7-tvJ.text" = "夜间模式";
+"hS5-h7-tvJ.text" = "Dark";
 
 /* Class = "UILabel"; text = "Save Password"; ObjectID = "ibP-ox-exS"; */
-"ibP-ox-exS.text" = "记住密码";
+"ibP-ox-exS.text" = "Save Password";
 
 /* Class = "UITableViewController"; title = "Theme"; ObjectID = "jv9-1b-HKD"; */
-"jv9-1b-HKD.title" = "主题";
+"jv9-1b-HKD.title" = "Theme";
 
 /* Class = "UILabel"; text = "Auto Login"; ObjectID = "nEm-5O-ua4"; */
-"nEm-5O-ua4.text" = "自动登录";
+"nEm-5O-ua4.text" = "Auto Login";
 
 /* Class = "UILabel"; text = "Reservation Due Reminder"; ObjectID = "nHU-23-g3B"; */
-"nHU-23-g3B.text" = "预约到期提醒";
+"nHU-23-g3B.text" = "Reservation Due Reminder";
 
 /* Class = "UILabel"; text = "SID"; ObjectID = "ndE-Ac-hCa"; */
-"ndE-Ac-hCa.text" = "学号";
+"ndE-Ac-hCa.text" = "SID";
 
 /* Class = "UILabel"; text = "Remind you when you away for too long"; ObjectID = "nuH-tp-r5c"; */
-"nuH-tp-r5c.text" = "暂离时间过长时提醒你";
+"nuH-tp-r5c.text" = "Remind you when you away for too long";
 
 /* Class = "UILabel"; text = "PID"; ObjectID = "qkZ-Bb-mpK"; */
 "qkZ-Bb-mpK.text" = "PID";
 
 /* Class = "UILabel"; text = "SIDLabel"; ObjectID = "r9q-SY-gwE"; */
-"r9q-SY-gwE.text" = "学号";
+"r9q-SY-gwE.text" = "SIDLabel";
 
 /* Class = "UITableViewController"; title = "Account"; ObjectID = "rzL-Jf-qEM"; */
-"rzL-Jf-qEM.title" = "账号";
+"rzL-Jf-qEM.title" = "Account";
 
 /* Class = "UITableViewController"; title = "Notification"; ObjectID = "tLA-VP-zGU"; */
-"tLA-VP-zGU.title" = "推送提醒";
+"tLA-VP-zGU.title" = "Notification";
 
 /* Class = "UILabel"; text = "About"; ObjectID = "uFO-0j-IOX"; */
-"uFO-0j-IOX.text" = "关于";
+"uFO-0j-IOX.text" = "About";
 
 /* Class = "UILabel"; text = "Name"; ObjectID = "uNR-vt-6is"; */
-"uNR-vt-6is.text" = "姓名";
+"uNR-vt-6is.text" = "Name";
 
 /* Class = "UILabel"; text = "Remind you 10min ahead for upcoming reservation"; ObjectID = "zLF-ox-39u"; */
-"zLF-ox-39u.text" = "提前10分钟提醒你预约即将开始";
+"zLF-ox-39u.text" = "Remind you 10min ahead for upcoming reservation";
 
 /* Class = "UIButton"; disabledTitle = "Refreshing..."; ObjectID = "zis-RN-phh"; */
-"zis-RN-phh.disabledTitle" = "刷新中...";
+"zis-RN-phh.disabledTitle" = "Refreshing...";
 
 /* Class = "UIButton"; normalTitle = "Refresh"; ObjectID = "zis-RN-phh"; */
-"zis-RN-phh.normalTitle" = "刷新账号";
+"zis-RN-phh.normalTitle" = "Refresh";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "zuP-5f-MbU"; */
 "zuP-5f-MbU.text" = "-";

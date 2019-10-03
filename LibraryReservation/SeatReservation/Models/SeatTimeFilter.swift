@@ -31,6 +31,15 @@ public class SeatTimeFilter: NSObject {
         
     }
     
+    //just for reserve again
+    public override init() {
+        super.init()
+        generateStartTimes()
+        generateEndTimes(selection: 0)
+        timePickerView = nil
+        self.delegate = nil
+    }
+    
     public func reset() {
         generateEndTimes(selection: 0)
         timePickerView.selectRow(0, inComponent: 0, animated: false)
