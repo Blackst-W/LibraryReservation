@@ -14,19 +14,17 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var sidLabel: UILabel!
     
+    @IBOutlet weak var themeLabel: UITableViewCell!
     override func viewDidLoad() {
         super.viewDidLoad()
         accountChanged()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userInfoChanged), name: .UserInfoUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
+//        print("ThemeLabelId: \(themeLabel.)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +56,6 @@ class SettingsTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -74,21 +71,21 @@ class SettingsTableViewController: UITableViewController {
             }else{
                 autoLogin(delegate: self)
             }
-        case 1:
-            break
+//        case 1:
+//            break
         default:
             return
         }
         switch indexPath.row {
         case 0:
             return
-        case 1:
-            let mailController = MFMailComposeViewController()
-            mailController.setToRecipients(["feedback@westonwu.com"])
-            mailController.setSubject("Feedback For WHU Seat Reservation iOS App")
-            mailController.setMessageBody("Please description your feedback here.", isHTML: false)
-            mailController.mailComposeDelegate = self
-            present(mailController, animated: true, completion: nil)
+//        case 1:
+//            let mailController = MFMailComposeViewController()
+//            mailController.setToRecipients(["feedback@westonwu.com"])
+//            mailController.setSubject("Feedback For WHU Seat Reservation iOS App")
+//            mailController.setMessageBody("Please description your feedback here.", isHTML: false)
+//            mailController.mailComposeDelegate = self
+//            present(mailController, animated: true, completion: nil)
         default:
             return
         }

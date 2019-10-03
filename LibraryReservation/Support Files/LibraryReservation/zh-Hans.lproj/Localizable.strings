@@ -61,6 +61,13 @@
 "Floor" = "%d楼";
 "SeatNo" = "座位号:%@";
 
+//SeatHomepageView
+"Reschedule" = "改签";
+"Reserve Again" = "再次预约";
+"Reserve" = "预约";
+"Processing" = "处理中...";
+"Reserve Success" = "预约成功";
+
 //SeatCurrentReservationView
 "Canceled" = "已取消";
 "Canceling..." = "取消中...";

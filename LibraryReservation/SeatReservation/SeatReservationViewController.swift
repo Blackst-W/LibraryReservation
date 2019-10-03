@@ -22,6 +22,7 @@ class SeatReservationViewController: UIViewController {
         didSet {
             if let library = selectedLibrary {
                 roomData = libraryManager.libraryData[library]
+                
                 libraryManager.check(library: library) { (response) in
                     self.handle(response: response, library: library)
                 }
@@ -34,8 +35,6 @@ class SeatReservationViewController: UIViewController {
             }
         }
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +50,7 @@ class SeatReservationViewController: UIViewController {
         }else if hour == reserveDateComponents.hour!,
             minute >= reserveDateComponents.minute! {
             date = date.addingTimeInterval(24 * 60 * 60)
+            
             dayTitle = "(Tomorrow)".localized
         }
         let dateFormatter = DateFormatter()
@@ -192,6 +192,7 @@ extension SeatReservationViewController {
             roomData = rooms
             roomTableView.reloadData()
         }
+        print(roomData)
     }
 }
 

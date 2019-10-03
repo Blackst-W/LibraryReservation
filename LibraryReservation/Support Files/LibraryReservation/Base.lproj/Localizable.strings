@@ -61,6 +61,13 @@
 "Floor" = "%dF";
 "SeatNo" = "Seat No.%@";
 
+//SeatHomepageView
+"Reschedule" = "Reschedule";
+"Reserve Again" = "Reserve again";
+"Reserve" = "Reserve";
+"Processing" = "Processing";
+"Reserve Success" = "Reserve Success";
+
 //SeatCurrentReservationView
 "Canceled" = "Canceled";
 "Canceling..." = "Canceling...";

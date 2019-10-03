@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import PKHUD
+
+protocol SeatReserveAgainDelegate {
+    func haveTouchReserveAgainButton(historyReservation: SeatReservation)
+}
 
 class SeatHomepageViewController: UIViewController {
 
@@ -25,13 +30,71 @@ class SeatHomepageViewController: UIViewController {
     @IBOutlet weak var reserveButton: UIButton!
     
     @IBOutlet var labels: [UILabel]!
-    
     @IBOutlet var buttons: [UIButton]!
+    
+    @IBOutlet weak var loginShadowView: UIView!
+    @IBOutlet weak var loginVisualEffectView: UIVisualEffectView!
+    
+    @IBOutlet weak var reserveAgainButton: UIButton!
+    @IBOutlet weak var dismissControl: UIControl!
+    @IBOutlet weak var dismissBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timeViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timePickerView: UIPickerView!
+    @IBOutlet weak var timelineView: UIStackView!
+    @IBOutlet weak var timeLineStartLabel: UILabel!
+    @IBOutlet weak var timeLineEndLabel: UILabel!
+    @IBOutlet weak var timeLibraryLabel: UILabel!
+    @IBOutlet weak var timeFloorLabel: UILabel!
+    @IBOutlet weak var timeRoomLabel: UILabel!
+    @IBOutlet weak var timeSeatLabel: UILabel!
+    @IBOutlet weak var timeShadowView: UIView!
     
     private let reminderHeight: CGFloat = 168
     
-    var historyManager = SeatReservationManager.shared
     var isLogining = false
+    var historyManager = SeatReservationManager.shared
+    
+    var seatManager: SeatReserveManager!
+    var seatHistoryManager: SeatHistoryManager!
+    var timePickerManager: SeatTimePicker!
+    var timeFilterManager: SeatTimeFilter!
+    var timeFilterPickerView: UIPickerView!
+    
+    var selectedReservation: SeatReservation?
+    var date: Date!
+    var seat: Seat?
+    var layoutData: RoomLayoutData?
+    
+    var isShowingTimePickerView: Bool {
+        get {
+            if dismissControl.alpha != 0 {
+                return true
+            } else {
+                return false
+            }
+        }
+        set {
+            if newValue {
+                dismissControl.isHidden = false
+                dismissControl.alpha = 0
+                reserveAgainButton.setTitle("Reserve".localized, for: .normal)
+                self.reserveAgainButton.backgroundColor = #colorLiteral(red: 0, green: 0.5019607843, blue: 1, alpha: 1)
+                UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+                    self.dismissControl.alpha = 0.5
+                    self.timeViewBottomConstraint.constant = 0.0
+                    }.startAnimation()
+            } else {
+                let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+                    self.dismissControl.alpha = 0
+                    self.timeViewBottomConstraint.constant = 700.0
+                }
+                animator.addCompletion { (_) in
+                    self.dismissControl.isHidden = true
+                }
+                animator.startAnimation()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,26 +111,126 @@ class SeatHomepageViewController: UIViewController {
         
         reminderViewDisplayConstraint.constant = 0
         view.layoutIfNeeded()
+        
         if let reservation = historyManager.reservation {
             currentReservationView.update(reservation: reservation)
             showReminder()
         }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogin, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(accountChanged(notification:)), name: .AccountLogout, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reserveSuccess(notification:)), name: .ReserveSuccess, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleThemeChanged), name: .ThemeChanged, object: nil)
-        // Do any additional setup after loading the view.
         
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: currentReservationView)
         }
+        
         updateTheme(false)
+        
         collectionView.reloadData()
         historyManager.refresh { (response) in
             self.handle(response: response)
         }
+        
+        seatManager = SeatReserveManager()
+        seatHistoryManager = SeatHistoryManager()
+        
+        date = Date()
+        let calender = Calendar.current
+        let hour = calender.component(.hour, from: date)
+        let minute = calender.component(.minute, from: date)
+        let reserveDateComponents = AppSettings.shared.libraryConfiguration.reserveTimeComponents
+        if hour > reserveDateComponents.hour! {
+            date = date.addingTimeInterval(24 * 60 * 60)
+        } else if hour == reserveDateComponents.hour!,
+            minute >= reserveDateComponents.minute! {
+            date = date.addingTimeInterval(24 * 60 * 60)
+        }
+        
+        setupPicker()
+        setupFilter()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "ViewAllHistory" {
+            let dst = segue.destination as! SeatHistoryViewController
+            dst.manager = historyManager
+        }
+    }
+    
+    @IBAction func login(_ sender: Any) {
+        isLogining = true
+        showIndicator()
+        autoLogin(delegate: self)
+    }
+    
+    @IBAction func newReservation(_ sender: Any) {
+        guard AccountManager.isLogin else {
+            autoLogin(delegate: self)
+            return
+        }
+        let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
+        let naviController = storyboard.instantiateViewController(withIdentifier: "SeatReservationNaviViewController") as! UINavigationController
+        present(naviController, animated: true, completion: nil)
+    }
+    
+    @IBAction func displayDetail(_ sender: UITapGestureRecognizer) {
+        guard let reservation = historyManager.reservation else {
+            return
+        }
+        let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
+        viewController.reservation = reservation
+        viewController.updateTitle()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @IBAction func dismissReserveView(_ sender: Any) {
+        isShowingTimePickerView = false
+    }
+    
+    @IBAction func reserve(_ sender: Any) {
+        guard let (start, end) = timePickerManager.selectedTimes else {
+            return
+        }
+        
+        self.reserveAgainButton.setTitle("Processing".localized, for: .normal)
+        
+        if let currentReservation = historyManager.reservation {
+            seatHistoryManager.cancel(reservation: currentReservation) { (response) in
+                switch response {
+                case .error(let error):
+                    self.handle(error: error)
+                case .failed(let fail):
+                    self.handle(failedResponse: fail)
+                case .requireLogin:
+                    self.requireLogin()
+                case .success(_):
+                    self.update(reservation: nil)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        self.seatManager.reserve(seat: self.seat!, date: self.date, start: start, end: end) {
+                            (response) in
+                            self.handle(response: response)
+                        }
+                    }
+                }
+            }
+        } else {
+            self.seatManager.reserve(seat: self.seat!, date: self.date, start: start, end: end) {
+                (response) in
+                self.handle(response: response)
+            }
+
+        }
+        
+    }
+        
     @objc func handleThemeChanged() {
         updateTheme(true)
         collectionView.visibleCells.forEach { (cell) in
@@ -78,11 +241,44 @@ class SeatHomepageViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var loginShadowView: UIView!
-    @IBOutlet weak var loginVisualEffectView: UIVisualEffectView!
+    @objc func refreshStateChanged() {
+        if contentScrollView.refreshControl!.isRefreshing {
+            historyManager.refresh { (response) in
+                self.handle(response: response)
+            }
+        }
+    }
+    
+    @objc func reserveSuccess(notification: Notification) {
+        historyManager.refresh { (response) in
+            self.handle(response: response)
+        }
+    }
+    
+    @objc func accountChanged(notification: Notification) {
+        DispatchQueue.main.async {
+            guard AccountManager.isLogin else {
+                self.showLoginView()
+                self.hideReminder(animated: false)
+                return
+            }
+            self.showIndicator()
+            self.historyManager.refresh(callback: { (response) in
+                self.handle(response: response)
+            })
+        }
+    }
+    
+    func refreshAccount() {
+        let setting = Settings.shared
+        setting.set(savePassword: true)
+        setting.set(autoLogin: true)
+        autoLogin(delegate: self)
+        
+    }
     
     func updateTheme(_ animated: Bool) {
-//        contentScrollView.refreshControl?.tintColor = refreshTintColor
+        //        contentScrollView.refreshControl?.tintColor = refreshTintColor
         let animation = {
             let configuration = ThemeConfiguration.current
             self.historyLoadingIndicator.tintColor = configuration.tintColor
@@ -98,6 +294,13 @@ class SeatHomepageViewController: UIViewController {
             })
             self.view.backgroundColor = configuration.backgroundColor
             let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: configuration.textColor]
+            
+            self.reserveAgainButton.setTitleColor(configuration.highlightTextColor, for: .normal)
+            self.reserveAgainButton.backgroundColor = configuration.tintColor
+            self.dismissControl.backgroundColor = configuration.deactiveColor
+            self.timeShadowView.backgroundColor = configuration.secondaryBackgroundColor
+            self.timePickerManager?.updateTheme()
+//            self.timePickerView.tintColor = configuration.textColor
             
             self.navigationController?.navigationBar.barTintColor = configuration.barTintColor
             self.navigationController?.navigationBar.tintColor = configuration.tintColor
@@ -115,31 +318,18 @@ class SeatHomepageViewController: UIViewController {
         }
     }
     
-    @objc func refreshStateChanged() {
-        if contentScrollView.refreshControl!.isRefreshing {
-            historyManager.refresh { (response) in
-                self.handle(response: response)
-            }
+    func showReminder() {
+        
+        if reminderViewDisplayConstraint.constant == reminderHeight {
+            return
         }
-    }
-    
-    @objc func reserveSuccess(notification: Notification) {
-        historyManager.refresh { (response) in
-            self.handle(response: response)
-        }
-    }
-
-    @objc func accountChanged(notification: Notification) {
-        DispatchQueue.main.async {
-            guard AccountManager.isLogin else {
-                self.showLoginView()
-                self.hideReminder(animated: false)
-                return
-            }
-            self.showIndicator()
-            self.historyManager.refresh(callback: { (response) in
-                self.handle(response: response)
-            })
+        
+        reminderView.isHidden = false
+        reminderView.alpha = 0
+        UIView.animate(withDuration: 1) {
+            self.reminderViewDisplayConstraint.constant = self.reminderHeight
+            self.reminderView.alpha = 1
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -162,21 +352,6 @@ class SeatHomepageViewController: UIViewController {
         }
     }
     
-    func showReminder() {
-        
-        if reminderViewDisplayConstraint.constant == reminderHeight {
-            return
-        }
-        
-        reminderView.isHidden = false
-        reminderView.alpha = 0
-        UIView.animate(withDuration: 1) {
-            self.reminderViewDisplayConstraint.constant = self.reminderHeight
-            self.reminderView.alpha = 1
-            self.view.layoutIfNeeded()
-        }
-    }
-    
     func showLoginView() {
         self.collectionView.isHidden = true
         self.loginView.isHidden = false
@@ -185,16 +360,6 @@ class SeatHomepageViewController: UIViewController {
         let animator = UIViewPropertyAnimator(duration: 1, curve: .easeOut) {
             self.loginButton.alpha = 1
             self.loginView.alpha = 1
-        }
-        animator.startAnimation()
-    }
-    
-    func showIndicator() {
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
-            self.loginButton.alpha = 0
-        }
-        animator.addCompletion { (_) in
-            self.historyLoadingIndicator.startAnimating()
         }
         animator.startAnimation()
     }
@@ -211,62 +376,15 @@ class SeatHomepageViewController: UIViewController {
         animator.startAnimation()
     }
     
-    
-    
-    @IBAction func login(_ sender: Any) {
-        isLogining = true
-        showIndicator()
-        autoLogin(delegate: self)
-    }
-    
-    @IBAction func newReservation(_ sender: Any) {
-        guard AccountManager.isLogin else {
-            autoLogin(delegate: self)
-            return
+    func showIndicator() {
+        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
+            self.loginButton.alpha = 0
         }
-        let storyboard = UIStoryboard(name: "SeatStoryboard", bundle: nil)
-        let naviController = storyboard.instantiateViewController(withIdentifier: "SeatReservationNaviViewController") as! UINavigationController
-        present(naviController, animated: true, completion: nil)
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        if segue.identifier == "ViewAllHistory" {
-            let dst = segue.destination as! SeatHistoryViewController
-            dst.manager = historyManager
+        animator.addCompletion { (_) in
+            self.historyLoadingIndicator.startAnimating()
         }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        animator.startAnimation()
     }
-
-    
-    @IBAction func displayDetail(_ sender: UITapGestureRecognizer) {
-        guard let reservation = historyManager.reservation else {
-            return
-        }
-        let viewController = SeatCurrentReservationDetailTableViewController.makeFromStoryboard()
-        viewController.reservation = reservation
-        viewController.updateTitle()
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-    
 }
 
 extension SeatHomepageViewController: UICollectionViewDataSource {
@@ -291,6 +409,7 @@ extension SeatHomepageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HistoryCell", for: indexPath) as! SeatHistoryCollectionViewCell
         cell.update(reservation: historyManager.historys[indexPath.item])
+        cell.delegate = self
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: cell)
         }
@@ -386,6 +505,7 @@ extension SeatHomepageViewController {
 }
 
 extension SeatHomepageViewController: UIViewControllerPreviewingDelegate {
+    
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let sourceCell = previewingContext.sourceView as? SeatHistoryCollectionViewCell {
             let indexPath = collectionView.indexPath(for: sourceCell)!
@@ -436,5 +556,226 @@ extension SeatHomepageViewController: SeatReservationPreviewDelegate {
     
     func handleCancel(_ previewObject: Any) {
         currentReservationView.startCanceling()
+    }
+}
+
+//Add by Morty
+extension SeatHomepageViewController {
+    func setupPicker() {
+        timePickerManager = SeatTimePicker(pickerView: timePickerView, delegate: nil)
+    }
+    
+    func setupFilter() {
+        timeFilterManager = SeatTimeFilter()
+    }
+    
+    func update(seat: Seat, start: [SeatTime]) {
+        if start.isEmpty {
+            HUD.flash(.label("Not Available Time For This Seat".localized), delay: 1.0)
+            return
+        }
+        
+        var totalStart: [SeatTime]!             //this Start will contain SeatTimes of the reservation you have reserved
+        
+        if selectedReservation?.id == historyManager.reservation?.id {
+            let currentSeatTimes: [SeatTime] = historyManager.reservation!.seatTimes
+            //the seatTime property will give the available time instead of the history data
+            
+            totalStart = start
+            if !currentSeatTimes.isEmpty && !start.isEmpty {
+                var index: Int = 0
+                
+                //sort function has a problem (about nil). so, use the insert function
+                for seatTime in start {
+                    let seatTimeId: Int!
+                    if seatTime.id == "now" {
+                        seatTimeId = 0
+                    } else {
+                        seatTimeId = seatTime.minutes!
+                    }
+                    
+                    if seatTimeId < currentSeatTimes[0].minutes! {
+                        if start.count == index + 1 {
+                            totalStart += currentSeatTimes
+                            break
+                        } else if Int(start[index + 1].id)! > currentSeatTimes[0].minutes! {
+                            totalStart.insert(contentsOf: currentSeatTimes, at: index + 1)
+                            break
+                        } else {
+                            index += 1
+                        }
+                    } else {
+                        totalStart = currentSeatTimes + start
+                    }
+                }
+            }
+        } else {
+            totalStart = start
+        }
+        
+        timePickerManager.update(startTimes: totalStart, filterStart: nil, filterEnd: nil)
+        updateTimeViewLabels()
+        updateTimeline(start: totalStart)
+        isShowingTimePickerView = true
+    }
+    
+    func updateTimeline(start: [SeatTime]) {
+        var timelineActiveColor: UIColor!
+        var timelineDeactiveColor: UIColor!
+        let configuration = ThemeConfiguration.current
+        timelineActiveColor = configuration.tintColor
+        timelineDeactiveColor = configuration.deactiveColor
+        timelineView.arrangedSubviews.forEach{ (view) in
+            view.removeFromSuperview()}
+        
+        let allTimes = timeFilterManager.startTimes!
+        timeLineStartLabel.text = allTimes[0].value
+        timeLineEndLabel.text = timeFilterManager.endTimes!.last!.value
+        var views = [UIView]()
+        var heightConstraints = [NSLayoutConstraint]()
+        for time in allTimes {
+            let view = UIView()
+            if start.contains(time) {
+                view.backgroundColor = timelineActiveColor
+                let constraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30)
+                heightConstraints.append(constraint)
+            } else {
+                view.backgroundColor = timelineDeactiveColor
+                let constraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 15)
+                heightConstraints.append(constraint)
+            }
+            views.append(view)
+        }
+        if start.first?.id == "now" {
+            views.first?.backgroundColor = timelineActiveColor
+            heightConstraints[0].constant = 30
+        }
+        views.forEach{ (view) in
+            timelineView.addArrangedSubview(view)
+        }
+        NSLayoutConstraint.activate(heightConstraints)
+    }
+}
+
+extension SeatHomepageViewController: SeatReserveAgainDelegate {
+
+    func haveTouchReserveAgainButton(historyReservation: SeatReservation) {
+        self.startLoading()
+        selectedReservation = historyReservation
+        fetchInformation(from: historyReservation)
+    }
+    
+    func fetchInformation(from reservation: SeatReservation) {
+        if let location = reservation.location {
+            let room: Room!
+            
+            let libraryManager = SeatLibraryManager()
+            let roomData = libraryManager.libraryData[location.library]
+            
+            if let roomIndex = roomData.firstIndex(where: {return $0.name == location.room}){
+                room = roomData[roomIndex]
+                seatManager.check(room: room, date: date) {
+                    self.handle(response: $0)
+                    //get the seat information in the handle if success
+                }
+            }
+        }
+    }
+    
+    func fetchSeatInfo(from layoutData: RoomLayoutData) {
+        for seat in layoutData.seats {
+            if Int(seat.name) == selectedReservation?.location?.seat {
+                self.seat = seat
+                seatManager.check(seat: seat, date: date) {
+                    self.handle(response: $0)
+                }
+                break
+            }
+        }
+    }
+    
+    func reserveAgainSuccess() {
+        self.view.isUserInteractionEnabled = false
+        
+        UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+            self.reserveAgainButton.setTitle("Reserve Success".localized, for: .normal)
+            self.reserveAgainButton.backgroundColor = #colorLiteral(red: 0.3882352941, green: 0.8549019608, blue: 0.2196078431, alpha: 1)
+        }.startAnimation()
+        
+        self.refreshStateChanged()
+        self.historyManager.refresh() { (response) in
+            self.handle(response: response)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.isShowingTimePickerView = false
+            self.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
+    func handle(response: SeatResponse<(seat: Seat, start: [SeatTime])>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(let data):
+            update(seat: data.seat, start: data.start)
+        }
+        self.endLoading()
+    }
+    
+    func handle(response: SeatResponse<RoomLayoutData>) {
+        switch response {
+        case .error(let error):
+            let alertController = UIAlertController(title: "Failed To Update".localized, message: error.localizedDescription, preferredStyle: .alert)
+            let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
+            alertController.addAction(closeAction)
+            present(alertController, animated: true, completion: nil)
+        case .failed(let failed):
+            let alertController = UIAlertController(title: "Failed To Update".localized, message: failed.localizedDescription, preferredStyle: .alert)
+            let closeAction = UIAlertAction(title: "Close".localized, style: .default, handler: nil)
+            alertController.addAction(closeAction)
+            present(alertController, animated: true, completion: nil)
+        case .requireLogin:
+            requireLogin()
+        case .success(let layoutData):
+            self.layoutData = layoutData
+            self.fetchSeatInfo(from: layoutData)
+        }
+    }
+    
+    func handle(response: SeatResponse<Void>) {
+        switch response {
+        case .error(let error):
+            handle(error: error)
+        case .failed(let fail):
+            handle(failedResponse: fail)
+        case .requireLogin:
+            requireLogin()
+        case .success(_):
+            reserveAgainSuccess()
+        }
+    }
+}
+
+extension SeatHomepageViewController {
+    func updateTimeViewLabels() {
+        timeLibraryLabel.text = selectedReservation?.location?.library.rawValue
+        timeRoomLabel.text = selectedReservation?.location?.room
+        timeFloorLabel.text = "Floor".localized(arguments: (selectedReservation?.location!.floor)!)
+        timeSeatLabel.text = "SeatNo".localized(arguments: seat!.name)
+    }
+}
+
+extension SeatHomepageViewController {
+    func startLoading() {
+        HUD.show(.systemActivity)
+    }
+    
+    func endLoading() {
+        HUD.hide()
     }
 }

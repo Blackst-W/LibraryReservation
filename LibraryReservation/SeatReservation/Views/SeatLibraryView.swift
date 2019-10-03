@@ -44,20 +44,20 @@ class SeatLibraryView: UIStackView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
         
-        upperStackView = viewWithTag(10) as! UIStackView
-        lowerStackView = viewWithTag(20) as! UIStackView
+        upperStackView = (viewWithTag(10) as! UIStackView)
+        lowerStackView = (viewWithTag(20) as! UIStackView)
         
         mainLibraryView = viewWithTag(100)!
         engineeringLibraryView = viewWithTag(200)!
         infoLibraryView = viewWithTag(300)!
         medicineLibraryView = viewWithTag(400)!
         
-        mainButton = viewWithTag(1000) as! UIButton
-        engineeringButton = viewWithTag(2000) as! UIButton
-        infoButton = viewWithTag(3000) as! UIButton
-        medicineButton = viewWithTag(4000) as! UIButton
+        mainButton = (viewWithTag(1000) as! UIButton)
+        engineeringButton = (viewWithTag(2000) as! UIButton)
+        infoButton = (viewWithTag(3000) as! UIButton)
+        medicineButton = (viewWithTag(4000) as! UIButton)
         
-        tipLabel = viewWithTag(50) as! UILabel
+        tipLabel = (viewWithTag(50) as! UILabel)
         
         mainButton.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
         engineeringButton.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
