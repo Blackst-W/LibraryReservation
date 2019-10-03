@@ -10,6 +10,7 @@ public enum Library: String, Codable {
     case main = "总馆"
     case engineering = "工学分馆"
     case info = "信息科学分馆"
+    case info2 = "信息馆"
     case medicine = "医学分馆"
     
     public var areaID: Int {
@@ -19,6 +20,8 @@ public enum Library: String, Codable {
         case .engineering:
             return 2
         case .info:
+            return 1
+        case.info2:
             return 1
         case .medicine:
             return 3
